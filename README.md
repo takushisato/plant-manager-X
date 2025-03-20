@@ -1,6 +1,6 @@
 # 工場管理くん ProtoType
 
-####  「工場管理くん」 は、Django（バックエンド）、React（フロントエンド）、MySQL（データベース）を使用した 工場の生産管理アプリ です。
+####  「工場管理くん」 は、 Django ＋ React ＋ MySQL を使用して開発している、製造業向け生産管理アプリです。
 
 <br>
 
@@ -20,6 +20,14 @@
 - メール送信
     - 従業員に向けて一斉送信
 ```
+
+<br>
+
+## ドキュメント
+
+Notionでドキュメントを作成し、公開しています。
+
+[Notionにアクセスする](https://cloud-cress-615.notion.site/1bb36de090e0802298cdc27922c53df4)
 
 <br>
 
@@ -93,8 +101,8 @@ python manage.py migrate
 
 | 機能        | URL                          |
 |-------------|------------------------------|
-| フロントエンド (React) | http://localhost:5173/ |
-| バックエンド (Django API) | http://localhost:8000/ |
-| Django 管理画面 | http://localhost:8000/admin/ |
+| フロントエンド (React) | localhost:5173/ |
+| バックエンド (Django API) | localhost:8000/ |
+| Django 管理画面 | localhost:8000/admin/ |
 | MySQL (データベース) | localhost:3306 |
 
