@@ -38,6 +38,7 @@ CREATE_APPS = [
     'apps.master_data',
     'apps.material',
     'apps.prod_flow',
+    'apps.trade_flow',
 ]
 
 DEFAULT_APPS = [
