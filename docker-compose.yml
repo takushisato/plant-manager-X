@@ -37,5 +37,19 @@ services:
     ports:
       - "3306:3306"
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: .docker/Dockerfile
+    container_name: vite_app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+    command: ["npm", "run", "dev", "--", "--host"]
+
 volumes:
   mysql_data:
