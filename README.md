@@ -1,8 +1,10 @@
 # 工場管理くん ProtoType
 
-###  「工場管理くん」 は、Django（バックエンド）、React（フロントエンド）、MySQL（データベース）を使用した 工場の生産管理アプリ です。
+####  「工場管理くん」 は、Django（バックエンド）、React（フロントエンド）、MySQL（データベース）を使用した 工場の生産管理アプリ です。
 
-ProtoTypeで開発している機能
+<br>
+
+## ProtoTypeで開発している機能
 
 ```
 - 資材管理
@@ -19,7 +21,9 @@ ProtoTypeで開発している機能
     - 従業員に向けて一斉送信
 ```
 
-### プロジェクト構成図
+<br>
+
+## プロジェクト構成図
 
 ```
 project-root/
@@ -42,16 +46,18 @@ project-root/
 │── README.md
 ```
 
-### 環境構築
+<br>
 
-#### 必要なツール
+## 環境構築
+
+### 必要なツール
 
 - Docker
 - Docker Compose
 - Node.js
 - Poetry
 
-####  よく使うコマンド
+###  よく使うコマンド
 
 ```
 # dockerビルド
@@ -83,12 +89,12 @@ python manage.py migrate
 
 ```
 
-#### アクセス方法
+### アクセス方法
 
 | 機能        | URL                          |
 |-------------|------------------------------|
-| フロントエンド (React) | [http://localhost:5173/](http://localhost:5173/) |
-| バックエンド (Django API) | [http://localhost:8000/](http://localhost:8000/) |
-| Django 管理画面 | [http://localhost:8000/admin/](http://localhost:8000/admin/) |
-| MySQL (データベース) | `localhost:3306` |
+| フロントエンド (React) | http://localhost:5173/ |
+| バックエンド (Django API) | http://localhost:8000/ |
+| Django 管理画面 | http://localhost:8000/admin/ |
+| MySQL (データベース) | localhost:3306 |
 
