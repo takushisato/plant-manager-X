@@ -1,10 +1,10 @@
 # 工場管理くん ProtoType
 
-####  「工場管理くん」 は、 Django ＋ React ＋ MySQL を使用して開発している、製造業向け生産管理アプリです。
+#### 「工場管理くん」 は、 Django ＋ React ＋ MySQL を使用して開発している、製造業向け生産管理アプリです。
 
 <br>
 
-## ProtoTypeで開発している機能
+## ProtoType で開発している機能
 
 ```
 - 資材管理
@@ -25,9 +25,9 @@
 
 ## ドキュメント
 
-Notionでドキュメントを作成し、公開しています。
+Notion でドキュメントを作成し、公開しています。
 
-[Notionにアクセスする](https://cloud-cress-615.notion.site/1bb36de090e0802298cdc27922c53df4)
+[Notion にアクセスする](https://cloud-cress-615.notion.site/1bb36de090e0802298cdc27922c53df4)
 
 <br>
 
@@ -65,31 +65,81 @@ project-root/
 - Node.js
 - Poetry
 
-###  よく使うコマンド
+### 環境構築手順
+
+#### docker 環境
 
 ```
-# dockerビルド
+# 1, dockerビルド
 docker compose build --no-cache
 
-# docker起動
+# 2, docker起動
 docker compose up -d
 
+# 3, dockerのdjangoに接続
+docker compose exec web bush
+
+# 4, マイグレーション
+python manage.py migrate
+
+# 5, dockerのbush終了（docker-compose exec web bush でdockerに入ってる状態）
+exit
+
 # docker停止
-docker-compose down
+docker compose down
+```
 
-# dockerのdjangoに接続
-docker-compose exec web poetry run python manage.py shell
+#### ローカル環境
 
-# dockerのMySQLに接続
-docker-compose exec db mysql -u root -p
+backend の構築
 
-# ローカル環境起動コマンド
+```
+# 1, backendに移動
+cd backend
+
+# 2, poetryのインストール
+pip install poetry
+
+# 3, poetryから環境構築
+poetry install
+
+# 4, マイグレーション
+python manage.py migrate
+
+# 5, ローカル環境起動コマンド
 python manage.py runserver
 
-# ローカルのshell
-python manage.py shell
+# 6, ローカル環境停止
+control + c
 
-# マイグレーション作成
+```
+
+frontend の構築
+
+```
+# 1, frontendに移動
+cd frontend
+
+# 2, 環境のインストール
+npm install
+
+# 3, 起動
+npm run dev
+
+# 4, ローカル環境停止
+control + c
+
+# 5, ビルド
+npm run build
+
+```
+
+### よく使うコマンド
+
+テーブル修正時
+
+```
+# マイグレーションファイル作成
 python manage.py makemigrations
 
 # DBに反映
@@ -99,10 +149,9 @@ python manage.py migrate
 
 ### アクセス方法
 
-| 機能        | URL                          |
-|-------------|------------------------------|
-| フロントエンド (React) | localhost:5173/ |
-| バックエンド (Django API) | localhost:8000/ |
-| Django 管理画面 | localhost:8000/admin/ |
-| MySQL (データベース) | localhost:3306 |
-
+| 機能                      | URL                   |
+| ------------------------- | --------------------- |
+| フロントエンド (React)    | localhost:5173/       |
+| バックエンド (Django API) | localhost:8000/       |
+| Django 管理画面           | localhost:8000/admin/ |
+| MySQL (データベース)      | localhost:3306        |
