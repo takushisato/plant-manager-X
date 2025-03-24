@@ -86,13 +86,21 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# データベース設定。SQLiteとMySQLを選択可能。使用しない方をコメントアウト
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': os.environ.get('DB_NAME') or 'ai_talk',
+    #     'USER': os.environ.get('DB_USER') or 'dev',
+    #     'PASSWORD': os.environ.get('DB_PASS') or 'pass',
+    #     'HOST': os.environ.get('DB_HOST') or 'mysql',
+    #     'PORT': os.environ.get('DB_PORT') or 3306,
+    # }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -116,9 +124,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
 
@@ -134,3 +142,27 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DJOSER = {
+    # メールアドレスでログイン
+    'LOGIN_FIELD': 'email',
+    # カスタムユーザー用シリアライザー
+    'SERIALIZERS': {
+        'user_create': 'apps.staff_hub.serializers.UserSerializer',
+        'user': 'apps.staff_hub.serializers.UserSerializer',
+        'current_user': 'apps.staff_hub.serializers.UserSerializer',
+    }
+}
+
+# カスタムユーザーモデルの使用を指定
+AUTH_USER_MODEL = 'staff_hub.User'
+
+# メール送信設定
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:5173',
+]
