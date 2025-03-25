@@ -70,3 +70,26 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     def __str__(self):
         return self.email
+
+
+class Permission(BaseModel):
+    """
+    権限モデル
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="ユーザー")
+    staff_hub_access = models.BooleanField("人材管理アクセス", default=False)
+    material_access = models.BooleanField("資料アクセス", default=False)
+    attendance_access = models.BooleanField("勤怠アクセス", default=False)
+    prod_flow_access = models.BooleanField("生産計画アクセス", default=False)
+    trade_flow_access = models.BooleanField("受注アクセス", default=False)
+    bug_note_access = models.BooleanField("不具合アクセス", default=False)
+    mail_access = models.BooleanField("メールアクセス", default=False)
+    master_data_access = models.BooleanField("マスタデータアクセス", default=False)
+
+    class Meta:
+        verbose_name = 'アクセス権限'
+        verbose_name_plural = 'アクセス権限'
+        db_table = 'permissions'
+
+    def __str__(self):
+        return self.user.name
