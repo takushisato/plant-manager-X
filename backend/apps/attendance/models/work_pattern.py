@@ -17,3 +17,7 @@ class WorkPattern(BaseModel):
         verbose_name_plural = '勤務形態'
         db_table = 'work_patterns'
 
+    def __str__(self):
+        return self.work_pattern_name
+
+
