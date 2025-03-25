@@ -1,0 +1,47 @@
+import pytest
+from datetime import date, timedelta
+from apps.prod_flow.models.production_plan_detail import ProductionPlanDetail
+from tests.factory.production_plan_detail_factory import ProductionPlanDetailFactory
+from tests.factory.production_plan_factory import ProductionPlanFactory
+from tests.factory.organization_factory import OrganizationFactory
+
+
+@pytest.mark.django_db
+def test_create_production_plan_detail_with_factory():
+    """
+    ProductionPlanDetailFactory で正しく作成されることを確認
+    """
+    detail = ProductionPlanDetailFactory()
+    assert detail.production_plan is not None
+    assert isinstance(detail.title, str)
+    assert isinstance(detail.planned_start_date, date)
+    assert isinstance(detail.planned_end_date, date)
+    assert isinstance(detail.actual_start_date, date)
+    assert isinstance(detail.actual_end_date, date)
+    assert isinstance(detail.sort, int)
+
+
+@pytest.mark.django_db
+def test_production_plan_detail_str_method():
+    """
+    __str__ メソッドが「組織名 - タイトル」を返すことを確認
+    """
+    org = OrganizationFactory(organization_name="第一工場")
+    plan = ProductionPlanFactory(organization=org)
+    detail = ProductionPlanDetail.objects.create(
+        production_plan=plan,
+        title="部品Aの製造",
+        planned_start_date=date.today(),
+        planned_end_date=date.today() + timedelta(days=2),
+    )
+    assert str(detail) == "第一工場 - 部品Aの製造"
+
+
+@pytest.mark.django_db
+def test_nullable_actual_dates():
+    """
+    実績日が null 許容されていることを確認
+    """
+    detail = ProductionPlanDetailFactory(actual_start_date=None, actual_end_date=None)
+    assert detail.actual_start_date is None
+    assert detail.actual_end_date is None
