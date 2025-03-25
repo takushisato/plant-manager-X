@@ -14,5 +14,5 @@ class ProductionPlan(BaseModel):
         db_table = 'production_plans'
     
     def __str__(self):
-        return f"{self.organization.name} - {self.plan_date}"
+        return f"{self.organization.organization_name} - {self.plan_date}"
     
