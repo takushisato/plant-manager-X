@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models.paid_leave import PaidLeave
 
-# Register your models here.
+
+admin.site.register(PaidLeave)
