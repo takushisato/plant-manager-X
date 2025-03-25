@@ -76,7 +76,7 @@ class Permission(BaseModel):
     """
     権限モデル
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="ユーザー")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="ユーザー")
     staff_hub_access = models.BooleanField("人材管理アクセス", default=False)
     material_access = models.BooleanField("資料アクセス", default=False)
     attendance_access = models.BooleanField("勤怠アクセス", default=False)
