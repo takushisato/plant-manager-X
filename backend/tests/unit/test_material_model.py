@@ -22,8 +22,8 @@ def test_material_str_method():
     """
     __str__ メソッドが material_name を返すこと
     """
-    material = MaterialFactory(material_name="説明書A")
-    assert str(material) == "説明書A"
+    material = MaterialFactory(material_name="資材A")
+    assert str(material) == "資材A"
 
 
 @pytest.mark.django_db
@@ -34,7 +34,7 @@ def test_material_default_values():
     org = OrganizationFactory()
     material = Material.objects.create(
         organizations_id=org,
-        material_name="新しい資料"
+        material_name="新しい資材"
     )
     assert material.stock_qty == 0
     assert material.order_suggestion_qty == 0

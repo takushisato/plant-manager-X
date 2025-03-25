@@ -5,17 +5,17 @@ from apps.staff_hub.models import Organization
 
 class Material(BaseModel):
     """
-    資料モデル
+    資材モデル
     """
     organizations_id = models.ForeignKey(Organization, on_delete=models.CASCADE, verbose_name="組織")
-    material_name = models.CharField("資料名", max_length=255)
-    material_price = models.FloatField("資料価格", null=True, blank=True)
+    material_name = models.CharField("資材名", max_length=255)
+    material_price = models.FloatField("資材価格", null=True, blank=True)
     stock_qty = models.IntegerField("在庫数", default=0)
     order_suggestion_qty = models.IntegerField("発注数量", default=0)
 
     class Meta:
-        verbose_name = '資料'
-        verbose_name_plural = '資料'
+        verbose_name = '資材'
+        verbose_name_plural = '資材'
         db_table = 'materials'
 
     def __str__(self):
