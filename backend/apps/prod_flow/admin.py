@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models.production_plan import ProductionPlan
 
-# Register your models here.
+
+admin.site.register(ProductionPlan)
