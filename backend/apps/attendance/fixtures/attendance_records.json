@@ -1,0 +1,452 @@
+[
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "work_pattern": 1,
+            "work_date": "2025-03-01",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "work_pattern": 1,
+            "work_date": "2025-03-01",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "work_pattern": 1,
+            "work_date": "2025-03-01",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }       
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "work_pattern": 1,
+            "work_date": "2025-03-01",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "15:00:00",
+            "break_minutes": 55,
+            "work_minutes": 305,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "work_pattern": 1,
+            "work_date": "2025-03-01",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 6,
+        "fields": {
+            "user": 6,
+            "work_pattern": 1,
+            "work_date": "2025-03-01",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "work_pattern": 1,
+            "work_date": "2025-03-02",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "work_pattern": 1,
+            "work_date": "2025-03-02",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "work_pattern": 1,
+            "work_date": "2025-03-02",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }       
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "work_pattern": 1,
+            "work_date": "2025-03-02",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "15:00:00",
+            "break_minutes": 55,
+            "work_minutes": 305,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "work_pattern": 1,
+            "work_date": "2025-03-02",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 6,
+        "fields": {
+            "user": 6,
+            "work_pattern": 1,
+            "work_date": "2025-03-02",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "work_pattern": 1,
+            "work_date": "2025-03-03",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "work_pattern": 1,
+            "work_date": "2025-03-03",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "work_pattern": 1,
+            "work_date": "2025-03-03",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }       
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "work_pattern": 1,
+            "work_date": "2025-03-03",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "15:00:00",
+            "break_minutes": 55,
+            "work_minutes": 305,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "work_pattern": 1,
+            "work_date": "2025-03-03",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 6,
+        "fields": {
+            "user": 6,
+            "work_pattern": 1,
+            "work_date": "2025-03-03",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "work_pattern": 1,
+            "work_date": "2025-03-04",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "work_pattern": 1,
+            "work_date": "2025-03-04",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "work_pattern": 1,
+            "work_date": "2025-03-04",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }       
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "work_pattern": 1,
+            "work_date": "2025-03-04",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "15:00:00",
+            "break_minutes": 55,
+            "work_minutes": 305,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "work_pattern": 1,
+            "work_date": "2025-03-04",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 6,
+        "fields": {
+            "user": 6,
+            "work_pattern": 1,
+            "work_date": "2025-03-04",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "work_pattern": 1,
+            "work_date": "2025-03-05",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "work_pattern": 1,
+            "work_date": "2025-03-05",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "work_pattern": 1,
+            "work_date": "2025-03-05",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }       
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "work_pattern": 1,
+            "work_date": "2025-03-05",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "15:00:00",
+            "break_minutes": 55,
+            "work_minutes": 305,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "work_pattern": 1,
+            "work_date": "2025-03-05",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.AttendanceRecord",
+        "pk": 6,
+        "fields": {
+            "user": 6,
+            "work_pattern": 1,
+            "work_date": "2025-03-05",
+            "clock_in_time": "09:00:00",
+            "clock_out_time": "18:00:00",
+            "break_minutes": 70,
+            "work_minutes": 480,
+            "work_status": "present",
+            "note": ""
+        }
+    }    
+]
