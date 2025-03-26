@@ -1,0 +1,44 @@
+[
+    {
+        "model": "trade_flow.Order",
+        "pk": 1,
+        "fields": {
+            "customer": 1,
+            "order_number": "20250301-001",
+            "order_date": "2025-03-01",
+            "product_name": "エアコン",
+            "quantity": 10,
+            "price": 10000,
+            "deadline": "2025-09-01",
+            "note": ""
+        }
+    },
+    {
+        "model": "trade_flow.Order",
+        "pk": 2,
+        "fields": {
+            "customer": 2,
+            "order_number": "20250301-002",
+            "order_date": "2025-03-01",
+            "product_name": "テレビ",
+            "quantity": 10,
+            "price": 10000,
+            "deadline": "2025-09-01",
+            "note": ""
+        }
+    },
+    {
+        "model": "trade_flow.Order",
+        "pk": 3,
+        "fields": {
+            "customer": 3,
+            "order_number": "20250301-003",
+            "order_date": "2025-03-01",
+            "product_name": "洗濯機",
+            "quantity": 10,
+            "price": 10000,
+            "deadline": "2025-09-01",
+            "note": ""
+        }
+    }
+]

@@ -33,3 +33,5 @@ python manage.py loaddata production_plan_details.json
 # 顧客データの読み込み
 python manage.py loaddata customers.json
 
+# 受注データの読み込み
+python manage.py loaddata orders.json
