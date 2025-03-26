@@ -26,3 +26,6 @@ python manage.py loaddata attendance_records.json
 
 # 生産計画データの読み込み
 python manage.py loaddata production_plans.json
+
+# 生産計画詳細データの読み込み
+python manage.py loaddata production_plan_details.json
