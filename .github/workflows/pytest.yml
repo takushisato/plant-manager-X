@@ -1,7 +1,8 @@
 name: Run Pytest on Pull Request
 
-pull_request:
-  branches:
+on:
+  pull_request:
+    branches:
     - '*' 
 
 jobs:
