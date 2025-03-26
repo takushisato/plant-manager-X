@@ -8,3 +8,6 @@ python manage.py loaddata accounts.json
 
 # 権限データの読み込み
 python manage.py loaddata permissions.json
+
+# 資材データの読み込み
+python manage.py loaddata materials.json
