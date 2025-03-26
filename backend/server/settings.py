@@ -51,7 +51,14 @@ DEFAULT_APPS = [
     'django.contrib.staticfiles',
 ]
 
-INSTALLED_APPS = DEFAULT_APPS + CREATE_APPS
+THIRD_APPS = [
+    'rest_framework',
+    'corsheaders',
+    'djoser',
+    'drf_spectacular',
+]
+
+INSTALLED_APPS = DEFAULT_APPS + CREATE_APPS + THIRD_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -143,6 +150,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"
+}
 
 DJOSER = {
     # メールアドレスでログイン
