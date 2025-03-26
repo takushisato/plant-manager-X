@@ -1,0 +1,56 @@
+[
+    {
+        "model": "attendance.PaidLeave",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "paid_leave_days": 10,
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.PaidLeave",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "paid_leave_days": 8,
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.PaidLeave",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "paid_leave_days": 7,
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.PaidLeave",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "paid_leave_days": 6,
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.PaidLeave",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "paid_leave_days": 5,
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.PaidLeave",
+        "pk": 6,
+        "fields": {
+            "user": 6,
+            "paid_leave_days": 10,
+            "note": ""
+        }
+    }
+]
