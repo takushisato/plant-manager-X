@@ -35,3 +35,6 @@ python manage.py loaddata customers.json
 
 # 受注データの読み込み
 python manage.py loaddata orders.json
+
+# 不具合連絡データの読み込み
+python manage.py loaddata defects.json
