@@ -1,0 +1,52 @@
+[
+    {
+        "model": "attendance.BreakSetting",
+        "pk": 1,
+        "fields": {
+            "work_pattern_id": 1,
+            "start_time": "10:00:00",
+            "end_time": "10:10:00",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.BreakSetting",
+        "pk": 2,
+        "fields": {
+            "work_pattern_id": 1,
+            "start_time": "12:00:00",
+            "end_time": "12:45:00",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.BreakSetting",
+        "pk": 3,
+        "fields": {
+            "work_pattern_id": 1,
+            "start_time": "15:00:00",
+            "end_time": "15:15:00",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.BreakSetting",
+        "pk": 4,
+        "fields": {
+            "work_pattern_id": 2,
+            "start_time": "10:00:00",
+            "end_time": "10:10:00",
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.BreakSetting",
+        "pk": 5,
+        "fields": {
+            "work_pattern_id": 2,
+            "start_time": "12:00:00",
+            "end_time": "12:45:00",
+            "note": ""
+        }
+    }
+]

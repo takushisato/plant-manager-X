@@ -1,0 +1,92 @@
+[
+    {
+        "model": "staff_hub.Permission",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "staff_hub_access": false,
+            "material_access": false,
+            "attendance_access": false,
+            "prod_flow_access": false,
+            "trade_flow_access": false,
+            "bug_note_access": false,
+            "mail_access": false,
+            "master_data_access": false
+        }
+    },
+    {
+        "model": "staff_hub.Permission",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "staff_hub_access": false,
+            "material_access": true,
+            "attendance_access": true,
+            "prod_flow_access": true,
+            "trade_flow_access": false,
+            "bug_note_access": true,
+            "mail_access": false,
+            "master_data_access": false
+        }
+    },
+    {
+        "model": "staff_hub.Permission",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "staff_hub_access": false,
+            "material_access": true,
+            "attendance_access": true,
+            "prod_flow_access": true,
+            "trade_flow_access": false,
+            "bug_note_access": true,
+            "mail_access": false,
+            "master_data_access": false
+        }
+    },
+    {
+        "model": "staff_hub.Permission",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "staff_hub_access": true,
+            "material_access": false,
+            "attendance_access": true,
+            "prod_flow_access": true,
+            "trade_flow_access": true,
+            "bug_note_access": false,
+            "mail_access": true,
+            "master_data_access": false
+        }
+    },
+    {
+        "model": "staff_hub.Permission",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "staff_hub_access": false,
+            "material_access": false,
+            "attendance_access": true,
+            "prod_flow_access": true,
+            "trade_flow_access": true,
+            "bug_note_access": true,
+            "mail_access": false,
+            "master_data_access": false
+        }
+    },
+    {
+        "model": "staff_hub.Permission",
+        "pk": 6,
+        "fields": {
+            "user": 6,
+            "staff_hub_access": true,
+            "material_access": true,
+            "attendance_access": true,
+            "prod_flow_access": true,
+            "trade_flow_access": true,
+            "bug_note_access": true,
+            "mail_access": true,
+            "master_data_access": false
+        }
+    }
+]

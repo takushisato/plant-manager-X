@@ -1,0 +1,47 @@
+[
+    {
+        "model": "prod_flow.ProductionPlan",
+        "pk": 1,
+        "fields": {
+            "organization": 2,
+            "plan_date": "2025-03-01",
+            "note": ""
+        }
+    },
+    {
+        "model": "prod_flow.ProductionPlan",
+        "pk": 2,
+        "fields": {
+            "organization": 2,
+            "plan_date": "2025-03-02",
+            "note": ""
+        }
+    },
+    {
+        "model": "prod_flow.ProductionPlan",
+        "pk": 3,
+        "fields": {
+            "organization": 2,
+            "plan_date": "2025-03-03",
+            "note": ""
+        }
+        },
+    {
+        "model": "prod_flow.ProductionPlan",
+        "pk": 4,
+        "fields": {
+            "organization": 2,
+            "plan_date": "2025-03-04",
+            "note": ""
+        }   
+    },
+    {
+        "model": "prod_flow.ProductionPlan",
+        "pk": 5,
+        "fields": {
+            "organization": 2,
+            "plan_date": "2025-03-05",
+            "note": ""
+        }
+    }
+]

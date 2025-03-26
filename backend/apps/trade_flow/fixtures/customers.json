@@ -1,0 +1,44 @@
+[
+    {
+        "model": "trade_flow.Customer",
+        "pk": 1,
+        "fields": {
+            "customer_name": "○○会社",
+            "telephone": "03-1234-5678",
+            "fax": "03-1234-5678",
+            "email": "info@example.com",
+            "postal_code": "123-4567",
+            "address": "東京都千代田区永田町1-7-1",
+            "client_contact": "山田太郎",
+            "internal_contact": "営業太郎"
+        }
+    },
+    {
+        "model": "trade_flow.Customer",
+        "pk": 2,
+        "fields": {
+            "customer_name": "△△会社",
+            "telephone": "03-2222-3333",
+            "fax": "03-2222-3333",
+            "email": "info@example.com",
+            "postal_code": "123-4567",
+            "address": "大阪府大阪市北区5-5-9",
+            "client_contact": "鈴木次郎",
+            "internal_contact": "営業太郎"
+        }
+    },
+    {
+        "model": "trade_flow.Customer",
+        "pk": 3,
+        "fields": {
+            "customer_name": "××会社",
+            "telephone": "03-3333-4444",
+            "fax": "03-3333-4444",
+            "email": "info@example.com",
+            "postal_code": "123-4567",
+            "address": "京都府京都市中京区1-2-3",
+            "client_contact": "山田太郎",
+            "internal_contact": "営業太郎"
+        }
+    }
+]

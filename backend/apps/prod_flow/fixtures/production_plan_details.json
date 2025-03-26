@@ -1,0 +1,72 @@
+[
+    {
+        "model": "prod_flow.ProductionPlanDetail",
+        "pk": 1,
+        "fields": {
+            "production_plan": 1,
+            "title": "○○会社 浄水器",
+            "planned_start_date": "2025-03-01",
+            "planned_end_date": "2025-03-10",
+            "actual_start_date": null,
+            "actual_end_date": null,
+            "sort": 0,
+            "note": ""
+        }
+    },
+    {
+        "model": "prod_flow.ProductionPlanDetail",
+        "pk": 2,
+        "fields": {
+            "production_plan": 1,
+            "title": "○○会社 レジ台",
+            "planned_start_date": "2025-03-05",
+            "planned_end_date": "2025-03-15",
+            "actual_start_date": null,
+            "actual_end_date": null,
+            "sort": 0,
+            "note": ""
+        }   
+    },
+    {
+        "model": "prod_flow.ProductionPlanDetail",
+        "pk": 3,
+        "fields": {
+            "production_plan": 1,
+            "title": "△△会社 ゲーム機",
+            "planned_start_date": "2025-03-09",
+            "planned_end_date": "2025-03-14",
+            "actual_start_date": null,
+            "actual_end_date": null,
+            "sort": 0,
+            "note": ""
+        }
+    },
+    {
+        "model": "prod_flow.ProductionPlanDetail",
+        "pk": 4,
+        "fields": {
+            "production_plan": 1,
+            "title": "××会社 プリクラ",
+            "planned_start_date": "2025-03-11",
+            "planned_end_date": "2025-03-20",
+            "actual_start_date": null,
+            "actual_end_date": null,
+            "sort": 0,
+            "note": ""
+        }
+    },
+    {
+        "model": "prod_flow.ProductionPlanDetail",
+        "pk": 5,
+        "fields": {
+            "production_plan": 1,
+            "title": "塗装",
+            "planned_start_date": "2025-03-21",
+            "planned_end_date": "2025-03-31",
+            "actual_start_date": null,
+            "actual_end_date": null,
+            "sort": 0,
+            "note": ""      
+        }
+    }
+]

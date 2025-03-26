@@ -1,0 +1,24 @@
+[
+    {
+        "model": "attendance.WorkPattern",
+        "pk": 1,
+        "fields": {
+            "work_pattern_name": "日勤",
+            "start_time": "09:00:00",
+            "end_time": "18:00:00",
+            "break_total_minute": 70,
+            "note": ""
+        }
+    },
+    {
+        "model": "attendance.WorkPattern",
+        "pk": 2,
+        "fields": {
+            "work_pattern_name": "5時間パート勤務",
+            "start_time": "09:00:00",
+            "end_time": "14:00:00",
+            "break_total_minute": 55,
+            "note": ""
+        }
+    }
+]

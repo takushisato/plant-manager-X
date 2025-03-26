@@ -1,0 +1,41 @@
+[
+    {
+        "model": "bug_note.Defect",
+        "pk": 1,
+        "fields": {
+            "create_user": 6,
+            "order": 1,
+            "occurred_at": "2025-04-01T10:00:00Z",  
+            "title": "〇〇会社向け エアコンの間違い不具合",
+            "defect_detail": "不具合詳細",
+            "submission": "対策",
+            "submission_deadline": "2025-04-08T10:00:00Z"
+        }
+    },
+    {
+        "model": "bug_note.Defect",
+        "pk": 2,
+        "fields": {
+            "create_user": 6,
+            "order": 2,
+            "occurred_at": "2025-04-01T10:00:00Z",  
+            "title": "△△会社向け テレビの間違い不具合",
+            "defect_detail": "不具合詳細",
+            "submission": "対策",
+            "submission_deadline": "2025-04-08T10:00:00Z"
+        }
+    },
+    {
+        "model": "bug_note.Defect",
+        "pk": 3,
+        "fields": {
+            "create_user": 6,
+            "order": 3,
+            "occurred_at": "2025-04-01T10:00:00Z",  
+            "title": "××会社向け 洗濯機の間違い不具合",
+            "defect_detail": "不具合詳細",
+            "submission": "対策",
+            "submission_deadline": "2025-04-08T10:00:00Z"
+        }
+    }
+]

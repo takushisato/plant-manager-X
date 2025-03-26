@@ -1,0 +1,80 @@
+[
+  {
+    "model": "staff_hub.User",
+    "pk": 1,
+    "fields": {
+      "name": "システム太郎",
+      "email": "aaa@example.com",
+      "password": "django0425",
+      "is_superuser": true,
+      "is_staff": true,
+      "is_active": true,
+      "organization": 1
+    }
+  },
+  {
+    "model": "staff_hub.User",
+    "pk": 2,
+    "fields": {
+      "name": "製造一郎",
+      "email": "bbb@example.com",
+      "password": "django0425",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "organization": 2
+    }
+  },
+  {
+    "model": "staff_hub.User",
+    "pk": 3,
+    "fields": {
+      "name": "製造みち子",
+      "email": "ccc@example.com",
+      "password": "django0425",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "organization": 2
+    }
+  },
+  {
+    "model": "staff_hub.User",
+    "pk": 4,
+    "fields": {
+      "name": "総務真紀子",
+      "email": "ddd@example.com",
+      "password": "django0425",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "organization": 3
+    }
+  },
+  {
+    "model": "staff_hub.User",
+    "pk": 5,
+    "fields": {
+      "name": "営業太郎",
+      "email": "eee@example.com",
+      "password": "django0425",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "organization": 4
+    }
+  },
+  {
+    "model": "staff_hub.User",
+    "pk": 6,
+    "fields": {
+      "name": "取締役花子",
+      "email": "fff@example.com",
+      "password": "django0425",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "organization": 5
+    }
+  }
+]
