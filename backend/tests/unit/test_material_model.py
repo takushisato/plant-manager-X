@@ -11,7 +11,7 @@ def test_create_material_with_factory():
     """
     material = MaterialFactory()
     assert material.material_name
-    assert material.organizations_id is not None
+    assert material.organization is not None
     assert isinstance(material.material_price, float)
     assert isinstance(material.stock_qty, int)
     assert isinstance(material.order_suggestion_qty, int)
@@ -33,7 +33,7 @@ def test_material_default_values():
     """
     org = OrganizationFactory()
     material = Material.objects.create(
-        organizations_id=org,
+        organization=org,
         material_name="新しい資材"
     )
     assert material.stock_qty == 0
