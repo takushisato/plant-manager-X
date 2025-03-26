@@ -70,23 +70,28 @@ project-root/
 #### docker 環境
 
 ```
-# 1, dockerビルド
+# 初回起動時。マイグレーションは手動で行ってください。
+## 1, dockerビルド
 docker compose build --no-cache
 
-# 2, docker起動
+## 2, docker起動
 docker compose up -d
 
-# 3, dockerのdjangoに接続
-docker compose exec web bush
+## 3, dockerのdjangoに接続
+docker compose exec backend bash
 
-# 4, マイグレーション
+## 4, マイグレーション
 python manage.py migrate
 
-# 5, dockerのbush終了（docker-compose exec web bush でdockerに入ってる状態）
+## 5, dockerのbush終了（docker-compose exec web bush でdockerに入ってる状態）
 exit
+
+# dockerのfrontendに接続
+docker compose exec frontend sh
 
 # docker停止
 docker compose down
+
 ```
 
 #### ローカル環境
@@ -100,16 +105,22 @@ cd backend
 # 2, poetryのインストール
 pip install poetry
 
-# 3, poetryから環境構築
+# 3, poetryのshellに入る
+poetry shell
+
+# 4, ここでpoetryのshellに入れない場合は以下を実行してください
+poetry self add poetry-plugin-shell
+
+# 5, poetryから環境構築（Windowsの場合、mysqlclientのドライバでエラーになることがあります。その場合は最下部の「Windowsの場合」のコマンドを実行してください。）
 poetry install
 
-# 4, マイグレーション
+# 6, マイグレーション
 python manage.py migrate
 
-# 5, ローカル環境起動コマンド
+# 7, ローカル環境起動コマンド
 python manage.py runserver
 
-# 6, ローカル環境停止
+# 8, ローカル環境停止
 control + c
 
 ```
@@ -155,3 +166,14 @@ python manage.py migrate
 | バックエンド (Django API) | localhost:8000/       |
 | Django 管理画面           | localhost:8000/admin/ |
 | MySQL (データベース)      | localhost:3306        |
+
+### Windowsの場合
+
+win機（WSL）の場合、mysqlclient 環境作成時にドライバが必要な時があります。
+
+```
+# mysqlclient のビルドに必要なシステム依存パッケージ
+
+sudo apt update  
+sudo apt install -y pkg-config default-libmysqlclient-dev build-essential
+```
