@@ -23,3 +23,6 @@ python manage.py loaddata paid_leaves.json
 
 # 勤怠データの読み込み
 python manage.py loaddata attendance_records.json
+
+# 生産計画データの読み込み
+python manage.py loaddata production_plans.json
