@@ -3,78 +3,66 @@
         "model": "material.Material",
         "pk": 1,
         "fields": {
-            "organizations_id": 2,
+            "organization": 2,
             "material_name": "1㎜ 鉄 鋼板",
             "material_price": 1000,
             "stock_qty": 100,
-            "order_suggestion_qty": 10,
-            "created_at": "2021-01-01",
-            "updated_at": "2021-01-01"
+            "order_suggestion_qty": 10
         }
     },
     {
         "model": "material.Material",
         "pk": 2,
         "fields": {
-            "organizations_id": 2,
+            "organization": 2,
             "material_name": "2㎜ 鉄 鋼板",
             "material_price": 1500,
             "stock_qty": 100,
-            "order_suggestion_qty": 10,
-            "created_at": "2021-01-01",
-            "updated_at": "2021-01-01"
+            "order_suggestion_qty": 10
         }
     },
     {
         "model": "material.Material",
         "pk": 3,
         "fields": {
-            "organizations_id": 2,
+            "organization": 2,
             "material_name": "3㎜ 鉄 鋼板",
             "material_price": 2000,
             "stock_qty": 100,
-            "order_suggestion_qty": 10,
-            "created_at": "2021-01-01",
-            "updated_at": "2021-01-01"
+            "order_suggestion_qty": 10
         }
     },
     {
         "model": "material.Material",
         "pk": 4,
         "fields": {
-            "organizations_id": 2,
+            "organization": 2,
             "material_name": "1㎜ ステンレス 鋼板",
             "material_price": 1300,
             "stock_qty": 100,
-            "order_suggestion_qty": 10,
-            "created_at": "2021-01-01",
-            "updated_at": "2021-01-01"
+            "order_suggestion_qty": 10
         }
     },
     {
         "model": "material.Material",
         "pk": 5,
         "fields": {
-            "organizations_id": 2,
+            "organization": 2,
             "material_name": "2㎜ ステンレス 鋼板",
             "material_price": 1600,
             "stock_qty": 100,
-            "order_suggestion_qty": 10,
-            "created_at": "2021-01-01",
-            "updated_at": "2021-01-01"
+            "order_suggestion_qty": 10
         }
     },
     {
         "model": "material.Material",
         "pk": 6,
         "fields": {
-            "organizations_id": 2,
+            "organization": 2,
             "material_name": "3㎜ ステンレス 鋼板",
             "material_price": 2000,
             "stock_qty": 100,
-            "order_suggestion_qty": 10,
-            "created_at": "2021-01-01",
-            "updated_at": "2021-01-01"
+            "order_suggestion_qty": 10
         }
     }
 ]

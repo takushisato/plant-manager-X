@@ -11,7 +11,7 @@ def test_create_break_setting_with_factory():
     BreakSettingFactory で正しくインスタンスを作成できる
     """
     break_setting = BreakSettingFactory()
-    assert break_setting.work_pattern_id is not None
+    assert break_setting.work_pattern is not None
     assert isinstance(break_setting.start_time, time)
     assert isinstance(break_setting.end_time, time)
 
@@ -23,7 +23,7 @@ def test_break_setting_str_representation():
     """
     work_pattern = WorkPatternFactory(work_pattern_name="日勤")
     break_setting = BreakSetting.objects.create(
-        work_pattern_id=work_pattern,
+        work_pattern=work_pattern,
         start_time=time(10, 0),
         end_time=time(10, 15),
     )
