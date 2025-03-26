@@ -83,10 +83,13 @@ docker compose exec backend bash
 ## 4, マイグレーション
 python manage.py migrate
 
-## 5, dockerのbush終了（docker-compose exec web bush でdockerに入ってる状態）
+## 5, sheederの流し込み（開発環境のみ）
+bash scripts/sheeder.sh
+
+## 6, dockerのbush終了（docker-compose exec web bush でdockerに入ってる状態）
 exit
 
-# dockerのfrontendに接続
+# dockerのfrontendに接続する場合
 docker compose exec frontend sh
 
 # docker停止
@@ -117,10 +120,13 @@ poetry install
 # 6, マイグレーション
 python manage.py migrate
 
-# 7, ローカル環境起動コマンド
+# 7, sheederの流し込み（開発環境のみ）
+bash scripts/sheeder.sh
+
+# 8, ローカル環境起動コマンド
 python manage.py runserver
 
-# 8, ローカル環境停止
+# 9, ローカル環境停止
 control + c
 
 ```
@@ -155,6 +161,9 @@ python manage.py makemigrations
 
 # DBに反映
 python manage.py migrate
+
+# pytestの実行
+pytest
 
 ```
 
