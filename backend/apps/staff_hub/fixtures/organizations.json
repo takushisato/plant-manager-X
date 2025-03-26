@@ -1,0 +1,37 @@
+[
+    {
+        "model": "staff_hub.Organization",
+        "pk": 1,
+        "fields": {
+            "name": "システム開発課"
+        }
+    },
+    {
+        "model": "staff_hub.Organization",
+        "pk": 2,
+        "fields": {
+            "name": "製造課"
+        }
+    },
+    {
+        "model": "staff_hub.Organization",
+        "pk": 3,
+        "fields": {
+            "name": "総務課"
+        }
+    },
+    {
+        "model": "staff_hub.Organization",
+        "pk": 4,
+        "fields": {
+            "name": "営業課"
+        }
+    },
+    {
+        "model": "staff_hub.Organization",
+        "pk": 5,
+        "fields": {
+            "name": "取締役"
+        }
+    }
+]
