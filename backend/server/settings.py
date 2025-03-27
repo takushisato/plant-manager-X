@@ -53,6 +53,7 @@ DEFAULT_APPS = [
 
 THIRD_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'djoser',
     'drf_spectacular',
@@ -158,12 +159,46 @@ REST_FRAMEWORK = {
 DJOSER = {
     # メールアドレスでログイン
     'LOGIN_FIELD': 'email',
+    # アクティベートメールの送信
+    'SEND_ACTIVATION_EMAIL': True,
+    # アクティベート完了メールの送信
+    'SEND_CONFIRMATION_EMAIL': True,
+    # メールアドレス変更完了メールの送信
+    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
+    # パスワード変更完了メールの送信
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    # アカウント登録時に確認用パスワードを一緒に送信
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    # メールアドレス変更時に確認用パスワードを一緒に送信
+    'SET_USERNAME_RETYPE': True,
+    # パスワード変更時に確認用パスワードを一緒に送信
+    'SET_PASSWORD_RETYPE': True,
+    # アクティベートURL
+    'ACTIVATION_URL': 'auth/activation/?uid={uid}&token={token}',
+    # メールアドレスリセット完了用URL（モデルを変更しているためユーザーネームではない）
+    'USERNAME_RESET_CONFIRM_URL': 'settings/auth/confirm-email/?uid={uid}&token={token}',
+    # パスワードリセット完了用URL
+    'PASSWORD_RESET_CONFIRM_URL': 'settings/auth/confirm-password/?uid={uid}&token={token}',
     # カスタムユーザー用シリアライザー
     'SERIALIZERS': {
         'user_create': 'apps.staff_hub.serializers.UserSerializer',
         'user': 'apps.staff_hub.serializers.UserSerializer',
         'current_user': 'apps.staff_hub.serializers.UserSerializer',
-    }
+    },
+    'EMAIL': {
+        # アクティベート
+        'activation': 'apps.staff_hub.templates.activation.ActivationEmail',
+        # アクティベート完了
+        'confirmation': 'apps.staff_hub.templates.confirmation.ConfirmationEmail',
+        # パスワード変更
+        'password_reset': 'apps.staff_hub.templates.password_reset.PasswordResetEmail',
+        # パスワード変更完了
+        'password_changed_confirmation': 'apps.staff_hub.templates.password_changed_confirmation.PasswordChangedConfirmationEmail',
+        # メールアドレス変更（モデルを変更しているためユーザーネームではない）
+        'username_reset': 'apps.staff_hub.templates.username_reset.UsernameResetEmail',
+        # メールアドレス変更完了（モデルを変更しているためユーザーネームではない）
+        'username_changed_confirmation': 'apps.staff_hub.templates.username_changed_confirmation.UsernameChangedConfirmationEmail',
+    },
 }
 
 # カスタムユーザーモデルの使用を指定
