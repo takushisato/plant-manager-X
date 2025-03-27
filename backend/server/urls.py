@@ -20,6 +20,11 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # 認証
+    path('api/', include('rest_framework.urls')),
+    path('api/auth/', include('djoser.urls.authtoken')),
+    path('api/auth/', include('djoser.urls')),
 ]
 
 if settings.DEBUG:
