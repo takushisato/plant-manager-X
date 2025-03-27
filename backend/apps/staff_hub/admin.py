@@ -44,6 +44,9 @@ class UserAdminCustom(UserAdmin):
         'name',
         'email',
         'is_active',
+        'organization',
+        'is_staff',
+        'is_superuser',
     )
 
     list_filter = ()
