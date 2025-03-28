@@ -10,7 +10,7 @@ def test_create_permission_with_factory():
     """
     PermissionFactory を使ってインスタンスが正しく作成されることを確認
     """
-    permission = PermissionFactory()
+    permission = PermissionFactory(full_access=True)
     assert permission.user is not None
     assert permission.staff_hub_access is True
     assert permission.attendance_access is True
