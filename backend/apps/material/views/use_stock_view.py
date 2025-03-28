@@ -8,8 +8,15 @@ from apps.material.models.material import Material
 from apps.material.common import check_material_access_permission
 from apps.material.serializers import UseStockSerializer
 from rest_framework.exceptions import ValidationError
+from drf_spectacular.utils import extend_schema
 
 
+@extend_schema(
+    request=UseStockSerializer,
+    responses={200: None},
+    description="資材の在庫数を使用数分だけ減少させます。",
+    tags=["materials"]
+)
 class UseStockView(APIView):
     permission_classes = [permissions.IsAuthenticated, HasUserPermissionObject]
 

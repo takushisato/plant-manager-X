@@ -7,8 +7,15 @@ from apps.material.models.material import Material
 from apps.material.serializers import ReceiveStockSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.material.common import check_material_access_permission
+from drf_spectacular.utils import extend_schema
 
 
+@extend_schema(
+    request=ReceiveStockSerializer,
+    responses={200: None},
+    description="資材の在庫数を受け入れ数分だけ増加させます。",
+    tags=["materials"]
+)
 class ReceiveStockView(APIView):
     permission_classes = [permissions.IsAuthenticated, HasUserPermissionObject]
 
