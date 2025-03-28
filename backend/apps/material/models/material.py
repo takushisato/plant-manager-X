@@ -1,6 +1,7 @@
 from django.db import models
 from apps.utility.models import BaseModel
 from apps.staff_hub.models import Organization
+from django.shortcuts import get_object_or_404
 
 
 class Material(BaseModel):
@@ -21,3 +22,10 @@ class Material(BaseModel):
     def __str__(self):
         return self.material_name
 
+
+    @classmethod
+    def get_locked(cls, pk: int) -> "Material":
+        """
+        select_for_update 付きで排他ロック取得
+        """
+        return get_object_or_404(cls.objects.select_for_update(), pk=pk)
