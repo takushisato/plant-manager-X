@@ -12,7 +12,7 @@ def test_create_mail_group_detail_with_factory():
     """
     detail = MailGroupDetailFactory()
     assert detail.mail_group_detail is not None
-    assert detail.create_user is not None
+    assert detail.recipient_user is not None
 
 
 @pytest.mark.django_db
@@ -24,7 +24,7 @@ def test_mail_group_detail_str_method():
     group = MailGroupFactory(group_title="通知チーム")
     detail = MailGroupDetail.objects.create(
         mail_group_detail=group,
-        create_user=user
+        recipient_user=user
     )
     assert str(detail) == "通知チーム - 田中一郎"
 
