@@ -1,0 +1,1 @@
+from .mail_group_create_view import MailGroupCreateView
