@@ -7,6 +7,7 @@ from django.db import transaction
 from apps.material.models.material import Material
 from apps.material.common import check_material_access_permission
 from apps.material.serializers import UseStockSerializer
+from rest_framework.exceptions import ValidationError
 
 
 class UseStockView(APIView):
@@ -17,7 +18,8 @@ class UseStockView(APIView):
         check_material_access_permission(request)
 
         material = Material.get_locked(pk)
-        used_qty = _validate_use_stock_request(request, material)
+        used_qty = _validate_use_stock_request(request)
+        _validate_used_qty(material, used_qty)
         remaining_stock = _apply_used_stock(material, used_qty)
 
         return Response({
@@ -26,11 +28,11 @@ class UseStockView(APIView):
         }, status=status.HTTP_200_OK)
 
 
-def _validate_use_stock_request(request, material):
+def _validate_use_stock_request(request):
     """
     資材使用量バリデーション
     """
-    serializer = UseStockSerializer(data=request.data, context={"material": material})
+    serializer = UseStockSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     return serializer.validated_data["used_qty"]
 
@@ -42,3 +44,11 @@ def _apply_used_stock(material, used_qty):
     material.stock_qty -= used_qty
     material.save()
     return material.stock_qty
+
+
+def _validate_used_qty(material, used_qty):
+    """
+    在庫超過チェック
+    """
+    if used_qty > material.stock_qty:
+        raise ValidationError("在庫が不足しています。")
