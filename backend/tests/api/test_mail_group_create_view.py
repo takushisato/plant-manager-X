@@ -35,6 +35,14 @@ class TestMailGroupCreateView:
     def test_create_mail_group_success(self, client, authed_user_with_permission):
         """
         正常系: mail_access 権限のあるユーザーが作成可能
+
+        条件:
+        - mail_access 権限のあるユーザー
+        - メールグループの作成
+
+        結果:
+        - ステータスコード201
+        - メールグループが作成される
         """
         client.force_authenticate(user=authed_user_with_permission)
 
@@ -52,6 +60,14 @@ class TestMailGroupCreateView:
     def test_create_mail_group_forbidden(self, client, authed_user_without_permission):
         """
         異常系: mail_access 権限がないユーザーは作成不可（403）
+        
+        条件:
+        - mail_access 権限がないユーザー
+        - メールグループの作成
+
+        結果:
+        - ステータスコード403
+        - メールグループが作成されない
         """
         client.force_authenticate(user=authed_user_without_permission)
 
@@ -65,6 +81,14 @@ class TestMailGroupCreateView:
     def test_create_mail_group_unauthenticated(self, client):
         """
         異常系: 未ログインユーザーは401エラー
+
+        条件:
+        - 未ログインユーザー
+        - メールグループの作成
+
+        結果:
+        - ステータスコード401
+        - メールグループが作成されない
         """
         response = client.post("/api/mail/groups/create/", data={
             "group_title": "営業部グループ"
@@ -75,6 +99,14 @@ class TestMailGroupCreateView:
     def test_create_mail_group_validation_error(self, client, authed_user_with_permission):
         """
         異常系: group_title が空だと400エラー
+
+        条件:
+        - mail_access 権限のあるユーザー
+        - group_title が空
+
+        結果:
+        - ステータスコード400
+        - group_title が空だと400エラー
         """
         client.force_authenticate(user=authed_user_with_permission)
 
