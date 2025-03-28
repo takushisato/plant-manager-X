@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from django.db import transaction
 from django.shortcuts import get_object_or_404
-
+from django.core.exceptions import ValidationError
 from apps.material.models.material import Material
 from apps.material.serializers import ReceiveStockSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
@@ -16,18 +16,36 @@ class ReceiveStockView(APIView):
     @transaction.atomic
     def post(self, request, pk):
         check_material_access_permission(request)
+        material = _get_locked_material(pk)
+        added_qty = _validate_receive_stock_request(request)
+        _validate_added_qty(added_qty)
+        current_stock = _apply_received_stock(material, added_qty)
 
-        material = get_object_or_404(Material.objects.select_for_update(), pk=pk)
+        return Response({
+            "detail": f"{added_qty} 個受け入れました。",
+            "現在の在庫数": current_stock
+        }, status=status.HTTP_200_OK)
 
-        serializer = ReceiveStockSerializer(data=request.data)
-        if serializer.is_valid():
-            added_qty = serializer.validated_data["added_qty"]
-            material.stock_qty += added_qty
-            material.save()
 
-            return Response({
-                "detail": f"{added_qty} 個受け入れました。",
-                "現在の在庫数": material.stock_qty
-            }, status=status.HTTP_200_OK)
+def _get_locked_material(pk):
+    return get_object_or_404(Material.objects.select_for_update(), pk=pk)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def _validate_receive_stock_request(request):
+    serializer = ReceiveStockSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    return serializer.validated_data["added_qty"]
+
+
+def _validate_added_qty(added_qty):
+    """
+    追加数量のバリデーション（0以下は禁止）
+    """
+    if added_qty <= 0:
+        raise ValidationError("受け入れ数は 1 以上である必要があります。")
+
+
+def _apply_received_stock(material, added_qty):
+    material.stock_qty += added_qty
+    material.save()
+    return material.stock_qty
