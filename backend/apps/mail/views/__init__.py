@@ -1,1 +1,3 @@
 from .mail_group_create_view import MailGroupCreateView
+from .mail_group_list_view import MailGroupListView
+from .mail_group_detail_create_view import MailGroupDetailBulkCreateView
