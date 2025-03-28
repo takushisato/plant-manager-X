@@ -6,6 +6,7 @@ from apps.mail.common import check_mail_access_permission
 from apps.mail.serializer import MailGroupCreateSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 
+
 @extend_schema(
     request=MailGroupCreateSerializer,
     responses={201: MailGroupCreateSerializer},
