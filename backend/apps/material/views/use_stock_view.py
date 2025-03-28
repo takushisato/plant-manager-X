@@ -2,6 +2,7 @@ from rest_framework import permissions
 from apps.staff_hub.permission import HasUserPermissionObject
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from django.db import transaction
 from apps.material.models.material import Material
 from apps.material.common import check_material_access_permission
@@ -12,7 +13,7 @@ class UseStockView(APIView):
     permission_classes = [permissions.IsAuthenticated, HasUserPermissionObject]
 
     @transaction.atomic
-    def post(self, request, pk):
+    def put(self, request, pk):
         check_material_access_permission(request)
 
         material = Material.get_locked(pk)
@@ -22,7 +23,7 @@ class UseStockView(APIView):
         return Response({
             "detail": f"{used_qty} 個使用しました。",
             "残り在庫": remaining_stock
-        })
+        }, status=status.HTTP_200_OK)
 
 
 def _validate_use_stock_request(request, material):
