@@ -2,7 +2,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from django.db import transaction
-from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError
 from apps.material.models.material import Material
 from apps.material.serializers import ReceiveStockSerializer
@@ -14,9 +13,9 @@ class ReceiveStockView(APIView):
     permission_classes = [permissions.IsAuthenticated, HasUserPermissionObject]
 
     @transaction.atomic
-    def post(self, request, pk):
+    def put(self, request, pk):
         check_material_access_permission(request)
-        material = _get_locked_material(pk)
+        material = Material.get_locked(pk)
         added_qty = _validate_receive_stock_request(request)
         _validate_added_qty(added_qty)
         current_stock = _apply_received_stock(material, added_qty)
@@ -25,11 +24,7 @@ class ReceiveStockView(APIView):
             "detail": f"{added_qty} 個受け入れました。",
             "現在の在庫数": current_stock
         }, status=status.HTTP_200_OK)
-
-
-def _get_locked_material(pk):
-    return get_object_or_404(Material.objects.select_for_update(), pk=pk)
-
+    
 
 def _validate_receive_stock_request(request):
     serializer = ReceiveStockSerializer(data=request.data)
