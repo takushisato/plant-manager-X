@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from django.db import transaction
-from django.core.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError
 from apps.material.models.material import Material
 from apps.material.serializers import ReceiveStockSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
