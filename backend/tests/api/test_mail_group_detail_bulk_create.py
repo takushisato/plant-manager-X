@@ -9,6 +9,12 @@ from tests.factory.permission_factory import PermissionFactory
 
 @pytest.mark.django_db
 class TestMailGroupDetailBulkCreateView:
+    """
+    メールグループ詳細一括登録APIのテスト
+
+    URL: /api/mail/groups/details/bulk-create/
+    METHOD: POST
+    """
 
     @pytest.fixture
     def client(self):
