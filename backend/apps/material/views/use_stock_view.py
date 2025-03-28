@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db import transaction
 from apps.material.models.material import Material
-from rest_framework.exceptions import PermissionDenied
+from apps.material.common import check_material_access_permission
 from apps.material.serializers import UseStockSerializer
 
 
@@ -13,7 +13,7 @@ class UseStockView(APIView):
 
     @transaction.atomic
     def post(self, request, pk):
-        _check_material_access_permission(request)
+        check_material_access_permission(request)
 
         material = Material.get_locked(pk)
         used_qty = _validate_use_stock_request(request, material)
@@ -23,14 +23,6 @@ class UseStockView(APIView):
             "detail": f"{used_qty} 個使用しました。",
             "残り在庫": remaining_stock
         })
-
-
-def _check_material_access_permission(request):
-    """
-    資材閲覧権限チェック
-    """
-    if not (request.permission.material_access or request.permission.master_data_access):
-        raise PermissionDenied("認証は確認しましたが権限がありません。")
 
 
 def _validate_use_stock_request(request, material):
