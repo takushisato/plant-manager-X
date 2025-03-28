@@ -1,4 +1,7 @@
 from rest_framework import serializers
+from rest_framework import serializers
+from apps.material.models.material import Material
+
 
 class UseStockSerializer(serializers.Serializer):
     used_qty = serializers.IntegerField(min_value=1)
@@ -8,3 +11,12 @@ class UseStockSerializer(serializers.Serializer):
         if value > material.stock_qty:
             raise serializers.ValidationError("在庫が不足しています。")
         return value
+    
+
+class MaterialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Material
+        fields = [
+            "id", "organization", "material_name", "material_price",
+            "stock_qty", "order_suggestion_qty",
+        ]
