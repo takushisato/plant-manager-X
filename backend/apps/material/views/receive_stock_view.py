@@ -27,6 +27,9 @@ class ReceiveStockView(APIView):
     
 
 def _validate_receive_stock_request(request):
+    """
+    受け入れ数のバリデーション
+    """
     serializer = ReceiveStockSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     return serializer.validated_data["added_qty"]
@@ -41,6 +44,9 @@ def _validate_added_qty(added_qty):
 
 
 def _apply_received_stock(material, added_qty):
+    """
+    受け入れ数の適用
+    """
     material.stock_qty += added_qty
     material.save()
     return material.stock_qty
