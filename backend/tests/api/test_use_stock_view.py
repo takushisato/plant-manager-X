@@ -13,7 +13,7 @@ class TestUseStockView:
     資材使用量ビューのテスト
 
     url: /api/materials/{material_id}/use_stock/
-    method: POST
+    method: PUT
     """
 
     @pytest.fixture
@@ -52,7 +52,7 @@ class TestUseStockView:
         """
         client.force_authenticate(user=authed_user_with_permission)
 
-        response = client.post(
+        response = client.put(
             f"/api/materials/{material.id}/use_stock/",
             data={"used_qty": 3},
             format="json"
@@ -77,7 +77,7 @@ class TestUseStockView:
         """
         client.force_authenticate(user=authed_user_without_permission)
 
-        response = client.post(
+        response = client.put(
             f"/api/materials/{material.id}/use_stock/",
             data={"used_qty": 1},
             format="json"
@@ -93,7 +93,7 @@ class TestUseStockView:
         結果:
         - ステータスコード 401 Unauthorized
         """
-        response = client.post(
+        response = client.put(
             f"/api/materials/{material.id}/use_stock/",
             data={"used_qty": 1},
             format="json"
@@ -115,7 +115,7 @@ class TestUseStockView:
         """
         client.force_authenticate(user=authed_user_with_permission)
 
-        response = client.post(
+        response = client.put(
             f"/api/materials/{material.id}/use_stock/",
             data={"used_qty": material.stock_qty + 1},
             format="json"
