@@ -22,9 +22,4 @@ class MaterialSerializer(serializers.ModelSerializer):
         ]
 
 class ReceiveStockSerializer(serializers.Serializer):
-    added_qty = serializers.IntegerField(min_value=1)
-
-    def validate_added_qty(self, value):
-        if value <= 0:
-            raise serializers.ValidationError("受け入れ数は 1 以上である必要があります。")
-        return value
+    added_qty = serializers.IntegerField()
