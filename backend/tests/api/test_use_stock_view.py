@@ -123,3 +123,26 @@ class TestUseStockView:
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "在庫" in str(response.data)
+
+    @pytest.mark.parametrize("invalid_qty", [0, -1, -100])
+    def test_use_stock_invalid_quantity(self, client, authed_user_with_permission, material, invalid_qty):
+        """
+        異常系: used_qty が 0 以下の場合はエラー
+
+        条件:
+        - used_qty = 0, -1, -100
+
+        結果:
+        - ステータスコード 400 Bad Request
+        - エラーメッセージに "1 以上" を含む
+        """
+        client.force_authenticate(user=authed_user_with_permission)
+
+        response = client.put(
+            f"/api/materials/{material.id}/use_stock/",
+            data={"used_qty": invalid_qty},
+            format="json"
+        )
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert "1以上にしてください" in str(response.data)
