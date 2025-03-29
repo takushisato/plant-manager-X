@@ -62,7 +62,7 @@ class TestUseStockView:
 
         assert response.status_code == status.HTTP_200_OK
         assert material.stock_qty == 7
-        assert response.data["残り在庫"] == 7
+        assert response.data["current_stock"] == 7
 
     def test_use_stock_forbidden_without_permission(self, client, authed_user_without_permission, material):
         """
@@ -84,7 +84,7 @@ class TestUseStockView:
         )
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
-        assert "権限" in response.data["detail"]
+        assert "権限" in str(response.data["detail"])
 
     def test_use_stock_unauthorized(self, client, material):
         """

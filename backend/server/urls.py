@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/auth/', include('djoser.urls')),
 
     path('api/materials/', include('apps.material.urls')),
+    path('api/mail/', include('apps.mail.urls')),
 ]
 
 if settings.DEBUG:

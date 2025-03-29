@@ -9,6 +9,7 @@ from apps.material.common import check_material_access_permission
 from apps.material.serializers import UseStockSerializer
 from rest_framework.exceptions import ValidationError
 from drf_spectacular.utils import extend_schema
+from apps.utility.const import MESSAGES
 
 
 @extend_schema(
@@ -30,8 +31,8 @@ class UseStockView(APIView):
         remaining_stock = _apply_used_stock(material, used_qty)
 
         return Response({
-            "detail": f"{used_qty} 個使用しました。",
-            "残り在庫": remaining_stock
+            "detail": MESSAGES["USE_STOCK"].format(used_qty=used_qty),
+            "current_stock": remaining_stock
         }, status=status.HTTP_200_OK)
 
 
@@ -58,4 +59,4 @@ def _validate_used_qty(material, used_qty):
     在庫超過チェック
     """
     if used_qty > material.stock_qty:
-        raise ValidationError("在庫が不足しています。")
+        raise ValidationError(MESSAGES["USE_STOCK_ERROR"])

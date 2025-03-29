@@ -9,4 +9,4 @@ class MailGroupDetailFactory(factory.django.DjangoModelFactory):
         model = MailGroupDetail
 
     mail_group_detail = factory.SubFactory(MailGroupFactory)
-    create_user = factory.SubFactory(UserFactory)
+    recipient_user = factory.SubFactory(UserFactory)
