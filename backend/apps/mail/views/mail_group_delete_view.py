@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from apps.mail.models.mail_group import MailGroup
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.mail.common import check_mail_access_permission
+from apps.utility.const import MESSAGES
 
 
 class MailGroupDeleteView(APIView):
@@ -23,7 +24,7 @@ class MailGroupDeleteView(APIView):
         mail_group = get_object_or_404(MailGroup, pk=pk)
 
         if mail_group.create_user != request.user:
-            return Response({"detail": "このグループを削除する権限がありません。"}, status=status.HTTP_403_FORBIDDEN)
+            return Response({"detail": MESSAGES["MAIL_GROUP_DELETE_ERROR"]}, status=status.HTTP_403_FORBIDDEN)
 
         mail_group.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

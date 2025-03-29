@@ -8,6 +8,7 @@ from apps.mail.models.mail_group_detail import MailGroupDetail
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.mail.common import check_mail_access_permission
 from rest_framework.exceptions import ValidationError
+from apps.utility.const import MESSAGES
 
 
 class MailGroupDetailBulkCreateView(APIView):
@@ -31,19 +32,19 @@ class MailGroupDetailBulkCreateView(APIView):
         _validate_mail_group_owner(mail_group, request.user)
         MailGroupDetail.bulk_create_details(mail_group, users)
 
-        return Response({"detail": "宛先を一括登録しました。"}, status=status.HTTP_201_CREATED)
+        return Response({"detail": MESSAGES["MAIL_GROUP_DETAIL_BULK_CREATE"]}, status=status.HTTP_201_CREATED)
 
 def _validate_recipient_users(users):
     """
     recipient_users が空でないことを検証する
     """
     if not users:
-        raise ValidationError("recipient_users を1件以上指定してください。")
+        raise ValidationError(MESSAGES["MAIL_GROUP_DETAIL_BULK_CREATE_ERROR"])
 
 def _validate_mail_group_owner(mail_group, user):
     """
     mail_group の作成者であることを検証する
     """
     if mail_group.create_user != user:
-        raise ValidationError("作成者ではありません。")
+        raise ValidationError(MESSAGES["MAIL_GROUP_DETAIL_BULK_CREATE_OWNER_ERROR"])
 

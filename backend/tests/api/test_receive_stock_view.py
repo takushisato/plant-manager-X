@@ -59,7 +59,7 @@ class TestReceiveStockView:
 
         assert response.status_code == status.HTTP_200_OK
         assert material.stock_qty == 15
-        assert response.data["現在の在庫数"] == 15
+        assert response.data["current_stock"] == 15
 
     def test_receive_stock_forbidden(self, client, user_without_permission, material):
         """

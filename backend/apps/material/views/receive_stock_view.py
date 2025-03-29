@@ -8,6 +8,7 @@ from apps.material.serializers import ReceiveStockSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.material.common import check_material_access_permission
 from drf_spectacular.utils import extend_schema
+from apps.utility.const import MESSAGES
 
 
 @extend_schema(
@@ -28,8 +29,8 @@ class ReceiveStockView(APIView):
         current_stock = _apply_received_stock(material, added_qty)
 
         return Response({
-            "detail": f"{added_qty} 個受け入れました。",
-            "現在の在庫数": current_stock
+            "detail": MESSAGES["RECEIVE_STOCK"].format(added_qty=added_qty),
+            "current_stock": current_stock
         }, status=status.HTTP_200_OK)
     
 
@@ -47,7 +48,7 @@ def _validate_added_qty(added_qty):
     追加数量のバリデーション（0以下は禁止）
     """
     if added_qty <= 0:
-        raise ValidationError("受け入れ数は 1 以上である必要があります。")
+        raise ValidationError(MESSAGES["RECEIVE_STOCK_ERROR"])
 
 
 def _apply_received_stock(material, added_qty):

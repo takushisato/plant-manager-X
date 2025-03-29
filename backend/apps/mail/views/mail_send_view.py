@@ -11,6 +11,7 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.exceptions import ValidationError, PermissionDenied
+from apps.utility.const import MESSAGES
 
 
 class MailSendView(APIView):
@@ -42,7 +43,7 @@ class MailSendView(APIView):
         _send_mail(title, message, to_emails)
         _save_mail_template(mail_group, title, message)
 
-        return Response({"detail": f"{len(to_emails)} 件のメールを送信しました。"}, status=200)
+        return Response({"detail": MESSAGES["SEND_MAIL"]}, status=200)
     
 
 def _validate_mail_group_ownership(mail_group, user):
@@ -50,7 +51,7 @@ def _validate_mail_group_ownership(mail_group, user):
     ログインユーザーがグループの作成者か確認
     """
     if mail_group.create_user != user:
-        raise PermissionDenied("このグループへの送信権限がありません。")
+        raise PermissionDenied(MESSAGES["MAIL_GROUP_SEND_ERROR"])
 
 
 def _get_recipient_emails(recipients):
@@ -65,7 +66,7 @@ def _validate_recipient_emails(emails):
     送信先が1件以上存在することを検証
     """
     if not emails:
-        raise ValidationError("送信先ユーザーにメールアドレスが設定されていません。")
+        raise ValidationError(MESSAGES["SEND_MAIL_ERROR"])
 
 
 def _send_mail(subject, message, to_list):
@@ -81,7 +82,7 @@ def _send_mail(subject, message, to_list):
             fail_silently=False,
         )
     except Exception:
-        raise ValidationError("メール送信に失敗しました。時間をおいて再度実行してください。この状態が長く続くようでしたら、管理者にお問い合わせください。")
+        raise ValidationError(MESSAGES["SEND_MAIL_EXECUTE_ERROR"])
 
 
 def _save_mail_template(mail_group, title, message):

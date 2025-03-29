@@ -8,6 +8,7 @@ from tests.factory.mail_group_factory import MailGroupFactory
 from tests.factory.mail_group_detail_factory import MailGroupDetailFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
+from apps.utility.const import MESSAGES
 
 
 @pytest.mark.django_db
@@ -66,7 +67,7 @@ class TestMailSendView:
         response = client.post("/api/mail/send/", data=data, format="json")
 
         assert response.status_code == status.HTTP_200_OK
-        assert "件のメールを送信しました" in response.data["detail"]
+        assert MESSAGES["SEND_MAIL"] in response.data["detail"]
         assert len(mail.outbox) == 1  # 1通で複数人に送信
         assert MailHistory.objects.filter(mail_group=mail_group).exists()
 
