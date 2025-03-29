@@ -47,6 +47,9 @@ class TestMailGroupListView:
         - 自身のグループと詳細
 
         結果:
+        - ステータスコード200
+        - メールグループ一覧が取得できる
+        - 自身のグループと詳細が取得できる
         """
         client.force_authenticate(user=authed_user_with_permission)
         response = client.get("/api/mail/groups/")
