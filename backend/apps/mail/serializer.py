@@ -35,3 +35,9 @@ class MailGroupWithDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = MailGroup
         fields = ["id", "group_title", "note", "details"]
+
+
+class MailSendSerializer(serializers.Serializer):
+    mail_group_id = serializers.PrimaryKeyRelatedField(queryset=MailGroup.objects.all())
+    title = serializers.CharField(max_length=255)
+    message = serializers.CharField()
