@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
 from apps.mail.models.mail_group_detail import MailGroupDetail
-from apps.mail.models.mail_template import MailTemplate
+from apps.mail.models.mail_history import MailHistory
 from apps.mail.serializer import MailSendSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.mail.common import check_mail_access_permission
@@ -88,7 +88,7 @@ def _save_mail_template(mail_group, title, message):
     """
     メール送信履歴を保存
     """
-    MailTemplate.objects.create(
+    MailHistory.objects.create(
         mail_group=mail_group,
         sent_at=timezone.now(),
         title=title,

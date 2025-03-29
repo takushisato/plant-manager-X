@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from apps.mail.models.mail_template import MailTemplate
+from apps.mail.models.mail_history import MailHistory
 from tests.factory.mail_template_factory import MailTemplateFactory
 from tests.factory.mail_group_factory import MailGroupFactory
 
@@ -32,7 +32,7 @@ def test_mail_template_all_fields():
     すべてのフィールドが指定された状態でも正常に保存できることを確認
     """
     group = MailGroupFactory(group_title="重要通知")
-    template = MailTemplate.objects.create(
+    template = MailHistory.objects.create(
         mail_group=group,
         sent_at=datetime(2025, 4, 1, 10, 0),
         title="納期遅延のお知らせ",

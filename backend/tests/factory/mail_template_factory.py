@@ -1,12 +1,12 @@
 import factory
 from datetime import datetime
-from apps.mail.models.mail_template import MailTemplate
+from apps.mail.models.mail_history import MailHistory
 from tests.factory.mail_group_factory import MailGroupFactory
 
 
 class MailTemplateFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = MailTemplate
+        model = MailHistory
 
     mail_group = factory.SubFactory(MailGroupFactory)
     sent_at = factory.LazyFunction(datetime.now)
