@@ -77,14 +77,18 @@ class Permission(BaseModel):
     権限モデル
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="ユーザー")
-    staff_hub_access = models.BooleanField("人材管理アクセス", default=False)
-    material_access = models.BooleanField("資料アクセス", default=False)
-    attendance_access = models.BooleanField("勤怠アクセス", default=False)
-    prod_flow_access = models.BooleanField("生産計画アクセス", default=False)
-    trade_flow_access = models.BooleanField("受注アクセス", default=False)
-    bug_note_access = models.BooleanField("不具合アクセス", default=False)
-    mail_access = models.BooleanField("メールアクセス", default=False)
-    master_data_access = models.BooleanField("マスタデータアクセス", default=False)
+    staff_hub_access = models.BooleanField("人材管理アクセス：全体管理", default=False)
+    material_access = models.BooleanField("資料アクセス：全体管理", default=False)
+    can_manage_own_attendance = models.BooleanField("勤怠アクセス：自分のみ管理", default=False)
+    can_manage_all_attendance = models.BooleanField("勤怠アクセス：全体管理", default=False)
+    can_view_production_plan = models.BooleanField("生産計画アクセス：閲覧", default=False)
+    can_edit_production_plan = models.BooleanField("生産計画アクセス：編集・削除", default=False)
+    can_view_order = models.BooleanField("受注アクセス：閲覧", default=False)
+    can_edit_order = models.BooleanField("受注アクセス：編集・削除", default=False)
+    can_view_defect = models.BooleanField("不具合アクセス：閲覧", default=False)
+    can_edit_defect = models.BooleanField("不具合アクセス：編集・削除", default=False)
+    mail_access = models.BooleanField("メールアクセス：全体管理", default=False)
+    master_data_access = models.BooleanField("マスタデータアクセス：全体管理", default=False)
 
     class Meta:
         verbose_name = 'アクセス権限'

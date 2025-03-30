@@ -13,7 +13,13 @@ def test_create_permission_with_factory():
     permission = PermissionFactory(full_access=True)
     assert permission.user is not None
     assert permission.staff_hub_access is True
-    assert permission.attendance_access is True
+    assert permission.material_access is True
+    assert permission.can_manage_own_attendance is True
+    assert permission.can_manage_all_attendance is True
+    assert permission.can_view_production_plan is True
+    assert permission.can_edit_production_plan is True
+    assert permission.can_view_order is True
+    assert permission.can_edit_order is True
     assert permission.mail_access is True
 
 
