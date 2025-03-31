@@ -8,6 +8,12 @@ from tests.factory.production_plan_detail_factory import ProductionPlanDetailFac
 
 @pytest.mark.django_db
 class TestProductionPlanUpdateView:
+    """
+    生産計画を更新するビューのテスト
+
+    url: /api/production/plans/{id}/update/
+    method: PUT
+    """
 
     @pytest.fixture
     def client(self):
