@@ -42,8 +42,7 @@ class TestProductionPlanWithDetailsCreateView:
         正常系: 生産計画と詳細を一括で作成成功
 
         条件:
-        - 生産計画と詳細を一括で作成成功
-        - 生産計画と詳細を一括で作成成功
+        - permission.can_edit_production_plan = True
 
         結果:
         - ステータスコード 201
@@ -87,10 +86,11 @@ class TestProductionPlanWithDetailsCreateView:
         異常系: 作成権限がない場合
 
         条件:
-        - 作成権限がない場合
+        - permission.can_edit_production_plan = False
 
         結果:
         - ステータスコード 403
+        - 権限エラーメッセージを含む
         """
         client.force_authenticate(user=user_without_permission)
 
@@ -126,7 +126,7 @@ class TestProductionPlanWithDetailsCreateView:
     
     def test_create_plan_with_missing_body(self, client, user_with_permission):
         """
-        異常系: リクエストボディなし
+        異常系: リクエストボディが空の場合
 
         条件:
         - リクエストボディなし
@@ -143,13 +143,14 @@ class TestProductionPlanWithDetailsCreateView:
 
     def test_create_plan_with_invalid_organization(self, client, user_with_permission):
         """
-        異常系: 存在しない organization ID
+        異常系: organization ID が存在しない場合
 
         条件:
         - 存在しない organization ID
 
         結果:
         - ステータスコード 400
+        - 権限エラーメッセージを含む
         """
         client.force_authenticate(user=user_with_permission)
 
