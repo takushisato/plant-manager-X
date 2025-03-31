@@ -4,7 +4,7 @@ from apps.prod_flow.models.production_plan import ProductionPlan
 
 
 class ProductionPlanDetail(BaseModel):
-    production_plan = models.ForeignKey(ProductionPlan, on_delete=models.CASCADE, verbose_name="生産計画")
+    production_plan = models.ForeignKey(ProductionPlan, related_name="details", on_delete=models.CASCADE, verbose_name="生産計画")
     title = models.CharField("タイトル", max_length=255)
     planned_start_date = models.DateField("計画開始日")
     planned_end_date = models.DateField("計画終了日")

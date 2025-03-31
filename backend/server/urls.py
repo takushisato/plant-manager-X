@@ -28,6 +28,7 @@ urlpatterns = [
 
     path('api/materials/', include('apps.material.urls')),
     path('api/mail/', include('apps.mail.urls')),
+    path('api/production/', include('apps.prod_flow.urls')),
 ]
 
 if settings.DEBUG:
