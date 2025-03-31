@@ -12,7 +12,7 @@ class TestProductionPlanListView:
     """
     生産計画一覧を取得するビューのテスト
 
-    url: /api/prod_flow/plans/
+    url: /api/production/plans/
     method: GET
     """
 
@@ -51,7 +51,7 @@ class TestProductionPlanListView:
         - 生産計画一覧を取得成功
         """
         client.force_authenticate(user=authed_user_with_permission)
-        response = client.get("/api/prod_flow/plans/")
+        response = client.get("/api/production/plans/")
         assert response.status_code == status.HTTP_200_OK
         assert isinstance(response.data, list)
         assert len(response.data) == 2
@@ -71,7 +71,7 @@ class TestProductionPlanListView:
         - 権限エラーメッセージを含む
         """
         client.force_authenticate(user=authed_user_without_permission)
-        response = client.get("/api/prod_flow/plans/")
+        response = client.get("/api/production/plans/")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_get_plans_unauthenticated(self, client):
@@ -85,5 +85,5 @@ class TestProductionPlanListView:
         - ステータスコード 401
         - 生産計画一覧を取得失敗
         """
-        response = client.get("/api/prod_flow/plans/")
+        response = client.get("/api/production/plans/")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED

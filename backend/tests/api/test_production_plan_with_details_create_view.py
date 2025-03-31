@@ -13,7 +13,7 @@ class TestProductionPlanWithDetailsCreateView:
     """
     生産計画と詳細を一括で作成するビューのテスト
 
-    url: /api/prod_flow/plan_with_details/create/
+    url: /api/production/plan_with_details/create/
     method: POST
     """
 
@@ -75,7 +75,7 @@ class TestProductionPlanWithDetailsCreateView:
             ]
         }
 
-        response = client.post("/api/prod_flow/plan_with_details/create/", data=payload, format="json")
+        response = client.post("/api/production/plan_with_details/create/", data=payload, format="json")
         assert response.status_code == status.HTTP_201_CREATED
         assert ProductionPlan.objects.count() == 1
         assert ProductionPlanDetail.objects.count() == 2
@@ -101,7 +101,7 @@ class TestProductionPlanWithDetailsCreateView:
             "details": []
         }
 
-        response = client.post("/api/prod_flow/plan_with_details/create/", data=payload, format="json")
+        response = client.post("/api/production/plan_with_details/create/", data=payload, format="json")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_create_plan_unauthenticated(self, client, organization):
@@ -121,7 +121,7 @@ class TestProductionPlanWithDetailsCreateView:
             "details": []
         }
 
-        response = client.post("/api/prod_flow/plan_with_details/create/", data=payload, format="json")
+        response = client.post("/api/production/plan_with_details/create/", data=payload, format="json")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
     
     def test_create_plan_with_missing_body(self, client, user_with_permission):
@@ -136,7 +136,7 @@ class TestProductionPlanWithDetailsCreateView:
         """
         client.force_authenticate(user=user_with_permission)
 
-        response = client.post("/api/prod_flow/plan_with_details/create/", data={}, format="json")
+        response = client.post("/api/production/plan_with_details/create/", data={}, format="json")
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "organization" in response.data
@@ -161,7 +161,7 @@ class TestProductionPlanWithDetailsCreateView:
             "details": []
         }
 
-        response = client.post("/api/prod_flow/plan_with_details/create/", data=payload, format="json")
+        response = client.post("/api/production/plan_with_details/create/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "organization" in response.data
