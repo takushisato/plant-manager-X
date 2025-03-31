@@ -4,7 +4,7 @@ from rest_framework import status, permissions
 from drf_spectacular.utils import extend_schema
 from apps.prod_flow.serializer import ProductionPlanWithDetailsSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
-from apps.prod_flow.common import check_prod_flow_access_permission
+from apps.prod_flow.common import check_prod_flow_edit_permission
 from apps.prod_flow.models.production_plan import ProductionPlan
 from django.shortcuts import get_object_or_404
 
@@ -19,7 +19,7 @@ class ProductionPlanWithDetailsUpdateView(APIView):
         description="生産計画と詳細を一括更新"
     )
     def put(self, request, pk):
-        check_prod_flow_access_permission(request)
+        check_prod_flow_edit_permission(request)
 
         plan = get_object_or_404(ProductionPlan, pk=pk, deleted_at__isnull=True)
 
