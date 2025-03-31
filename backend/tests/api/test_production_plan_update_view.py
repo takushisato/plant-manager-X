@@ -1,4 +1,5 @@
 import pytest
+from django.utils import timezone
 from rest_framework.test import APIClient
 from rest_framework import status
 from tests.factory.user_factory import UserFactory
@@ -34,6 +35,18 @@ class TestProductionPlanUpdateView:
         return ProductionPlanDetailFactory.create_batch(2, production_plan=plan)
 
     def test_update_success(self, client, authed_user, plan, details):
+        """
+        正常系: 生産計画を更新する
+
+        条件:
+        - 生産計画が存在する
+        - 生産計画に詳細データが存在する
+
+        結果:
+        - ステータスコード 200
+        - 生産計画が更新される
+        - 生産計画の詳細データが更新される
+        """ 
         client.force_authenticate(user=authed_user)
 
         payload = {
@@ -70,10 +83,30 @@ class TestProductionPlanUpdateView:
         assert len(response.data["details"]) == 2
 
     def test_unauthenticated_user_cannot_update(self, client, plan):
+        """
+        異常系: 未認証
+
+        条件:
+        - 未認証
+
+        結果:
+        - ステータスコード 401
+        - 生産計画が更新されない
+        """
         response = client.put(f"/api/production/plans/{plan.id}/update/", data={}, format="json")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_user_without_permission_cannot_update(self, client, plan):
+        """
+        異常系: 編集権限がない
+
+        条件:
+        - 編集権限がない
+
+        結果:
+        - ステータスコード 403
+        - 生産計画が更新されない
+        """
         user = UserFactory()
         PermissionFactory(user=user, can_edit_production_plan=False)
         client.force_authenticate(user=user)
@@ -82,6 +115,16 @@ class TestProductionPlanUpdateView:
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_invalid_data(self, client, authed_user, plan):
+        """
+        異常系: 不正なデータ
+
+        条件:
+        - 不正なデータ
+
+        結果:
+        - ステータスコード 400
+        - 生産計画が更新されない
+        """
         client.force_authenticate(user=authed_user)
         invalid_data = {
             "plan_date": "",  # 不正な日付
@@ -90,3 +133,30 @@ class TestProductionPlanUpdateView:
 
         response = client.put(f"/api/production/plans/{plan.id}/update/", data=invalid_data, format="json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    @pytest.mark.django_db
+    def test_cannot_update_deleted_plan(self, client, authed_user, plan):
+        """
+        異常系: 論理削除された生産計画は更新できない
+
+        条件:
+        - 生産計画が論理削除されている
+
+        結果:
+        - ステータスコード 404
+        - 更新されない
+        """
+        client.force_authenticate(user=authed_user)
+        plan.deleted_at = timezone.now()
+        plan.save()
+
+        payload = {
+            "organization": authed_user.organization.id,
+            "plan_date": "2025-04-10",
+            "note": "論理削除されているので更新されないはず",
+            "details": []
+        }
+
+        response = client.put(f"/api/production/plans/{plan.id}/update/", data=payload, format="json")
+
+        assert response.status_code == status.HTTP_404_NOT_FOUND
