@@ -1,7 +1,7 @@
 from rest_framework.exceptions import PermissionDenied
 
 
-def check_trade_flow_access_permission(request):
+def check_trade_flow_view_permission(request):
     """
     受注閲覧権限チェック
     """
