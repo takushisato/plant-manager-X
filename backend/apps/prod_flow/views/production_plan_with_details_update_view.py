@@ -21,7 +21,7 @@ class ProductionPlanWithDetailsUpdateView(APIView):
     def put(self, request, pk):
         check_prod_flow_access_permission(request)
 
-        plan = get_object_or_404(ProductionPlan, pk=pk)
+        plan = get_object_or_404(ProductionPlan, pk=pk, deleted_at__isnull=True)
 
         serializer = ProductionPlanWithDetailsSerializer(plan, data=request.data)
         serializer.is_valid(raise_exception=True)
