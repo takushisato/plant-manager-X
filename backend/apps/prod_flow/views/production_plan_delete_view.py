@@ -9,7 +9,7 @@ from django.utils import timezone
 from apps.prod_flow.models.production_plan import ProductionPlan
 from apps.prod_flow.models.production_plan_detail import ProductionPlanDetail
 from apps.staff_hub.permission import HasUserPermissionObject
-from apps.prod_flow.common import check_prod_flow_access_permission
+from apps.prod_flow.common import check_prod_flow_edit_permission
 
 
 class ProductionPlanDeleteView(APIView):
@@ -21,7 +21,7 @@ class ProductionPlanDeleteView(APIView):
         responses={204: None}
     )
     def delete(self, request, pk):
-        check_prod_flow_access_permission(request)
+        check_prod_flow_edit_permission(request)
 
         plan = get_object_or_404(ProductionPlan, pk=pk)
 
