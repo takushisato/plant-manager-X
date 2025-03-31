@@ -4,7 +4,7 @@ from rest_framework import status, permissions
 from drf_spectacular.utils import extend_schema
 from apps.prod_flow.serializer import ProductionPlanWithDetailsSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
-from apps.prod_flow.common import check_prod_flow_access_permission
+from apps.prod_flow.common import check_prod_flow_edit_permission
 
 
 class ProductionPlanWithDetailsCreateView(APIView):
@@ -17,7 +17,7 @@ class ProductionPlanWithDetailsCreateView(APIView):
         description="生産計画と詳細を一括で作成"
     )
     def post(self, request):
-        check_prod_flow_access_permission(request)
+        check_prod_flow_edit_permission(request)
 
         serializer = ProductionPlanWithDetailsSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
