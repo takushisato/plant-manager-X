@@ -18,6 +18,6 @@ class OrderListView(APIView):
     )
     def get(self, request):
         check_trade_flow_view_permission(request)
-        orders = Order.objects.select_related("customer").all()
+        orders = Order.objects.select_related("customer").filter(deleted_at__isnull=True)
         serializer = OrderListSerializer(orders, many=True)
         return Response(serializer.data)
