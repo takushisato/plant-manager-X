@@ -24,3 +24,8 @@ class DefectListSerializer(serializers.ModelSerializer):
             "id", "create_user_name", "order_number",
             "occurred_at", "title"
         ]
+
+class DefectDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Defect
+        fields = "__all__"
