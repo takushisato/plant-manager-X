@@ -18,6 +18,6 @@ class DefectListView(APIView):
     )
     def get(self, request):
         check_bug_note_view_permission(request)
-        defects = Defect.objects.select_related("order", "create_user").all()
+        defects = Defect.objects.select_related("order", "create_user").filter(deleted_at__isnull=True)
         serializer = DefectListSerializer(defects, many=True)
         return Response(serializer.data)

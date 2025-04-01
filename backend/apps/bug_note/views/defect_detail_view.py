@@ -20,6 +20,6 @@ class DefectDetailView(APIView):
     )
     def get(self, request, pk):
         check_bug_note_view_permission(request)
-        defect = get_object_or_404(Defect, pk=pk)
+        defect = get_object_or_404(Defect, pk=pk, deleted_at__isnull=True)
         serializer = DefectDetailSerializer(defect)
         return Response(serializer.data, status=status.HTTP_200_OK)
