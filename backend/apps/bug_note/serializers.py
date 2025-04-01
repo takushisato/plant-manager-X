@@ -29,3 +29,11 @@ class DefectDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Defect
         fields = "__all__"
+
+class DefectUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Defect
+        fields = [
+            "order", "occurred_at", "title", "defect_detail",
+            "submission", "submission_deadline"
+        ]
