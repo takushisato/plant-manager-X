@@ -30,6 +30,7 @@ urlpatterns = [
     path('api/mail/', include('apps.mail.urls')),
     path('api/production/', include('apps.prod_flow.urls')),
     path('api/trade/', include('apps.trade_flow.urls')),
+    path('api/bug_note/', include('apps.bug_note.urls')),
 ]
 
 if settings.DEBUG:
