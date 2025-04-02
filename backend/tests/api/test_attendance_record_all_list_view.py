@@ -9,7 +9,13 @@ from tests.factory.work_pattern_factory import WorkPatternFactory
 
 
 @pytest.mark.django_db
-class TestMonthlyAttendanceRecordAllListView:
+class TestAttendanceRecordAllListView:
+    """
+    全ての勤怠記録を取得するAPIのテスト
+
+    URL: /api/attendance/records/all_list/
+    Method: GET
+    """
 
     @pytest.fixture
     def client(self):
@@ -35,27 +41,27 @@ class TestMonthlyAttendanceRecordAllListView:
 
     def test_successful_retrieval(self, client, admin_user, setup_records):
         client.force_authenticate(user=admin_user)
-        response = client.get("/api/attendance/records/all/list/?month=2025-04")
+        response = client.get("/api/attendance/records/all_list/?month=2025-04")
         assert response.status_code == status.HTTP_200_OK
         assert len(response.data) == 3
 
     def test_missing_month_param(self, client, admin_user):
         client.force_authenticate(user=admin_user)
-        response = client.get("/api/attendance/records/all/list/")
+        response = client.get("/api/attendance/records/all_list/")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "month パラメータは必須です。" in str(response.data)
 
     def test_invalid_month_format(self, client, admin_user):
         client.force_authenticate(user=admin_user)
-        response = client.get("/api/attendance/records/all/list/?month=2025/04")
+        response = client.get("/api/attendance/records/all_list/?month=2025/04")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "無効な月の形式です" in str(response.data)
 
     def test_forbidden_user(self, client, non_admin_user):
         client.force_authenticate(user=non_admin_user)
-        response = client.get("/api/attendance/records/all/list/?month=2025-04")
+        response = client.get("/api/attendance/records/all_list/?month=2025-04")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_unauthenticated_user(self, client):
-        response = client.get("/api/attendance/records/all/list/?month=2025-04")
+        response = client.get("/api/attendance/records/all_list/?month=2025-04")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED

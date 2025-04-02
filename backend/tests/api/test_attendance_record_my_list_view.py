@@ -9,11 +9,11 @@ from tests.factory.record_factory import RecordFactory
 
 
 @pytest.mark.django_db
-class TestMonthlyAttendanceRecordListView:
+class TestAttendanceRecordMyListView:
     """
     月次勤怠記録一覧APIのテスト
 
-    URL: /api/attendance/records/list/
+    URL: /api/attendance/records/my_list/
     Method: GET
     """
 
@@ -49,7 +49,7 @@ class TestMonthlyAttendanceRecordListView:
         - 200ステータスコードが返される
         """
         client.force_authenticate(user=authed_user)
-        response = client.get("/api/attendance/records/list/?month=2025-04")
+        response = client.get("/api/attendance/records/my_list/?month=2025-04")
 
         assert response.status_code == status.HTTP_200_OK
         assert len(response.data) == 3
@@ -68,7 +68,7 @@ class TestMonthlyAttendanceRecordListView:
         """
 
         client.force_authenticate(user=authed_user)
-        response = client.get("/api/attendance/records/list/")
+        response = client.get("/api/attendance/records/my_list/")
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "month" in response.data["detail"]
@@ -86,7 +86,7 @@ class TestMonthlyAttendanceRecordListView:
         """
 
         client.force_authenticate(user=authed_user)
-        response = client.get("/api/attendance/records/list/?month=invalid")
+        response = client.get("/api/attendance/records/my_list/?month=invalid")
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "無効な月の形式" in response.data["detail"]
@@ -103,7 +103,7 @@ class TestMonthlyAttendanceRecordListView:
         - エラーメッセージが表示される
         """
 
-        response = client.get("/api/attendance/records/list/?month=2025-04")
+        response = client.get("/api/attendance/records/my_list/?month=2025-04")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_no_records_found(self, client, authed_user):
@@ -118,6 +118,6 @@ class TestMonthlyAttendanceRecordListView:
         """
 
         client.force_authenticate(user=authed_user)
-        response = client.get("/api/attendance/records/list/?month=2025-03")
+        response = client.get("/api/attendance/records/my_list/?month=2025-03")
         assert response.status_code == status.HTTP_200_OK
         assert response.data == []

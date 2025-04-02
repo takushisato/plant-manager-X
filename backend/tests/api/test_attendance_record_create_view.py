@@ -11,11 +11,11 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestRecordCreateView:
+class TestAttendanceRecordCreateView:
     """
     勤怠記録作成APIのテスト
 
-    URL: /api/attendance/record/create/
+    URL: /api/attendance/records/create/
     Method: POST
     """
 
@@ -61,7 +61,7 @@ class TestRecordCreateView:
             "note": "勤務記録テスト"
         }
 
-        response = client.post("/api/attendance/record/create/", data=payload, format="json")
+        response = client.post("/api/attendance/records/create/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_201_CREATED
         assert Record.objects.filter(user=authed_user, work_date=date.today()).exists()
@@ -90,7 +90,7 @@ class TestRecordCreateView:
             "work_status": "present"
         }
 
-        response = client.post("/api/attendance/record/create/", data=payload, format="json")
+        response = client.post("/api/attendance/records/create/", data=payload, format="json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "この勤務日はすでに記録されています。" in str(response.data)
 
@@ -116,7 +116,7 @@ class TestRecordCreateView:
             "work_status": "present"
         }
 
-        response = client.post("/api/attendance/record/create/", data=payload, format="json")
+        response = client.post("/api/attendance/records/create/", data=payload, format="json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "退勤時間は出勤時間より後である必要があります。" in str(response.data)
 
@@ -142,7 +142,7 @@ class TestRecordCreateView:
             "work_status": "present"
         }
 
-        response = client.post("/api/attendance/record/create/", data=payload, format="json")
+        response = client.post("/api/attendance/records/create/", data=payload, format="json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "勤務時間が勤務形態の勤務時間外です。" in str(response.data)
 
@@ -166,5 +166,5 @@ class TestRecordCreateView:
             "work_status": "present"
         }
 
-        response = client.post("/api/attendance/record/create/", data=payload, format="json")
+        response = client.post("/api/attendance/records/create/", data=payload, format="json")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
