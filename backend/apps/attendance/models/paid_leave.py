@@ -3,9 +3,6 @@ from apps.utility.models import BaseModel
 from apps.staff_hub.models import User
 
 class PaidLeave(BaseModel):
-    """
-    有給休暇モデル
-    """
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="ユーザー")
     paid_leave_days = models.IntegerField("有給休暇日数", default=0)
     note = models.CharField("備考", max_length=1000, null=True, blank=True)
