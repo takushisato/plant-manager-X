@@ -5,7 +5,7 @@ from apps.staff_hub.models import User
 from apps.utility.enums import WorkStatus
 
 
-class AttendanceRecord(BaseModel):
+class Record(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="ユーザー")
     work_pattern = models.ForeignKey(WorkPattern, on_delete=models.CASCADE, verbose_name="勤務形態")
     work_date = models.DateField("勤務日")

@@ -1,8 +1,8 @@
 import pytest
 from datetime import date, time
-from apps.attendance.models.attendance_record import AttendanceRecord
+from apps.attendance.models.record import Record
 from apps.utility.enums import WorkStatus
-from tests.factory.attendance_record_factory import AttendanceRecordFactory
+from tests.factory.record_factory import RecordFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.work_pattern_factory import WorkPatternFactory
 
@@ -10,9 +10,9 @@ from tests.factory.work_pattern_factory import WorkPatternFactory
 @pytest.mark.django_db
 def test_create_attendance_record_with_factory():
     """
-    AttendanceRecordFactory で正常に作成されることを確認
+    RecordFactory で正常に作成されることを確認
     """
-    record = AttendanceRecordFactory()
+    record = RecordFactory()
     assert record.user is not None
     assert record.work_pattern is not None
     assert isinstance(record.work_date, date)
@@ -30,7 +30,7 @@ def test_attendance_record_str_method():
     """
     user = UserFactory(name="佐藤一郎")
     pattern = WorkPatternFactory(work_pattern_name="日勤")
-    record = AttendanceRecord.objects.create(
+    record = Record.objects.create(
         user=user,
         work_pattern=pattern,
         work_date=date(2025, 4, 1),

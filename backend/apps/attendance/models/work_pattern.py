@@ -3,9 +3,6 @@ from apps.utility.models import BaseModel
 
 
 class WorkPattern(BaseModel):
-    """
-    勤務形態モデル
-    """
     work_pattern_name = models.CharField("勤務形態名", max_length=255)
     start_time = models.TimeField("勤務開始時間")
     end_time = models.TimeField("勤務終了時間")

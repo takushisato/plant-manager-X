@@ -1,14 +1,14 @@
 import factory
 from datetime import date, time
-from apps.attendance.models.attendance_record import AttendanceRecord
+from apps.attendance.models.record import Record
 from apps.utility.enums import WorkStatus
 from .user_factory import UserFactory
 from .work_pattern_factory import WorkPatternFactory
 
 
-class AttendanceRecordFactory(factory.django.DjangoModelFactory):
+class RecordFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = AttendanceRecord
+        model = Record
 
     user = factory.SubFactory(UserFactory)
     work_pattern = factory.SubFactory(WorkPatternFactory)

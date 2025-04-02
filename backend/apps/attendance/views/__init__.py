@@ -1,0 +1,4 @@
+from apps.attendance.views.attendance_record_create_view import AttendanceRecordCreateView
+from apps.attendance.views.attendance_record_my_list_view import AttendanceRecordMyListView
+from apps.attendance.views.attendance_record_all_list_view import AttendanceRecordAllListView
+from apps.attendance.views.attendance_record_update_view import AttendanceRecordUpdateView
