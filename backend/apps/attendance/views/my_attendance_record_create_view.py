@@ -22,7 +22,7 @@ class MyAttendanceRecordCreateView(APIView):
     def post(self, request):
         check_attendance_own_edit_permission(request)
 
-        serializer = AttendanceRecordCreateSerializer(data=request.data)
+        serializer = AttendanceRecordCreateSerializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
         attendance = serializer.save(user=request.user)
 
