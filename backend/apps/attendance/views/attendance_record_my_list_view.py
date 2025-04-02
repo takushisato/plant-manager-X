@@ -10,7 +10,7 @@ from apps.attendance.common import check_attendance_own_edit_permission
 from rest_framework import status
 
 
-class MonthlyAttendanceRecordListView(APIView):
+class AttendanceRecordMyListView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(

@@ -11,7 +11,7 @@ from apps.attendance.common import check_attendance_all_edit_permission
 from rest_framework.exceptions import ValidationError
 
 
-class MonthlyAttendanceRecordAllListView(APIView):
+class AttendanceRecordAllListView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(
