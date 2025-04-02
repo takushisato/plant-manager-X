@@ -3,8 +3,8 @@ from apps.attendance.views import RecordCreateView, MonthlyAttendanceRecordListV
 
 
 urlpatterns = [
-    path("records/list/", MonthlyAttendanceRecordListView.as_view(), name="attendance-record-list"),
-    path("record/create/", RecordCreateView.as_view(), name="attendance-record-create"),
+    path("records/create/", RecordCreateView.as_view(), name="attendance-record-create"),
     path("records/<int:pk>/update/", RecordUpdateView.as_view(), name="attendance-record-update"),
-    path("records/all/list/", MonthlyAttendanceRecordAllListView.as_view(), name="attendance-record-all-list"),
+    path("records/my_list/", MonthlyAttendanceRecordListView.as_view(), name="attendance-record-my-list"),
+    path("records/all_list/", MonthlyAttendanceRecordAllListView.as_view(), name="attendance-record-all-list"),
 ]
