@@ -1,1 +1,2 @@
 from apps.attendance.views.attendance_record_create_view import RecordCreateView
+from apps.attendance.views.monthly_attendance_record_list_view import MonthlyAttendanceRecordListView
