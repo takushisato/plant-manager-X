@@ -5,7 +5,7 @@ from datetime import time, date
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 from tests.factory.work_pattern_factory import WorkPatternFactory
-from tests.factory.attendance_record_factory import RecordFactory
+from tests.factory.record_factory import RecordFactory
 
 
 @pytest.mark.django_db
