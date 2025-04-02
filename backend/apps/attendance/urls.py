@@ -1,7 +1,7 @@
 from django.urls import path
-from apps.attendance.views import AttendanceRecordCreateView
+from apps.attendance.views import RecordCreateView
 
 
 urlpatterns = [
-    path("record/create/", AttendanceRecordCreateView.as_view(), name="attendance-record-create"),
+    path("record/create/", RecordCreateView.as_view(), name="attendance-record-create"),
 ]

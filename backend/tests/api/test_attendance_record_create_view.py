@@ -2,8 +2,8 @@ import pytest
 from rest_framework.test import APIClient
 from rest_framework import status
 from datetime import date, time
-from apps.attendance.models.attendance_record import AttendanceRecord
-from tests.factory.attendance_record_factory import AttendanceRecordFactory
+from apps.attendance.models.record import Record
+from tests.factory.attendance_record_factory import RecordFactory
 from tests.factory.work_pattern_factory import WorkPatternFactory
 from tests.factory.break_setting_factory import BreakSettingFactory
 from tests.factory.user_factory import UserFactory
@@ -11,7 +11,7 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestAttendanceRecordCreateView:
+class TestRecordCreateView:
 
     @pytest.fixture
     def client(self):
@@ -58,7 +58,7 @@ class TestAttendanceRecordCreateView:
         response = client.post("/api/attendance/record/create/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_201_CREATED
-        assert AttendanceRecord.objects.filter(user=authed_user, work_date=date.today()).exists()
+        assert Record.objects.filter(user=authed_user, work_date=date.today()).exists()
 
     def test_duplicate_record_error(self, client, authed_user, work_pattern):
         """
@@ -72,7 +72,7 @@ class TestAttendanceRecordCreateView:
         - エラーメッセージが表示される
         """
 
-        AttendanceRecordFactory(user=authed_user, work_date=date.today())
+        RecordFactory(user=authed_user, work_date=date.today())
 
         client.force_authenticate(user=authed_user)
 

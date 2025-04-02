@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from apps.attendance.models.attendance_record import AttendanceRecord
+from apps.attendance.models.record import Record
 
 
-class AttendanceRecordCreateSerializer(serializers.ModelSerializer):
+class RecordCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AttendanceRecord
+        model = Record
         exclude = ['user', 'work_minutes', 'break_minutes']

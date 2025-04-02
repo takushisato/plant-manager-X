@@ -4,8 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from drf_spectacular.utils import extend_schema
 
-from apps.attendance.models.attendance_record import AttendanceRecord
-from apps.attendance.serializers import AttendanceRecordCreateSerializer
+from apps.attendance.models.record import Record
+from apps.attendance.serializers import RecordCreateSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.attendance.common import check_attendance_own_edit_permission
 from apps.attendance.models.break_setting import BreakSetting
@@ -13,19 +13,19 @@ from datetime import datetime
 from rest_framework.exceptions import ValidationError
 
 
-class AttendanceRecordCreateView(APIView):
+class RecordCreateView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(
-        request=AttendanceRecordCreateSerializer,
-        responses={201: AttendanceRecordCreateSerializer},
+        request=RecordCreateSerializer,
+        responses={201: RecordCreateSerializer},
         tags=["attendance"],
         description="ログインユーザーの勤怠記録を新規作成"
     )
     def post(self, request):
         check_attendance_own_edit_permission(request)
 
-        serializer = AttendanceRecordCreateSerializer(data=request.data)
+        serializer = RecordCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
@@ -44,7 +44,7 @@ class AttendanceRecordCreateView(APIView):
         net_work_minutes = _calculate_net_work_minutes(work_duration, total_break)
 
         # 勤怠レコードの作成
-        attendance = AttendanceRecord.objects.create(
+        attendance = Record.objects.create(
             user=user,
             work_pattern=work_pattern,
             work_date=work_date,
@@ -56,7 +56,7 @@ class AttendanceRecordCreateView(APIView):
             note=data.get("note", "")
         )
 
-        return Response(AttendanceRecordCreateSerializer(attendance).data, status=status.HTTP_201_CREATED)
+        return Response(RecordCreateSerializer(attendance).data, status=status.HTTP_201_CREATED)
     
 def _validate_clock_order(clock_in, clock_out):
     """
@@ -99,5 +99,5 @@ def _validate_duplicate_record(user, work_date):
     """
     同じ勤務日に同じユーザーが勤怠記録を作成していないかをチェック
     """
-    if AttendanceRecord.objects.filter(user=user, work_date=work_date, deleted_at__isnull=True).exists():
+    if Record.objects.filter(user=user, work_date=work_date, deleted_at__isnull=True).exists():
         raise ValidationError("この勤務日はすでに記録されています。")
