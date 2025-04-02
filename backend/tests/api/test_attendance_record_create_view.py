@@ -12,6 +12,12 @@ from tests.factory.permission_factory import PermissionFactory
 
 @pytest.mark.django_db
 class TestRecordCreateView:
+    """
+    勤怠記録作成APIのテスト
+
+    URL: /api/attendance/record/create/
+    Method: POST
+    """
 
     @pytest.fixture
     def client(self):
