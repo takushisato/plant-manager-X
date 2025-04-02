@@ -13,7 +13,7 @@ from datetime import datetime
 from rest_framework.exceptions import ValidationError
 
 
-class MyAttendanceRecordCreateView(APIView):
+class AttendanceRecordCreateView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(
