@@ -23,12 +23,3 @@ class RecordUpdateSerializer(serializers.ModelSerializer):
             "work_pattern", "work_date", "clock_in_time", "clock_out_time",
             "work_status", "note"
         ]
-
-    def validate(self, attrs):
-        clock_in = attrs.get("clock_in_time", self.instance.clock_in_time)
-        clock_out = attrs.get("clock_out_time", self.instance.clock_out_time)
-
-        if clock_out <= clock_in:
-            raise serializers.ValidationError("退勤時間は出勤時間より後である必要があります。")
-
-        return attrs
