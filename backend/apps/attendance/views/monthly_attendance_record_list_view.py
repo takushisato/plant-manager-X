@@ -1,14 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from django.utils.dateparse import parse_date
-from django.db.models import Q
 from datetime import datetime
 from drf_spectacular.utils import extend_schema
 from apps.attendance.models.record import Record
 from apps.attendance.serializers import RecordListSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.attendance.common import check_attendance_own_edit_permission
+from rest_framework import status
 
 
 class MonthlyAttendanceRecordListView(APIView):
@@ -22,20 +21,18 @@ class MonthlyAttendanceRecordListView(APIView):
     def get(self, request):
         check_attendance_own_edit_permission(request)
 
-        # ?month=2025-04 の形式で指定
         month_str = request.query_params.get("month")
-        if not month_str:
-            return Response({"detail": "クエリパラメータ `month` を指定してください（例: 2025-04）"}, status=400)
+        error_response = _validate_month_param_exists(month_str)
+        if error_response:
+            return error_response
 
         try:
-            year, month = map(int, month_str.split("-"))
-            start_date = datetime(year, month, 1).date()
-            if month == 12:
-                end_date = datetime(year + 1, 1, 1).date()
-            else:
-                end_date = datetime(year, month + 1, 1).date()
+            start_date, end_date = _get_month_range_from_str(month_str)
         except ValueError:
-            return Response({"detail": "無効な月の形式です。yyyy-mm 形式で指定してください。"}, status=400)
+            return Response(
+                {"detail": "無効な月の形式です。yyyy-mm 形式で指定してください。"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         records = Record.objects.filter(
             user=request.user,
@@ -45,4 +42,26 @@ class MonthlyAttendanceRecordListView(APIView):
         ).order_by("work_date")
 
         serializer = RecordListSerializer(records, many=True)
-        return Response(serializer.data, status=200)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+def _validate_month_param_exists(month_str):
+    """
+    月のパラメータが存在するかどうかをチェックする
+    """
+    if not month_str:
+        return Response(
+            {"detail": "month パラメータは必須です。"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    return None
+
+
+def _get_month_range_from_str(month_str):
+    """
+    "2025-04" のような文字列から (start_date, end_date) の日付ペアを返す
+    """
+    year, month = map(int, month_str.split("-"))
+    start_date = datetime(year, month, 1).date()
+    end_date = datetime(year + 1, 1, 1).date() if month == 12 else datetime(year, month + 1, 1).date()
+    return start_date, end_date
