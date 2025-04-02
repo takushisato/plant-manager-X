@@ -1,0 +1,1 @@
+from apps.attendance.views.my_attendance_record_create_view import MyAttendanceRecordCreateView
