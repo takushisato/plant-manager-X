@@ -8,7 +8,7 @@ from apps.attendance.models.record import Record
 from apps.attendance.serializers import RecordListSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.attendance.common import check_attendance_all_edit_permission
-from django.core.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError
 
 
 class MonthlyAttendanceRecordAllListView(APIView):
