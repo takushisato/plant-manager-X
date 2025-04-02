@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 
 urlpatterns = [
+    # 管理者ページ
     path('admin/', admin.site.urls),
 
     # 認証
@@ -26,11 +27,13 @@ urlpatterns = [
     path('api/auth/', include('djoser.urls.authtoken')),
     path('api/auth/', include('djoser.urls')),
 
+    # apps
     path('api/materials/', include('apps.material.urls')),
     path('api/mail/', include('apps.mail.urls')),
     path('api/production/', include('apps.prod_flow.urls')),
     path('api/trade/', include('apps.trade_flow.urls')),
     path('api/bug_note/', include('apps.bug_note.urls')),
+    path('api/attendance/', include('apps.attendance.urls')),
 ]
 
 if settings.DEBUG:
