@@ -40,28 +40,79 @@ class TestAttendanceRecordAllListView:
         return RecordFactory.create_batch(3, user=admin_user, work_pattern=work_pattern, work_date=base_date.date())
 
     def test_successful_retrieval(self, client, admin_user, setup_records):
+        """
+        正常系: 全ての勤怠記録を取得できる
+
+        条件:
+        - 管理者ユーザー
+        - 指定された月の勤怠記録が存在する
+        
+        結果:
+        - 200ステータスコードが返される
+        - 勤怠記録の数が正しい
+        """
         client.force_authenticate(user=admin_user)
         response = client.get("/api/attendance/records/all_list/?month=2025-04")
         assert response.status_code == status.HTTP_200_OK
         assert len(response.data) == 3
 
     def test_missing_month_param(self, client, admin_user):
+        """
+        異常系: 月のパラメータが指定されていない場合、エラーが発生する
+
+        条件:
+        - 月のパラメータが指定されていない
+        
+        結果:
+        - 400エラーが発生する
+        - エラーメッセージが表示される
+        """
         client.force_authenticate(user=admin_user)
         response = client.get("/api/attendance/records/all_list/")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "month パラメータは必須です。" in str(response.data)
 
     def test_invalid_month_format(self, client, admin_user):
+        """
+        異常系: 月のパラメータが無効な形式の場合、エラーが発生する
+
+        条件:
+        - 月のパラメータが無効な形式の場合
+        
+        結果:
+        - 400エラーが発生する
+        - エラーメッセージが表示される
+        """
         client.force_authenticate(user=admin_user)
         response = client.get("/api/attendance/records/all_list/?month=2025/04")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "無効な月の形式です" in str(response.data)
 
     def test_forbidden_user(self, client, non_admin_user):
+        """
+        異常系: 非管理者ユーザーが全ての勤怠記録を取得しようとした場合、エラーが発生する
+
+        条件:
+        - 非管理者ユーザー
+        
+        結果:
+        - 403エラーが発生する
+        - エラーメッセージが表示される
+        """ 
         client.force_authenticate(user=non_admin_user)
         response = client.get("/api/attendance/records/all_list/?month=2025-04")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_unauthenticated_user(self, client):
+        """
+        異常系: 認証されていないユーザーが全ての勤怠記録を取得しようとした場合、エラーが発生する
+
+        条件:
+        - 認証されていないユーザー
+        
+        結果:
+        - 401エラーが発生する
+        - エラーメッセージが表示される
+        """
         response = client.get("/api/attendance/records/all_list/?month=2025-04")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED

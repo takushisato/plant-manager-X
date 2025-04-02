@@ -12,7 +12,7 @@ from rest_framework.exceptions import ValidationError
 from apps.attendance.common import check_attendance_own_edit_permission
 
 
-class RecordUpdateView(APIView):
+class AttendanceRecordUpdateView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(
