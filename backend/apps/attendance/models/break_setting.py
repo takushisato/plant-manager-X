@@ -4,9 +4,6 @@ from apps.attendance.models.work_pattern import WorkPattern
 
 
 class BreakSetting(BaseModel):
-    """
-    休憩時間設定モデル
-    """
     work_pattern = models.ForeignKey(WorkPattern, on_delete=models.CASCADE, verbose_name="勤務形態")
     start_time = models.TimeField("休憩開始時間")
     end_time = models.TimeField("休憩終了時間")
