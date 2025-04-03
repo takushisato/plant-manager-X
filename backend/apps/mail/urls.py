@@ -11,5 +11,5 @@ urlpatterns = [
     path("groups/create/", MailGroupCreateView.as_view(), name="mailgroup-create"),
     path("groups/<int:pk>/delete/", MailGroupDeleteView.as_view(), name="mail-group-delete"),
     path("groups/details/bulk-create/", MailGroupDetailBulkCreateView.as_view(), name="mail-group-detail-bulk-create"),
-    path("send/", MailSendView.as_view(), name="mail-send"),
+    path("groups/send/", MailSendView.as_view(), name="mail-send"),
 ]

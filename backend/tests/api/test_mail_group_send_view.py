@@ -12,11 +12,11 @@ from apps.utility.const import MESSAGES
 
 
 @pytest.mark.django_db
-class TestMailSendView:
+class TestMailGroupSendView:
     """
     メール送信APIのテスト
 
-    URL: /api/mail/send/
+    URL: /api/mail/groups/send/
     METHOD: POST
     """
 
@@ -64,7 +64,7 @@ class TestMailSendView:
             "message": "これはテストメールです。"
         }
 
-        response = client.post("/api/mail/send/", data=data, format="json")
+        response = client.post("/api/mail/groups/send/", data=data, format="json")
 
         assert response.status_code == status.HTTP_200_OK
         assert MESSAGES["SEND_MAIL"] in response.data["detail"]
@@ -93,7 +93,7 @@ class TestMailSendView:
             "message": "送信できません"
         }
 
-        response = client.post("/api/mail/send/", data=data, format="json")
+        response = client.post("/api/mail/groups/send/", data=data, format="json")
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
         assert "送信権限" in response.data["detail"]
@@ -119,7 +119,7 @@ class TestMailSendView:
             "message": "送信できません"
         }
 
-        response = client.post("/api/mail/send/", data=data, format="json")
+        response = client.post("/api/mail/groups/send/", data=data, format="json")
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "メールアドレスが設定されていません" in str(response.data)
@@ -142,6 +142,6 @@ class TestMailSendView:
             "message": "送信できません"
         }
 
-        response = client.post("/api/mail/send/", data=data, format="json")
+        response = client.post("/api/mail/groups/send/", data=data, format="json")
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
