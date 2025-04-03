@@ -1,7 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from datetime import datetime
 from drf_spectacular.utils import extend_schema
 from apps.attendance.models.record import Record
 from apps.attendance.serializers import RecordListSerializer
@@ -35,12 +34,7 @@ class AttendanceRecordMyListView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        records = Record.objects.filter(
-            user=request.user,
-            work_date__gte=start_date,
-            work_date__lt=end_date,
-            deleted_at__isnull=True
-        ).order_by("work_date")
+        records = Record.get_records_by_user_and_month(request.user, start_date, end_date)
 
         serializer = RecordListSerializer(records, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
