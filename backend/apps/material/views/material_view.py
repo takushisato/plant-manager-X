@@ -12,7 +12,7 @@ from drf_spectacular.utils import extend_schema
     description="資材一覧を取得します。",
     tags=["materials"]
 )
-class MaterialListView(generics.ListAPIView):
+class MaterialView(generics.ListAPIView):
     queryset = Material.objects.all()
     serializer_class = MaterialSerializer
     permission_classes = [permissions.IsAuthenticated, HasUserPermissionObject]

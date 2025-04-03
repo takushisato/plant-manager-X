@@ -1,3 +1,3 @@
 from .use_stock_view import UseStockView
-from .material_list_view import MaterialListView
+from .material_view import MaterialView
 from .receive_stock_view import ReceiveStockView
