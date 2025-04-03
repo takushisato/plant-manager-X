@@ -31,3 +31,11 @@ class MailGroupDetail(BaseModel):
             for user in users
         ]
         return cls.objects.bulk_create(instances)
+    
+    
+    @classmethod
+    def get_mail_group_details_by_mail_group(cls, mail_group):
+        """
+        指定されたメールグループに紐づくメールグループ詳細を取得する
+        """
+        return cls.objects.filter(mail_group_detail=mail_group)
