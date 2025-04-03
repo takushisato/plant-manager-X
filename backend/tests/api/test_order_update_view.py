@@ -13,7 +13,7 @@ class TestOrderUpdateView:
     """
     注文情報を更新するビューのテスト
 
-    url: /api/trade/orders/<int:pk>/update/
+    url: /api/trade/orders/<int:pk>/
     method: PUT
     """
 
@@ -58,7 +58,7 @@ class TestOrderUpdateView:
             "deadline": "2025-04-30",
             "note": "特記事項なし"
         }
-        response = client.put(f"/api/trade/orders/{order.id}/update/", data=payload, format="json")
+        response = client.put(f"/api/trade/orders/{order.id}/", data=payload, format="json")
         assert response.status_code == status.HTTP_200_OK
         assert Order.objects.count() == 1
         assert response.data["order_number"] == "ORD-001"
@@ -83,7 +83,7 @@ class TestOrderUpdateView:
             "price": 3000,
             "deadline": "2025-04-20",
         }
-        response = client.put(f"/api/trade/orders/{order.id}/update/", data=payload, format="json")
+        response = client.put(f"/api/trade/orders/{order.id}/", data=payload, format="json")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_update_order_forbidden(self, client, customer, order):
@@ -109,7 +109,7 @@ class TestOrderUpdateView:
             "price": 1500,
             "deadline": "2025-04-15",
         }
-        response = client.put(f"/api/trade/orders/{order.id}/update/", data=payload, format="json")
+        response = client.put(f"/api/trade/orders/{order.id}/", data=payload, format="json")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_update_order_invalid_data(self, client, authed_user, customer, order):
@@ -133,5 +133,5 @@ class TestOrderUpdateView:
             "price": "free",
             "deadline": "not-a-date",
         }
-        response = client.put(f"/api/trade/orders/{order.id}/update/", data=payload, format="json")
+        response = client.put(f"/api/trade/orders/{order.id}/", data=payload, format="json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST

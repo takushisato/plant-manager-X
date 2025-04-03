@@ -13,7 +13,7 @@ class TestOrderDeleteView:
     """
     注文削除APIのテスト
 
-    url: /api/trade/orders/{id}/delete/
+    url: /api/trade/orders/{id}/
     method: DELETE
     """
 
@@ -51,7 +51,7 @@ class TestOrderDeleteView:
         """
         client.force_authenticate(user=authed_user_with_permission)
 
-        response = client.delete(f"/api/trade/orders/{order.id}/delete/")
+        response = client.delete(f"/api/trade/orders/{order.id}/")
 
         order.refresh_from_db()
 
@@ -70,7 +70,7 @@ class TestOrderDeleteView:
         - ステータスコード401
         - 注文が論理削除されない
         """
-        response = client.delete(f"/api/trade/orders/{order.id}/delete/")
+        response = client.delete(f"/api/trade/orders/{order.id}/")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_delete_forbidden(self, client, authed_user_without_permission, order):
@@ -87,7 +87,7 @@ class TestOrderDeleteView:
         """
         client.force_authenticate(user=authed_user_without_permission)
 
-        response = client.delete(f"/api/trade/orders/{order.id}/delete/")
+        response = client.delete(f"/api/trade/orders/{order.id}/")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_delete_already_deleted(self, client, authed_user_with_permission, order):
@@ -107,5 +107,5 @@ class TestOrderDeleteView:
 
         client.force_authenticate(user=authed_user_with_permission)
 
-        response = client.delete(f"/api/trade/orders/{order.id}/delete/")
+        response = client.delete(f"/api/trade/orders/{order.id}/")
         assert response.status_code == status.HTTP_404_NOT_FOUND
