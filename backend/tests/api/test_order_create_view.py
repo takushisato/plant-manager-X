@@ -12,7 +12,7 @@ class TestOrderCreateView:
     """
     注文情報を新規作成するビューのテスト
 
-    url: /api/trade/orders/create/
+    url: /api/trade/orders/
     method: POST
     """
 
@@ -53,7 +53,7 @@ class TestOrderCreateView:
             "deadline": "2025-04-30",
             "note": "特記事項なし"
         }
-        response = client.post("/api/trade/orders/create/", data=payload, format="json")
+        response = client.post("/api/trade/orders/", data=payload, format="json")
         assert response.status_code == status.HTTP_201_CREATED
         assert Order.objects.count() == 1
         assert response.data["order_number"] == "ORD-001"
@@ -78,7 +78,7 @@ class TestOrderCreateView:
             "price": 3000,
             "deadline": "2025-04-20",
         }
-        response = client.post("/api/trade/orders/create/", data=payload, format="json")
+        response = client.post("/api/trade/orders/", data=payload, format="json")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_create_order_forbidden(self, client, customer):
@@ -104,7 +104,7 @@ class TestOrderCreateView:
             "price": 1500,
             "deadline": "2025-04-15",
         }
-        response = client.post("/api/trade/orders/create/", data=payload, format="json")
+        response = client.post("/api/trade/orders/", data=payload, format="json")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_create_order_invalid_data(self, client, authed_user, customer):
@@ -128,5 +128,5 @@ class TestOrderCreateView:
             "price": "free",
             "deadline": "not-a-date",
         }
-        response = client.post("/api/trade/orders/create/", data=payload, format="json")
+        response = client.post("/api/trade/orders/", data=payload, format="json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST

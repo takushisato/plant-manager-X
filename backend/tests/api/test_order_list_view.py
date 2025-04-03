@@ -12,7 +12,7 @@ class TestOrderListView:
     """
     注文一覧を取得するビューのテスト
 
-    url: /api/orders/list/
+    url: /api/trade/orders/
     method: GET
     """
 
@@ -51,7 +51,7 @@ class TestOrderListView:
         """
         client.force_authenticate(user=authed_user)
 
-        response = client.get("/api/trade/orders/list/")
+        response = client.get("/api/trade/orders/")
 
         assert response.status_code == status.HTTP_200_OK
         assert isinstance(response.data, list)
@@ -71,7 +71,7 @@ class TestOrderListView:
         - ステータスコード 401
         - 注文一覧が取得できない
         """
-        response = client.get("/api/trade/orders/list/")
+        response = client.get("/api/trade/orders/")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_order_list_forbidden(self, client, user_without_permission):
@@ -85,5 +85,5 @@ class TestOrderListView:
         - ステータスコード 403
         """
         client.force_authenticate(user=user_without_permission)
-        response = client.get("/api/trade/orders/list/")
+        response = client.get("/api/trade/orders/")
         assert response.status_code == status.HTTP_403_FORBIDDEN
