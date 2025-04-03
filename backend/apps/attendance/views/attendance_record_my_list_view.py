@@ -8,6 +8,7 @@ from apps.attendance.serializers import RecordListSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.attendance.common import check_attendance_own_edit_permission
 from rest_framework import status
+from apps.attendance.views.validations import validate_month_param_exists, get_month_range_from_str
 
 
 class AttendanceRecordMyListView(APIView):
@@ -22,12 +23,12 @@ class AttendanceRecordMyListView(APIView):
         check_attendance_own_edit_permission(request)
 
         month_str = request.query_params.get("month")
-        error_response = _validate_month_param_exists(month_str)
+        error_response = validate_month_param_exists(month_str)
         if error_response:
             return error_response
 
         try:
-            start_date, end_date = _get_month_range_from_str(month_str)
+            start_date, end_date = get_month_range_from_str(month_str)
         except ValueError:
             return Response(
                 {"detail": "無効な月の形式です。yyyy-mm 形式で指定してください。"},
@@ -44,24 +45,3 @@ class AttendanceRecordMyListView(APIView):
         serializer = RecordListSerializer(records, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-def _validate_month_param_exists(month_str):
-    """
-    月のパラメータが存在するかどうかをチェックする
-    """
-    if not month_str:
-        return Response(
-            {"detail": "month パラメータは必須です。"},
-            status=status.HTTP_400_BAD_REQUEST
-        )
-    return None
-
-
-def _get_month_range_from_str(month_str):
-    """
-    "2025-04" のような文字列から (start_date, end_date) の日付ペアを返す
-    """
-    year, month = map(int, month_str.split("-"))
-    start_date = datetime(year, month, 1).date()
-    end_date = datetime(year + 1, 1, 1).date() if month == 12 else datetime(year, month + 1, 1).date()
-    return start_date, end_date
