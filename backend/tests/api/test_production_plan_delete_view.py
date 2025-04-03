@@ -11,7 +11,7 @@ class TestProductionPlanDeleteView:
     """
     生産計画を論理削除するビューのテスト
 
-    url: /api/production/plans/{id}/delete/
+    url: /api/production/plan_with_records/{id}/
     method: DELETE
     """
 
@@ -44,7 +44,7 @@ class TestProductionPlanDeleteView:
         - 生産計画と詳細データが論理削除される
         """
         client.force_authenticate(user=authed_user)
-        response = client.delete(f"/api/production/plans/{plan_with_details.id}/delete/")
+        response = client.delete(f"/api/production/plan_with_records/{plan_with_details.id}/")
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
         plan_with_details.refresh_from_db()
@@ -63,7 +63,7 @@ class TestProductionPlanDeleteView:
         - ステータスコード 401
         - 生産計画と詳細データが論理削除されない
         """
-        response = client.delete(f"/api/production/plans/{plan_with_details.id}/delete/")
+        response = client.delete(f"/api/production/plan_with_records/{plan_with_details.id}/")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_delete_without_permission(self, client, plan_with_details):
@@ -80,7 +80,7 @@ class TestProductionPlanDeleteView:
         user = UserFactory()
         PermissionFactory(user=user, can_edit_production_plan=False)
         client.force_authenticate(user=user)
-        response = client.delete(f"/api/production/plans/{plan_with_details.id}/delete/")
+        response = client.delete(f"/api/production/plan_with_records/{plan_with_details.id}/")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_delete_not_found(self, client, authed_user):
@@ -95,5 +95,5 @@ class TestProductionPlanDeleteView:
         - 生産計画と詳細データが論理削除されない
         """
         client.force_authenticate(user=authed_user)
-        response = client.delete("/api/production/plans/999999/delete/")
+        response = client.delete("/api/production/plan_with_records/999999/")
         assert response.status_code == status.HTTP_404_NOT_FOUND

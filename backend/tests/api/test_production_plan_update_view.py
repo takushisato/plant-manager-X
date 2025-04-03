@@ -12,7 +12,7 @@ class TestProductionPlanUpdateView:
     """
     生産計画を更新するビューのテスト
 
-    url: /api/production/plans/{id}/update/
+    url: /api/production/plan_with_records/{id}/
     method: PUT
     """
 
@@ -76,7 +76,7 @@ class TestProductionPlanUpdateView:
             ]
         }
 
-        response = client.put(f"/api/production/plans/{plan.id}/update/", data=payload, format="json")
+        response = client.put(f"/api/production/plan_with_records/{plan.id}/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data["note"] == "更新メモ"
@@ -93,7 +93,7 @@ class TestProductionPlanUpdateView:
         - ステータスコード 401
         - 生産計画が更新されない
         """
-        response = client.put(f"/api/production/plans/{plan.id}/update/", data={}, format="json")
+        response = client.put(f"/api/production/plan_with_records/{plan.id}/", data={}, format="json")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_user_without_permission_cannot_update(self, client, plan):
@@ -111,7 +111,7 @@ class TestProductionPlanUpdateView:
         PermissionFactory(user=user, can_edit_production_plan=False)
         client.force_authenticate(user=user)
 
-        response = client.put(f"/api/production/plans/{plan.id}/update/", data={}, format="json")
+        response = client.put(f"/api/production/plan_with_records/{plan.id}/", data={}, format="json")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_invalid_data(self, client, authed_user, plan):
@@ -131,7 +131,7 @@ class TestProductionPlanUpdateView:
             "details": []
         }
 
-        response = client.put(f"/api/production/plans/{plan.id}/update/", data=invalid_data, format="json")
+        response = client.put(f"/api/production/plan_with_records/{plan.id}/", data=invalid_data, format="json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     @pytest.mark.django_db
@@ -157,6 +157,6 @@ class TestProductionPlanUpdateView:
             "details": []
         }
 
-        response = client.put(f"/api/production/plans/{plan.id}/update/", data=payload, format="json")
+        response = client.put(f"/api/production/plan_with_records/{plan.id}/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_404_NOT_FOUND

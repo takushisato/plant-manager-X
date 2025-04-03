@@ -13,7 +13,7 @@ class TestDefectCreateView:
     """
     不具合情報を新規作成するAPIのテスト
 
-    URL: /api/bug_note/defects/create/
+    URL: /api/bug_note/defects/
     METHOD: POST
     """
 
@@ -53,7 +53,7 @@ class TestDefectCreateView:
             "submission_deadline": "2025-04-10T17:00:00Z"
         }
 
-        response = client.post("/api/bug_note/defects/create/", data=data, format="json")
+        response = client.post("/api/bug_note/defects/", data=data, format="json")
 
         assert response.status_code == status.HTTP_201_CREATED
         assert response.data["title"] == "不具合テスト"
@@ -79,7 +79,7 @@ class TestDefectCreateView:
             "submission_deadline": "2025-04-10T17:00:00Z"
         }
 
-        response = client.post("/api/bug_note/defects/create/", data=data, format="json")
+        response = client.post("/api/bug_note/defects/", data=data, format="json")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_user_without_permission_cannot_create(self, client, order):
@@ -106,7 +106,7 @@ class TestDefectCreateView:
             "submission_deadline": "2025-04-10T17:00:00Z"
         }
 
-        response = client.post("/api/bug_note/defects/create/", data=data, format="json")
+        response = client.post("/api/bug_note/defects/", data=data, format="json")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_invalid_data(self, client, authed_user):
@@ -121,5 +121,5 @@ class TestDefectCreateView:
         - 不具合情報が作成されない
         """
         client.force_authenticate(user=authed_user)
-        response = client.post("/api/bug_note/defects/create/", data={}, format="json")
+        response = client.post("/api/bug_note/defects/", data={}, format="json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST

@@ -8,11 +8,11 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestMailGroupDetailBulkCreateView:
+class TestMailGroupBulkCreateView:
     """
     メールグループ詳細一括登録APIのテスト
 
-    URL: /api/mail/groups/details/bulk-create/
+    URL: /api/mail/groups/bulk-create/
     METHOD: POST
     """
 
@@ -60,7 +60,7 @@ class TestMailGroupDetailBulkCreateView:
             "recipient_users": [user.id for user in recipient_users]
         }
 
-        response = client.post("/api/mail/groups/details/bulk-create/", data=data, format="json")
+        response = client.post("/api/mail/groups/bulk-create/", data=data, format="json")
 
         assert response.status_code == status.HTTP_201_CREATED
         assert MailGroupDetail.objects.filter(mail_group_detail=mail_group).count() == 3
@@ -83,7 +83,7 @@ class TestMailGroupDetailBulkCreateView:
             "recipient_users": [user.id for user in recipient_users]
         }
 
-        response = client.post("/api/mail/groups/details/bulk-create/", data=data, format="json")
+        response = client.post("/api/mail/groups/bulk-create/", data=data, format="json")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_bulk_create_unauthenticated(self, client, mail_group, recipient_users):
@@ -103,7 +103,7 @@ class TestMailGroupDetailBulkCreateView:
             "recipient_users": [user.id for user in recipient_users]
         }
 
-        response = client.post("/api/mail/groups/details/bulk-create/", data=data, format="json")
+        response = client.post("/api/mail/groups/bulk-create/", data=data, format="json")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_bulk_create_empty_users(self, client, authed_user_with_permission, mail_group):
@@ -123,7 +123,7 @@ class TestMailGroupDetailBulkCreateView:
             "recipient_users": []
         }
 
-        response = client.post("/api/mail/groups/details/bulk-create/", data=data, format="json")
+        response = client.post("/api/mail/groups/bulk-create/", data=data, format="json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         
     def test_bulk_create_not_owner(self, client, recipient_users):
@@ -153,7 +153,7 @@ class TestMailGroupDetailBulkCreateView:
             "recipient_users": [user.id for user in recipient_users]
         }
 
-        response = client.post("/api/mail/groups/details/bulk-create/", data=data, format="json")
+        response = client.post("/api/mail/groups/bulk-create/", data=data, format="json")
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
         assert "送信権限" in str(response.data) or "ありません" in str(response.data)

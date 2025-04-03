@@ -12,7 +12,7 @@ class TestDefectDeleteView:
     """
     不具合情報を論理削除するAPIのテスト
 
-    URL: /api/bug_note/defects/<int:pk>/delete/
+    URL: /api/bug_note/defects/<int:pk>/
     METHOD: DELETE
     """
 
@@ -48,7 +48,7 @@ class TestDefectDeleteView:
         - 不具合情報が論理削除される
         """
         client.force_authenticate(user=authed_user)
-        response = client.delete(f"/api/bug_note/defects/{defect.id}/delete/")
+        response = client.delete(f"/api/bug_note/defects/{defect.id}/")
 
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert Defect.objects.count() == 1
@@ -64,7 +64,7 @@ class TestDefectDeleteView:
         - ステータスコード401
         - 不具合情報が論理削除されない
         """
-        response = client.delete(f"/api/bug_note/defects/{defect.id}/delete/")
+        response = client.delete(f"/api/bug_note/defects/{defect.id}/")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_user_without_permission_cannot_delete(self, client, user_without_permission, defect):
@@ -79,7 +79,7 @@ class TestDefectDeleteView:
         - 不具合情報が論理削除されない
         """
         client.force_authenticate(user=user_without_permission)
-        response = client.delete(f"/api/bug_note/defects/{defect.id}/delete/")
+        response = client.delete(f"/api/bug_note/defects/{defect.id}/")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_invalid_data(self, client, user_without_permission, defect):
@@ -94,5 +94,5 @@ class TestDefectDeleteView:
         - 不具合情報が論理削除されない
         """
         client.force_authenticate(user=user_without_permission)
-        response = client.delete(f"/api/bug_note/defects/{defect.id}/delete/")
+        response = client.delete(f"/api/bug_note/defects/{defect.id}/")
         assert response.status_code == status.HTTP_403_FORBIDDEN

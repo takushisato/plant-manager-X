@@ -14,7 +14,7 @@ class TestDefectUpdateView:
     """
     不具合情報を編集するAPIのテスト
 
-    URL: /api/bug_note/defects/<int:pk>/update/
+    URL: /api/bug_note/defects/<int:pk>/
     METHOD: PUT
     """
 
@@ -58,7 +58,7 @@ class TestDefectUpdateView:
             "submission_deadline": "2025-04-10T17:00:00Z"
         }
 
-        response = client.put(f"/api/bug_note/defects/{defect.id}/update/", data=data, format="json")
+        response = client.put(f"/api/bug_note/defects/{defect.id}/", data=data, format="json")
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data["title"] == "不具合テスト"
@@ -84,7 +84,7 @@ class TestDefectUpdateView:
             "submission_deadline": "2025-04-10T17:00:00Z"
         }
 
-        response = client.put(f"/api/bug_note/defects/{defect.id}/update/", data=data, format="json")
+        response = client.put(f"/api/bug_note/defects/{defect.id}/", data=data, format="json")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_user_without_permission_cannot_update(self, client, order, defect):
@@ -111,7 +111,7 @@ class TestDefectUpdateView:
             "submission_deadline": "2025-04-10T17:00:00Z"
         }
 
-        response = client.put(f"/api/bug_note/defects/{defect.id}/update/", data=data, format="json")
+        response = client.put(f"/api/bug_note/defects/{defect.id}/", data=data, format="json")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_invalid_data(self, client, authed_user, defect):
@@ -126,5 +126,5 @@ class TestDefectUpdateView:
         - 不具合情報が編集されない
         """
         client.force_authenticate(user=authed_user)
-        response = client.put(f"/api/bug_note/defects/{defect.id}/update/", data={}, format="json")
+        response = client.put(f"/api/bug_note/defects/{defect.id}/", data={}, format="json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST

@@ -13,7 +13,7 @@ class TestDefectListView:
     """
     不具合一覧取得APIのテスト
 
-    URL: /api/bug_note/defects/list/
+    URL: /api/bug_note/defects/
     METHOD: GET
     """
 
@@ -57,7 +57,7 @@ class TestDefectListView:
         - 不具合一覧が取得できる
         """
         client.force_authenticate(user=authed_user)
-        response = client.get("/api/bug_note/defects/list/")
+        response = client.get("/api/bug_note/defects/")
         assert response.status_code == status.HTTP_200_OK
         assert isinstance(response.data, list)
         assert len(response.data) == 3
@@ -72,7 +72,7 @@ class TestDefectListView:
         結果:
         - ステータスコード401
         """
-        response = client.get("/api/bug_note/defects/list/")
+        response = client.get("/api/bug_note/defects/")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_get_defects_forbidden(self, client, user_without_permission):
@@ -86,5 +86,5 @@ class TestDefectListView:
         - ステータスコード403
         """
         client.force_authenticate(user=user_without_permission)
-        response = client.get("/api/bug_note/defects/list/")
+        response = client.get("/api/bug_note/defects/")
         assert response.status_code == status.HTTP_403_FORBIDDEN

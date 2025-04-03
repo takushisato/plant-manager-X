@@ -16,7 +16,7 @@ class TestMailGroupDeleteView:
     """
     メールグループ削除APIのテスト
 
-    URL: /api/mail/groups/<int:pk>/delete/
+    URL: /api/mail/groups/<int:pk>/
     METHOD: DELETE
     """
 
@@ -56,7 +56,7 @@ class TestMailGroupDeleteView:
         - メールグループの関連する宛先も削除される
         """
         client.force_authenticate(user=user)
-        response = client.delete(reverse("mail-group-delete", kwargs={"pk": mail_group.id}))
+        response = client.delete(reverse("mail-group-detail", kwargs={"pk": mail_group.id}))
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert not MailGroup.objects.filter(id=mail_group.id).exists()
         assert MailGroupDetail.objects.filter(mail_group_detail=mail_group).count() == 0
@@ -73,7 +73,7 @@ class TestMailGroupDeleteView:
         - メールグループが削除されない
         """
         client.force_authenticate(user=other_user)
-        response = client.delete(reverse("mail-group-delete", kwargs={"pk": mail_group.id}))
+        response = client.delete(reverse("mail-group-detail", kwargs={"pk": mail_group.id}))
         assert response.status_code == status.HTTP_403_FORBIDDEN
         assert MailGroup.objects.filter(id=mail_group.id).exists()
 
@@ -88,5 +88,5 @@ class TestMailGroupDeleteView:
         - ステータスコード401
         - メールグループが削除されない
         """
-        response = client.delete(reverse("mail-group-delete", kwargs={"pk": mail_group.id}))
+        response = client.delete(reverse("mail-group-detail", kwargs={"pk": mail_group.id}))
         assert response.status_code == status.HTTP_401_UNAUTHORIZED

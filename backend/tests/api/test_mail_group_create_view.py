@@ -12,7 +12,7 @@ class TestMailGroupCreateView:
     """
     メールグループ作成APIのテスト
 
-    URL: /api/mail/groups/create/
+    URL: /api/mail/groups/
     METHOD: POST
     """
 
@@ -51,7 +51,7 @@ class TestMailGroupCreateView:
             "note": "新規立ち上げ用グループ"
         }
 
-        response = client.post("/api/mail/groups/create/", data=mail_group_data, format="json")
+        response = client.post("/api/mail/groups/", data=mail_group_data, format="json")
 
         assert response.status_code == status.HTTP_201_CREATED
         assert MailGroup.objects.filter(group_title="品質管理チーム").exists()
@@ -71,7 +71,7 @@ class TestMailGroupCreateView:
         """
         client.force_authenticate(user=authed_user_without_permission)
 
-        response = client.post("/api/mail/groups/create/", data={
+        response = client.post("/api/mail/groups/", data={
             "group_title": "マーケティングチーム"
         })
 
@@ -90,7 +90,7 @@ class TestMailGroupCreateView:
         - ステータスコード401
         - メールグループが作成されない
         """
-        response = client.post("/api/mail/groups/create/", data={
+        response = client.post("/api/mail/groups/", data={
             "group_title": "営業部グループ"
         })
 
@@ -110,7 +110,7 @@ class TestMailGroupCreateView:
         """
         client.force_authenticate(user=authed_user_with_permission)
 
-        response = client.post("/api/mail/groups/create/", data={
+        response = client.post("/api/mail/groups/", data={
             "group_title": ""
         })
 

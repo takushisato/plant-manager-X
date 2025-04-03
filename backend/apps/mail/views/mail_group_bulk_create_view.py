@@ -11,7 +11,7 @@ from apps.utility.const import MESSAGES
 from apps.mail.views.validations import validate_recipient_users, validate_mail_group_ownership
 
 
-class MailGroupDetailBulkCreateView(APIView):
+class MailGroupBulkCreateView(APIView):
     permission_classes = [permissions.IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(
