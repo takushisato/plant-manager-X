@@ -28,3 +28,13 @@ class Record(BaseModel):
 
     def __str__(self):
         return f"{self.user.name} - {self.work_date} - {self.work_status}"
+    
+    @classmethod
+    def get_records_by_month(cls, month):
+        from apps.attendance.views.validations import get_month_range
+        start_date, end_date = get_month_range(month)
+        return cls.objects.filter(
+            work_date__gte=start_date,
+            work_date__lt=end_date,
+            deleted_at__isnull=True
+        ).select_related("user", "work_pattern")

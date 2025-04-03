@@ -7,7 +7,7 @@ from apps.attendance.models.record import Record
 from apps.attendance.serializers import RecordListSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.attendance.common import check_attendance_all_edit_permission
-from apps.attendance.views.validations import validate_month_param, parse_month_string, get_month_range
+from apps.attendance.views.validations import validate_month_param, parse_month_string
 
 
 class AttendanceRecordAllListView(APIView):
@@ -25,14 +25,8 @@ class AttendanceRecordAllListView(APIView):
         validate_month_param(month_str)
         month = parse_month_string(month_str)
 
-        start_date, end_date = get_month_range(month)
+        records = Record.get_records_by_month(month)
 
-        records = Record.objects.filter(
-            work_date__gte=start_date,
-            work_date__lt=end_date,
-            deleted_at__isnull=True
-        ).select_related("user", "work_pattern")
-
-        serializer = RecordListSerializer(records, many=True)
+        serializer = RecordListSerializer(records, many=True) 
         return Response(serializer.data, status=status.HTTP_200_OK)
     
