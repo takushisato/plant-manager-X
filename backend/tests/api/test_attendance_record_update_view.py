@@ -14,7 +14,7 @@ class TestAttendanceRecordUpdateView:
     """
     勤怠記録更新APIのテスト
 
-    URL: /api/attendance/records/{record.id}/update/
+    URL: /api/attendance/records/{record.id}/
     Method: PUT
     """
 
@@ -60,7 +60,7 @@ class TestAttendanceRecordUpdateView:
             "note": "退勤時間修正"
         }
 
-        response = client.put(f"/api/attendance/records/{record.id}/update/", data=payload, format="json")
+        response = client.put(f"/api/attendance/records/{record.id}/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data["note"] == "退勤時間修正"
@@ -83,7 +83,7 @@ class TestAttendanceRecordUpdateView:
             "clock_out_time": "09:00"
         }
 
-        response = client.put(f"/api/attendance/records/{record.id}/update/", data=payload, format="json")
+        response = client.put(f"/api/attendance/records/{record.id}/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "退勤時間は出勤時間より後である必要があります。" in str(response.data)
@@ -105,7 +105,7 @@ class TestAttendanceRecordUpdateView:
             "clock_out_time": "18:30"
         }
 
-        response = client.put(f"/api/attendance/records/{record.id}/update/", data=payload, format="json")
+        response = client.put(f"/api/attendance/records/{record.id}/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "勤務時間が勤務形態の勤務時間外です。" in str(response.data)
@@ -129,7 +129,7 @@ class TestAttendanceRecordUpdateView:
             "note": "他人の勤怠を編集しようとする"
         }
 
-        response = client.put(f"/api/attendance/records/{record.id}/update/", data=payload, format="json")
+        response = client.put(f"/api/attendance/records/{record.id}/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
         assert "認証は確認しましたが権限がありません。" in str(response.data)
@@ -146,6 +146,6 @@ class TestAttendanceRecordUpdateView:
         - エラーメッセージが"認証が必要です。"
         """
         payload = {"note": "ログインしていない"}
-        response = client.put(f"/api/attendance/records/{record.id}/update/", data=payload, format="json")
+        response = client.put(f"/api/attendance/records/{record.id}/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED

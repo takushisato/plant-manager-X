@@ -12,7 +12,7 @@ from apps.attendance.common import check_attendance_own_edit_permission
 from apps.attendance.views.validations import validate_clock_order, validate_within_work_pattern
 
 
-class AttendanceRecordUpdateView(APIView):
+class AttendanceRecordDetailView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(
