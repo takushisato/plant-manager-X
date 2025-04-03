@@ -128,14 +128,14 @@ class TestMailGroupDetailBulkCreateView:
         
     def test_bulk_create_not_owner(self, client, recipient_users):
         """
-        異常系: mail_access を持っていても mail_group の作成者でない場合は 400
+        異常系: mail_access を持っていても mail_group の作成者でない場合は 403
 
         条件:
         - mail_access を持っていても mail_group の作成者でない場合
         - 3つの宛先ユーザー
 
         結果:
-        - ステータスコード400
+        - ステータスコード403
         - 宛先ユーザーが追加されない
         """
         # mail_group は他人が作成したもの
@@ -155,5 +155,5 @@ class TestMailGroupDetailBulkCreateView:
 
         response = client.post("/api/mail/groups/details/bulk-create/", data=data, format="json")
 
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-        assert "作成者" in str(response.data) or "許可" in str(response.data)
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+        assert "送信権限" in str(response.data) or "ありません" in str(response.data)
