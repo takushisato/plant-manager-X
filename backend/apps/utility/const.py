@@ -17,4 +17,5 @@ MESSAGES = {
     "BREAK_TIME_ERROR": "休憩時間が勤務時間を超えています。",
     "DUPLICATE_RECORD_ERROR": "この勤務日はすでに記録されています。",
     "MONTH_PARAM_ERROR_RESPONSE": {"detail": "month パラメータは必須です。"},
+    "INVALID_MONTH_FORMAT_RESPONSE": {"detail": "無効な月の形式です。YYYY-MM の形式で指定してください。"},
 }
