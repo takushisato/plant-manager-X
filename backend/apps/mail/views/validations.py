@@ -1,7 +1,5 @@
 from apps.mail.models.mail_history import MailHistory
 from django.utils import timezone
-from django.core.mail import send_mail
-from django.conf import settings
 from rest_framework.exceptions import ValidationError, PermissionDenied
 from apps.utility.const import MESSAGES
 
@@ -28,23 +26,7 @@ def validate_recipient_emails(emails):
     """
     if not emails:
         raise ValidationError(MESSAGES["SEND_MAIL_ERROR"])
-
-
-# def send_mail(subject, message, to_list):
-#     """
-#     メールを送信
-#     """
-#     try:
-#         send_mail(
-#             subject=subject,
-#             message=message,
-#             from_email=settings.DEFAULT_FROM_EMAIL,
-#             recipient_list=to_list,
-#             fail_silently=False,
-#         )
-#     except Exception:
-#         raise ValidationError(MESSAGES["SEND_MAIL_EXECUTE_ERROR"])
-
+    
 
 def save_mail_template(mail_group, title, message):
     """
