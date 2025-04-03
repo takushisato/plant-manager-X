@@ -1,4 +1,4 @@
 from .production_plan_with_details_create_view import ProductionPlanWithDetailsCreateView
-from .production_plan_list_view import ProductionPlanListView
+from .production_plan_view import ProductionPlanView
 from .production_plan_with_details_update_view import ProductionPlanWithDetailsUpdateView
 from .production_plan_delete_view import ProductionPlanDeleteView
