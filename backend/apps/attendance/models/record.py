@@ -28,3 +28,48 @@ class Record(BaseModel):
 
     def __str__(self):
         return f"{self.user.name} - {self.work_date} - {self.work_status}"
+    
+    @classmethod
+    def get_records_by_month(cls, month):
+        """
+        全ユーザーの指定された月の勤怠記録を取得する
+        """
+        from apps.attendance.views.validations import get_month_range
+        start_date, end_date = get_month_range(month)
+        return cls.objects.filter(
+            work_date__gte=start_date,
+            work_date__lt=end_date,
+            deleted_at__isnull=True
+        ).select_related("user", "work_pattern")
+    
+
+    @classmethod
+    def get_records_by_user_and_month(cls, user, start_date, end_date):
+        """
+        指定されたユーザーの月の勤怠記録を取得する
+        """
+        return cls.objects.filter(
+            user=user,
+            work_date__gte=start_date,
+            work_date__lt=end_date,
+            deleted_at__isnull=True
+        ).select_related("user", "work_pattern")
+    
+    
+    @classmethod
+    def create_record(cls, user, work_pattern, work_date, clock_in_time, clock_out_time, break_minutes, work_minutes, work_status, note):
+        """
+        勤怠記録を作成する
+        """
+        attendance = Record.objects.create(
+            user=user,
+            work_pattern=work_pattern,
+            work_date=work_date,
+            clock_in_time=clock_in_time,
+            clock_out_time=clock_out_time,
+            break_minutes=break_minutes,
+            work_minutes=work_minutes,
+            work_status=work_status,
+            note=note
+        )
+        return attendance

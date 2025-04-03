@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
-
+from apps.utility.const import MESSAGES
 from apps.utility.models import BaseModel
 
 class Organization(BaseModel):
@@ -19,8 +19,6 @@ class Organization(BaseModel):
         return self.organization_name
 
 
-
-
 class UserManager(BaseUserManager):
     """
     User作成のメソッド
@@ -29,7 +27,7 @@ class UserManager(BaseUserManager):
     """
     def create_user(self, email, password=None, organization=None, **extra_fields):
         if not email:
-            raise ValueError('メールアドレスは必須です')
+            raise ValueError(MESSAGES["EMAIL_REQUIRED"])
 
         email = self.normalize_email(email)
         email = email.lower()

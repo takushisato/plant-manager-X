@@ -27,7 +27,6 @@ class AttendanceRecordCreateView(APIView):
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
-        # View内でバリデーション処理実行
         clock_in = data["clock_in_time"]
         clock_out = data["clock_out_time"]
         work_pattern = data["work_pattern"]
@@ -41,8 +40,7 @@ class AttendanceRecordCreateView(APIView):
         total_break = get_total_break_minutes(work_pattern)
         net_work_minutes = calculate_net_work_minutes(work_duration, total_break)
 
-        # 勤怠レコードの作成
-        attendance = Record.objects.create(
+        attendance = Record.create_record(
             user=user,
             work_pattern=work_pattern,
             work_date=work_date,

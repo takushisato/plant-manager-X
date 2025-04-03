@@ -40,3 +40,41 @@ def test_mail_group_detail_physical_delete():
 
     with pytest.raises(MailGroupDetail.DoesNotExist):
         MailGroupDetail.objects.get(pk=pk)
+
+
+@pytest.mark.django_db
+def test_bulk_create_details():
+    """
+    bulk_create_details で複数ユーザーの詳細が一括作成されることを確認
+    """
+    group = MailGroupFactory()
+    users = UserFactory.create_batch(3)
+
+    details = MailGroupDetail.bulk_create_details(mail_group=group, users=users)
+
+    assert len(details) == 3
+    for detail, user in zip(details, users):
+        assert detail.mail_group_detail == group
+        assert detail.recipient_user == user
+
+    # 実際にDBに保存されているか確認
+    saved = MailGroupDetail.objects.filter(mail_group_detail=group)
+    assert saved.count() == 3
+
+
+@pytest.mark.django_db
+def test_get_mail_group_details_by_mail_group():
+    """
+    get_mail_group_details_by_mail_group で指定グループの詳細のみ取得されることを確認
+    """
+    group1 = MailGroupFactory()
+    group2 = MailGroupFactory()
+    user1 = UserFactory()
+    user2 = UserFactory()
+
+    MailGroupDetail.objects.create(mail_group_detail=group1, recipient_user=user1)
+    MailGroupDetail.objects.create(mail_group_detail=group2, recipient_user=user2)
+
+    results = MailGroupDetail.get_mail_group_details_by_mail_group(group1)
+    assert results.count() == 1
+    assert results.first().recipient_user == user1

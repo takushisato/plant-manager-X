@@ -1,7 +1,7 @@
 from rest_framework.exceptions import PermissionDenied
 
 
-def check_prod_flow_access_permission(request):
+def check_prod_flow_view_permission(request):
     """
     生産計画閲覧権限チェック
     """

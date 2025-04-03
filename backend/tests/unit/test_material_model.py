@@ -2,6 +2,8 @@ import pytest
 from apps.material.models.material import Material
 from tests.factory.material_factory import MaterialFactory
 from tests.factory.organization_factory import OrganizationFactory
+from django.http import Http404
+from django.db import transaction
 
 
 @pytest.mark.django_db
@@ -38,3 +40,28 @@ def test_material_default_values():
     )
     assert material.stock_qty == 0
     assert material.order_suggestion_qty == 0
+
+
+@pytest.mark.django_db
+def test_get_locked_returns_material():
+    """
+    get_locked で指定IDの資材が select_for_update 付きで取得できること
+    """
+    material = MaterialFactory()
+
+    with transaction.atomic():
+        locked_material = Material.get_locked(material.pk)
+        assert locked_material.pk == material.pk
+        assert locked_material.material_name == material.material_name
+
+
+@pytest.mark.django_db
+def test_get_locked_raises_404_when_not_found():
+    """
+    get_locked で存在しないIDを指定した場合に Http404 が発生すること
+    """
+    invalid_id = 9999  # 存在しないID
+
+    with pytest.raises(Http404):
+        with transaction.atomic():
+            Material.get_locked(invalid_id)

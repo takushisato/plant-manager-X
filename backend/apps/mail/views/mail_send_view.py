@@ -34,7 +34,7 @@ class MailSendView(APIView):
 
         validate_mail_group_ownership(mail_group, request.user)
 
-        recipients = MailGroupDetail.objects.filter(mail_group_detail=mail_group)
+        recipients = MailGroupDetail.get_mail_group_details_by_mail_group(mail_group)
         to_emails = get_recipient_emails(recipients)
 
         validate_recipient_emails(to_emails)

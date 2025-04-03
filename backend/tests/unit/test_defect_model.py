@@ -49,3 +49,25 @@ def test_defect_all_fields_filled():
     assert defect.create_user.name == "品質管理 太郎"
     assert defect.order.product_name == "テスト機器A"
     assert defect.title == "異音発生"
+
+
+@pytest.mark.django_db
+def test_get_defects_by_month_returns_only_not_deleted():
+    """
+    get_defects_by_month が deleted_at が null の不具合のみを取得することを確認
+    """
+    # 通常データ2件
+    defect1 = DefectFactory()
+    defect2 = DefectFactory()
+
+    # 削除済み（論理削除）データ1件
+    deleted_defect = DefectFactory()
+    deleted_defect.deleted_at = datetime.now()
+    deleted_defect.save()
+
+    defects = Defect.get_defects_by_month()
+
+    assert defect1 in defects
+    assert defect2 in defects
+    assert deleted_defect not in defects
+    assert defects.count() == 2
