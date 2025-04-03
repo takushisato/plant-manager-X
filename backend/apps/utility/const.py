@@ -8,7 +8,6 @@ MESSAGES = {
     "MAIL_GROUP_DELETE_ERROR": "このグループを削除する権限がありません。",
     "MAIL_GROUP_DETAIL_BULK_CREATE": "宛先を一括登録しました。",
     "MAIL_GROUP_DETAIL_BULK_CREATE_ERROR": "宛先を1件以上指定してください。",
-    "MAIL_GROUP_DETAIL_BULK_CREATE_OWNER_ERROR": "作成者ではありません。",
     "MAIL_GROUP_SEND_ERROR": "このグループへの送信権限がありません。",
     "SEND_MAIL_ERROR": "送信先ユーザーにメールアドレスが設定されていません。",
 }

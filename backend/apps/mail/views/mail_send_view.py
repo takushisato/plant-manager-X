@@ -2,16 +2,15 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
 from apps.mail.models.mail_group_detail import MailGroupDetail
-from apps.mail.models.mail_history import MailHistory
 from apps.mail.serializer import MailSendSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.mail.common import check_mail_access_permission
 from drf_spectacular.utils import extend_schema, OpenApiResponse
-from django.utils import timezone
+from apps.utility.const import MESSAGES
+from apps.mail.views.validations import validate_mail_group_ownership, get_recipient_emails, validate_recipient_emails, save_mail_template
 from django.core.mail import send_mail
 from django.conf import settings
-from rest_framework.exceptions import ValidationError, PermissionDenied
-from apps.utility.const import MESSAGES
+from rest_framework.exceptions import ValidationError
 
 
 class MailSendView(APIView):
@@ -33,40 +32,17 @@ class MailSendView(APIView):
         title = serializer.validated_data["title"]
         message = serializer.validated_data["message"]
 
-        _validate_mail_group_ownership(mail_group, request.user)
+        validate_mail_group_ownership(mail_group, request.user)
 
         recipients = MailGroupDetail.objects.filter(mail_group_detail=mail_group)
-        to_emails = _get_recipient_emails(recipients)
+        to_emails = get_recipient_emails(recipients)
 
-        _validate_recipient_emails(to_emails)
+        validate_recipient_emails(to_emails)
 
         _send_mail(title, message, to_emails)
-        _save_mail_template(mail_group, title, message)
+        save_mail_template(mail_group, title, message)
 
         return Response({"detail": MESSAGES["SEND_MAIL"]}, status=200)
-    
-
-def _validate_mail_group_ownership(mail_group, user):
-    """
-    ログインユーザーがグループの作成者か確認
-    """
-    if mail_group.create_user != user:
-        raise PermissionDenied(MESSAGES["MAIL_GROUP_SEND_ERROR"])
-
-
-def _get_recipient_emails(recipients):
-    """
-    有効なメールアドレス一覧を取得
-    """
-    return [r.recipient_user.email for r in recipients if r.recipient_user.email]
-
-
-def _validate_recipient_emails(emails):
-    """
-    送信先が1件以上存在することを検証
-    """
-    if not emails:
-        raise ValidationError(MESSAGES["SEND_MAIL_ERROR"])
 
 
 def _send_mail(subject, message, to_list):
@@ -84,14 +60,3 @@ def _send_mail(subject, message, to_list):
     except Exception:
         raise ValidationError(MESSAGES["SEND_MAIL_EXECUTE_ERROR"])
 
-
-def _save_mail_template(mail_group, title, message):
-    """
-    メール送信履歴を保存
-    """
-    MailHistory.objects.create(
-        mail_group=mail_group,
-        sent_at=timezone.now(),
-        title=title,
-        message=message
-    )
