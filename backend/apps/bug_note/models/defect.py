@@ -20,3 +20,10 @@ class Defect(BaseModel):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def get_defects_by_month(cls):
+        """
+        不具合連絡を一括で全て取得する
+        """
+        return cls.objects.select_related("order", "create_user").filter(deleted_at__isnull=True)
