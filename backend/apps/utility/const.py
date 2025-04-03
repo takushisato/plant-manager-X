@@ -10,4 +10,11 @@ MESSAGES = {
     "MAIL_GROUP_DETAIL_BULK_CREATE_ERROR": "宛先を1件以上指定してください。",
     "MAIL_GROUP_SEND_ERROR": "このグループへの送信権限がありません。",
     "SEND_MAIL_ERROR": "送信先ユーザーにメールアドレスが設定されていません。",
+    "MONTH_PARAM_ERROR": "month パラメータは必須です。",
+    "INVALID_MONTH_FORMAT": "無効な月の形式です。YYYY-MM の形式で指定してください。",
+    "CLOCK_ORDER_ERROR": "退勤時間は出勤時間より後である必要があります。",
+    "WORK_PATTERN_ERROR": "勤務時間が勤務形態の勤務時間外です。",
+    "BREAK_TIME_ERROR": "休憩時間が勤務時間を超えています。",
+    "DUPLICATE_RECORD_ERROR": "この勤務日はすでに記録されています。",
+    "MONTH_PARAM_ERROR_RESPONSE": {"detail": "month パラメータは必須です。"},
 }

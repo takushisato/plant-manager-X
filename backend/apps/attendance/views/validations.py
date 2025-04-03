@@ -4,6 +4,7 @@ from apps.attendance.models.record import Record
 from apps.attendance.models.break_setting import BreakSetting
 from rest_framework.response import Response
 from rest_framework import status
+from apps.utility.const import MESSAGES
 
 
 def validate_month_param(month_str):
@@ -11,7 +12,7 @@ def validate_month_param(month_str):
     月のパラメータが存在するかどうかをチェックする
     """
     if not month_str:
-        raise ValidationError("month パラメータは必須です。")
+        raise ValidationError(MESSAGES["MONTH_PARAM_ERROR"])
 
 
 def parse_month_string(month_str):
@@ -21,7 +22,7 @@ def parse_month_string(month_str):
     try:
         return datetime.strptime(month_str, "%Y-%m")
     except ValueError:
-        raise ValidationError("無効な月の形式です。YYYY-MM の形式で指定してください。")
+        raise ValidationError(MESSAGES["INVALID_MONTH_FORMAT"])
     
 
 def get_month_range(month: datetime):
@@ -41,7 +42,7 @@ def validate_clock_order(clock_in, clock_out):
     出勤時間と退勤時間の順番をチェック
     """
     if clock_out <= clock_in:
-        raise ValidationError("退勤時間は出勤時間より後である必要があります。")
+        raise ValidationError(MESSAGES["CLOCK_ORDER_ERROR"])
     
 
 def validate_within_work_pattern(clock_in, clock_out, work_pattern):
@@ -49,7 +50,7 @@ def validate_within_work_pattern(clock_in, clock_out, work_pattern):
     勤務時間が勤務形態の勤務時間外であるかどうかをチェック
     """
     if clock_in < work_pattern.start_time or clock_out > work_pattern.end_time:
-        raise ValidationError("勤務時間が勤務形態の勤務時間外です。")
+        raise ValidationError(MESSAGES["WORK_PATTERN_ERROR"])
 
 
 def calculate_minutes(start, end):
@@ -74,7 +75,7 @@ def calculate_net_work_minutes(work_duration, total_break):
     """
     net = work_duration - total_break
     if net < 0:
-        raise ValidationError("休憩時間が勤務時間を超えています。")
+        raise ValidationError(MESSAGES["BREAK_TIME_ERROR"])
     return net
 
 
@@ -83,7 +84,7 @@ def validate_duplicate_record(user, work_date):
     同じ勤務日に同じユーザーが勤怠記録を作成していないかをチェック
     """
     if Record.objects.filter(user=user, work_date=work_date, deleted_at__isnull=True).exists():
-        raise ValidationError("この勤務日はすでに記録されています。")
+        raise ValidationError(MESSAGES["DUPLICATE_RECORD_ERROR"])
 
 
 def validate_month_param_exists(month_str):
@@ -92,7 +93,7 @@ def validate_month_param_exists(month_str):
     """
     if not month_str:
         return Response(
-            {"detail": "month パラメータは必須です。"},
+            {"detail": MESSAGES["MONTH_PARAM_ERROR"]},
             status=status.HTTP_400_BAD_REQUEST
         )
     return None
