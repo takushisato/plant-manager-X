@@ -11,7 +11,7 @@ from django.utils import timezone
 from apps.prod_flow.models.production_plan_record import ProductionPlanRecord
 
 
-class ProductionPlanWithRecordDetailView(APIView):
+class PlanWithRecordDetailView(APIView):
     permission_classes = [permissions.IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(

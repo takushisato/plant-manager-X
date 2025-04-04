@@ -8,7 +8,7 @@ from apps.staff_hub.permission import HasUserPermissionObject
 from apps.prod_flow.common import check_prod_flow_view_permission
 
 
-class ProductionPlanView(APIView):
+class PlanView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(

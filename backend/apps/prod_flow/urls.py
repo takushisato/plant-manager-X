@@ -1,9 +1,9 @@
 from django.urls import path
-from apps.prod_flow.views import ProductionPlanView, ProductionPlanWithRecordView, ProductionPlanWithRecordDetailView
+from apps.prod_flow.views import PlanView, PlanWithRecordView, PlanWithRecordDetailView
 
 
 urlpatterns = [
-    path("plans/", ProductionPlanView.as_view(), name="production-plan"),
-    path("plan_with_records/", ProductionPlanWithRecordView.as_view(), name="production-plan-with-record"),
-    path("plan_with_records/<int:pk>/", ProductionPlanWithRecordDetailView.as_view(), name="production-plan-with-record-detail"),
+    path("plans/", PlanView.as_view(), name="plan"),
+    path("plan_with_records/", PlanWithRecordView.as_view(), name="plan-with-record"),
+    path("plan_with_records/<int:pk>/", PlanWithRecordDetailView.as_view(), name="plan-with-record-detail"),
 ]

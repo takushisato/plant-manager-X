@@ -7,7 +7,7 @@ from apps.staff_hub.permission import HasUserPermissionObject
 from apps.prod_flow.common import check_prod_flow_edit_permission
 
 
-class ProductionPlanWithRecordView(APIView):
+class PlanWithRecordView(APIView):
     permission_classes = [permissions.IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(
