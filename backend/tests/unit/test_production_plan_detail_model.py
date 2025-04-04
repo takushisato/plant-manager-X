@@ -1,7 +1,7 @@
 import pytest
 from datetime import date, timedelta
-from apps.prod_flow.models.production_plan_detail import ProductionPlanDetail
-from tests.factory.production_plan_detail_factory import ProductionPlanDetailFactory
+from apps.prod_flow.models.production_plan_record import ProductionPlanRecord
+from tests.factory.production_plan_record_factory import ProductionPlanRecordFactory
 from tests.factory.production_plan_factory import ProductionPlanFactory
 from tests.factory.organization_factory import OrganizationFactory
 
@@ -9,16 +9,16 @@ from tests.factory.organization_factory import OrganizationFactory
 @pytest.mark.django_db
 def test_create_production_plan_detail_with_factory():
     """
-    ProductionPlanDetailFactory で正しく作成されることを確認
+    ProductionPlanRecordFactory で正しく作成されることを確認
     """
-    detail = ProductionPlanDetailFactory()
-    assert detail.production_plan is not None
-    assert isinstance(detail.title, str)
-    assert isinstance(detail.planned_start_date, date)
-    assert isinstance(detail.planned_end_date, date)
-    assert isinstance(detail.actual_start_date, date)
-    assert isinstance(detail.actual_end_date, date)
-    assert isinstance(detail.sort, int)
+    record = ProductionPlanRecordFactory()
+    assert record.production_plan is not None
+    assert isinstance(record.title, str)
+    assert isinstance(record.planned_start_date, date)
+    assert isinstance(record.planned_end_date, date)
+    assert isinstance(record.actual_start_date, date)
+    assert isinstance(record.actual_end_date, date)
+    assert isinstance(record.sort, int)
 
 
 @pytest.mark.django_db
@@ -28,13 +28,13 @@ def test_production_plan_detail_str_method():
     """
     org = OrganizationFactory(organization_name="第一工場")
     plan = ProductionPlanFactory(organization=org)
-    detail = ProductionPlanDetail.objects.create(
+    record = ProductionPlanRecord.objects.create(
         production_plan=plan,
         title="部品Aの製造",
         planned_start_date=date.today(),
         planned_end_date=date.today() + timedelta(days=2),
     )
-    assert str(detail) == "第一工場 - 部品Aの製造"
+    assert str(record) == "第一工場 - 部品Aの製造"
 
 
 @pytest.mark.django_db
@@ -42,6 +42,6 @@ def test_nullable_actual_dates():
     """
     実績日が null 許容されていることを確認
     """
-    detail = ProductionPlanDetailFactory(actual_start_date=None, actual_end_date=None)
-    assert detail.actual_start_date is None
-    assert detail.actual_end_date is None
+    record = ProductionPlanRecordFactory(actual_start_date=None, actual_end_date=None)
+    assert record.actual_start_date is None
+    assert record.actual_end_date is None
