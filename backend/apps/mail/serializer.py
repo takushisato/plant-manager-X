@@ -25,7 +25,7 @@ class MailGroupDetailSerializer(serializers.ModelSerializer):
         fields = ["id", "recipient_user", "recipient_user_name"]
 
 
-class MailGroupWithDetailsSerializer(serializers.ModelSerializer):
+class MailGroupWithDetailSerializer(serializers.ModelSerializer):
     details = MailGroupDetailSerializer(
         source="mailgroupdetail_set",
         many=True,
