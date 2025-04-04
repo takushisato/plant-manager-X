@@ -8,7 +8,7 @@ from apps.prod_flow.common import check_prod_flow_edit_permission
 from apps.prod_flow.models.production_plan import ProductionPlan
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from apps.prod_flow.models.production_plan_detail import ProductionPlanDetail
+from apps.prod_flow.models.production_plan_record import ProductionPlanRecord
 
 
 class ProductionPlanWithRecordDetailView(APIView):
@@ -44,7 +44,7 @@ class ProductionPlanWithRecordDetailView(APIView):
         plan.deleted_at = timezone.now()
         plan.save()
 
-        ProductionPlanDetail.objects.filter(production_plan=plan).update(
+        ProductionPlanRecord.objects.filter(production_plan=plan).update(
             deleted_at=timezone.now()
         )
 

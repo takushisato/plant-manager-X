@@ -2,7 +2,7 @@ import pytest
 from rest_framework.test import APIClient
 from rest_framework import status
 from tests.factory.production_plan_factory import ProductionPlanFactory
-from tests.factory.production_plan_detail_factory import ProductionPlanDetailFactory
+from tests.factory.production_plan_record_factory import ProductionPlanRecordFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 
@@ -33,13 +33,13 @@ class TestProductionPlanListView:
         return user
 
     @pytest.fixture
-    def plans_with_details(self, authed_user_with_permission):
+    def plans_with_records(self, authed_user_with_permission):
         plans = ProductionPlanFactory.create_batch(2, organization=authed_user_with_permission.organization)
         for plan in plans:
-            ProductionPlanDetailFactory.create_batch(3, production_plan=plan)
+            ProductionPlanRecordFactory.create_batch(3, production_plan=plan)
         return plans
 
-    def test_get_plans_with_permission(self, client, authed_user_with_permission, plans_with_details):
+    def test_get_plans_with_permission(self, client, authed_user_with_permission, plans_with_records):
         """
         正常系: 生産計画一覧を取得成功
 
@@ -56,8 +56,8 @@ class TestProductionPlanListView:
         assert isinstance(response.data, list)
         assert len(response.data) == 2
         for plan in response.data:
-            assert "details" in plan
-            assert len(plan["details"]) == 3
+            assert "records" in plan
+            assert len(plan["records"]) == 3
 
     def test_get_plans_without_permission(self, client, authed_user_without_permission):
         """

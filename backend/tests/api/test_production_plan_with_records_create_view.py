@@ -2,14 +2,14 @@ import pytest
 from rest_framework.test import APIClient
 from rest_framework import status
 from apps.prod_flow.models.production_plan import ProductionPlan
-from apps.prod_flow.models.production_plan_detail import ProductionPlanDetail
+from apps.prod_flow.models.production_plan_record import ProductionPlanRecord
 from tests.factory.organization_factory import OrganizationFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestProductionPlanWithDetailsCreateView:
+class TestProductionPlanWithRecordsCreateView:
     """
     生産計画と詳細を一括で作成するビューのテスト
 
@@ -37,7 +37,7 @@ class TestProductionPlanWithDetailsCreateView:
         PermissionFactory(user=user, can_edit_production_plan=False)
         return user
 
-    def test_create_plan_with_details_success(self, client, user_with_permission, organization):
+    def test_create_plan_with_records_success(self, client, user_with_permission, organization):
         """
         正常系: 生産計画と詳細を一括で作成成功
 
@@ -53,7 +53,7 @@ class TestProductionPlanWithDetailsCreateView:
             "organization": organization.id,
             "plan_date": "2025-04-01",
             "note": "テスト計画",
-            "details": [
+            "records": [
                 {
                     "title": "工程A",
                     "planned_start_date": "2025-04-01",
@@ -78,7 +78,7 @@ class TestProductionPlanWithDetailsCreateView:
         response = client.post("/api/production/plan_with_records/", data=payload, format="json")
         assert response.status_code == status.HTTP_201_CREATED
         assert ProductionPlan.objects.count() == 1
-        assert ProductionPlanDetail.objects.count() == 2
+        assert ProductionPlanRecord.objects.count() == 2
         assert response.data["note"] == "テスト計画"
 
     def test_create_plan_without_permission(self, client, user_without_permission, organization):
@@ -98,7 +98,7 @@ class TestProductionPlanWithDetailsCreateView:
             "organization": organization.id,
             "plan_date": "2025-04-01",
             "note": "テスト計画",
-            "details": []
+            "records": []
         }
 
         response = client.post("/api/production/plan_with_records/", data=payload, format="json")
@@ -118,7 +118,7 @@ class TestProductionPlanWithDetailsCreateView:
             "organization": organization.id,
             "plan_date": "2025-04-01",
             "note": "テスト計画",
-            "details": []
+            "records": []
         }
 
         response = client.post("/api/production/plan_with_records/", data=payload, format="json")
@@ -158,7 +158,7 @@ class TestProductionPlanWithDetailsCreateView:
             "organization": 99999,  # 存在しないID
             "plan_date": "2025-04-01",
             "note": "不正な組織ID",
-            "details": []
+            "records": []
         }
 
         response = client.post("/api/production/plan_with_records/", data=payload, format="json")

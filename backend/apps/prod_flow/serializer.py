@@ -1,56 +1,56 @@
 from rest_framework import serializers
 from apps.prod_flow.models.production_plan import ProductionPlan
-from apps.prod_flow.models.production_plan_detail import ProductionPlanDetail
+from apps.prod_flow.models.production_plan_record import ProductionPlanRecord
 
 
 class ProductionPlanDetailNestedSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProductionPlanDetail
+        model = ProductionPlanRecord
         exclude = ['production_plan']
 
 
 class ProductionPlanWithDetailsSerializer(serializers.ModelSerializer):
-    details = ProductionPlanDetailNestedSerializer(many=True)
+    records = ProductionPlanDetailNestedSerializer(many=True)
 
     class Meta:
         model = ProductionPlan
-        fields = ['id', 'organization', 'plan_date', 'note', 'details']
+        fields = ['id', 'organization', 'plan_date', 'note', 'records']
 
     def create(self, validated_data):
-        details_data = validated_data.pop('details')
+        records_data = validated_data.pop('records')
         production_plan = ProductionPlan.objects.create(**validated_data)
 
-        details_instances = [
-            ProductionPlanDetail(production_plan=production_plan, **detail)
-            for detail in details_data
+        records_instances = [
+            ProductionPlanRecord(production_plan=production_plan, **record)
+            for record in records_data
         ]
-        ProductionPlanDetail.objects.bulk_create(details_instances)
+        ProductionPlanRecord.objects.bulk_create(records_instances)
 
         return production_plan
 
     def update(self, instance, validated_data):
-            details_data = validated_data.pop("details")
+        records_data = validated_data.pop("records")
 
-            instance.plan_date = validated_data.get("plan_date", instance.plan_date)
-            instance.note = validated_data.get("note", instance.note)
-            instance.save()
+        instance.plan_date = validated_data.get("plan_date", instance.plan_date)
+        instance.note = validated_data.get("note", instance.note)
+        instance.save()
 
-            existing_details = {detail.id: detail for detail in instance.details.all()}
+        existing_records = {record.id: record for record in instance.records.all()}
 
-            for detail_data in details_data:
-                detail_id = detail_data.get("id")
-                if detail_id and detail_id in existing_details:
-                    # idが存在する場合は更新
-                    for attr, value in detail_data.items():
-                        setattr(existing_details[detail_id], attr, value)
-                    existing_details[detail_id].save()
-                    del existing_details[detail_id]
-                else:
-                    # idが存在しない場合は新規追加
-                    ProductionPlanDetail.objects.create(production_plan=instance, **detail_data)
+        for record_data in records_data:
+            record_id = record_data.get("id")
+            if record_id and record_id in existing_records:
+                # idが存在する場合は更新
+                for attr, value in record_data.items():
+                    setattr(existing_records[record_id], attr, value)
+                existing_records[record_id].save()
+                del existing_records[record_id]
+            else:
+                # idが存在しない場合は新規追加
+                ProductionPlanRecord.objects.create(production_plan=instance, **record_data)
 
-            # 残ったものは削除されたとみなして削除
-            for remaining in existing_details.values():
-                remaining.delete()
+        # 残ったものは削除されたとみなして削除
+        for remaining in existing_records.values():
+            remaining.delete()
 
-            return instance
+        return instance

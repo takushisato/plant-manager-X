@@ -5,7 +5,7 @@ from rest_framework import status
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 from tests.factory.production_plan_factory import ProductionPlanFactory
-from tests.factory.production_plan_detail_factory import ProductionPlanDetailFactory
+from tests.factory.production_plan_record_factory import ProductionPlanRecordFactory
 
 @pytest.mark.django_db
 class TestProductionPlanUpdateView:
@@ -31,10 +31,10 @@ class TestProductionPlanUpdateView:
         return ProductionPlanFactory(organization=authed_user.organization)
 
     @pytest.fixture
-    def details(self, plan):
-        return ProductionPlanDetailFactory.create_batch(2, production_plan=plan)
+    def records(self, plan):
+        return ProductionPlanRecordFactory.create_batch(2, production_plan=plan)
 
-    def test_update_success(self, client, authed_user, plan, details):
+    def test_update_success(self, client, authed_user, plan, records):
         """
         正常系: 生産計画を更新する
 
@@ -53,9 +53,9 @@ class TestProductionPlanUpdateView:
             "organization": authed_user.organization.id,
             "plan_date": "2025-04-10",
             "note": "更新メモ",
-            "details": [
+            "records": [
                 {
-                    "id": details[0].id,
+                    "id": records[0].id,
                     "title": "更新タイトル",
                     "planned_start_date": "2025-04-11",
                     "planned_end_date": "2025-04-12",
@@ -80,7 +80,7 @@ class TestProductionPlanUpdateView:
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data["note"] == "更新メモ"
-        assert len(response.data["details"]) == 2
+        assert len(response.data["records"]) == 2
 
     def test_unauthenticated_user_cannot_update(self, client, plan):
         """
@@ -128,7 +128,7 @@ class TestProductionPlanUpdateView:
         client.force_authenticate(user=authed_user)
         invalid_data = {
             "plan_date": "",  # 不正な日付
-            "details": []
+            "records": []
         }
 
         response = client.put(f"/api/production/plan_with_records/{plan.id}/", data=invalid_data, format="json")
@@ -154,7 +154,7 @@ class TestProductionPlanUpdateView:
             "organization": authed_user.organization.id,
             "plan_date": "2025-04-10",
             "note": "論理削除されているので更新されないはず",
-            "details": []
+            "records": []
         }
 
         response = client.put(f"/api/production/plan_with_records/{plan.id}/", data=payload, format="json")

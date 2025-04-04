@@ -18,6 +18,6 @@ class ProductionPlanView(APIView):
     )
     def get(self, request):
         check_prod_flow_view_permission(request)
-        plans = ProductionPlan.objects.prefetch_related("details").filter(deleted_at__isnull=True)
+        plans = ProductionPlan.objects.prefetch_related("records").filter(deleted_at__isnull=True)
         serializer = ProductionPlanWithDetailsSerializer(plans, many=True)
         return Response(serializer.data)
