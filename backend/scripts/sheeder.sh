@@ -22,13 +22,13 @@ python manage.py loaddata break_settings.json
 python manage.py loaddata paid_leaves.json
 
 # 勤怠データの読み込み
-python manage.py loaddata attendance_records.json
+python manage.py loaddata work_records.json
 
 # 生産計画データの読み込み
 python manage.py loaddata production_plans.json
 
 # 生産計画詳細データの読み込み
-python manage.py loaddata production_plan_details.json
+python manage.py loaddata production_plan_records.json
 
 # 顧客データの読み込み
 python manage.py loaddata customers.json
