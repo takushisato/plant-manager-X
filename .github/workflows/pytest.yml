@@ -44,6 +44,15 @@ jobs:
           cd backend
           poetry install
 
+      - name: ⏳ Wait for MySQL to be ready
+        run: |
+          apt-get update && apt-get install -y netcat
+          until nc -z db 3306; do
+            echo "⏳ Waiting for MySQL..."
+            sleep 2
+          done
+          echo "✅ MySQL is ready!"
+
       - name: 🧪 Run tests
         env:
           DB_NAME: mydatabase
