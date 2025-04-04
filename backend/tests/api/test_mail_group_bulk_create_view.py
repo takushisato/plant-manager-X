@@ -1,7 +1,7 @@
 import pytest
 from rest_framework import status
 from rest_framework.test import APIClient
-from apps.mail.models.mail_group_detail import MailGroupDetail
+from apps.mail.models.mail_group_record import MailGroupRecord
 from tests.factory.mail_group_factory import MailGroupFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
@@ -56,14 +56,14 @@ class TestMailGroupBulkCreateView:
 
         client.force_authenticate(user=authed_user_with_permission)
         data = {
-            "mail_group_detail": mail_group.id,
+            "mail_group_record": mail_group.id,
             "recipient_users": [user.id for user in recipient_users]
         }
 
         response = client.post("/api/mail/groups/bulk-create/", data=data, format="json")
 
         assert response.status_code == status.HTTP_201_CREATED
-        assert MailGroupDetail.objects.filter(mail_group_detail=mail_group).count() == 3
+        assert MailGroupRecord.objects.filter(mail_group_record=mail_group).count() == 3
 
     def test_bulk_create_forbidden(self, client, authed_user_without_permission, mail_group, recipient_users):
         """
@@ -79,7 +79,7 @@ class TestMailGroupBulkCreateView:
         """
         client.force_authenticate(user=authed_user_without_permission)
         data = {
-            "mail_group_detail": mail_group.id,
+            "mail_group_record": mail_group.id,
             "recipient_users": [user.id for user in recipient_users]
         }
 
@@ -99,7 +99,7 @@ class TestMailGroupBulkCreateView:
         - 宛先ユーザーが追加されない
         """
         data = {
-            "mail_group_detail": mail_group.id,
+            "mail_group_record": mail_group.id,
             "recipient_users": [user.id for user in recipient_users]
         }
 
@@ -119,7 +119,7 @@ class TestMailGroupBulkCreateView:
         """
         client.force_authenticate(user=authed_user_with_permission)
         data = {
-            "mail_group_detail": mail_group.id,
+            "mail_group_record": mail_group.id,
             "recipient_users": []
         }
 
@@ -149,7 +149,7 @@ class TestMailGroupBulkCreateView:
         client.force_authenticate(user=user)
 
         data = {
-            "mail_group_detail": mail_group.id,
+            "mail_group_record": mail_group.id,
             "recipient_users": [user.id for user in recipient_users]
         }
 

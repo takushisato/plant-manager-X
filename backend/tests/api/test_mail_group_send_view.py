@@ -5,7 +5,7 @@ from django.core import mail
 
 from apps.mail.models.mail_history import MailHistory
 from tests.factory.mail_group_factory import MailGroupFactory
-from tests.factory.mail_group_detail_factory import MailGroupDetailFactory
+from tests.factory.mail_group_record_factory import MailGroupRecordFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 from apps.utility.const import MESSAGES
@@ -40,7 +40,7 @@ class TestMailGroupSendView:
         for user in users:
             user.email = f"{user.name}@example.com"
             user.save()
-            MailGroupDetailFactory(mail_group_detail=mail_group, recipient_user=user)
+            MailGroupRecordFactory(mail_group_record=mail_group, recipient_user=user)
         return users
 
     def test_send_mail_success(self, client, sender_user, mail_group, recipients):

@@ -10,7 +10,7 @@ from apps.mail.common import check_mail_access_permission
 from apps.utility.const import MESSAGES
 
 
-class MailGroupDetailView(APIView):
+class MailGroupRecordView(APIView):
     permission_classes = [permissions.IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(

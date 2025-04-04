@@ -4,11 +4,11 @@ from rest_framework.test import APIClient
 from django.urls import reverse
 
 from apps.mail.models.mail_group import MailGroup
-from apps.mail.models.mail_group_detail import MailGroupDetail
+from apps.mail.models.mail_group_record import MailGroupRecord
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 from tests.factory.mail_group_factory import MailGroupFactory
-from tests.factory.mail_group_detail_factory import MailGroupDetailFactory
+from tests.factory.mail_group_record_factory import MailGroupRecordFactory
 
 
 @pytest.mark.django_db
@@ -39,7 +39,7 @@ class TestMailGroupDeleteView:
     @pytest.fixture
     def mail_group(self, user):
         group = MailGroupFactory(create_user=user)
-        MailGroupDetailFactory.create_batch(3, mail_group_detail=group)
+        MailGroupRecordFactory.create_batch(3, mail_group_record=group)
         return group
 
     def test_delete_success(self, client, user, mail_group):
@@ -56,10 +56,10 @@ class TestMailGroupDeleteView:
         - メールグループの関連する宛先も削除される
         """
         client.force_authenticate(user=user)
-        response = client.delete(reverse("mail-group-detail", kwargs={"pk": mail_group.id}))
+        response = client.delete(reverse("mail-group-record", kwargs={"pk": mail_group.id}))
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert not MailGroup.objects.filter(id=mail_group.id).exists()
-        assert MailGroupDetail.objects.filter(mail_group_detail=mail_group).count() == 0
+        assert MailGroupRecord.objects.filter(mail_group_record=mail_group).count() == 0
 
     def test_delete_not_owner(self, client, other_user, mail_group):
         """
@@ -73,7 +73,7 @@ class TestMailGroupDeleteView:
         - メールグループが削除されない
         """
         client.force_authenticate(user=other_user)
-        response = client.delete(reverse("mail-group-detail", kwargs={"pk": mail_group.id}))
+        response = client.delete(reverse("mail-group-record", kwargs={"pk": mail_group.id}))
         assert response.status_code == status.HTTP_403_FORBIDDEN
         assert MailGroup.objects.filter(id=mail_group.id).exists()
 
@@ -88,5 +88,5 @@ class TestMailGroupDeleteView:
         - ステータスコード401
         - メールグループが削除されない
         """
-        response = client.delete(reverse("mail-group-detail", kwargs={"pk": mail_group.id}))
+        response = client.delete(reverse("mail-group-record", kwargs={"pk": mail_group.id}))
         assert response.status_code == status.HTTP_401_UNAUTHORIZED

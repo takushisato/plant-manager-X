@@ -2,7 +2,7 @@ import pytest
 from rest_framework import status
 from rest_framework.test import APIClient
 from tests.factory.mail_group_factory import MailGroupFactory
-from tests.factory.mail_group_detail_factory import MailGroupDetailFactory
+from tests.factory.mail_group_record_factory import MailGroupRecordFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 
@@ -35,7 +35,7 @@ class TestMailGroupListView:
     def mail_groups_with_details(self, authed_user_with_permission):
         groups = MailGroupFactory.create_batch(2, create_user=authed_user_with_permission)
         for group in groups:
-            MailGroupDetailFactory.create_batch(3, mail_group_detail=group)
+            MailGroupRecordFactory.create_batch(3, mail_group_record=group)
         return groups
 
     def test_list_success(self, client, authed_user_with_permission, mail_groups_with_details):
@@ -57,7 +57,7 @@ class TestMailGroupListView:
         assert response.status_code == status.HTTP_200_OK
         assert isinstance(response.data, list)
         assert len(response.data) == 2
-        assert "details" in response.data[0]
+        assert "records" in response.data[0]
 
     def test_list_forbidden_without_permission(self, client, authed_user_without_permission):
         """
