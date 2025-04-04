@@ -3,14 +3,14 @@ from apps.prod_flow.models.production_plan import ProductionPlan
 from apps.prod_flow.models.production_plan_record import ProductionPlanRecord
 
 
-class ProductionPlanDetailNestedSerializer(serializers.ModelSerializer):
+class PlanDetailNestedSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductionPlanRecord
         exclude = ['production_plan']
 
 
-class ProductionPlanWithRecordSerializer(serializers.ModelSerializer):
-    records = ProductionPlanDetailNestedSerializer(many=True)
+class PlanWithRecordSerializer(serializers.ModelSerializer):
+    records = PlanDetailNestedSerializer(many=True)
 
     class Meta:
         model = ProductionPlan
