@@ -8,11 +8,11 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestMaterialDetailUseStockPut:
+class TestMaterialUseStockDetailPut:
     """
     資材使用量ビューのテスト
 
-    url: /api/materials/{material_id}/use_stock/
+    url: /api/materials/use_stock/{material_id}/
     method: PUT
     """
 
@@ -53,7 +53,7 @@ class TestMaterialDetailUseStockPut:
         client.force_authenticate(user=authed_user_with_permission)
 
         response = client.put(
-            f"/api/materials/{material.id}/use_stock/",
+            f"/api/materials/use_stock/{material.id}/",
             data={"used_qty": 3},
             format="json"
         )
@@ -78,7 +78,7 @@ class TestMaterialDetailUseStockPut:
         client.force_authenticate(user=authed_user_without_permission)
 
         response = client.put(
-            f"/api/materials/{material.id}/use_stock/",
+            f"/api/materials/use_stock/{material.id}/",
             data={"used_qty": 1},
             format="json"
         )
@@ -94,7 +94,7 @@ class TestMaterialDetailUseStockPut:
         - ステータスコード 401 Unauthorized
         """
         response = client.put(
-            f"/api/materials/{material.id}/use_stock/",
+            f"/api/materials/use_stock/{material.id}/",
             data={"used_qty": 1},
             format="json"
         )
@@ -116,7 +116,7 @@ class TestMaterialDetailUseStockPut:
         client.force_authenticate(user=authed_user_with_permission)
 
         response = client.put(
-            f"/api/materials/{material.id}/use_stock/",
+            f"/api/materials/use_stock/{material.id}/",
             data={"used_qty": material.stock_qty + 1},
             format="json"
         )
@@ -139,7 +139,7 @@ class TestMaterialDetailUseStockPut:
         client.force_authenticate(user=authed_user_with_permission)
 
         response = client.put(
-            f"/api/materials/{material.id}/use_stock/",
+            f"/api/materials/use_stock/{material.id}/",
             data={"used_qty": invalid_qty},
             format="json"
         )

@@ -7,11 +7,11 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestMaterialDetailReceiveStockPut:
+class TestMaterialReceiveStockDetailPut:
     """
     資材受け入れビューのテスト
 
-    url: /api/materials/{material_id}/receive_stock/
+    url: /api/materials/receive_stock/{material_id}/
     method: PUT
     """
 
@@ -50,7 +50,7 @@ class TestMaterialDetailReceiveStockPut:
         client.force_authenticate(user=user_with_permission)
 
         response = client.put(
-            f"/api/materials/{material.id}/receive_stock/",
+            f"/api/materials/receive_stock/{material.id}/",
             data={"added_qty": 5},
             format="json"
         )
@@ -76,7 +76,7 @@ class TestMaterialDetailReceiveStockPut:
         client.force_authenticate(user=user_without_permission)
 
         response = client.put(
-            f"/api/materials/{material.id}/receive_stock/",
+            f"/api/materials/receive_stock/{material.id}/",
             data={"added_qty": 5},
             format="json"
         )
@@ -96,7 +96,7 @@ class TestMaterialDetailReceiveStockPut:
         - ステータスコード 401
         """
         response = client.put(
-            f"/api/materials/{material.id}/receive_stock/",
+            f"/api/materials/receive_stock/{material.id}/",
             data={"added_qty": 5},
             format="json"
         )
@@ -118,7 +118,7 @@ class TestMaterialDetailReceiveStockPut:
         client.force_authenticate(user=user_with_permission)
 
         response = client.put(
-            f"/api/materials/{material.id}/receive_stock/",
+            f"/api/materials/receive_stock/{material.id}/",
             data={"added_qty": invalid_qty},
             format="json"
         )
