@@ -2,15 +2,13 @@ import pytest
 from rest_framework.test import APIClient
 from rest_framework import status
 from datetime import date, time
-from apps.attendance.models.record import Record
 from tests.factory.record_factory import RecordFactory
 from tests.factory.work_pattern_factory import WorkPatternFactory
-from tests.factory.break_setting_factory import BreakSettingFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 
 @pytest.mark.django_db
-class TestAttendanceRecordUpdate:
+class TestAttendanceRecordPut:
     """
     勤怠記録更新APIのテスト
 

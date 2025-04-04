@@ -9,7 +9,7 @@ from tests.factory.record_factory import RecordFactory
 
 
 @pytest.mark.django_db
-class TestAttendanceRecordMyList:
+class TestAttendanceRecordMyListGet:
     """
     月次勤怠記録一覧APIのテスト
 
