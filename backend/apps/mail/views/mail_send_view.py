@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
-from apps.mail.models.mail_group_detail import MailGroupDetail
+from apps.mail.models.mail_group_record import MailGroupRecord
 from apps.mail.serializer import MailSendSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 from apps.mail.common import check_mail_access_permission
@@ -34,7 +34,7 @@ class MailSendView(APIView):
 
         validate_mail_group_ownership(mail_group, request.user)
 
-        recipients = MailGroupDetail.get_mail_group_details_by_mail_group(mail_group)
+        recipients = MailGroupRecord.get_mail_group_records_by_mail_group(mail_group)
         to_emails = get_recipient_emails(recipients)
 
         validate_recipient_emails(to_emails)

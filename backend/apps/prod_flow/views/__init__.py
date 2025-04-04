@@ -1,3 +1,3 @@
-from .production_plan_with_record_view import ProductionPlanWithRecordView
-from .production_plan_view import ProductionPlanView
-from .production_plan_with_record_detail_view import ProductionPlanWithRecordDetailView
+from .plan_with_record_view import PlanWithRecordView
+from .plan_view import PlanView
+from .plan_with_record_detail_view import PlanWithRecordDetailView

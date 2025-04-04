@@ -7,6 +7,7 @@ class RecordCreateSerializer(serializers.ModelSerializer):
         model = Record
         exclude = ['user', 'work_minutes', 'break_minutes']
 
+
 class RecordListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Record

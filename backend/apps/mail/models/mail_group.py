@@ -17,10 +17,10 @@ class MailGroup(BaseModel):
         return self.group_title
 
     @staticmethod
-    def get_with_details_by_user(user):
+    def get_with_records_by_user(user):
         """
         ユーザーが作成したメールグループとその詳細情報を取得
         """
         return MailGroup.objects.filter(
             create_user=user
-        ).prefetch_related("mailgroupdetail_set")
+        ).prefetch_related("mailgrouprecord_set")

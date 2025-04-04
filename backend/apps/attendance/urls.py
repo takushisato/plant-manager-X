@@ -1,10 +1,10 @@
 from django.urls import path
-from apps.attendance.views import AttendanceRecordView, AttendanceRecordMyListView, AttendanceRecordAllListView, AttendanceRecordDetailView
+from apps.attendance.views import RecordView, RecordDetailView, RecordMyListView, RecordAllListView
 
 
 urlpatterns = [
-    path("records/", AttendanceRecordView.as_view(), name="attendance-record"),
-    path("records/<int:pk>/", AttendanceRecordDetailView.as_view(), name="attendance-record-detail"),
-    path("records/my_list/", AttendanceRecordMyListView.as_view(), name="attendance-record-my-list"),
-    path("records/all_list/", AttendanceRecordAllListView.as_view(), name="attendance-record-all-list"),
+    path("records/", RecordView.as_view(), name="record"),
+    path("records/<int:pk>/", RecordDetailView.as_view(), name="record-detail"),
+    path("records/my_list/", RecordMyListView.as_view(), name="record-my-list"),
+    path("records/all_list/", RecordAllListView.as_view(), name="record-all-list"),
 ]

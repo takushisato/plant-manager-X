@@ -25,12 +25,12 @@ class DefectListSerializer(serializers.ModelSerializer):
             "occurred_at", "title"
         ]
 
-class DefectDetailSerializer(serializers.ModelSerializer):
+class DefectDetailGetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Defect
         fields = "__all__"
 
-class DefectUpdateSerializer(serializers.ModelSerializer):
+class DefectDetailUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Defect
         fields = [
