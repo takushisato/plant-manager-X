@@ -8,7 +8,7 @@ from tests.factory.order_factory import OrderFactory
 
 
 @pytest.mark.django_db
-class TestOrderListView:
+class TestTradeOrderGet:
     """
     注文一覧を取得するビューのテスト
 

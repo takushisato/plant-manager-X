@@ -9,7 +9,7 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestOrderDeleteView:
+class TestTradeOrderDetailDelete:
     """
     注文削除APIのテスト
 
