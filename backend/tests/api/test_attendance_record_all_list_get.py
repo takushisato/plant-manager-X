@@ -4,7 +4,7 @@ from rest_framework import status
 from django.utils.timezone import datetime
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
-from tests.factory.record_factory import RecordFactory
+from tests.factory.work_record_factory import WorkRecordFactory
 from tests.factory.work_pattern_factory import WorkPatternFactory
 
 
@@ -37,7 +37,7 @@ class TestAttendanceRecordAllListGet:
     def setup_records(self, admin_user):
         work_pattern = WorkPatternFactory()
         base_date = datetime(2025, 4, 1)
-        return RecordFactory.create_batch(3, user=admin_user, work_pattern=work_pattern, work_date=base_date.date())
+        return WorkRecordFactory.create_batch(3, user=admin_user, work_pattern=work_pattern, work_date=base_date.date())
 
     def test_successful_retrieval(self, client, admin_user, setup_records):
         """

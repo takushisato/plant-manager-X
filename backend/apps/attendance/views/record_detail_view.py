@@ -4,8 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from drf_spectacular.utils import extend_schema
 
-from apps.attendance.models.record import Record
-from apps.attendance.serializers import RecordUpdateSerializer
+from apps.attendance.models.work_record import WorkRecord
+from apps.attendance.serializers import WorkRecordUpdateSerializer
 from apps.staff_hub.permission import HasUserPermissionObject
 from django.shortcuts import get_object_or_404
 from apps.attendance.common import check_attendance_own_edit_permission
@@ -16,16 +16,16 @@ class RecordDetailView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(
-        request=RecordUpdateSerializer,
-        responses={200: RecordUpdateSerializer},
+        request=WorkRecordUpdateSerializer,
+        responses={200: WorkRecordUpdateSerializer},
         tags=["attendance"],
         description="自分の勤怠記録を更新"
     )
     def put(self, request, pk):
         check_attendance_own_edit_permission(request)
-        record = get_object_or_404(Record, pk=pk, deleted_at__isnull=True)
+        record = get_object_or_404(WorkRecord, pk=pk, deleted_at__isnull=True)
 
-        serializer = RecordUpdateSerializer(record, data=request.data, partial=True)
+        serializer = WorkRecordUpdateSerializer(record, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 

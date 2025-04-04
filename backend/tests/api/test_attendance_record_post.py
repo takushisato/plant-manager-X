@@ -2,8 +2,8 @@ import pytest
 from rest_framework.test import APIClient
 from rest_framework import status
 from datetime import date, time
-from apps.attendance.models.record import Record
-from tests.factory.record_factory import RecordFactory
+from apps.attendance.models.work_record import WorkRecord
+from tests.factory.work_record_factory import WorkRecordFactory
 from tests.factory.work_pattern_factory import WorkPatternFactory
 from tests.factory.break_setting_factory import BreakSettingFactory
 from tests.factory.user_factory import UserFactory
@@ -64,7 +64,7 @@ class TestAttendanceRecordPost:
         response = client.post("/api/attendance/records/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_201_CREATED
-        assert Record.objects.filter(user=authed_user, work_date=date.today()).exists()
+        assert WorkRecord.objects.filter(user=authed_user, work_date=date.today()).exists()
 
     def test_duplicate_record_error(self, client, authed_user, work_pattern):
         """
@@ -78,7 +78,7 @@ class TestAttendanceRecordPost:
         - エラーメッセージが表示される
         """
 
-        RecordFactory(user=authed_user, work_date=date.today())
+        WorkRecordFactory(user=authed_user, work_date=date.today())
 
         client.force_authenticate(user=authed_user)
 

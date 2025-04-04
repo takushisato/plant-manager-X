@@ -1,8 +1,8 @@
 import pytest
 from datetime import date, time, timedelta
-from apps.attendance.models.record import Record
+from apps.attendance.models.work_record import WorkRecord
 from apps.utility.enums import WorkStatus
-from tests.factory.record_factory import RecordFactory
+from tests.factory.work_record_factory import WorkRecordFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.work_pattern_factory import WorkPatternFactory
 
@@ -10,9 +10,9 @@ from tests.factory.work_pattern_factory import WorkPatternFactory
 @pytest.mark.django_db
 def test_create_attendance_record_with_factory():
     """
-    RecordFactory で正常に作成されることを確認
+    WorkRecordFactory で正常に作成されることを確認
     """
-    record = RecordFactory()
+    record = WorkRecordFactory()
     assert record.user is not None
     assert record.work_pattern is not None
     assert isinstance(record.work_date, date)
@@ -30,7 +30,7 @@ def test_attendance_record_str_method():
     """
     user = UserFactory(name="佐藤一郎")
     pattern = WorkPatternFactory(work_pattern_name="日勤")
-    record = Record.objects.create(
+    record = WorkRecord.objects.create(
         user=user,
         work_pattern=pattern,
         work_date=date(2025, 4, 1),
@@ -49,14 +49,14 @@ def test_get_records_by_month():
     get_records_by_month が指定月の勤怠を正しく返すこと
     """
     # 2025年4月分のデータを2件作成
-    RecordFactory(work_date=date(2025, 4, 1))
-    RecordFactory(work_date=date(2025, 4, 15))
+    WorkRecordFactory(work_date=date(2025, 4, 1))
+    WorkRecordFactory(work_date=date(2025, 4, 15))
 
     # 範囲外のデータ（3月末、5月初）も作成
-    RecordFactory(work_date=date(2025, 3, 31))
-    RecordFactory(work_date=date(2025, 5, 1))
+    WorkRecordFactory(work_date=date(2025, 3, 31))
+    WorkRecordFactory(work_date=date(2025, 5, 1))
 
-    results = Record.get_records_by_month(date(2025, 4, 1))
+    results = WorkRecord.get_records_by_month(date(2025, 4, 1))
     assert results.count() == 2
     for record in results:
         assert record.work_date.month == 4
@@ -74,11 +74,11 @@ def test_get_records_by_user_and_month():
     end_date = (start_date + timedelta(days=31)).replace(day=1)
 
     # user1 に4月の記録2件、user2 に1件
-    RecordFactory(user=user1, work_date=date(2025, 4, 1))
-    RecordFactory(user=user1, work_date=date(2025, 4, 20))
-    RecordFactory(user=user2, work_date=date(2025, 4, 10))
+    WorkRecordFactory(user=user1, work_date=date(2025, 4, 1))
+    WorkRecordFactory(user=user1, work_date=date(2025, 4, 20))
+    WorkRecordFactory(user=user2, work_date=date(2025, 4, 10))
 
-    records = Record.get_records_by_user_and_month(user1, start_date, end_date)
+    records = WorkRecord.get_records_by_user_and_month(user1, start_date, end_date)
     assert records.count() == 2
     for record in records:
         assert record.user == user1
@@ -100,7 +100,7 @@ def test_create_record():
     status = WorkStatus.PRESENT
     note_val = "テスト勤務"
 
-    record = Record.create_record(
+    record = WorkRecord.create_record(
         user=user,
         work_pattern=pattern,
         work_date=work_date_val,
@@ -112,7 +112,7 @@ def test_create_record():
         note=note_val
     )
 
-    assert Record.objects.count() == 1
+    assert WorkRecord.objects.count() == 1
     assert record.user == user
     assert record.work_pattern == pattern
     assert record.work_date == work_date_val

@@ -2,7 +2,7 @@ import pytest
 from rest_framework.test import APIClient
 from rest_framework import status
 from datetime import date, time
-from tests.factory.record_factory import RecordFactory
+from tests.factory.work_record_factory import WorkRecordFactory
 from tests.factory.work_pattern_factory import WorkPatternFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
@@ -29,7 +29,7 @@ class TestAttendanceRecordPut:
     @pytest.fixture
     def record(self, authed_user):
         work_pattern = WorkPatternFactory(start_time=time(9, 0), end_time=time(18, 0))
-        return RecordFactory(
+        return WorkRecordFactory(
             user=authed_user,
             work_pattern=work_pattern,
             clock_in_time=time(9, 0),
