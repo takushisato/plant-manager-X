@@ -11,7 +11,7 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestAttendanceRecordCreateView:
+class TestAttendanceRecordCreate:
     """
     勤怠記録作成APIのテスト
 

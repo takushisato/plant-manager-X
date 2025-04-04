@@ -9,7 +9,7 @@ from tests.factory.work_pattern_factory import WorkPatternFactory
 
 
 @pytest.mark.django_db
-class TestAttendanceRecordAllListView:
+class TestAttendanceRecordAllList:
     """
     全ての勤怠記録を取得するAPIのテスト
 
