@@ -8,7 +8,7 @@ from apps.bug_note.models.defect import Defect
 
 
 @pytest.mark.django_db
-class TestDefectDeleteView:
+class TestDefectDetailDelete:
     """
     不具合情報を論理削除するAPIのテスト
 

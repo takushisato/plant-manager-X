@@ -6,7 +6,7 @@ from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 
 @pytest.mark.django_db
-class TestDefectDetailView:
+class TestDefectDetailGet:
     """
     不具合詳細取得APIのテスト
 

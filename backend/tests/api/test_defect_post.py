@@ -5,17 +5,16 @@ from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 from tests.factory.customer_factory import CustomerFactory
 from tests.factory.order_factory import OrderFactory
-from tests.factory.defect_factory import DefectFactory
 from apps.bug_note.models.defect import Defect
 
 
 @pytest.mark.django_db
-class TestDefectUpdateView:
+class TestDefectPost:
     """
-    不具合情報を編集するAPIのテスト
+    不具合情報を新規作成するAPIのテスト
 
-    URL: /api/bug_note/defects/<int:pk>/
-    METHOD: PUT
+    URL: /api/bug_note/defects/
+    METHOD: POST
     """
 
     @pytest.fixture
@@ -33,20 +32,16 @@ class TestDefectUpdateView:
         customer = CustomerFactory()
         return OrderFactory(customer=customer)
 
-    @pytest.fixture
-    def defect(self, order, authed_user):
-        return DefectFactory(order=order, create_user=authed_user)
-
-    def test_update_defect_success(self, client, authed_user, order, defect):
+    def test_create_defect_success(self, client, authed_user, order):
         """
-        正常系: 不具合情報を編集する
+        正常系: 不具合情報を新規作成する
 
         条件:
-        - 不具合情報の編集
+        - 不具合情報の作成
 
         結果:
-        - ステータスコード200
-        - 不具合情報が編集される
+        - ステータスコード201
+        - 不具合情報が作成される
         """
         client.force_authenticate(user=authed_user)
         data = {
@@ -58,22 +53,22 @@ class TestDefectUpdateView:
             "submission_deadline": "2025-04-10T17:00:00Z"
         }
 
-        response = client.put(f"/api/bug_note/defects/{defect.id}/", data=data, format="json")
+        response = client.post("/api/bug_note/defects/", data=data, format="json")
 
-        assert response.status_code == status.HTTP_200_OK
+        assert response.status_code == status.HTTP_201_CREATED
         assert response.data["title"] == "不具合テスト"
         assert Defect.objects.count() == 1
 
-    def test_unauthenticated_user_cannot_update(self, client, order, defect):
+    def test_unauthenticated_user_cannot_create(self, client, order):
         """
-        異常系: 認証されていないユーザーが編集できない
+        異常系: 認証されていないユーザーが作成できない
 
         条件:
         - 認証されていないユーザー
 
         結果:
         - ステータスコード401
-        - 不具合情報が編集されない
+        - 不具合情報が作成されない
         """
         data = {
             "order": order.id,
@@ -84,19 +79,19 @@ class TestDefectUpdateView:
             "submission_deadline": "2025-04-10T17:00:00Z"
         }
 
-        response = client.put(f"/api/bug_note/defects/{defect.id}/", data=data, format="json")
+        response = client.post("/api/bug_note/defects/", data=data, format="json")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
-    def test_user_without_permission_cannot_update(self, client, order, defect):
+    def test_user_without_permission_cannot_create(self, client, order):
         """
-        異常系: 権限がないユーザーが編集できない
+        異常系: 権限がないユーザーが作成できない
 
         条件:
         - 権限がないユーザー
 
         結果:
         - ステータスコード403
-        - 不具合情報が編集されない
+        - 不具合情報が作成されない
         """
         user = UserFactory()
         PermissionFactory(user=user, can_edit_defect=False)
@@ -111,10 +106,10 @@ class TestDefectUpdateView:
             "submission_deadline": "2025-04-10T17:00:00Z"
         }
 
-        response = client.put(f"/api/bug_note/defects/{defect.id}/", data=data, format="json")
+        response = client.post("/api/bug_note/defects/", data=data, format="json")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_invalid_data(self, client, authed_user, defect):
+    def test_invalid_data(self, client, authed_user):
         """
         異常系: 不正なデータが送信された場合、エラーが返される
 
@@ -123,8 +118,8 @@ class TestDefectUpdateView:
 
         結果:
         - ステータスコード400
-        - 不具合情報が編集されない
+        - 不具合情報が作成されない
         """
         client.force_authenticate(user=authed_user)
-        response = client.put(f"/api/bug_note/defects/{defect.id}/", data={}, format="json")
+        response = client.post("/api/bug_note/defects/", data={}, format="json")
         assert response.status_code == status.HTTP_400_BAD_REQUEST
