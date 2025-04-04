@@ -12,7 +12,7 @@ from tests.factory.mail_group_record_factory import MailGroupRecordFactory
 
 
 @pytest.mark.django_db
-class TestMailGroupDeleteView:
+class TestMailGroupDetailDelete:
     """
     メールグループ削除APIのテスト
 

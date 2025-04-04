@@ -12,7 +12,7 @@ from apps.utility.const import MESSAGES
 
 
 @pytest.mark.django_db
-class TestMailGroupSendView:
+class TestMailGroupSendPost:
     """
     メール送信APIのテスト
 

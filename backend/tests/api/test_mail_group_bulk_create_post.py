@@ -8,7 +8,7 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestMailGroupBulkCreateView:
+class TestMailGroupBulkCreatePost:
     """
     メールグループ詳細一括登録APIのテスト
 
