@@ -11,7 +11,7 @@ from apps.attendance.views.validations import validate_month_param_exists, get_m
 from apps.utility.const import MESSAGES
 
 
-class AttendanceRecordMyListView(APIView):
+class RecordMyListView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(

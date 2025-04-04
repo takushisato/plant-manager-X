@@ -10,7 +10,7 @@ from apps.attendance.common import check_attendance_all_edit_permission
 from apps.attendance.views.validations import validate_month_param, parse_month_string
 
 
-class AttendanceRecordAllListView(APIView):
+class RecordAllListView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(

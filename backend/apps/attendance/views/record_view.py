@@ -11,7 +11,7 @@ from apps.attendance.common import check_attendance_own_edit_permission
 from apps.attendance.views.validations import validate_clock_order, validate_within_work_pattern, calculate_minutes, get_total_break_minutes, calculate_net_work_minutes, validate_duplicate_record
 
 
-class AttendanceRecordView(APIView):
+class RecordView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(
