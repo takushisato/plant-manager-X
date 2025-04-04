@@ -102,18 +102,18 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 # データベース設定。SQLiteとMySQLを選択可能。使用しない方をコメントアウト
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME') or 'mydatabase',
-        'USER': os.environ.get('DB_USER') or 'user',
-        'PASSWORD': os.environ.get('DB_PASS') or 'password',
-        'HOST': os.environ.get('DB_HOST') or 'mysql',
-        'PORT': os.environ.get('DB_PORT') or '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': os.environ.get('DB_NAME') or 'ai_talk',
+    #     'USER': os.environ.get('DB_USER') or 'dev',
+    #     'PASSWORD': os.environ.get('DB_PASS') or 'pass',
+    #     'HOST': os.environ.get('DB_HOST') or 'mysql',
+    #     'PORT': os.environ.get('DB_PORT') or 3306,
+    # }
 }
 
 # Password validation

@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   backend:
     build:
@@ -18,7 +20,7 @@ services:
       - DB_NAME=mydatabase
       - DB_USER=root
       - DB_PASSWORD=password
-      - DB_HOST=mysql
+      - DB_HOST=db
       - DB_PORT=3306
 
   db:
