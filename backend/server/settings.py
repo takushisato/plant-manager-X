@@ -111,8 +111,8 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME') or 'mydatabase',
         'USER': os.environ.get('DB_USER') or 'user',
         'PASSWORD': os.environ.get('DB_PASS') or 'password',
-        'HOST': os.environ.get('DB_HOST') or 'localhost',
-        'PORT': os.environ.get('DB_PORT') or 3306,
+        'HOST': os.environ.get('DB_HOST') or 'mysql',
+        'PORT': os.environ.get('DB_PORT') or '3306',
     }
 }
 
