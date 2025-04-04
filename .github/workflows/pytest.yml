@@ -41,10 +41,10 @@ jobs:
 
       - name: 🧰 Install dependencies
         run: |
-          cd backend
+          backend bash
           poetry install
 
       - name: 🧪 Run tests
         run: |
-          cd backend
+          backend bash
           poetry run pytest

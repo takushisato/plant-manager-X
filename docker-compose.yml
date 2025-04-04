@@ -18,7 +18,7 @@ services:
       - DB_NAME=mydatabase
       - DB_USER=root
       - DB_PASSWORD=password
-      - DB_HOST=db
+      - DB_HOST=mysql
       - DB_PORT=3306
 
   db:
