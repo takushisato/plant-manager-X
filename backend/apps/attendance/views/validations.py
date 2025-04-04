@@ -1,6 +1,6 @@
 from rest_framework.exceptions import ValidationError
 from datetime import datetime
-from apps.attendance.models.record import Record
+from apps.attendance.models.work_record import WorkRecord
 from apps.attendance.models.break_setting import BreakSetting
 from rest_framework.response import Response
 from rest_framework import status
@@ -83,7 +83,7 @@ def validate_duplicate_record(user, work_date):
     """
     同じ勤務日に同じユーザーが勤怠記録を作成していないかをチェック
     """
-    if Record.objects.filter(user=user, work_date=work_date, deleted_at__isnull=True).exists():
+    if WorkRecord.objects.filter(user=user, work_date=work_date, deleted_at__isnull=True).exists():
         raise ValidationError(MESSAGES["DUPLICATE_RECORD_ERROR"])
 
 

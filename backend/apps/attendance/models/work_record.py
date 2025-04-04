@@ -5,7 +5,7 @@ from apps.staff_hub.models import User
 from apps.utility.enums import WorkStatus
 
 
-class Record(BaseModel):
+class WorkRecord(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="ユーザー")
     work_pattern = models.ForeignKey(WorkPattern, on_delete=models.CASCADE, verbose_name="勤務形態")
     work_date = models.DateField("勤務日")
@@ -24,7 +24,7 @@ class Record(BaseModel):
     class Meta:
         verbose_name = '勤怠'
         verbose_name_plural = '勤怠'
-        db_table = 'attendance_records'
+        db_table = 'work_records'
 
     def __str__(self):
         return f"{self.user.name} - {self.work_date} - {self.work_status}"
@@ -61,7 +61,7 @@ class Record(BaseModel):
         """
         勤怠記録を作成する
         """
-        attendance = Record.objects.create(
+        attendance = WorkRecord.objects.create(
             user=user,
             work_pattern=work_pattern,
             work_date=work_date,

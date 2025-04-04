@@ -5,7 +5,7 @@ from datetime import time, date
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 from tests.factory.work_pattern_factory import WorkPatternFactory
-from tests.factory.record_factory import RecordFactory
+from tests.factory.work_record_factory import WorkRecordFactory
 
 
 @pytest.mark.django_db
@@ -33,7 +33,7 @@ class TestAttendanceRecordMyListGet:
 
     @pytest.fixture
     def records_for_april(self, authed_user, work_pattern):
-        return RecordFactory.create_batch(3, user=authed_user, work_pattern=work_pattern, work_date=date(2025, 4, 10))
+        return WorkRecordFactory.create_batch(3, user=authed_user, work_pattern=work_pattern, work_date=date(2025, 4, 10))
 
     def test_list_attendance_by_month_success(self, client, authed_user, records_for_april):
         """
