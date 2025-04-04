@@ -9,7 +9,7 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestMaterialListView:
+class TestMaterialGet:
     """
     資材一覧取得APIのテスト
 

@@ -7,7 +7,7 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestReceiveStockView:
+class TestMaterialDetailReceiveStockPut:
     """
     資材受け入れビューのテスト
 
