@@ -8,7 +8,7 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestProductionPlanListView:
+class TestPlanGet:
     """
     生産計画一覧を取得するビューのテスト
 

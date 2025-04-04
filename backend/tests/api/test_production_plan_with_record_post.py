@@ -9,7 +9,7 @@ from tests.factory.permission_factory import PermissionFactory
 
 
 @pytest.mark.django_db
-class TestProductionPlanWithRecordsCreateView:
+class TestProductionPlanWithRecordsPost:
     """
     生産計画と詳細を一括で作成するビューのテスト
 

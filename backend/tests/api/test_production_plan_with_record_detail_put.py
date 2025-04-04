@@ -8,7 +8,7 @@ from tests.factory.production_plan_factory import ProductionPlanFactory
 from tests.factory.production_plan_record_factory import ProductionPlanRecordFactory
 
 @pytest.mark.django_db
-class TestProductionPlanUpdateView:
+class TestProductionPlanWithRecordDetailPut:
     """
     生産計画を更新するビューのテスト
 

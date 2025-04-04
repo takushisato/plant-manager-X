@@ -7,7 +7,7 @@ from tests.factory.production_plan_factory import ProductionPlanFactory
 from tests.factory.production_plan_record_factory import ProductionPlanRecordFactory
 
 @pytest.mark.django_db
-class TestProductionPlanDeleteView:
+class TestPlanWithRecordDetailDelete:
     """
     生産計画を論理削除するビューのテスト
 
