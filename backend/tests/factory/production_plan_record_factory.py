@@ -1,12 +1,12 @@
 import factory
 from datetime import date, timedelta
-from apps.prod_flow.models.production_plan_detail import ProductionPlanDetail
+from apps.prod_flow.models.production_plan_record import ProductionPlanRecord
 from .production_plan_factory import ProductionPlanFactory
 
 
-class ProductionPlanDetailFactory(factory.django.DjangoModelFactory):
+class ProductionPlanRecordFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = ProductionPlanDetail
+        model = ProductionPlanRecord
 
     production_plan = factory.SubFactory(ProductionPlanFactory)
     title = factory.Faker("word")

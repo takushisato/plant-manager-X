@@ -3,8 +3,8 @@ from apps.utility.models import BaseModel
 from apps.prod_flow.models.production_plan import ProductionPlan
 
 
-class ProductionPlanDetail(BaseModel):
-    production_plan = models.ForeignKey(ProductionPlan, related_name="details", on_delete=models.CASCADE, verbose_name="生産計画")
+class ProductionPlanRecord(BaseModel):
+    production_plan = models.ForeignKey(ProductionPlan, related_name="records", on_delete=models.CASCADE, verbose_name="生産計画")
     title = models.CharField("タイトル", max_length=255)
     planned_start_date = models.DateField("計画開始日")
     planned_end_date = models.DateField("計画終了日")
@@ -16,7 +16,7 @@ class ProductionPlanDetail(BaseModel):
     class Meta:
         verbose_name = '生産計画詳細'
         verbose_name_plural = '生産計画詳細'
-        db_table = 'production_plan_details'
+        db_table = 'production_plan_records'
     
     def __str__(self):
         return f"{self.production_plan.organization.organization_name} - {self.title}"
