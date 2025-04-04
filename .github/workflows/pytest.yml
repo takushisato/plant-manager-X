@@ -14,9 +14,9 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: test_db
-          MYSQL_USER: test_user
-          MYSQL_PASSWORD: test_pass
+          MYSQL_DATABASE: mydatabase
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
         ports:
           - 3306:3306
         options: >-
@@ -41,10 +41,11 @@ jobs:
 
       - name: 🧰 Install dependencies
         run: |
-          backend bash
+          cd backend
           poetry install
 
       - name: 🧪 Run tests
         run: |
-          backend bash
+          cd backend
+          poetry run python manage.py migrate
           poetry run pytest
