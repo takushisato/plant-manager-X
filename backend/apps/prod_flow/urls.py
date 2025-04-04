@@ -6,5 +6,4 @@ urlpatterns = [
     path("plans/", ProductionPlanView.as_view(), name="production-plan"),
     path("plan_with_records/", ProductionPlanWithRecordView.as_view(), name="production-plan-with-record"),
     path("plan_with_records/<int:pk>/", ProductionPlanWithRecordDetailView.as_view(), name="production-plan-with-record-detail"),
-    # path('plan_with_records/<int:pk>/delete/', ProductionPlanDeleteView.as_view(), name='production-plan-delete'),
 ]

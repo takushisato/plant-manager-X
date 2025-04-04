@@ -9,7 +9,7 @@ class ProductionPlanDetailNestedSerializer(serializers.ModelSerializer):
         exclude = ['production_plan']
 
 
-class ProductionPlanWithDetailsSerializer(serializers.ModelSerializer):
+class ProductionPlanWithRecordSerializer(serializers.ModelSerializer):
     records = ProductionPlanDetailNestedSerializer(many=True)
 
     class Meta:
