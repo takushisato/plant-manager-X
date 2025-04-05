@@ -17,7 +17,6 @@ jobs:
           MYSQL_DATABASE: mydatabase
           MYSQL_USER: user
           MYSQL_PASSWORD: password
-          MYSQL_HOST: mysql
         ports:
           - 3306:3306
         options: >-
@@ -59,7 +58,6 @@ jobs:
           DB_NAME: mydatabase
           DB_USER: user
           DB_PASSWORD: password
-          DB_HOST: mysql
           DB_PORT: 3306
         run: |
           cd backend
