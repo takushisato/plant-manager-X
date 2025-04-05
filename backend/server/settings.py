@@ -14,12 +14,11 @@ from pathlib import Path
 import os
 import environ
 
-env = environ.Env()
-env.read_env('.env')
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -108,11 +107,11 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME') or 'mydatabase',
-        'USER': os.environ.get('DB_USER') or 'user',
-        'PASSWORD': os.environ.get('DB_PASS') or 'password',
-        'HOST': os.environ.get('DB_HOST') or 'mysql',
-        'PORT': os.environ.get('DB_PORT') or 3306,
+        'NAME': env('DB_NAME', default='mydatabase'),
+        'USER': env('DB_USER', default='user'),
+        'PASSWORD': env('DB_PASSWORD', default='password'),
+        'HOST': env('DB_HOST', default='mysql'),
+        'PORT': env.int('DB_PORT', default=3306),
     }
 }
 
