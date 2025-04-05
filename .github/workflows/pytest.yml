@@ -53,6 +53,15 @@ jobs:
             sleep 2
           done
 
+      - name: ✅ Check MySQL connectivity manually
+        env:
+          MYSQL_HOST: mysql
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+        run: |
+          sudo apt-get install -y default-mysql-client
+          mysql -hmysql -uuser -ppassword -e "SHOW DATABASES;"
+
       - name: 🧪 Run tests
         env:
           DB_NAME: mydatabase
