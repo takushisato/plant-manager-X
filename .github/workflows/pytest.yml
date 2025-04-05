@@ -2,8 +2,7 @@ name: Run Pytest on Pull Request
 
 on:
   pull_request:
-    branches:
-    - '*' 
+    branches: ["*"]
 
 jobs:
   test:
@@ -11,19 +10,21 @@ jobs:
 
     services:
       mysql:
-        image: mysql:8.0
+        image: bitnami/mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: test_db
-          MYSQL_USER: test_user
-          MYSQL_PASSWORD: test_pass
+          MYSQL_DATABASE: mydatabase
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+          MYSQL_HOST: mysql
+          MYSQL_PORT: 3306
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping"
+          --health-cmd="mysqladmin ping -ppassword"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=3
+          --health-retries=5
 
     steps:
       - name: 📥 Checkout code
@@ -44,7 +45,23 @@ jobs:
           cd backend
           poetry install
 
-      - name: 🧪 Run tests
+      - name: ⏳ Wait for MySQL to be ready
         run: |
-          cd backend
+          sudo apt-get update && sudo apt-get install -y netcat-openbsd
+          for i in {1..30}; do
+            nc -z mysql 3306 && echo "✅ MySQL is up!" && break
+            echo "⏳ Waiting for MySQL..."
+            sleep 2
+          done
+          
+      - name: 🧪 Run tests
+        working-directory: backend
+        env:
+          DB_NAME: mydatabase
+          DB_USER: user
+          DB_PASSWORD: password
+          DB_HOST: mysql
+          DB_PORT: 3306
+        run: |
+          poetry run python manage.py migrate
           poetry run pytest
