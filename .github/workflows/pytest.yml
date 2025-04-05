@@ -53,12 +53,7 @@ jobs:
             echo "⏳ Waiting for MySQL..."
             sleep 2
           done
-
-      - name: ✅ Check MySQL connectivity manually
-        run: |
-          sudo apt-get install -y default-mysql-client
-          mysql -hmysql -uuser -ppassword -e "SHOW DATABASES;"
-
+          
       - name: 🧪 Run tests
         working-directory: backend
         env:
