@@ -39,10 +39,19 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-      - name: 🧰 Install dependencies
+          - name: 🧰 Install dependencies
+          run: |
+            cd backend
+            poetry install
+  
+      - name: ⏳ Wait for MySQL to be ready
         run: |
-          cd backend
-          poetry install
+          sudo apt-get update && sudo apt-get install -y netcat
+          for i in {1..30}; do
+            nc -z mysql 3306 && echo "✅ MySQL is up!" && break
+            echo "⏳ Waiting for MySQL..."
+            sleep 2
+          done
 
       - name: 🧪 Run tests
         env:
