@@ -110,7 +110,7 @@ DATABASES = {
         'NAME': env('DB_NAME', default='mydatabase'),
         'USER': env('DB_USER', default='user'),
         'PASSWORD': env('DB_PASSWORD', default='password'),
-        # 'HOST': env('DB_HOST', default='mysql'),
+        'HOST': env('DB_HOST', default='http://127.0.0.1'),
         'PORT': env.int('DB_PORT', default=3306),
     }
 }
