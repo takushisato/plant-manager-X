@@ -17,7 +17,6 @@ jobs:
           MYSQL_DATABASE: mydatabase
           MYSQL_USER: user
           MYSQL_PASSWORD: password
-          MYSQL_HOST: mysql
         ports:
           - 3306:3306
         options: >-
