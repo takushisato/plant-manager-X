@@ -43,10 +43,10 @@ jobs:
         run: |
           cd backend
           poetry install
-  
+
       - name: ⏳ Wait for MySQL to be ready
         run: |
-          sudo apt-get update && sudo apt-get install -y netcat
+          sudo apt-get update && sudo apt-get install -y netcat-openbsd
           for i in {1..30}; do
             nc -z mysql 3306 && echo "✅ MySQL is up!" && break
             echo "⏳ Waiting for MySQL..."
