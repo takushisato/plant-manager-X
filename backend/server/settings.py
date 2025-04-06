@@ -107,9 +107,9 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME') or 'ai_talk',
-        'USER': os.environ.get('DB_USER') or 'dev',
-        'PASSWORD': os.environ.get('DB_PASS') or 'pass',
+        'NAME': os.environ.get('DB_NAME') or 'mydatabase',
+        'USER': os.environ.get('DB_USER') or 'user',
+        'PASSWORD': os.environ.get('DB_PASSWORD') or 'password',
         'HOST': os.environ.get('DB_HOST') or 'mysql',
         'PORT': os.environ.get('DB_PORT') or 3306,
     }
