@@ -12,18 +12,18 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      - mysql
     environment:
       - DJANGO_SETTINGS_MODULE=server.settings
       - DEBUG=True
-      - DATABASE_URL=mysql://root:password@db:3306/mydatabase
+      - DATABASE_URL=mysql://root:password@mysql:3306/mydatabase
       - DB_NAME=mydatabase
       - DB_USER=root
       - DB_PASSWORD=password
-      - DB_HOST=db
+      - DB_HOST=mysql
       - DB_PORT=3306
 
-  db:
+  mysql:
     image: mysql:8.0
     container_name: mysql_db
     restart: always
