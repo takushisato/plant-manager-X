@@ -86,6 +86,9 @@ python manage.py migrate
 ## 5, sheederの流し込み（開発環境のみ）
 bash scripts/sheeder.sh
 
+### もしも5でエラーになる（$'\r': command not found）なら以下を実行し、再度5を実行
+sed -i 's/\r//' scripts/sheeder.sh
+
 ## 6, dockerのbush終了（docker-compose exec web bush でdockerに入ってる状態）
 exit
 
