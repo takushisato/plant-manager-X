@@ -89,7 +89,7 @@ bash scripts/sheeder.sh
 ### もしも5でエラーになる（$'\r': command not found）なら以下を実行し、再度5を実行
 sed -i 's/\r//' scripts/sheeder.sh
 
-## 6, dockerのbush終了（docker-compose exec web bush でdockerに入ってる状態）
+## 6, dockerのbash終了（docker-compose exec web bash でdockerに入ってる状態）
 exit
 
 # dockerのfrontendに接続する場合
@@ -188,4 +188,20 @@ win機（WSL）の場合、mysqlclient 環境作成時にドライバが必要�
 
 sudo apt update  
 sudo apt install -y pkg-config default-libmysqlclient-dev build-essential
+```
+
+### CI及び自動について
+
+現時点でpytestを実装済み。
+CIではモックのSQlite3を使用して、自動テストを行っている。
+
+ローカルでpytestを行う場合は、docker環境に入る必要がある。
+
+```
+# docker環境のバックエンドに入る
+docker compose exec backend bash
+
+# pytestの実行
+pytest
+
 ```
