@@ -66,6 +66,7 @@ THIRD_APPS = [
 INSTALLED_APPS = DEFAULT_APPS + CREATE_APPS + THIRD_APPS
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -221,6 +222,6 @@ EMAIL_USE_TLS = True
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER 
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:5173',
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
 ]
