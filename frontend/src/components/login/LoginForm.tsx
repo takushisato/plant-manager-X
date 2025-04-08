@@ -8,20 +8,20 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: ここでログイン処理（API呼び出しなど）
-    console.log("Email:", email);
-    console.log("Password:", password);
+    login(email, password);
   };
 
   return (
-    <Box as="form" onSubmit={handleSubmit} w="100%" maxW="400px" mx="auto">
+    <Box as="form" onSubmit={handleLogin} w="100%" maxW="400px" mx="auto">
       <Heading as="h1" size="lg" textAlign="center" mb={8} mt={8}>
         ログイン
       </Heading>
