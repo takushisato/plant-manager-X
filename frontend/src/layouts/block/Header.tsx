@@ -32,7 +32,7 @@ const Header = () => {
             >
               ログイン中: {username}さん
             </Box>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
+            <MenuItem as={Link} to="/login" display="block" textAlign="center">
               ログイン
             </MenuItem>
             <MenuItem as={Link} to="/" display="block" textAlign="center">
