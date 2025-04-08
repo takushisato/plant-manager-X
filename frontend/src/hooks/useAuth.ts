@@ -4,15 +4,17 @@ import { endpoints } from "@/utils/apiUrls";
 export const useAuth = () => {
   /**
    * ログイン
-   * @param username
+   * @param email
    * @param password
    * @returns
    */
-  const login = async (username: string, password: string) => {
+  const login = async (email: string, password: string) => {
     const response = await apiClient({
       url: endpoints.post.login,
-      data: { username, password },
+      data: { email, password },
     });
+    console.log(response);
+    // TODO Cookieにトークンを保存する処理を追加する
     return response;
   };
 
