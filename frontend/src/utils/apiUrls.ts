@@ -1,7 +1,15 @@
-import { apiBaseUrl } from "@/utils/api-base-url";
-
-export const ENDPOINTS = {
-  LOGIN: `${apiBaseUrl()}/api/auth/token/login`,
-  LOGOUT: `${apiBaseUrl()}/api/auth/token/logout`,
-  USERS: (id: string) => `${apiBaseUrl()}/api/auth/users/${id}`,
+export const endpoints = {
+  post: {
+    login: "/api/auth/token/login",
+    logout: "/api/auth/token/logout",
+  },
+  get: {
+    users: (id: string) => `/api/auth/users/${id}`,
+  },
+  put: {
+    users: (id: string) => `/api/auth/users/${id}`,
+  },
+  delete: {
+    users: (id: string) => `/api/auth/users/${id}`,
+  },
 };
