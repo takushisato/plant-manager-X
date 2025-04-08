@@ -1,4 +1,4 @@
-export function apiBaseUrl() {
-  const baseUrl = "http://localhost:8000/";
+export function apiBaseUrl(): string {
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
   return baseUrl;
 }
