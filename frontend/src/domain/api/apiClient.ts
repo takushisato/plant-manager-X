@@ -25,6 +25,11 @@ const detectMethod = (url: string): "GET" | "POST" | "PUT" | "DELETE" => {
   throw new Error("Invalid URL");
 };
 
+const API_BASE_URL =
+  process.env.NODE_ENV === "test"
+    ? "http://localhost:8000"
+    : process.env.VITE_API_BASE_URL || "http://localhost:8000";
+
 /**
  * Axiosラッパー関数
  *
@@ -39,7 +44,7 @@ export const apiClient = async <T>(config: AxiosRequestConfig): Promise<T> => {
     };
 
     const method = config.method || detectMethod(config.url || "");
-    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const baseUrl = API_BASE_URL;
 
     const response: AxiosResponse<T> = await axios({
       baseURL: baseUrl,
