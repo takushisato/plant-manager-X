@@ -1,5 +1,6 @@
 import { apiClient } from "@/domain/api/apiClient";
 import { endpoints } from "@/utils/apiUrls";
+import Cookies from "js-cookie";
 
 export const useAuth = () => {
   /**
@@ -9,12 +10,14 @@ export const useAuth = () => {
    * @returns
    */
   const login = async (email: string, password: string) => {
-    const response = await apiClient({
+    const response = await apiClient<{ auth_token: string }>({
       url: endpoints.post.login,
       data: { email, password },
     });
-    console.log(response);
-    // TODO Cookieにトークンを保存する処理を追加する
+    // トークンをCookieに保存
+    Cookies.set("token", response.auth_token, {
+      expires: 1,
+    });
     return response;
   };
 
@@ -26,6 +29,8 @@ export const useAuth = () => {
     const response = await apiClient({
       url: endpoints.post.logout,
     });
+    // Cookieを削除
+    Cookies.remove("token");
     return response;
   };
 
