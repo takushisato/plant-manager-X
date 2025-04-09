@@ -1,11 +1,7 @@
 import { apiClient } from "@/domain/api/apiClient";
 import { endpoints } from "@/utils/apiUrls";
+import { User } from "@/domain/auth/user";
 
-type User = {
-  id: number;
-  name: string;
-  email: string;
-};
 
 export const useUser = () => {
   const getUser = async () => {
