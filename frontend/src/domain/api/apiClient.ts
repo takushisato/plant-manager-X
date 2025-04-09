@@ -3,6 +3,7 @@ import type { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
 import type { ErrorResponse } from "@/domain/api/error-response";
 import { processErrorResponse } from "@/domain/api/process-error-response";
 import { endpoints } from "@/utils/apiUrls";
+import Cookies from "js-cookie";
 
 /**
  * URL に応じて HTTP メソッドを判定
@@ -31,7 +32,7 @@ const detectMethod = (url: string): "GET" | "POST" | "PUT" | "DELETE" => {
  */
 export const apiClient = async <T>(config: AxiosRequestConfig): Promise<T> => {
   try {
-    const token = localStorage.getItem("token"); // TODO: cookieから取得に変更する
+    const token = Cookies.get("token");
     const headers = {
       ...config.headers,
       ...(token && { Authorization: `Token ${token}` }), // トークンが存在する場合のみ Authorization を追加
@@ -45,6 +46,7 @@ export const apiClient = async <T>(config: AxiosRequestConfig): Promise<T> => {
       ...config,
       headers,
       method,
+      withCredentials: true,
     });
 
     return response.data;
