@@ -25,10 +25,8 @@ const detectMethod = (url: string): "GET" | "POST" | "PUT" | "DELETE" => {
   throw new Error("Invalid URL");
 };
 
-const API_BASE_URL =
-  process.env.NODE_ENV === "test"
-    ? "http://localhost:8000"
-    : process.env.VITE_API_BASE_URL || "http://localhost:8000";
+// TODO 環境変数にする
+const API_BASE_URL = "http://localhost:8000";
 
 /**
  * Axiosラッパー関数
