@@ -10,19 +10,19 @@ export const useAuthStore = create<AuthStore>((set) => ({
 
   /**
    * ログイン状態を更新。
-   * トークンが存在しない場合はログアウト状態にする。
    * トークンが存在する場合はユーザー情報を取得してログイン状態にする。
+   * トークンが存在しない場合はログアウト状態にする。
    * @returns
    */
   restoreSession: async () => {
     const token = Cookies.get("token");
-    if (token == undefined) {
-      await useAuthStore.getState().logout();
-      return;
-    } else {
+    if (token != undefined) {
       const data = await apiClient<User>({ url: endpoints.get.users });
       set({ user: data });
       set({ authToken: token });
+    } else {
+      set({ user: null });
+      set({ authToken: null });
     }
   },
 
