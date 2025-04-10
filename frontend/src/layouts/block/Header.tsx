@@ -47,7 +47,7 @@ const Header = () => {
             _hover={{ bg: "teal.600" }}
           />
           <MenuList color="green.700">
-            <Box textAlign="center" px={3} py={2} fontSize="sm">
+            <Box textAlign="center" px={3} py={2} fontSize="sm" bg="yellow.100">
               {user?.name ? (
                 <Text color="green.400">ログイン中: {user?.name}さん</Text>
               ) : (
