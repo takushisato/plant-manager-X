@@ -12,32 +12,14 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
-import { useUser } from "@/hooks/useUser";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import { useUserStore } from "@/hooks/useUser";
+import { useEffect } from "react";
 
 const Header = () => {
-  const [userName, setUserName] = useState("");
-  const [getUserError, setGetUserError] = useState(false);
-  const { getUser } = useUser();
+  const { user, getUser } = useUserStore();
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        if (userName) return;
-        const token = Cookies.get("token");
-        if (!token) {
-          setGetUserError(true);
-          return;
-        }
-        const res = await getUser();
-        setUserName(res.name);
-      } catch (err) {
-        setGetUserError(true);
-      }
-    };
-
-    fetchUser();
+    getUser();
   }, [getUser]);
 
   return (
@@ -58,10 +40,10 @@ const Header = () => {
           />
           <MenuList color="green.700">
             <Box textAlign="center" px={3} py={2} fontSize="sm">
-              {getUserError ? (
-                <Text color="red.500">ログインしていません</Text>
+              {user?.name ? (
+                <Text color="green.400">ログイン中: {user?.name}さん</Text>
               ) : (
-                <Text color="green.400">ログイン中: {userName}さん</Text>
+                <Text color="red.500">ログインしていません</Text>
               )}
             </Box>
             <MenuItem as={Link} to="/login" display="block" textAlign="center">
