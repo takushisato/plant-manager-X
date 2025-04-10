@@ -8,4 +8,5 @@ export type UserStore = {
   user: User | null;
   getUser: () => Promise<void>;
   setUser: (user: User) => void;
+  removeUser: () => void;
 };
