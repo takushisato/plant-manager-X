@@ -3,6 +3,14 @@ import Layout from "@/layouts/Layout";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 
+jest.mock("@/hooks/useAuthStore", () => ({
+  useAuthStore: jest.fn(() => ({
+    user: { name: "テストユーザー" },
+    logout: jest.fn(),
+    restoreSession: jest.fn(),
+  })),
+}));
+
 describe("Layout", () => {
   it("Header, children, Footer が表示される", () => {
     render(
