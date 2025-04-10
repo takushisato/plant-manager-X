@@ -26,17 +26,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
     }
   },
 
-  /**
-   * ユーザー情報を削除
-   * @returns
-   */
-  removeUser: () => set({ user: null }),
-
-  /**
-   * ユーザー情報を設定
-   * @param user
-   */
-  setUser: (user) => set({ user }),
 
   /**
    * ログイン
@@ -53,6 +42,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
       expires: 1,
     });
     set({ authToken: response.auth_token });
+    await useAuthStore.getState().restoreSession(); // ログインが成功したら状態を更新
     return response;
   },
 
