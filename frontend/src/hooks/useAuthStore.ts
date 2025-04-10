@@ -6,7 +6,6 @@ import { User, AuthStore } from "@/domain/auth/user";
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
-  authToken: null,
 
   /**
    * ログイン状態を更新。
@@ -17,15 +16,17 @@ export const useAuthStore = create<AuthStore>((set) => ({
   restoreSession: async () => {
     const token = Cookies.get("token");
     if (token) {
-      const data = await apiClient<User>({ url: endpoints.get.users });
-      set({ user: data });
-      set({ authToken: token });
+      try {
+        const data = await apiClient<User>({ url: endpoints.get.users });
+        set({ user: data });
+      } catch (error) {
+        Cookies.remove("token");
+        set({ user: null });
+      }
     } else {
       set({ user: null });
-      set({ authToken: null });
     }
   },
-
 
   /**
    * ログイン
@@ -41,7 +42,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
     Cookies.set("token", response.auth_token, {
       expires: 1,
     });
-    set({ authToken: response.auth_token });
     await useAuthStore.getState().restoreSession(); // ログインが成功したら状態を更新
     return response;
   },
@@ -53,7 +53,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
   logout: async () => {
     const response = await apiClient<void>({ url: endpoints.post.logout });
     Cookies.remove("token");
-    set({ authToken: null });
     return response;
   },
 }));
