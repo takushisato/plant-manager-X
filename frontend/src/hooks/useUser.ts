@@ -20,5 +20,10 @@ export const useUserStore = create<UserStore>((set) => ({
     set({ user: data });
   },
 
+  /**
+   * ユーザー情報を削除
+   */
+  removeUser: () => set({ user: null }),
+
   setUser: (user) => set({ user }),
 }));
