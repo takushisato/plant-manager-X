@@ -14,9 +14,17 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useUserStore } from "@/hooks/useUser";
 import { useEffect } from "react";
-
+import { useAuth } from "@/hooks/useAuth";
 const Header = () => {
   const { user, getUser } = useUserStore();
+
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    useUserStore.getState().removeUser();
+    getUser();
+  };
 
   useEffect(() => {
     getUser();
@@ -46,8 +54,14 @@ const Header = () => {
                 <Text color="red.500">ログインしていません</Text>
               )}
             </Box>
-            <MenuItem as={Link} to="/login" display="block" textAlign="center">
-              ログイン
+            <MenuItem
+              as={Link}
+              to={user?.name ? "#" : "/login"}
+              onClick={user?.name ? handleLogout : undefined}
+              textAlign="center"
+              justifyContent="center"
+            >
+              {user?.name ? "ログアウト" : "ログイン"}
             </MenuItem>
             <MenuItem as={Link} to="/" display="block" textAlign="center">
               資材管理
