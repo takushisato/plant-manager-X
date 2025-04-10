@@ -12,23 +12,20 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
-import { useUserStore } from "@/hooks/useUser";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuthStore } from "@/hooks/useAuthStore";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 
 const Header = () => {
-  const { user, getUser } = useUserStore();
+  const { user, restoreSession, logout } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
-  const { logout } = useAuth();
 
   /**
    * ログアウトの実行
    */
   const handleLogout = async () => {
     await logout();
-    useUserStore.getState().removeUser();
-    getUser();
+    restoreSession();
     setIsOpen(false);
   };
 
@@ -47,8 +44,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-    getUser();
-  }, [getUser]);
+    restoreSession();
+  }, [restoreSession]);
 
   return (
     <Box as="header" bg="teal.500" px={4} py={3} color="white">

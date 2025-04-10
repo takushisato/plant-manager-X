@@ -4,9 +4,12 @@ export type User = {
   email: string;
 };
 
-export type UserStore = {
+export type AuthStore = {
   user: User | null;
-  getUser: () => Promise<void>;
+  authToken: string | null;
+  restoreSession: () => Promise<void>;
   setUser: (user: User) => void;
   removeUser: () => void;
+  login: (email: string, password: string) => Promise<{ auth_token: string }>;
+  logout: () => Promise<void>;
 };
