@@ -16,7 +16,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
    */
   restoreSession: async () => {
     const token = Cookies.get("token");
-    if (token != undefined) {
+    if (token) {
       const data = await apiClient<User>({ url: endpoints.get.users });
       set({ user: data });
       set({ authToken: token });
