@@ -1,17 +1,21 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import LoginForm from "@/components/login/LoginForm";
-import { useAuth } from "@/hooks/useAuthStore";
+import { useAuthStore } from "@/hooks/useAuthStore";
 import "@testing-library/jest-dom";
 
-jest.mock("@/hooks/useAuth");
+jest.mock("@/hooks/useAuthStore", () => ({
+  useAuthStore: jest.fn(() => ({
+    login: jest.fn(),
+  })),
+}));
 
 describe("LoginForm", () => {
   const mockLogin = jest.fn();
 
   beforeEach(() => {
-    (useAuth as jest.Mock).mockReturnValue({
+    (useAuthStore as unknown as jest.Mock).mockImplementation(() => ({
       login: mockLogin,
-    });
+    }));
   });
 
   it("フォームが正しく表示される", () => {
