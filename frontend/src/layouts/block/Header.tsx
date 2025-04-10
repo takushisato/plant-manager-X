@@ -12,33 +12,40 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
-import { useUser } from "@/hooks/useUser";
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import { useAuthStore } from "@/hooks/useAuthStore";
+import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 
 const Header = () => {
-  const [userName, setUserName] = useState("");
-  const [getUserError, setGetUserError] = useState(false);
-  const { getUser } = useUser();
+  const { user, restoreSession, logout } = useAuthStore();
+  const [isOpen, setIsOpen] = useState(false);
+
+  /**
+   * ログアウトの実行
+   */
+  const handleLogout = async () => {
+    await logout();
+    restoreSession();
+    setIsOpen(false);
+  };
+
+  /**
+   * ダイアログを閉じる
+   */
+  const handleDialogClose = () => {
+    setIsOpen(false);
+  };
+
+  /**
+   * ダイアログを開く
+   */
+  const handleDialogOpen = () => {
+    setIsOpen(true);
+  };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        if (userName) return;
-        const token = Cookies.get("token");
-        if (!token) {
-          setGetUserError(true);
-          return;
-        }
-        const res = await getUser();
-        setUserName(res.name);
-      } catch (err) {
-        setGetUserError(true);
-      }
-    };
-
-    fetchUser();
-  }, [getUser]);
+    restoreSession();
+  }, [restoreSession]);
 
   return (
     <Box as="header" bg="teal.500" px={4} py={3} color="white">
@@ -57,15 +64,21 @@ const Header = () => {
             _hover={{ bg: "teal.600" }}
           />
           <MenuList color="green.700">
-            <Box textAlign="center" px={3} py={2} fontSize="sm">
-              {getUserError ? (
-                <Text color="red.500">ログインしていません</Text>
+            <Box textAlign="center" px={3} py={2} fontSize="sm" bg="yellow.100">
+              {user?.name ? (
+                <Text color="green.400">ログイン中: {user?.name}さん</Text>
               ) : (
-                <Text color="green.400">ログイン中: {userName}さん</Text>
+                <Text color="red.500">ログインしていません</Text>
               )}
             </Box>
-            <MenuItem as={Link} to="/login" display="block" textAlign="center">
-              ログイン
+            <MenuItem
+              as={Link}
+              to={user?.name ? "#" : "/login"}
+              onClick={user?.name ? handleDialogOpen : undefined}
+              textAlign="center"
+              justifyContent="center"
+            >
+              {user?.name ? "ログアウト" : "ログイン"}
             </MenuItem>
             <MenuItem as={Link} to="/" display="block" textAlign="center">
               資材管理
@@ -88,6 +101,15 @@ const Header = () => {
           </MenuList>
         </Menu>
       </Flex>
+      <ConfirmDialog
+        isOpen={isOpen}
+        onClose={handleDialogClose}
+        onConfirm={handleLogout}
+        title="ログアウト"
+        message="ログアウトしますか？"
+        onCloseButtonText="キャンセル"
+        onConfirmButtonText="ログアウト"
+      />
     </Box>
   );
 };

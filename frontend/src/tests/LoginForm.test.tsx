@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import LoginForm from "@/components/login/LoginForm";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/useAuthStore";
 import "@testing-library/jest-dom";
 
 jest.mock("@/hooks/useAuth");
