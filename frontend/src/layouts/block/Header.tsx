@@ -13,17 +13,37 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useUserStore } from "@/hooks/useUser";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { ConfirmDialog } from "@/components/common/ConfirmDialog";
+
 const Header = () => {
   const { user, getUser } = useUserStore();
-
+  const [isOpen, setIsOpen] = useState(false);
   const { logout } = useAuth();
 
+  /**
+   * ログアウトの実行
+   */
   const handleLogout = async () => {
     await logout();
     useUserStore.getState().removeUser();
     getUser();
+    setIsOpen(false);
+  };
+
+  /**
+   * ダイアログを閉じる
+   */
+  const handleDialogClose = () => {
+    setIsOpen(false);
+  };
+
+  /**
+   * ダイアログを開く
+   */
+  const handleDialogOpen = () => {
+    setIsOpen(true);
   };
 
   useEffect(() => {
@@ -57,7 +77,7 @@ const Header = () => {
             <MenuItem
               as={Link}
               to={user?.name ? "#" : "/login"}
-              onClick={user?.name ? handleLogout : undefined}
+              onClick={user?.name ? handleDialogOpen : undefined}
               textAlign="center"
               justifyContent="center"
             >
@@ -84,6 +104,15 @@ const Header = () => {
           </MenuList>
         </Menu>
       </Flex>
+      <ConfirmDialog
+        isOpen={isOpen}
+        onClose={handleDialogClose}
+        onConfirm={handleLogout}
+        title="ログアウト"
+        message="ログアウトしますか？"
+        onCloseButtonText="キャンセル"
+        onConfirmButtonText="ログアウト"
+      />
     </Box>
   );
 };
