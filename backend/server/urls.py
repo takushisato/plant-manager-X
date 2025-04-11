@@ -27,7 +27,7 @@ urlpatterns = [
     path("api/auth/custom/users/me/", CustomUserMeView.as_view(), name="custom-user-me"),
     path('api/', include('rest_framework.urls')),
     path('api/auth/', include('djoser.urls.authtoken')),
-    path('api/auth/', include('djoser.urls')),
+    # path('api/auth/', include('djoser.urls')), # ログイン、ログアウト、パスワード変更など。一旦コメントアウト
 
     # apps
     path('api/materials/', include('apps.material.urls')),
