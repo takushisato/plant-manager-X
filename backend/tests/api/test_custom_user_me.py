@@ -58,8 +58,7 @@ class TestCustomUserMeView:
         assert data["permission"]["staff_hub_access"] is True
         assert data["permission"]["material_access"] is False
 
-    @pytest.mark.django_db
-    def test_custom_user_me_view_unauthenticated():
+    def test_custom_user_me_view_unauthenticated(self):
         """
         異常系: 認証されていない場合のテスト
 
