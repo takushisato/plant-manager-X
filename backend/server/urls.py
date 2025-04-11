@@ -17,15 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from apps.staff_hub.views import CustomUserMeView
 
 urlpatterns = [
     # 管理者ページ
     path('admin/', admin.site.urls),
 
-    # 認証
+    # djoser
+    path("api/auth/custom/users/me/", CustomUserMeView.as_view(), name="custom-user-me"),
     path('api/', include('rest_framework.urls')),
     path('api/auth/', include('djoser.urls.authtoken')),
-    path('api/auth/', include('djoser.urls')),
+    # path('api/auth/', include('djoser.urls')), # ログイン、ログアウト、パスワード変更など。一旦コメントアウト
 
     # apps
     path('api/materials/', include('apps.material.urls')),
