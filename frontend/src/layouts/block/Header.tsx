@@ -25,6 +25,17 @@ const Header = () => {
   if (user) {
     console.log(pageMap.navigateMenu(user));
   }
+
+  const getPageLabel = (path: string): string => {
+    if (path.includes("/material")) return "資材管理";
+    if (path.includes("/order")) return "受注管理";
+    if (path.includes("/production_plan")) return "生産計画";
+    if (path.includes("/attendance")) return "勤怠管理";
+    if (path.includes("/defect")) return "不具合情報";
+    if (path.includes("/mail")) return "社内メール";
+    return "メニュー";
+  };
+
   /**
    * ログアウトの実行
    */
@@ -76,6 +87,7 @@ const Header = () => {
                 <Text color="red.500">ログインしていません</Text>
               )}
             </Box>
+
             <MenuItem
               as={Link}
               to={user?.name ? "#" : "/login"}
@@ -85,24 +97,19 @@ const Header = () => {
             >
               {user?.name ? "ログアウト" : "ログイン"}
             </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              資材管理
-            </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              受注管理
-            </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              生産計画
-            </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              勤怠管理
-            </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              不具合情報
-            </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              社内メール
-            </MenuItem>
+
+            {user &&
+              pageMap.navigateMenu(user).map((obj, index) => (
+                <MenuItem
+                  key={index}
+                  as={Link}
+                  to={obj.path}
+                  display="block"
+                  textAlign="center"
+                >
+                  {obj.label}
+                </MenuItem>
+              ))}
           </MenuList>
         </Menu>
       </Flex>
