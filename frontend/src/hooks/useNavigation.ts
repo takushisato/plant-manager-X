@@ -132,7 +132,10 @@ const accessMap: Record<
 };
 
 // マスター権限の場合は全てのページへのアクセス権限を持つ
-const masterAccess = Object.values(accessMap);
+const masterAccess = Array.from(
+  new Map(Object.values(accessMap).map((item) => [item.title, item])).values()
+);
+  
 
 export const useNavigation = () => {
   const navigateMenu = (
