@@ -4,7 +4,7 @@ export const endpoints = {
     logout: "/api/auth/token/logout",
   },
   get: {
-    users: "/api/auth/users/me",
+    users: "/api/auth/custom/users/me",
   },
   put: {
     users: (id: string) => `/api/auth/users/${id}`,
