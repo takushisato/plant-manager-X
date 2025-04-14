@@ -28,6 +28,8 @@ jobs:
 
       - name: 📦 Install dependencies
         run: npm install
-
+        working-directory: frontend
+  
       - name: 🔍 Run tests
         run: npx jest
+        working-directory: frontend
