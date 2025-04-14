@@ -5,13 +5,13 @@ on:
     branches:
     - '*' 
     paths:
-    - 'src/**'
-    - 'tests/**'
-    - 'package.json'
-    - 'vitest.config.ts'
-    - 'jest.config.ts'
-    - 'tsconfig.json'
-    - '.github/workflows/test.yml'
+    - 'frontend/src/**'
+    - 'frontend/tests/**'
+    - 'frontend/package.json'
+    - 'frontend/vitest.config.ts'
+    - 'frontend/jest.config.ts'
+    - 'frontend/tsconfig.json'
+    - '.github/workflows/jest.yml'
 
 jobs:
   test:
