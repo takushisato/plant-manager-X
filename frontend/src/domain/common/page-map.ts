@@ -1,16 +1,4 @@
 export type PageMap = {
-  // マスタ設定画面
-  get_master_data: string;
-  create_master_data: string;
-  update_master_data: (master_data_id: string) => string;
-  delete_master_data: (master_data_id: string) => string;
-
-  // スタッフ画面
-  get_staff_hub: string;
-  create_staff_hub: string;
-  update_staff_hub: (staff_hub_id: string) => string;
-  delete_staff_hub: (staff_hub_id: string) => string;
-
   // 材料画面
   get_material: string;
   create_material: string;
