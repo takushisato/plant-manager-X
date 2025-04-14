@@ -9,16 +9,23 @@ import {
   MenuList,
   MenuItem,
   Text,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
+import { useNavigation } from "@/hooks/useNavigation";
 
 const Header = () => {
   const { user, restoreSession, logout } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
+  const pageMap = useNavigation();
 
   /**
    * ログアウトの実行
@@ -71,6 +78,7 @@ const Header = () => {
                 <Text color="red.500">ログインしていません</Text>
               )}
             </Box>
+
             <MenuItem
               as={Link}
               to={user?.name ? "#" : "/login"}
@@ -80,24 +88,39 @@ const Header = () => {
             >
               {user?.name ? "ログアウト" : "ログイン"}
             </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              資材管理
-            </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              受注管理
-            </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              生産計画
-            </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              勤怠管理
-            </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              不具合情報
-            </MenuItem>
-            <MenuItem as={Link} to="/" display="block" textAlign="center">
-              社内メール
-            </MenuItem>
+            {user && (
+              <Box px={3} py={2}>
+                <Accordion allowToggle>
+                  {pageMap.navigateMenu(user).map((group, idx) => (
+                    <AccordionItem key={idx} border="none">
+                      <AccordionButton _hover={{ bg: "teal.100" }}>
+                        <Box
+                          as="span"
+                          flex="1"
+                          textAlign="left"
+                          fontWeight="bold"
+                          minWidth="200px"
+                        >
+                          {group.title}
+                        </Box>
+                        <AccordionIcon />
+                      </AccordionButton>
+                      <AccordionPanel pb={2}>
+                        {group.menu.map((item, i) => (
+                          <Box key={i} py={1} pl={4}>
+                            <Link to={item.path}>
+                              <Text _hover={{ textDecoration: "underline" }}>
+                                {item.label}
+                              </Text>
+                            </Link>
+                          </Box>
+                        ))}
+                      </AccordionPanel>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </Box>
+            )}
           </MenuList>
         </Menu>
       </Flex>

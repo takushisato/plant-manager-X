@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import Header from "@/layouts/block/Header";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { BrowserRouter } from "react-router-dom";
@@ -7,20 +7,28 @@ import { TextEncoder, TextDecoder } from "util";
 
 Object.assign(global, { TextEncoder, TextDecoder });
 
+Object.defineProperty(window, "scrollTo", {
+  value: jest.fn(),
+  writable: true,
+});
+
 jest.mock("@/hooks/useAuthStore");
 
 const renderWithRouter = (ui: React.ReactElement) => {
   return render(<BrowserRouter>{ui}</BrowserRouter>);
 };
 
-describe("Header", () => {
+describe("Header Accordion Menu", () => {
   const mockLogout = jest.fn();
   const mockRestoreSession = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
     (useAuthStore as unknown as jest.Mock).mockReturnValue({
-      user: { name: "テストユーザー" },
+      user: {
+        name: "テストユーザー",
+        permission: { master_data_access: true },
+      },
       logout: mockLogout,
       restoreSession: mockRestoreSession,
     });
@@ -31,137 +39,66 @@ describe("Header", () => {
     expect(
       screen.getByText("ログイン中: テストユーザーさん")
     ).toBeInTheDocument();
-    expect(screen.getByText("ログアウト")).toBeInTheDocument();
   });
 
-  it("ハンバーガーメニューを押下するとメニューが表示される", async () => {
+  it("アコーディオンタイトルが表示される（資材管理など）", async () => {
     renderWithRouter(<Header />);
-
-    const menuButton = screen.getByRole("button");
-    fireEvent.click(menuButton);
-
-    expect(screen.getByText("資材管理")).toBeInTheDocument();
-  });
-
-  it("「工場管理くん」を押下でトップ画面に遷移する", async () => {
-    renderWithRouter(<Header />);
-
-    const menuButton = screen.getByRole("button");
-    fireEvent.click(menuButton);
-
-    const factoryMenu = screen.getByText("工場管理くん");
-    fireEvent.click(factoryMenu);
-
-    expect(window.location.pathname).toBe("/");
-  });
-
-  it("資材管理を押下で資材管理画面に遷移する", async () => {
-    renderWithRouter(<Header />);
-
-    fireEvent.click(screen.getByRole("button"));
-    const materialMenu = await screen.findByRole("menuitem", {
-      name: "資材管理",
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button"));
     });
-    fireEvent.click(materialMenu);
 
-    expect(window.location.pathname).toBe("/");
+    expect(await screen.findByText("資材管理")).toBeInTheDocument();
+    expect(screen.getByText("受注管理")).toBeInTheDocument();
+    expect(screen.getByText("生産計画管理")).toBeInTheDocument();
   });
 
-  it("受注管理を押下で受注管理画面に遷移する", async () => {
+  it("資材管理を開くと小項目（資材一覧など）が表示される", async () => {
     renderWithRouter(<Header />);
-
-    fireEvent.click(screen.getByRole("button"));
-    const orderMenu = await screen.findByRole("menuitem", {
-      name: "受注管理",
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button"));
+      fireEvent.click(await screen.findByText("資材管理"));
     });
-    fireEvent.click(orderMenu);
 
-    expect(window.location.pathname).toBe("/");
+    expect(await screen.findByText("資材一覧")).toBeInTheDocument();
+    expect(screen.getByText("資材登録")).toBeInTheDocument();
   });
 
-  it("生産計画を押下で生産計画画面に遷移する", async () => {
+  it("小項目をクリックで画面遷移（ダミーURLで検証）", async () => {
     renderWithRouter(<Header />);
-
-    fireEvent.click(screen.getByRole("button"));
-    const productionMenu = await screen.findByRole("menuitem", {
-      name: "生産計画",
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button"));
+      fireEvent.click(await screen.findByText("資材管理"));
     });
-    fireEvent.click(productionMenu);
 
-    expect(window.location.pathname).toBe("/");
+    const link = await screen.findByRole("link", { name: "資材一覧" });
+    expect(link).toHaveAttribute("href", "/material");
   });
 
-  it("勤怠管理を押下で勤怠管理画面に遷移する", async () => {
+  it("ログアウトボタン押下で確認ダイアログが出る", async () => {
     renderWithRouter(<Header />);
-
-    fireEvent.click(screen.getByRole("button"));
-    const attendanceMenu = await screen.findByRole("menuitem", {
-      name: "勤怠管理",
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button"));
+      fireEvent.click(await screen.findByText("ログアウト"));
     });
-    fireEvent.click(attendanceMenu);
 
-    expect(window.location.pathname).toBe("/");
+    expect(await screen.findByText("ログアウトしますか？")).toBeInTheDocument();
   });
 
-  it("不具合情報を押下で不具合情報画面に遷移する", async () => {
+  it("確認ダイアログでログアウトを押すと関数が呼ばれる", async () => {
     renderWithRouter(<Header />);
-
-    fireEvent.click(screen.getByRole("button"));
-    const orderMenu = await screen.findByRole("menuitem", {
-      name: "不具合情報",
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button"));
+      fireEvent.click(await screen.findByText("ログアウト"));
     });
-    fireEvent.click(orderMenu);
 
-    expect(window.location.pathname).toBe("/");
-  });
-
-  it("社内メールを押下で社内メール画面に遷移する", async () => {
-    renderWithRouter(<Header />);
-
-    fireEvent.click(screen.getByRole("button"));
-    const orderMenu = await screen.findByRole("menuitem", {
-      name: "社内メール",
-    });
-    fireEvent.click(orderMenu);
-
-    expect(window.location.pathname).toBe("/");
-  });
-
-  it("ログアウトを押すと確認ダイアログが表示される", async () => {
-    renderWithRouter(<Header />);
-
-    const menuButton = screen.getByRole("button");
-    fireEvent.click(menuButton);
-
-    const logoutMenu = await screen.findByRole("menuitem", {
+    const confirmButton = await screen.findByRole("button", {
       name: "ログアウト",
     });
-    fireEvent.click(logoutMenu);
-
-    expect(screen.getByText("ログアウトしますか？")).toBeInTheDocument();
-  });
-
-  it("ダイアログでログアウトを押すと logout と restoreSession が呼ばれる", async () => {
-    const mockLogout = jest.fn();
-    const mockRestoreSession = jest.fn();
-
-    (useAuthStore as unknown as jest.Mock).mockReturnValue({
-      user: { name: "テストユーザー" },
-      logout: mockLogout,
-      restoreSession: mockRestoreSession,
+    await act(async () => {
+      await fireEvent.click(confirmButton);
     });
 
-    renderWithRouter(<Header />);
-
-    fireEvent.click(screen.getByRole("button"));
-    fireEvent.click(screen.getByText("ログアウト"));
-
-    const confirmDialog = await screen.findByText("ログアウトしますか？");
-    expect(confirmDialog).toBeInTheDocument();
-
-    const logoutButtons = screen.getAllByText("ログアウト");
-    fireEvent.click(logoutButtons[1]);
-
+    expect(mockLogout).toHaveBeenCalled();
     expect(mockRestoreSession).toHaveBeenCalled();
   });
 });

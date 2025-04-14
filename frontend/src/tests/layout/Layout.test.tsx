@@ -5,9 +5,14 @@ import "@testing-library/jest-dom";
 
 jest.mock("@/hooks/useAuthStore", () => ({
   useAuthStore: jest.fn(() => ({
-    user: { name: "テストユーザー" },
-    logout: jest.fn(),
+    user: {
+      name: "テストユーザー",
+      permission: {
+        master_data_access: true,
+      },
+    },
     restoreSession: jest.fn(),
+    logout: jest.fn(),
   })),
 }));
 
