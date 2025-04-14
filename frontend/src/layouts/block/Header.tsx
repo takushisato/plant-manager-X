@@ -9,6 +9,11 @@ import {
   MenuList,
   MenuItem,
   Text,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
@@ -21,20 +26,6 @@ const Header = () => {
   const { user, restoreSession, logout } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const pageMap = useNavigation();
-
-  if (user) {
-    console.log(pageMap.navigateMenu(user));
-  }
-
-  const getPageLabel = (path: string): string => {
-    if (path.includes("/material")) return "資材管理";
-    if (path.includes("/order")) return "受注管理";
-    if (path.includes("/production_plan")) return "生産計画";
-    if (path.includes("/attendance")) return "勤怠管理";
-    if (path.includes("/defect")) return "不具合情報";
-    if (path.includes("/mail")) return "社内メール";
-    return "メニュー";
-  };
 
   /**
    * ログアウトの実行
@@ -97,19 +88,39 @@ const Header = () => {
             >
               {user?.name ? "ログアウト" : "ログイン"}
             </MenuItem>
-
-            {user &&
-              pageMap.navigateMenu(user).map((obj, index) => (
-                <MenuItem
-                  key={index}
-                  as={Link}
-                  to={obj.path}
-                  display="block"
-                  textAlign="center"
-                >
-                  {obj.label}
-                </MenuItem>
-              ))}
+            {user && (
+              <Box px={3} py={2}>
+                <Accordion allowToggle>
+                  {pageMap.navigateMenu(user).map((group, idx) => (
+                    <AccordionItem key={idx} border="none">
+                      <AccordionButton _hover={{ bg: "teal.100" }}>
+                        <Box
+                          as="span"
+                          flex="1"
+                          textAlign="left"
+                          fontWeight="bold"
+                          minWidth="200px"
+                        >
+                          {group.title}
+                        </Box>
+                        <AccordionIcon />
+                      </AccordionButton>
+                      <AccordionPanel pb={2}>
+                        {group.menu.map((item, i) => (
+                          <Box key={i} py={1} pl={4}>
+                            <Link to={item.path}>
+                              <Text _hover={{ textDecoration: "underline" }}>
+                                {item.label}
+                              </Text>
+                            </Link>
+                          </Box>
+                        ))}
+                      </AccordionPanel>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </Box>
+            )}
           </MenuList>
         </Menu>
       </Flex>
