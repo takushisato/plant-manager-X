@@ -1,0 +1,35 @@
+name: Run Jest Tests
+
+on:
+  pull_request:
+    branches:
+    - '*' 
+    paths:
+    - 'frontend/src/**'
+    - 'frontend/tests/**'
+    - 'frontend/package.json'
+    - 'frontend/vitest.config.ts'
+    - 'frontend/jest.config.ts'
+    - 'frontend/tsconfig.json'
+    - '.github/workflows/jest.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+
+      - name: 📦 Install dependencies
+        run: npm install
+        working-directory: frontend
+  
+      - name: 🔍 Run tests
+        run: npx jest
+        working-directory: frontend
