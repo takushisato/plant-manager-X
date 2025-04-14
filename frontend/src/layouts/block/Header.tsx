@@ -15,11 +15,16 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
+import { useNavigation } from "@/hooks/useNavigation";
 
 const Header = () => {
   const { user, restoreSession, logout } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
+  const pageMap = useNavigation();
 
+  if (user) {
+    console.log(pageMap.navigateMenu(user));
+  }
   /**
    * ログアウトの実行
    */
