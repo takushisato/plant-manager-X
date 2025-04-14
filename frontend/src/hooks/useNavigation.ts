@@ -40,46 +40,54 @@ const pageMap: PageMap = {
   delete_mail: (id: string) => `/mail/delete/${id}`,
 };
 
-const accessMap: Record<string, string[]> = {
-  material_access: [pageMap.create_material, pageMap.get_material],
+const accessMap: Record<string, { label: string; path: string }[]> = {
+  material_access: [
+    { label: "資材登録", path: pageMap.create_material },
+    { label: "資材一覧", path: pageMap.get_material },
+  ],
   can_manage_own_attendance: [
-    pageMap.create_attendance,
-    pageMap.get_attendance_by_user_id("dummy"),
-    pageMap.update_attendance("dummy"),
+    { label: "出勤簿を新規登録", path: pageMap.create_attendance },
+    {
+      label: "登録済みの出勤簿を確認",
+      path: pageMap.get_attendance_by_user_id("dummy"),
+    },
+    { label: "出勤簿を編集", path: pageMap.update_attendance("dummy") },
   ],
   can_manage_all_attendance: [
-    pageMap.create_attendance,
-    pageMap.get_attendance,
-    pageMap.update_attendance("dummy"),
-    pageMap.get_attendance_by_user_id("dummy"),
-    pageMap.delete_attendance("dummy"),
+    { label: "出勤簿を新規登録", path: pageMap.create_attendance },
+    { label: "全従業員の出勤簿確認", path: pageMap.get_attendance },
+    { label: "出勤簿を編集", path: pageMap.update_attendance("dummy") },
+    { label: "出勤簿を確認", path: pageMap.get_attendance_by_user_id("dummy") },
+    { label: "出勤簿を削除", path: pageMap.delete_attendance("dummy") },
   ],
-  can_view_production_plan: [pageMap.get_production_plan],
+  can_view_production_plan: [
+    { label: "生産計画を確認", path: pageMap.get_production_plan },
+  ],
   can_edit_production_plan: [
-    pageMap.get_production_plan,
-    pageMap.create_production_plan,
-    pageMap.update_production_plan("dummy"),
-    pageMap.delete_production_plan("dummy"),
+    { label: "生産計画を確認", path: pageMap.get_production_plan },
+    { label: "生産計画の新規登録", path: pageMap.create_production_plan },
+    { label: "生産計画の編集", path: pageMap.update_production_plan("dummy") },
+    { label: "生産計画の削除", path: pageMap.delete_production_plan("dummy") },
   ],
-  can_view_order: [pageMap.get_order],
+  can_view_order: [{ label: "受注を確認", path: pageMap.get_order }],
   can_edit_order: [
-    pageMap.get_order,
-    pageMap.create_order,
-    pageMap.update_order("dummy"),
-    pageMap.delete_order("dummy"),
+    { label: "受注を確認", path: pageMap.get_order },
+    { label: "受注の新規登録", path: pageMap.create_order },
+    { label: "受注の編集", path: pageMap.update_order("dummy") },
+    { label: "受注の削除", path: pageMap.delete_order("dummy") },
   ],
-  can_view_defect: [pageMap.get_defect],
+  can_view_defect: [{ label: "不具合を確認", path: pageMap.get_defect }],
   can_edit_defect: [
-    pageMap.get_defect,
-    pageMap.create_defect,
-    pageMap.update_defect("dummy"),
-    pageMap.delete_defect("dummy"),
+    { label: "不具合を確認", path: pageMap.get_defect },
+    { label: "不具合の新規登録", path: pageMap.create_defect },
+    { label: "不具合の編集", path: pageMap.update_defect("dummy") },
+    { label: "不具合の削除", path: pageMap.delete_defect("dummy") },
   ],
   mail_access: [
-    pageMap.get_mail,
-    pageMap.create_mail,
-    pageMap.update_mail("dummy"),
-    pageMap.delete_mail("dummy"),
+    { label: "メールを確認", path: pageMap.get_mail },
+    { label: "メールの新規登録", path: pageMap.create_mail },
+    { label: "メールの編集", path: pageMap.update_mail("dummy") },
+    { label: "メールの削除", path: pageMap.delete_mail("dummy") },
   ],
 };
 
@@ -87,10 +95,10 @@ const accessMap: Record<string, string[]> = {
 const masterAccess = Array.from(new Set(Object.values(accessMap).flat()));
 
 export const useNavigation = () => {
-  const navigateMenu = (user: User): string[] => {
+  const navigateMenu = (user: User): { label: string; path: string }[] => {
     if (user.permission.master_data_access) return masterAccess;
 
-    const accessiblePages: string[] = [];
+    const accessiblePages: { label: string; path: string }[] = [];
 
     for (const [key, pages] of Object.entries(accessMap)) {
       if (user.permission[key as keyof typeof user.permission]) {
