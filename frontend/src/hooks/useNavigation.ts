@@ -30,14 +30,10 @@ const pageMap: PageMap = {
   defect_create: "/defect/create",
   defect_by_id: (id: string) => `/defect/${id}`,
   defect_update: (id: string) => `/defect/update/${id}`,
-  defect_delete: (id: string) => `/defect/delete/${id}`,
 
   // メール画面
   mail_list: "/mail",
   mail_create: "/mail/create",
-  mail_by_id: (id: string) => `/mail/${id}`,
-  mail_update: (id: string) => `/mail/update/${id}`,
-  mail_delete: (id: string) => `/mail/delete/${id}`,
 };
 
 const accessMap: Record<
@@ -119,7 +115,6 @@ const accessMap: Record<
       { label: "不具合を確認", path: pageMap.defect_list },
       { label: "不具合の新規登録", path: pageMap.defect_create },
       { label: "不具合の編集", path: pageMap.defect_update("dummy") },
-      { label: "不具合の削除", path: pageMap.defect_delete("dummy") },
     ],
   },
   mail_access: {
@@ -127,8 +122,6 @@ const accessMap: Record<
     menu: [
       { label: "メールを確認", path: pageMap.mail_list },
       { label: "メールの新規登録", path: pageMap.mail_create },
-      { label: "メールの編集", path: pageMap.mail_update("dummy") },
-      { label: "メールの削除", path: pageMap.mail_delete("dummy") },
     ],
   },
 };

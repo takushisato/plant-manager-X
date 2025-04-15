@@ -27,12 +27,8 @@ export type PageMap = {
   defect_list: string;
   defect_by_id: (defect_id: string) => string;
   defect_update: (defect_id: string) => string;
-  defect_delete: (defect_id: string) => string;
 
   // メール画面
   mail_create: string;
   mail_list: string;
-  mail_by_id: (mail_id: string) => string;
-  mail_update: (mail_id: string) => string;
-  mail_delete: (mail_id: string) => string;
 };
