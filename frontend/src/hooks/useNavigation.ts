@@ -109,7 +109,10 @@ const accessMap: Record<
   },
   can_view_defect: {
     title: "不具合管理",
-    menu: [{ label: "不具合を確認", path: pageMap.defect_list }],
+    menu: [
+      { label: "不具合を確認", path: pageMap.defect_list },
+      { label: "不具合の詳細", path: pageMap.defect_by_id("dummy") },
+    ],
   },
   can_edit_defect: {
     title: "不具合管理",
@@ -117,6 +120,7 @@ const accessMap: Record<
       { label: "不具合を確認", path: pageMap.defect_list },
       { label: "不具合の新規登録", path: pageMap.defect_create },
       { label: "不具合の編集", path: pageMap.defect_update("dummy") },
+      { label: "不具合の詳細", path: pageMap.defect_by_id("dummy") },
     ],
   },
   mail_access: {
