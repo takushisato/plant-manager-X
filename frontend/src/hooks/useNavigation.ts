@@ -12,7 +12,6 @@ const pageMap: PageMap = {
   attendance_create: "/attendance/create",
   attendance_by_user_id: (id: string) => `/attendance/${id}`,
   attendance_update: (id: string) => `/attendance/update/${id}`,
-  attendance_delete: (id: string) => `/attendance/delete/${id}`,
 
   // 生産管理画面
   production_plan_list: "/production_plan",
@@ -82,7 +81,6 @@ const accessMap: Record<
         label: "自分の出勤状況を確認",
         path: pageMap.attendance_by_user_id("dummy"),
       },
-      { label: "過去の出勤を削除", path: pageMap.attendance_delete("dummy") },
     ],
   },
   can_view_production_plan: {
