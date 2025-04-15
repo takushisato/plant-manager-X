@@ -11,24 +11,24 @@ const pageMap: PageMap = {
   attendance_list: "/attendance",
   attendance_create: "/attendance/create",
   attendance_by_user_id: (id: string) => `/attendance/${id}`,
-  attendance_update: (id: string) => `/attendance/update/${id}`,
+  attendance_update: (id: string) => `/attendance/${id}/update`,
 
   // 生産管理画面
   production_plan_list: "/production_plan",
   production_plan_create: "/production_plan/create",
-  production_plan_update: (id: string) => `/production_plan/update/${id}`,
+  production_plan_update: (id: string) => `/production_plan/${id}/update`,
 
   // 受注管理画面
   order_list: "/order",
   order_create: "/order/create",
   order_by_id: (id: string) => `/order/${id}`,
-  order_update: (id: string) => `/order/update/${id}`,
+  order_update: (id: string) => `/order/${id}/update`,
 
   // 不具合管理画面
   defect_list: "/defect",
   defect_create: "/defect/create",
   defect_by_id: (id: string) => `/defect/${id}`,
-  defect_update: (id: string) => `/defect/update/${id}`,
+  defect_update: (id: string) => `/defect/${id}/update`,
 
   // メール画面
   mail_list: "/mail",

@@ -35,23 +35,23 @@ function App() {
         <Route path="/attendance" element={<AttendanceList />} />
         <Route path="/attendance/create" element={<AttendanceCreate />} />
         <Route path="/attendance/:id" element={<AttendanceByUserId />} />
-        <Route path="/attendance/update/:id" element={<AttendanceUpdate />} />
+        <Route path="/attendance/:id/update" element={<AttendanceUpdate />} />
         <Route path="/production_plan" element={<ProductionPlanList />} />
         <Route
           path="/production_plan/create"
           element={<ProductionPlanCreate />}
         />
         <Route
-          path="/production_plan/update/:id"
+          path="/production_plan/:id/update"
           element={<ProductionPlanUpdate />}
         />
         <Route path="/order" element={<OrderList />} />
         <Route path="/order/create" element={<OrderCreate />} />
-        <Route path="/order/update/:id" element={<OrderUpdate />} />
+        <Route path="/order/:id/update" element={<OrderUpdate />} />
         <Route path="/order/:id" element={<OrderById />} />
         <Route path="/defect" element={<DefectList />} />
         <Route path="/defect/create" element={<DefectCreate />} />
-        <Route path="/defect/update/:id" element={<DefectUpdate />} />
+        <Route path="/defect/:id/update" element={<DefectUpdate />} />
         <Route path="/defect/:id" element={<DefectById />} />
         <Route path="/mail" element={<MailList />} />
         <Route path="/mail/create" element={<MailCreate />} />
