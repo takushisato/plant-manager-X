@@ -1,116 +1,104 @@
 [
-    {
-        "model": "staff_hub.Permission",
-        "pk": 1,
-        "fields": {
-            "user": 1,
-            "staff_hub_access": false,
-            "material_access": false,
-            "can_manage_own_attendance": false,
-            "can_manage_all_attendance": false,
-            "can_view_production_plan": false,
-            "can_edit_production_plan": false,
-            "can_view_order": false,
-            "can_edit_order": false,
-            "can_view_defect": false,
-            "can_edit_defect": false,
-            "mail_access": false,
-            "master_data_access": true
-        }
-    },
-    {
-        "model": "staff_hub.Permission",
-        "pk": 2,
-        "fields": {
-            "user": 2,
-            "staff_hub_access": false,
-            "material_access": true,
-            "can_manage_own_attendance": true,
-            "can_manage_all_attendance": false,
-            "can_view_production_plan": true,
-            "can_edit_production_plan": true,
-            "can_view_order": true,
-            "can_edit_order": false,
-            "can_view_defect": true,
-            "can_edit_defect": true,
-            "mail_access": false,
-            "master_data_access": false
-        }
-    },
-    {
-        "model": "staff_hub.Permission",
-        "pk": 3,
-        "fields": {
-            "user": 3,
-            "staff_hub_access": false,
-            "material_access": true,
-            "can_manage_own_attendance": true,
-            "can_manage_all_attendance": false,
-            "can_view_production_plan": true,
-            "can_edit_production_plan": true,
-            "can_view_order": true,
-            "can_edit_order": false,
-            "can_view_defect": true,
-            "can_edit_defect": false,
-            "mail_access": false,
-            "master_data_access": false
-        }
-    },
-    {
-        "model": "staff_hub.Permission",
-        "pk": 4,
-        "fields": {
-            "user": 4,
-            "staff_hub_access": true,
-            "material_access": false,
-            "can_manage_own_attendance": true,
-            "can_manage_all_attendance": true,
-            "can_view_production_plan": false,
-            "can_edit_production_plan": false,
-            "can_view_order": false,
-            "can_edit_order": false,
-            "can_view_defect": false,
-            "can_edit_defect": false,
-            "mail_access": true,
-            "master_data_access": false
-        }
-    },
-    {
-        "model": "staff_hub.Permission",
-        "pk": 5,
-        "fields": {
-            "user": 5,
-            "staff_hub_access": false,
-            "material_access": false,
-            "can_manage_own_attendance": true,
-            "can_manage_all_attendance": false,
-            "can_view_production_plan": true,
-            "can_edit_production_plan": true,
-            "can_view_order": true,
-            "can_edit_order": true,
-            "can_view_defect": false,
-            "can_edit_defect": false,
-            "mail_access": false,
-            "master_data_access": false
-        }
-    },
-    {
-        "model": "staff_hub.Permission",
-        "pk": 6,
-        "fields": {
-            "user": 6,
-            "staff_hub_access": true,
-            "material_access": true,
-            "can_manage_own_attendance": true,
-            "can_manage_all_attendance": true,
-            "can_view_production_plan": true,
-            "can_edit_production_plan": true,
-            "can_view_order": true,
-            "can_edit_order": true,
-            "can_view_defect": true,
-            "can_edit_defect": true,
-            "mail_access": true,
-            "master_data_access": true
-        }
+  {
+    "model": "staff_hub.Permission",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "material_access": false,
+      "can_manage_own_attendance": false,
+      "can_manage_all_attendance": false,
+      "can_view_production_plan": false,
+      "can_edit_production_plan": false,
+      "can_view_order": false,
+      "can_edit_order": false,
+      "can_view_defect": false,
+      "can_edit_defect": false,
+      "mail_access": false
     }
+  },
+  {
+    "model": "staff_hub.Permission",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "material_access": true,
+      "can_manage_own_attendance": true,
+      "can_manage_all_attendance": false,
+      "can_view_production_plan": true,
+      "can_edit_production_plan": true,
+      "can_view_order": true,
+      "can_edit_order": false,
+      "can_view_defect": true,
+      "can_edit_defect": true,
+      "mail_access": false
+    }
+  },
+  {
+    "model": "staff_hub.Permission",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "material_access": true,
+      "can_manage_own_attendance": true,
+      "can_manage_all_attendance": false,
+      "can_view_production_plan": true,
+      "can_edit_production_plan": true,
+      "can_view_order": true,
+      "can_edit_order": false,
+      "can_view_defect": true,
+      "can_edit_defect": false,
+      "mail_access": false
+    }
+  },
+  {
+    "model": "staff_hub.Permission",
+    "pk": 4,
+    "fields": {
+      "user": 4,
+      "material_access": false,
+      "can_manage_own_attendance": true,
+      "can_manage_all_attendance": true,
+      "can_view_production_plan": false,
+      "can_edit_production_plan": false,
+      "can_view_order": false,
+      "can_edit_order": false,
+      "can_view_defect": false,
+      "can_edit_defect": false,
+      "mail_access": true
+    }
+  },
+  {
+    "model": "staff_hub.Permission",
+    "pk": 5,
+    "fields": {
+      "user": 5,
+      "material_access": false,
+      "can_manage_own_attendance": true,
+      "can_manage_all_attendance": false,
+      "can_view_production_plan": true,
+      "can_edit_production_plan": true,
+      "can_view_order": true,
+      "can_edit_order": true,
+      "can_view_defect": false,
+      "can_edit_defect": false,
+      "mail_access": false
+    }
+  },
+  {
+    "model": "staff_hub.Permission",
+    "pk": 6,
+    "fields": {
+      "user": 6,
+      "material_access": true,
+      "can_manage_own_attendance": true,
+      "can_manage_all_attendance": true,
+      "can_view_production_plan": true,
+      "can_edit_production_plan": true,
+      "can_view_order": true,
+      "can_edit_order": true,
+      "can_view_defect": true,
+      "can_edit_defect": true,
+      "mail_access": true
+    }
+  }
 ]

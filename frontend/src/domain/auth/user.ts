@@ -13,7 +13,6 @@ export type AuthStore = {
 };
 
 export type Permission = {
-  staff_hub_access: boolean;
   material_access: boolean;
   can_manage_own_attendance: boolean;
   can_manage_all_attendance: boolean;
@@ -24,5 +23,4 @@ export type Permission = {
   can_view_defect: boolean;
   can_edit_defect: boolean;
   mail_access: boolean;
-  master_data_access: boolean;
 };
