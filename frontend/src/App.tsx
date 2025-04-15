@@ -21,6 +21,8 @@ import DefectCreate from "@/pages/DefectCreate";
 import DefectUpdate from "@/pages/DefectUpdate";
 import DefectById from "@/pages/DefectById";
 import MailCreate from "@/pages/MailCreate";
+import MailList from "@/pages/MailList";
+
 function App() {
   return (
     <BrowserRouter>
@@ -51,6 +53,7 @@ function App() {
         <Route path="/defect/create" element={<DefectCreate />} />
         <Route path="/defect/update/:id" element={<DefectUpdate />} />
         <Route path="/defect/:id" element={<DefectById />} />
+        <Route path="/mail" element={<MailList />} />
         <Route path="/mail/create" element={<MailCreate />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
