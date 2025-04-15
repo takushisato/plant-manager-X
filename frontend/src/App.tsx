@@ -13,6 +13,7 @@ import ProductionPlanList from "@/pages/ProductionPlanList";
 import ProductionPlanCreate from "@/pages/ProductionPlanCreate";
 import ProductionPlanUpdate from "@/pages/ProductionPlanUpdate";
 import OrderList from "@/pages/orderList";
+import OrderCreate from "@/pages/OrderCreate";
 function App() {
   return (
     <BrowserRouter>
@@ -36,6 +37,7 @@ function App() {
           element={<ProductionPlanUpdate />}
         />
         <Route path="/order" element={<OrderList />} />
+        <Route path="/order/create" element={<OrderCreate />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
