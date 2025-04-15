@@ -11,6 +11,8 @@ import AttendanceByUserId from "@/pages/AttendanceByUserId";
 import AttendanceUpdate from "@/pages/AttendanceUpdate";
 import ProductionPlanList from "@/pages/ProductionPlanList";
 import ProductionPlanCreate from "@/pages/ProductionPlanCreate";
+import ProductionPlanUpdate from "@/pages/ProductionPlanUpdate";
+
 function App() {
   return (
     <BrowserRouter>
@@ -28,6 +30,10 @@ function App() {
         <Route
           path="/production_plan/create"
           element={<ProductionPlanCreate />}
+        />
+        <Route
+          path="/production_plan/update/:id"
+          element={<ProductionPlanUpdate />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
