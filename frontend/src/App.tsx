@@ -6,6 +6,7 @@ import Materials from "@/pages/Materials";
 import MaterialsReceive from "@/pages/MaterialsReceive";
 import MaterialsUse from "@/pages/MaterialsUse";
 import AttendanceList from "@/pages/AttendanceList";
+import AttendanceCreate from "@/pages/AttendanceCreate";
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +17,7 @@ function App() {
         <Route path="/materials/:id/receive" element={<MaterialsReceive />} />
         <Route path="/materials/:id/use" element={<MaterialsUse />} />
         <Route path="/attendance" element={<AttendanceList />} />
+        <Route path="/attendance/create" element={<AttendanceCreate />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
