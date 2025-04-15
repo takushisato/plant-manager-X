@@ -3,6 +3,7 @@ import NotFound from "@/pages/NotFound";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Material from "@/pages/Material";
+import MaterialCreate from "@/pages/MaterialCreate";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/material" element={<Material />} />
+        <Route path="/material/create" element={<MaterialCreate />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
