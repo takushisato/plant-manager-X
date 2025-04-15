@@ -8,6 +8,7 @@ import MaterialsUse from "@/pages/MaterialsUse";
 import AttendanceList from "@/pages/AttendanceList";
 import AttendanceCreate from "@/pages/AttendanceCreate";
 import AttendanceByUserId from "@/pages/AttendanceByUserId";
+import AttendanceUpdate from "@/pages/AttendanceUpdate";
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/attendance" element={<AttendanceList />} />
         <Route path="/attendance/create" element={<AttendanceCreate />} />
         <Route path="/attendance/:id" element={<AttendanceByUserId />} />
+        <Route path="/attendance/update/:id" element={<AttendanceUpdate />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
