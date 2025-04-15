@@ -22,7 +22,6 @@ class CustomUserSerializer(DjoserUserSerializer):
         try:
             permission = obj.permission
             return {
-                "staff_hub_access": permission.staff_hub_access,
                 "material_access": permission.material_access,
                 "can_manage_own_attendance": permission.can_manage_own_attendance,
                 "can_manage_all_attendance": permission.can_manage_all_attendance,

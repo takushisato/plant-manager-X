@@ -27,7 +27,6 @@ class TestCustomUserMeView:
         user = UserFactory.create()
         PermissionFactory.create(
             user=user,
-            staff_hub_access=True,
             material_access=False,
             can_manage_own_attendance=True,
             can_manage_all_attendance=False,
@@ -55,7 +54,6 @@ class TestCustomUserMeView:
 
         assert data["email"] == "user18@example.com"
         assert "permission" in data
-        assert data["permission"]["staff_hub_access"] is True
         assert data["permission"]["material_access"] is False
 
     def test_custom_user_me_view_unauthenticated(self):

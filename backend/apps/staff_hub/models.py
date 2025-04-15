@@ -75,7 +75,6 @@ class Permission(BaseModel):
     権限モデル
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="ユーザー")
-    staff_hub_access = models.BooleanField("人材管理アクセス：全体管理", default=False)
     material_access = models.BooleanField("資料アクセス：全体管理", default=False)
     can_manage_own_attendance = models.BooleanField("勤怠アクセス：自分のみ管理", default=False)
     can_manage_all_attendance = models.BooleanField("勤怠アクセス：全体管理", default=False)
