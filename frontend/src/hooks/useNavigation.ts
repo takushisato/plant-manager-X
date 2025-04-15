@@ -16,7 +16,6 @@ const pageMap: PageMap = {
   // 生産管理画面
   production_plan_list: "/production_plan",
   production_plan_create: "/production_plan/create",
-  production_plan_by_id: (id: string) => `/production_plan/${id}`,
   production_plan_update: (id: string) => `/production_plan/update/${id}`,
   production_plan_delete: (id: string) => `/production_plan/delete/${id}`,
 
