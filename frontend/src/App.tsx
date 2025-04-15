@@ -9,6 +9,8 @@ import AttendanceList from "@/pages/AttendanceList";
 import AttendanceCreate from "@/pages/AttendanceCreate";
 import AttendanceByUserId from "@/pages/AttendanceByUserId";
 import AttendanceUpdate from "@/pages/AttendanceUpdate";
+import ProductionPlanList from "@/pages/ProductionPlanList";
+
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +24,7 @@ function App() {
         <Route path="/attendance/create" element={<AttendanceCreate />} />
         <Route path="/attendance/:id" element={<AttendanceByUserId />} />
         <Route path="/attendance/update/:id" element={<AttendanceUpdate />} />
+        <Route path="/production_plan" element={<ProductionPlanList />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
