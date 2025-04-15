@@ -23,7 +23,6 @@ const pageMap: PageMap = {
   order_create: "/order/create",
   order_by_id: (id: string) => `/order/${id}`,
   order_update: (id: string) => `/order/update/${id}`,
-  order_delete: (id: string) => `/order/delete/${id}`,
 
   // 不具合管理画面
   defect_list: "/defect",

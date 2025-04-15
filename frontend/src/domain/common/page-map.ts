@@ -20,7 +20,6 @@ export type PageMap = {
   order_create: string;
   order_by_id: (order_id: string) => string;
   order_update: (order_id: string) => string;
-  order_delete: (order_id: string) => string;
 
   // 不具合管理画面
   defect_create: string;
