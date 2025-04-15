@@ -1,10 +1,12 @@
 import Layout from "@/layouts/Layout";
 import LoginForm from "@/components/login/LoginForm";
 
-export default function Login() {
+const Login = () => {
   return (
     <Layout>
       <LoginForm />
     </Layout>
   );
-}
+};
+
+export default Login;
