@@ -12,7 +12,7 @@ import AttendanceUpdate from "@/pages/AttendanceUpdate";
 import ProductionPlanList from "@/pages/ProductionPlanList";
 import ProductionPlanCreate from "@/pages/ProductionPlanCreate";
 import ProductionPlanUpdate from "@/pages/ProductionPlanUpdate";
-
+import OrderList from "@/pages/orderList";
 function App() {
   return (
     <BrowserRouter>
@@ -35,6 +35,7 @@ function App() {
           path="/production_plan/update/:id"
           element={<ProductionPlanUpdate />}
         />
+        <Route path="/order" element={<OrderList />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
