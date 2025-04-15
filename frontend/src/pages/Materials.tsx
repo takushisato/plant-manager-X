@@ -1,5 +1,5 @@
 import Layout from "@/layouts/Layout";
-const Material = () => {
+const Materials = () => {
   return (
     <Layout>
       <p>資材一覧ページ</p>
@@ -7,4 +7,4 @@ const Material = () => {
   );
 };
 
-export default Material;
+export default Materials;

@@ -3,10 +3,10 @@ import { PageMap } from "@/domain/common/page-map";
 
 const pageMap: PageMap = {
   // 資材管理画面
-  get_material: "/material",
-  create_material: "/material/create",
-  update_material: (id: string) => `/material/update/${id}`,
-  delete_material: (id: string) => `/material/delete/${id}`,
+  get_material: "/materials",
+  update_material_receive_stock: (id: string) =>
+    `/materials/receive_stock/${id}`,
+  update_material_use_stock: (id: string) => `/materials/use_stock/${id}`,
 
   // 勤怠管理画面
   get_attendance: "/attendance",
@@ -47,8 +47,15 @@ const accessMap: Record<
   material_access: {
     title: "資材管理",
     menu: [
-      { label: "資材登録", path: pageMap.create_material },
       { label: "資材一覧", path: pageMap.get_material },
+      {
+        label: "資材払い出し",
+        path: pageMap.update_material_use_stock("dummy"),
+      },
+      {
+        label: "資材受け入れ",
+        path: pageMap.update_material_receive_stock("dummy"),
+      },
     ],
   },
   can_manage_own_attendance: {

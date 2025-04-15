@@ -1,9 +1,8 @@
 export type PageMap = {
   // 材料画面
   get_material: string;
-  create_material: string;
-  update_material: (material_id: string) => string;
-  delete_material: (material_id: string) => string;
+  update_material_receive_stock: (material_id: string) => string;
+  update_material_use_stock: (material_id: string) => string;
 
   // 勤怠管理画面
   get_attendance: string;
