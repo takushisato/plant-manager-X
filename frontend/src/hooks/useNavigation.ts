@@ -17,7 +17,6 @@ const pageMap: PageMap = {
   production_plan_list: "/production_plan",
   production_plan_create: "/production_plan/create",
   production_plan_update: (id: string) => `/production_plan/update/${id}`,
-  production_plan_delete: (id: string) => `/production_plan/delete/${id}`,
 
   // 受注管理画面
   order_list: "/order",
@@ -94,10 +93,6 @@ const accessMap: Record<
       {
         label: "生産計画の編集",
         path: pageMap.production_plan_update("dummy"),
-      },
-      {
-        label: "生産計画の削除",
-        path: pageMap.production_plan_delete("dummy"),
       },
     ],
   },

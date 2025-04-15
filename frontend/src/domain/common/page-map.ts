@@ -14,7 +14,6 @@ export type PageMap = {
   production_plan_list: string;
   production_plan_create: string;
   production_plan_update: (production_plan_id: string) => string;
-  production_plan_delete: (production_plan_id: string) => string;
 
   // 受注管理画面
   order_list: string;
