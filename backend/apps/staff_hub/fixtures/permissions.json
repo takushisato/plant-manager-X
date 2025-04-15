@@ -13,8 +13,7 @@
       "can_edit_order": false,
       "can_view_defect": false,
       "can_edit_defect": false,
-      "mail_access": false,
-      "master_data_access": true
+      "mail_access": false
     }
   },
   {
@@ -31,8 +30,7 @@
       "can_edit_order": false,
       "can_view_defect": true,
       "can_edit_defect": true,
-      "mail_access": false,
-      "master_data_access": false
+      "mail_access": false
     }
   },
   {
@@ -49,8 +47,7 @@
       "can_edit_order": false,
       "can_view_defect": true,
       "can_edit_defect": false,
-      "mail_access": false,
-      "master_data_access": false
+      "mail_access": false
     }
   },
   {
@@ -67,8 +64,7 @@
       "can_edit_order": false,
       "can_view_defect": false,
       "can_edit_defect": false,
-      "mail_access": true,
-      "master_data_access": false
+      "mail_access": true
     }
   },
   {
@@ -85,8 +81,7 @@
       "can_edit_order": true,
       "can_view_defect": false,
       "can_edit_defect": false,
-      "mail_access": false,
-      "master_data_access": false
+      "mail_access": false
     }
   },
   {
@@ -103,8 +98,7 @@
       "can_edit_order": true,
       "can_view_defect": true,
       "can_edit_defect": true,
-      "mail_access": true,
-      "master_data_access": true
+      "mail_access": true
     }
   }
 ]

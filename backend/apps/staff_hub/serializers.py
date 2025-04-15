@@ -32,7 +32,6 @@ class CustomUserSerializer(DjoserUserSerializer):
                 "can_view_defect": permission.can_view_defect,
                 "can_edit_defect": permission.can_edit_defect,
                 "mail_access": permission.mail_access,
-                "master_data_access": permission.master_data_access,
             }
         except Permission.DoesNotExist:
             return None

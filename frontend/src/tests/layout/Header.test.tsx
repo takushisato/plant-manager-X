@@ -27,7 +27,14 @@ describe("Header Accordion Menu", () => {
     (useAuthStore as unknown as jest.Mock).mockReturnValue({
       user: {
         name: "テストユーザー",
-        permission: { master_data_access: true },
+        permission: {
+          material_access: true,
+          can_manage_own_attendance: true,
+          can_manage_all_attendance: true,
+          can_edit_production_plan: true,
+          can_edit_order: true,
+          can_edit_defect: true,
+        },
       },
       logout: mockLogout,
       restoreSession: mockRestoreSession,

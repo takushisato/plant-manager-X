@@ -8,7 +8,14 @@ jest.mock("@/hooks/useAuthStore", () => ({
     user: {
       name: "テストユーザー",
       permission: {
-        master_data_access: true,
+        material_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: true,
+        can_view_production_plan: true,
+        can_edit_production_plan: true,
+        can_view_order: true,
+        can_edit_order: true,
+        can_view_defect: true,
       },
     },
     restoreSession: jest.fn(),

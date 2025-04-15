@@ -37,7 +37,6 @@ class TestCustomUserMeView:
             can_view_defect=True,
             can_edit_defect=False,
             mail_access=True,
-            master_data_access=False
         )
 
         # トークンを生成

@@ -85,7 +85,6 @@ class Permission(BaseModel):
     can_view_defect = models.BooleanField("不具合アクセス：閲覧", default=False)
     can_edit_defect = models.BooleanField("不具合アクセス：編集・削除", default=False)
     mail_access = models.BooleanField("メールアクセス：全体管理", default=False)
-    master_data_access = models.BooleanField("マスタデータアクセス：全体管理", default=False)
 
     class Meta:
         verbose_name = 'アクセス権限'
