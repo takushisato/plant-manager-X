@@ -4,9 +4,8 @@ import { PageMap } from "@/domain/common/page-map";
 const pageMap: PageMap = {
   // 資材管理画面
   get_material: "/materials",
-  update_material_receive_stock: (id: string) =>
-    `/materials/receive_stock/${id}`,
-  update_material_use_stock: (id: string) => `/materials/use_stock/${id}`,
+  update_material_receive: (id: string) => `/materials/${id}/receive`,
+  update_material_use: (id: string) => `/materials/${id}/use`,
 
   // 勤怠管理画面
   get_attendance: "/attendance",
@@ -50,11 +49,11 @@ const accessMap: Record<
       { label: "資材一覧", path: pageMap.get_material },
       {
         label: "資材払い出し",
-        path: pageMap.update_material_use_stock("dummy"),
+        path: pageMap.update_material_use("dummy"),
       },
       {
         label: "資材受け入れ",
-        path: pageMap.update_material_receive_stock("dummy"),
+        path: pageMap.update_material_receive("dummy"),
       },
     ],
   },

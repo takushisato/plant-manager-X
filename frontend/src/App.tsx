@@ -3,8 +3,8 @@ import NotFound from "@/pages/NotFound";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Materials from "@/pages/Materials";
-import MaterialCreate from "@/pages/MaterialCreate";
-
+import MaterialsReceive from "@/pages/MaterialsReceive";
+import MaterialsUse from "@/pages/MaterialsUse";
 function App() {
   return (
     <BrowserRouter>
@@ -12,7 +12,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/materials" element={<Materials />} />
-        <Route path="/material/create" element={<MaterialCreate />} />
+        <Route path="/materials/:id/receive" element={<MaterialsReceive />} />
+        <Route path="/materials/:id/use" element={<MaterialsUse />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
