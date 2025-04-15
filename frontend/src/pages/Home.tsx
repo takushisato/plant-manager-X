@@ -1,9 +1,10 @@
 import Layout from '@/layouts/Layout';
-export default function Home() {
-
+const Home = () => {
   return (
     <Layout>
-        <p>TOPページ</p>
+      <p>TOPページ</p>
     </Layout>
   );
-}
+};
+
+export default Home;
