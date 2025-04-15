@@ -67,7 +67,8 @@ describe("Header Accordion Menu", () => {
     });
 
     expect(await screen.findByText("資材一覧")).toBeInTheDocument();
-    expect(screen.getByText("資材登録")).toBeInTheDocument();
+    expect(await screen.findByText("資材払い出し")).toBeInTheDocument();
+    expect(await screen.findByText("資材受け入れ")).toBeInTheDocument();
   });
 
   it("小項目をクリックで画面遷移（ダミーURLで検証）", async () => {
@@ -78,7 +79,7 @@ describe("Header Accordion Menu", () => {
     });
 
     const link = await screen.findByRole("link", { name: "資材一覧" });
-    expect(link).toHaveAttribute("href", "/material");
+    expect(link).toHaveAttribute("href", "/materials");
   });
 
   it("ログアウトボタン押下で確認ダイアログが出る", async () => {
