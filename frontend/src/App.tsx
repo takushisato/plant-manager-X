@@ -16,6 +16,7 @@ import OrderList from "@/pages/orderList";
 import OrderCreate from "@/pages/OrderCreate";
 import OrderUpdate from "@/pages/OrderUpdate";
 import OrderById from "@/pages/OrderById";
+import DefectList from "@/pages/DefectList";
 function App() {
   return (
     <BrowserRouter>
@@ -42,6 +43,7 @@ function App() {
         <Route path="/order/create" element={<OrderCreate />} />
         <Route path="/order/update/:id" element={<OrderUpdate />} />
         <Route path="/order/:id" element={<OrderById />} />
+        <Route path="/defect" element={<DefectList />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
