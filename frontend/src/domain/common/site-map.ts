@@ -1,4 +1,4 @@
-export type PageMap = {
+export type SiteMap = {
   // 材料画面
   materials_list: string;
   materials_receive: (material_id: string) => string;

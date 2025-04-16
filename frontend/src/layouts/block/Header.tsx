@@ -25,7 +25,7 @@ import { useNavigation } from "@/hooks/useNavigation";
 const Header = () => {
   const { user, restoreSession, logout } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
-  const pageMap = useNavigation();
+  const siteMap = useNavigation();
 
   /**
    * ログアウトの実行
@@ -91,7 +91,7 @@ const Header = () => {
             {user && (
               <Box px={3} py={2}>
                 <Accordion allowToggle>
-                  {pageMap.navigateMenu(user).map((group, idx) => (
+                  {siteMap.navigateMenu(user).map((group, idx) => (
                     <AccordionItem key={idx} border="none">
                       <AccordionButton _hover={{ bg: "teal.100" }}>
                         <Box
