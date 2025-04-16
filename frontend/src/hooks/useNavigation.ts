@@ -1,7 +1,7 @@
 import { User } from "@/domain/auth/user";
-import { PageMap } from "@/domain/common/page-map";
+import { SiteMap } from "@/domain/common/site-map";
 
-const pageMap: PageMap = {
+const siteMap: SiteMap = {
   // 資材管理画面
   materials_list: "/materials",
   materials_receive: (id: string) => `/materials/${id}/receive`,
@@ -42,92 +42,92 @@ const accessMap: Record<
   material_access: {
     title: "資材管理",
     menu: [
-      { label: "資材一覧", path: pageMap.materials_list },
+      { label: "資材一覧", path: siteMap.materials_list },
       {
         label: "資材払い出し",
-        path: pageMap.materials_use("dummy"),
+        path: siteMap.materials_use("dummy"),
       },
       {
         label: "資材受け入れ",
-        path: pageMap.materials_receive("dummy"),
+        path: siteMap.materials_receive("dummy"),
       },
     ],
   },
   can_manage_own_attendance: {
     title: "出勤簿管理",
     menu: [
-      { label: "今日の出勤を入力", path: pageMap.attendance_create },
+      { label: "今日の出勤を入力", path: siteMap.attendance_create },
       {
         label: "自分の出勤状況を確認",
-        path: pageMap.attendance_by_user_id("dummy"),
+        path: siteMap.attendance_by_user_id("dummy"),
       },
-      { label: "過去の出勤を編集", path: pageMap.attendance_update("dummy") },
+      { label: "過去の出勤を編集", path: siteMap.attendance_update("dummy") },
     ],
   },
   can_manage_all_attendance: {
     title: "出勤簿管理",
     menu: [
-      { label: "今日の出勤を入力", path: pageMap.attendance_create },
-      { label: "全従業員の出勤を確認", path: pageMap.attendance_list },
-      { label: "過去の出勤を編集", path: pageMap.attendance_update("dummy") },
+      { label: "今日の出勤を入力", path: siteMap.attendance_create },
+      { label: "全従業員の出勤を確認", path: siteMap.attendance_list },
+      { label: "過去の出勤を編集", path: siteMap.attendance_update("dummy") },
       {
         label: "自分の出勤状況を確認",
-        path: pageMap.attendance_by_user_id("dummy"),
+        path: siteMap.attendance_by_user_id("dummy"),
       },
     ],
   },
   can_view_production_plan: {
     title: "生産計画管理",
-    menu: [{ label: "生産計画を確認", path: pageMap.production_plan_list }],
+    menu: [{ label: "生産計画を確認", path: siteMap.production_plan_list }],
   },
   can_edit_production_plan: {
     title: "生産計画管理",
     menu: [
-      { label: "生産計画を確認", path: pageMap.production_plan_list },
-      { label: "生産計画の新規登録", path: pageMap.production_plan_create },
+      { label: "生産計画を確認", path: siteMap.production_plan_list },
+      { label: "生産計画の新規登録", path: siteMap.production_plan_create },
       {
         label: "生産計画の編集",
-        path: pageMap.production_plan_update("dummy"),
+        path: siteMap.production_plan_update("dummy"),
       },
     ],
   },
   can_view_order: {
     title: "受注管理",
     menu: [
-      { label: "受注を確認", path: pageMap.order_list },
-      { label: "受注の詳細", path: pageMap.order_by_id("dummy") },
+      { label: "受注を確認", path: siteMap.order_list },
+      { label: "受注の詳細", path: siteMap.order_by_id("dummy") },
     ],
   },
   can_edit_order: {
     title: "受注管理",
     menu: [
-      { label: "受注を確認", path: pageMap.order_list },
-      { label: "受注の詳細", path: pageMap.order_by_id("dummy") },
-      { label: "受注の新規登録", path: pageMap.order_create },
-      { label: "受注の編集", path: pageMap.order_update("dummy") },
+      { label: "受注を確認", path: siteMap.order_list },
+      { label: "受注の詳細", path: siteMap.order_by_id("dummy") },
+      { label: "受注の新規登録", path: siteMap.order_create },
+      { label: "受注の編集", path: siteMap.order_update("dummy") },
     ],
   },
   can_view_defect: {
     title: "不具合管理",
     menu: [
-      { label: "不具合を確認", path: pageMap.defect_list },
-      { label: "不具合の詳細", path: pageMap.defect_by_id("dummy") },
+      { label: "不具合を確認", path: siteMap.defect_list },
+      { label: "不具合の詳細", path: siteMap.defect_by_id("dummy") },
     ],
   },
   can_edit_defect: {
     title: "不具合管理",
     menu: [
-      { label: "不具合を確認", path: pageMap.defect_list },
-      { label: "不具合の新規登録", path: pageMap.defect_create },
-      { label: "不具合の編集", path: pageMap.defect_update("dummy") },
-      { label: "不具合の詳細", path: pageMap.defect_by_id("dummy") },
+      { label: "不具合を確認", path: siteMap.defect_list },
+      { label: "不具合の新規登録", path: siteMap.defect_create },
+      { label: "不具合の編集", path: siteMap.defect_update("dummy") },
+      { label: "不具合の詳細", path: siteMap.defect_by_id("dummy") },
     ],
   },
   mail_access: {
     title: "メール管理",
     menu: [
-      { label: "メールを確認", path: pageMap.mail_list },
-      { label: "メールの新規登録", path: pageMap.mail_create },
+      { label: "メールを確認", path: siteMap.mail_list },
+      { label: "メールの新規登録", path: siteMap.mail_create },
     ],
   },
 };
