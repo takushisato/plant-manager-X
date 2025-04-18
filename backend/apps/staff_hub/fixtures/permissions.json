@@ -4,16 +4,16 @@
     "pk": 1,
     "fields": {
       "user": 1,
-      "material_access": false,
+      "material_access": true,
       "can_manage_own_attendance": false,
-      "can_manage_all_attendance": false,
+      "can_manage_all_attendance": true,
       "can_view_production_plan": false,
-      "can_edit_production_plan": false,
+      "can_edit_production_plan": true,
       "can_view_order": false,
-      "can_edit_order": false,
+      "can_edit_order": true,
       "can_view_defect": false,
-      "can_edit_defect": false,
-      "mail_access": false
+      "can_edit_defect": true,
+      "mail_access": true
     }
   },
   {
