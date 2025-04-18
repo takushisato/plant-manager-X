@@ -21,6 +21,6 @@ export type MaterialReceiveStock = {
   material_price: number;
   stock_qty: number;
   order_suggestion_qty: number;
-  receive_stock_page: number;
+  receive_stock: number;
 };
   

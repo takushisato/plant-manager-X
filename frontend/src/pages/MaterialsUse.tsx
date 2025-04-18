@@ -4,6 +4,7 @@ import { MaterialUseStock } from "@/domain/material/list";
 import { Column } from "@/domain/common/generic-table";
 import { Box } from "@chakra-ui/react";
 const MaterialsUse = () => {
+  // TODO モックからAPIに変更する
   const columns: Column<MaterialUseStock>[] = [
     { header: "資材名", accessor: "material_name" },
     { header: "在庫数", accessor: "stock_qty" },
