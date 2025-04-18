@@ -7,12 +7,6 @@ import {
   Td,
   TableContainer,
   Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
   Input,
   FormControl,
@@ -21,7 +15,7 @@ import {
 import { useState } from "react";
 import { GenericTableProps } from "@/domain/common/generic-table";
 import { MaterialUseStock } from "@/domain/material/list";
-
+import GenericModal from "@/components/common/GenericModal";
 type MaterialUseStockTableProps = GenericTableProps<MaterialUseStock>;
 
 function MaterialUseStockTable({ columns, data }: MaterialUseStockTableProps) {
@@ -77,28 +71,23 @@ function MaterialUseStockTable({ columns, data }: MaterialUseStockTableProps) {
           </Tbody>
         </Table>
       </TableContainer>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>在庫の払い出し</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <FormControl mb={4}>
-              <FormLabel>数量</FormLabel>
-              <Input
-                type="number"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-                placeholder="数量を入力"
-              />
-            </FormControl>
-            <Button colorScheme="teal" onClick={handleSubmit}>
-              登録
-            </Button>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <GenericModal
+        isOpen={isOpen}
+        onClose={onClose}
+        title="在庫の払い出し"
+        onSubmit={handleSubmit}
+        submitLabel="払い出し"
+      >
+        <FormControl mb={4}>
+          <FormLabel>数量</FormLabel>
+          <Input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            placeholder="数量を入力"
+          />
+        </FormControl>
+      </GenericModal>
     </>
   );
 }
