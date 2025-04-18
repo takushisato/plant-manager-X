@@ -12,7 +12,7 @@ export type MaterialUseStock = {
   material_price: number;
   stock_qty: number;
   order_suggestion_qty: number;
-  use_stock_page: string;
+  use_stock: number;
 };
 
 export type MaterialReceiveStock = {
@@ -21,6 +21,6 @@ export type MaterialReceiveStock = {
   material_price: number;
   stock_qty: number;
   order_suggestion_qty: number;
-  receive_stock_page: string;
+  receive_stock_page: number;
 };
   
