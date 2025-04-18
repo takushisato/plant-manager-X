@@ -58,7 +58,7 @@ function MaterialUseStockTable({ columns, data }: MaterialUseStockTableProps) {
                           colorScheme="teal"
                           onClick={() => handleUseStock(row.id)}
                         >
-                          払い出し
+                          処理
                         </Button>
                       ) : (
                         cellValue
