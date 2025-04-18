@@ -59,7 +59,7 @@ function MaterialReceiveTable({ columns, data }: MaterialReceiveTableProps) {
                           colorScheme="teal"
                           onClick={() => handleReceiveStock(row.id)}
                         >
-                          受け入れ
+                          処理
                         </Button>
                       ) : (
                         cellValue
