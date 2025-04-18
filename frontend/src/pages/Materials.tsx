@@ -10,8 +10,6 @@ const Materials = () => {
     { header: "在庫数", accessor: "stock_qty" },
     { header: "価格", accessor: "material_price" },
     { header: "発注在庫数", accessor: "order_suggestion_qty" },
-    { header: "在庫受け入れ", accessor: "receive_stock_page" },
-    { header: "払い出し", accessor: "use_stock_page" },
   ];
 
   // TODO モックからAPIに変更する
@@ -22,8 +20,6 @@ const Materials = () => {
       stock_qty: 100,
       material_price: 1000,
       order_suggestion_qty: 100,
-      receive_stock_page: "http://localhost:5173/materials/1/receive", // TODO idをモックからAPIに変更する
-      use_stock_page: "http://localhost:5173/materials/1/use", // TODO idをモックからAPIに変更する
     },
     {
       id: 2,
@@ -31,8 +27,6 @@ const Materials = () => {
       stock_qty: 200,
       material_price: 2000,
       order_suggestion_qty: 200,
-      receive_stock_page: "http://localhost:5173/materials/2/receive", // TODO idをモックからAPIに変更する
-      use_stock_page: "http://localhost:5173/materials/2/use", // TODO idをモックからAPIに変更する
     },
   ];
 
