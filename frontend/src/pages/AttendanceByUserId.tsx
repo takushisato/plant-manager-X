@@ -1,9 +1,13 @@
 import Layout from "@/layouts/Layout";
+import AttendanceCalendar from "@/attendance/Calendar";
+import { Box } from "@chakra-ui/react";
 
 const AttendanceByUserId = () => {
   return (
     <Layout>
-      <p>自分の勤怠一覧</p>
+      <Box maxW="1200px" mx="auto">
+        <AttendanceCalendar label="出勤簿" onDateClick={() => {}} />
+      </Box>
     </Layout>
   );
 };
