@@ -3,11 +3,13 @@ import AttendanceCalendar from "@/attendance/Calendar";
 import { Box, Select } from "@chakra-ui/react";
 import { useState } from "react";
 import { VACATION_MODE, ATTENDANCE_MODE } from "@/utils/consts";
+import { useAttendance } from "@/hooks/useAttendance";
 
 const AttendanceByUserId = () => {
   const [mode, setMode] = useState<
     typeof VACATION_MODE | typeof ATTENDANCE_MODE
   >(ATTENDANCE_MODE);
+  const { postAttendance } = useAttendance();
 
   const handleDateClick = (date: Date) => {
     if (mode === VACATION_MODE) {
@@ -15,7 +17,7 @@ const AttendanceByUserId = () => {
       alert("有給申請処理: " + date);
     } else if (mode === ATTENDANCE_MODE) {
       // TODO: 勤怠入力用モーダルや画面遷移など
-      alert("出勤簿入力処理: " + date);
+      postAttendance(date.toISOString(), "09:00", "18:00");
     }
   };
 
