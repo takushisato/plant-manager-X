@@ -4,17 +4,19 @@ import { Box, Select } from "@chakra-ui/react";
 import { useState } from "react";
 import { VACATION_MODE, ATTENDANCE_MODE } from "@/utils/consts";
 import { useAttendance } from "@/hooks/useAttendance";
+import { useVacation } from "@/hooks/useVacation";
 
 const AttendanceByUserId = () => {
   const [mode, setMode] = useState<
     typeof VACATION_MODE | typeof ATTENDANCE_MODE
   >(ATTENDANCE_MODE);
   const { postAttendance } = useAttendance();
+  const { postVacation } = useVacation();
 
   const handleDateClick = (date: Date) => {
     if (mode === VACATION_MODE) {
       // TODO: 有給申請用モーダルやAPI呼び出しなど
-      alert("有給申請処理: " + date);
+      postVacation(date.toISOString(), "09:00", "18:00");
     } else if (mode === ATTENDANCE_MODE) {
       // TODO: 勤怠入力用モーダルや画面遷移など
       postAttendance(date.toISOString(), "09:00", "18:00");
