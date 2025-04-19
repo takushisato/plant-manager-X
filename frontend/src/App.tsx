@@ -6,13 +6,11 @@ import Materials from "@/pages/Materials";
 import MaterialsReceive from "@/pages/MaterialsReceive";
 import MaterialsUse from "@/pages/MaterialsUse";
 import AttendanceList from "@/pages/AttendanceList";
-import AttendanceCreate from "@/pages/AttendanceCreate";
 import AttendanceByUserId from "@/pages/AttendanceByUserId";
-import AttendanceUpdate from "@/pages/AttendanceUpdate";
 import ProductionPlanList from "@/pages/ProductionPlanList";
 import ProductionPlanCreate from "@/pages/ProductionPlanCreate";
 import ProductionPlanUpdate from "@/pages/ProductionPlanUpdate";
-import OrderList from "@/pages/orderList";
+import OrderList from "@/pages/OrderList";
 import OrderCreate from "@/pages/OrderCreate";
 import OrderUpdate from "@/pages/OrderUpdate";
 import OrderById from "@/pages/OrderById";
@@ -33,9 +31,7 @@ function App() {
         <Route path="/materials/:id/receive" element={<MaterialsReceive />} />
         <Route path="/materials/:id/use" element={<MaterialsUse />} />
         <Route path="/attendance" element={<AttendanceList />} />
-        <Route path="/attendance/create" element={<AttendanceCreate />} />
         <Route path="/attendance/:id" element={<AttendanceByUserId />} />
-        <Route path="/attendance/:id/update" element={<AttendanceUpdate />} />
         <Route path="/production_plan" element={<ProductionPlanList />} />
         <Route
           path="/production_plan/create"

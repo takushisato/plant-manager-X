@@ -1,5 +1,5 @@
 import Layout from "@/layouts/Layout";
-import AttendanceCalendar from "@/attendance/Calendar";
+import AttendanceCalendar from "@/components/attendance/Calendar";
 import { Box, Select } from "@chakra-ui/react";
 import { useState } from "react";
 import { VACATION_MODE, ATTENDANCE_MODE } from "@/utils/consts";
