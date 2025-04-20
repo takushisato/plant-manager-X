@@ -2,11 +2,13 @@ import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import AttendanceByUserId from "@/pages/AttendanceByUserId";
 
-jest.mock("@/hooks/useAttendance", () => ({
+jest.mock("@/hooks/useAttendanceStore", () => ({
   __esModule: true,
-  useAttendance: jest.fn(() => ({
+  useAttendanceStore: jest.fn(() => ({
     postAttendance: jest.fn(),
     getAttendance: jest.fn(() => []),
+    overtimeHours: 0,
+    currentYearMonth: "2024-04",
   })),
 }));
 
@@ -14,7 +16,7 @@ jest.mock("@/hooks/useVacation", () => ({
   __esModule: true,
   useVacation: jest.fn(() => ({
     postVacation: jest.fn(),
-    getVacation: jest.fn(() => []),
+    vacation: [],
   })),
 }));
 
@@ -78,5 +80,8 @@ describe("AttendanceByUserId", () => {
     );
 
     expect(screen.getByTestId("attendance-calendar")).toBeInTheDocument();
+    expect(
+      screen.getByText((content) => content.includes("2024-04"))
+    ).toBeInTheDocument();
   });
 });
