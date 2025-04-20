@@ -1,8 +1,8 @@
+import { useState } from "react";
 import Layout from "@/layouts/Layout";
 import GenericTable from "@/components/common/GenericTable";
-import { Box } from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 import { Column } from "@/domain/common/generic-table";
-import { useMemo } from "react";
 
 type UserAttendanceList = {
   id: number;
@@ -20,7 +20,6 @@ const AttendanceList = () => {
     { header: "詳細", accessor: "detail" },
   ];
 
-  // TODO モックからAPIに変更する
   const data: UserAttendanceList[] = [
     {
       id: 1,
@@ -45,39 +44,47 @@ const AttendanceList = () => {
     },
   ];
 
-  const AttendanceList = () => {
-    // 現在の年月を取得して「2025年4月」形式に変換
-    const currentYearMonth = useMemo(() => {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = today.getMonth() + 1;
-      return `${year}年${month}月`;
-    }, []);
+  // 現在の月を管理
+  const [currentDate, setCurrentDate] = useState(() => new Date());
 
-    return (
-      <Layout>
-        <Box mt={4}>
-          <Box
-            display="flex"
-            alignItems="center"
-            gap={2}
-            maxW="1200px"
-            mx="auto"
-            fontSize="24px"
-            mb={4}
-          >
-            <button>←</button>
-            <h1>{currentYearMonth}</h1>
-            <button>→</button>
-          </Box>
-          <GenericTable columns={columns} data={data} />
-        </Box>
-      </Layout>
-    );
+  // 表示用の年月文字列を作成
+  const currentYearMonth = `${currentDate.getFullYear()}年${
+    currentDate.getMonth() + 1
+  }月`;
+
+  // 1ヶ月前に移動
+  const handlePrevMonth = () => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(currentDate.getMonth() - 1);
+    setCurrentDate(newDate);
   };
 
-  return <AttendanceList />;
+  // 1ヶ月後に移動
+  const handleNextMonth = () => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(currentDate.getMonth() + 1);
+    setCurrentDate(newDate);
+  };
+
+  return (
+    <Layout>
+      <Box mt={4}>
+        <Flex
+          alignItems="center"
+          gap={2}
+          maxW="1200px"
+          mx="auto"
+          fontSize="24px"
+          mb={4}
+        >
+          <Button onClick={handlePrevMonth}>←</Button>
+          <h1>{currentYearMonth}</h1>
+          <Button onClick={handleNextMonth}>→</Button>
+        </Flex>
+        <GenericTable columns={columns} data={data} />
+      </Box>
+    </Layout>
+  );
 };
 
 export default AttendanceList;
-
