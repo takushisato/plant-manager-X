@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
-import type { ErrorResponse } from "@/domain/api/error-response";
+import type { ErrorResponse } from "@/types/common/error-response";
 import { processErrorResponse } from "@/domain/api/process-error-response";
 import { endpoints } from "@/utils/apiUrls";
 import Cookies from "js-cookie";

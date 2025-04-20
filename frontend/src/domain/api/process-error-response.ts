@@ -5,7 +5,7 @@ import {
   NotFoundException,
   ServerException,
   UnauthorizedException,
-} from "@/domain/common/exceptions/api-exceptions";
+} from "@/domain/common/api-exceptions";
 
 export function processErrorResponse(status: number, message: string) {
   if (status === 401) {

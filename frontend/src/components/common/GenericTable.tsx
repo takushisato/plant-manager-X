@@ -8,7 +8,7 @@ import {
   TableContainer,
   Button,
 } from "@chakra-ui/react";
-import { GenericTableProps } from "@/domain/common/generic-table";
+import { GenericTableProps } from "@/types/common/generic-table";
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
@@ -44,6 +44,18 @@ function GenericTable<T extends Record<string, ReactNode>>({
                       </Link>
                     ) : (
                       cellValue
+                    )}
+                    {col.accessor === "detail" && (
+                      <Button
+                        as="a"
+                        href={`/attendance/${row.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        size="sm"
+                        colorScheme="teal"
+                      >
+                        詳細
+                      </Button>
                     )}
                   </Td>
                 );

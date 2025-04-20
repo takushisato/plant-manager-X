@@ -6,9 +6,7 @@ export type SiteMap = {
 
   // 勤怠管理画面
   attendance_list: string;
-  attendance_create: string;
   attendance_by_user_id: (user_id: string) => string;
-  attendance_update: (user_id: string) => string;
 
   // 生産管理画面
   production_plan_list: string;

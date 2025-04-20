@@ -1,5 +1,5 @@
-import { User } from "@/domain/auth/user";
-import { SiteMap } from "@/domain/common/site-map";
+import { User } from "@/types/user";
+import { SiteMap } from "@/types/common/site-map";
 
 const siteMap: SiteMap = {
   // 資材管理画面
@@ -9,9 +9,7 @@ const siteMap: SiteMap = {
 
   // 勤怠管理画面
   attendance_list: "/attendance",
-  attendance_create: "/attendance/create",
   attendance_by_user_id: (id: string) => `/attendance/${id}`,
-  attendance_update: (id: string) => `/attendance/${id}/update`,
 
   // 生産管理画面
   production_plan_list: "/production_plan",
@@ -55,25 +53,13 @@ const accessMap: Record<
   },
   can_manage_own_attendance: {
     title: "出勤簿管理",
-    menu: [
-      { label: "今日の出勤を入力", path: siteMap.attendance_create },
-      {
-        label: "自分の出勤状況を確認",
-        path: siteMap.attendance_by_user_id("dummy"),
-      },
-      { label: "過去の出勤を編集", path: siteMap.attendance_update("dummy") },
-    ],
+    menu: [{ label: "出勤簿", path: siteMap.attendance_by_user_id("dummy") }],
   },
   can_manage_all_attendance: {
     title: "出勤簿管理",
     menu: [
-      { label: "今日の出勤を入力", path: siteMap.attendance_create },
       { label: "全従業員の出勤を確認", path: siteMap.attendance_list },
-      { label: "過去の出勤を編集", path: siteMap.attendance_update("dummy") },
-      {
-        label: "自分の出勤状況を確認",
-        path: siteMap.attendance_by_user_id("dummy"),
-      },
+      { label: "出勤簿", path: siteMap.attendance_by_user_id("dummy") },
     ],
   },
   can_view_production_plan: {
