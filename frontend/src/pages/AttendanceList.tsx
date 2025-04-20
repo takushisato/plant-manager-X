@@ -2,6 +2,7 @@ import Layout from "@/layouts/Layout";
 import GenericTable from "@/components/common/GenericTable";
 import { Box } from "@chakra-ui/react";
 import { Column } from "@/domain/common/generic-table";
+import { useMemo } from "react";
 
 type UserAttendanceList = {
   id: number;
@@ -44,26 +45,39 @@ const AttendanceList = () => {
     },
   ];
 
-  return (
-    <Layout>
-      <Box mt={4}>
-        <Box
-          display="flex"
-          alignItems="center"
-          gap={2}
-          maxW="1200px"
-          mx="auto"
-          fontSize="24px"
-          mb={4}
-        >
-          <button>←</button>
-          <h1>2025年4月</h1>
-          <button>→</button>
+  const AttendanceList = () => {
+    // 現在の年月を取得して「2025年4月」形式に変換
+    const currentYearMonth = useMemo(() => {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth() + 1;
+      return `${year}年${month}月`;
+    }, []);
+
+    return (
+      <Layout>
+        <Box mt={4}>
+          <Box
+            display="flex"
+            alignItems="center"
+            gap={2}
+            maxW="1200px"
+            mx="auto"
+            fontSize="24px"
+            mb={4}
+          >
+            <button>←</button>
+            <h1>{currentYearMonth}</h1>
+            <button>→</button>
+          </Box>
+          <GenericTable columns={columns} data={data} />
         </Box>
-        <GenericTable columns={columns} data={data} />
-      </Box>
-    </Layout>
-  );
+      </Layout>
+    );
+  };
+
+  return <AttendanceList />;
 };
 
 export default AttendanceList;
+
