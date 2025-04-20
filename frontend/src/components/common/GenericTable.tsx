@@ -8,7 +8,7 @@ import {
   TableContainer,
   Button,
 } from "@chakra-ui/react";
-import { GenericTableProps } from "@/domain/common/generic-table";
+import { GenericTableProps } from "@/types/common/generic-table";
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 

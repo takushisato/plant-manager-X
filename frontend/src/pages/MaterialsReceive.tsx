@@ -1,7 +1,7 @@
 import Layout from "@/layouts/Layout";
 import MaterialReceiveTable from "@/components/material/MaterialReceiveTable";
 import { MaterialReceiveStock } from "@/types/material";
-import { Column } from "@/domain/common/generic-table";
+import { Column } from "@/types/common/generic-table";
 import { Box } from "@chakra-ui/react";
 const MaterialsReceive = () => {
   // TODO モックからAPIに変更する

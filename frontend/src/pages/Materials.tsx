@@ -1,7 +1,7 @@
 import Layout from "@/layouts/Layout";
 import GenericTable from "@/components/common/GenericTable";
 import { MaterialList } from "@/types/material";
-import { Column } from "@/domain/common/generic-table";
+import { Column } from "@/types/common/generic-table";
 import { Box } from "@chakra-ui/react";
 const Materials = () => {
   // TODO モックからAPIに変更する

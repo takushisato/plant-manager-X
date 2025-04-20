@@ -1,5 +1,5 @@
 import { User } from "@/types/user";
-import { SiteMap } from "@/domain/common/site-map";
+import { SiteMap } from "@/types/common/site-map";
 
 const siteMap: SiteMap = {
   // 資材管理画面

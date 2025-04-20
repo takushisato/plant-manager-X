@@ -1,7 +1,7 @@
 import Layout from "@/layouts/Layout";
 import GenericTable from "@/components/common/GenericTable";
 import { Box, Button, Flex } from "@chakra-ui/react";
-import { Column } from "@/domain/common/generic-table";
+import { Column } from "@/types/common/generic-table";
 import { useAttendanceStore } from "@/hooks/useAttendanceStore";
 import { useEffect } from "react";
 import { UserAttendanceList } from "@/types/attendance";
