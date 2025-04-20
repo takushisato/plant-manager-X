@@ -30,7 +30,7 @@ const AttendanceByUserId = () => {
 
   return (
     <Layout>
-      <Box maxW="1200px" mx="auto" mt={6}>
+      <Box maxW="380px" mx="auto" mt={6}>
         <Select
           maxW="200px"
           mb={4}
