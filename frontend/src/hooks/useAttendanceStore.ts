@@ -1,29 +1,9 @@
 import { create } from "zustand";
-
-type NewAttendance = {
-  user_id: number;
-  date: string;
-  start_time: string;
-  end_time: string;
-};
-
-type AttendanceStore = {
-  currentDate: Date;
-  currentYearMonth: string;
-  postAttendance: (attendance: NewAttendance) => Promise<void>;
-  handlePrevMonth: () => void;
-  handleNextMonth: () => void;
-  allUserAttendanceList: AllUserAttendanceList[];
-  getUserAttendanceList: () => Promise<void>;
-};
-
-type AllUserAttendanceList = {
-  id: number;
-  name: string;
-  attendance_count: number;
-  detail: string | undefined;
-};
-
+import {
+  AttendanceStore,
+  AllUserAttendanceList,
+  NewAttendance,
+} from "@/types/attendance";
 /**
  * 年月を表示用の文字列に変換
  * @param date

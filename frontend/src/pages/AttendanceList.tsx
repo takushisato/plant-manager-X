@@ -4,13 +4,8 @@ import { Box, Button, Flex } from "@chakra-ui/react";
 import { Column } from "@/domain/common/generic-table";
 import { useAttendanceStore } from "@/hooks/useAttendanceStore";
 import { useEffect } from "react";
+import { UserAttendanceList } from "@/types/attendance";
 
-type UserAttendanceList = {
-  id: number;
-  name: string;
-  attendance_count: number;
-  detail: string | undefined;
-};
 
 const AttendanceList = () => {
   const columns: Column<UserAttendanceList>[] = [
