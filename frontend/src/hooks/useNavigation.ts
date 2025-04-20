@@ -1,4 +1,4 @@
-import { User } from "@/domain/auth/user";
+import { User } from "@/types/user";
 import { SiteMap } from "@/domain/common/site-map";
 
 const siteMap: SiteMap = {

@@ -2,7 +2,7 @@ import { apiClient } from "@/domain/api/apiClient";
 import { endpoints } from "@/utils/apiUrls";
 import Cookies from "js-cookie";
 import { create } from "zustand";
-import { User, AuthStore } from "@/domain/auth/user";
+import { User, AuthStore } from "@/types/user";
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
