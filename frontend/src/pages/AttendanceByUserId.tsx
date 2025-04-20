@@ -3,7 +3,7 @@ import AttendanceCalendar from "@/components/attendance/Calendar";
 import { Box, Select } from "@chakra-ui/react";
 import { useState } from "react";
 import { VACATION_MODE, ATTENDANCE_MODE } from "@/utils/consts";
-import { useAttendance } from "@/hooks/useAttendance";
+import { useAttendance } from "@/hooks/useAttendanceStore";
 import { useVacation } from "@/hooks/useVacation";
 
 const AttendanceByUserId = () => {
