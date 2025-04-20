@@ -1,6 +1,6 @@
 import Layout from "@/layouts/Layout";
 import MaterialUseStockTable from "@/components/material/MaterialUseStockTable";
-import { MaterialUseStock } from "@/domain/material/list";
+import { MaterialUseStock } from "@/types/material";
 import { Column } from "@/domain/common/generic-table";
 import { Box } from "@chakra-ui/react";
 const MaterialsUse = () => {

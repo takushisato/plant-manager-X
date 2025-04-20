@@ -1,6 +1,6 @@
 import Layout from "@/layouts/Layout";
 import MaterialReceiveTable from "@/components/material/MaterialReceiveTable";
-import { MaterialReceiveStock } from "@/domain/material/list";
+import { MaterialReceiveStock } from "@/types/material";
 import { Column } from "@/domain/common/generic-table";
 import { Box } from "@chakra-ui/react";
 const MaterialsReceive = () => {

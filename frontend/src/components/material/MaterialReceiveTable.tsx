@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { GenericTableProps } from "@/domain/common/generic-table";
-import { MaterialReceiveStock } from "@/domain/material/list";
+import { MaterialReceiveStock } from "@/types/material";
 import GenericModal from "@/components/common/GenericModal";
 
 type MaterialReceiveTableProps = GenericTableProps<MaterialReceiveStock>;
