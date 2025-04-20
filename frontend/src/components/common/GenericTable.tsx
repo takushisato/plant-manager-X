@@ -46,11 +46,16 @@ function GenericTable<T extends Record<string, ReactNode>>({
                       cellValue
                     )}
                     {col.accessor === "detail" && (
-                      <Link to={`/attendance/${row.id}`}>
-                        <Button size="sm" colorScheme="teal">
-                          詳細
-                        </Button>
-                      </Link>
+                      <Button
+                        as="a"
+                        href={`/attendance/${row.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        size="sm"
+                        colorScheme="teal"
+                      >
+                        詳細
+                      </Button>
                     )}
                   </Td>
                 );
