@@ -10,8 +10,9 @@ const AttendanceByUserId = () => {
   const [mode, setMode] = useState<
     typeof ATTENDANCE_MODE | typeof VACATION_MODE
   >("attendance");
-  const { postAttendance } = useAttendanceStore();
-  const { postVacation } = useVacation();
+  const { postAttendance, overtimeHours, currentYearMonth } =
+    useAttendanceStore();
+  const { postVacation, vacation } = useVacation();
 
   const handleDateClick = (date: Date) => {
     const formattedDate = date.toISOString().split("T")[0];
@@ -51,6 +52,10 @@ const AttendanceByUserId = () => {
           label="出勤簿カレンダー"
           onDateClick={handleDateClick}
         />
+        <p>有給残り: {vacation.length}</p>
+        <p>
+          {currentYearMonth}の残業時間: {overtimeHours}
+        </p>
       </Box>
     </Layout>
   );

@@ -17,6 +17,7 @@ export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
   currentDate: new Date(),
   currentYearMonth: formatYearMonth(new Date()),
   allUserAttendanceList: [],
+  overtimeHours: 0,
 
   /**
    * 全ユーザーの出勤簿リストを取得

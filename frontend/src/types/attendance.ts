@@ -20,6 +20,7 @@ export type AttendanceStore = {
   handleNextMonth: () => void;
   allUserAttendanceList: AllUserAttendanceList[];
   getUserAttendanceList: () => Promise<void>;
+  overtimeHours: number;
 };
 
 export type AllUserAttendanceList = {
