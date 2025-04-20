@@ -13,6 +13,15 @@ type AttendanceStore = {
   postAttendance: (attendance: NewAttendance) => Promise<void>;
   handlePrevMonth: () => void;
   handleNextMonth: () => void;
+  allUserAttendanceList: AllUserAttendanceList[];
+  getUserAttendanceList: () => Promise<void>;
+};
+
+type AllUserAttendanceList = {
+  id: number;
+  name: string;
+  attendance_count: number;
+  detail: string | undefined;
 };
 
 /**
@@ -27,29 +36,51 @@ const formatYearMonth = (date: Date): string => {
 export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
   currentDate: new Date(),
   currentYearMonth: formatYearMonth(new Date()),
+  allUserAttendanceList: [],
+
+  /**
+   * 全ユーザーの出勤簿リストを取得
+   */
+  getUserAttendanceList: async () => {
+    const mockData: AllUserAttendanceList[] = [
+      {
+        id: 1,
+        name: "山田太郎",
+        attendance_count: 10,
+        detail: "",
+      },
+      {
+        id: 2,
+        name: "鈴木次郎",
+        attendance_count: 10,
+        detail: "",
+      },
+      {
+        id: 3,
+        name: "佐藤三郎",
+        attendance_count: 10,
+        detail: "",
+      },
+    ];
+    set({ allUserAttendanceList: mockData });
+  },
 
   /**
    * 前の月へ移動
    */
   handlePrevMonth: () => {
-    const prevDate = new Date(get().currentDate);
-    prevDate.setMonth(prevDate.getMonth() - 1);
-    set({
-      currentDate: prevDate,
-      currentYearMonth: formatYearMonth(prevDate),
-    });
+    const currentDate = new Date(get().currentDate);
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    set({ currentDate, currentYearMonth: formatYearMonth(currentDate) });
   },
 
   /**
    * 次の月へ移動
    */
   handleNextMonth: () => {
-    const nextDate = new Date(get().currentDate);
-    nextDate.setMonth(nextDate.getMonth() + 1);
-    set({
-      currentDate: nextDate,
-      currentYearMonth: formatYearMonth(nextDate),
-    });
+    const currentDate = new Date(get().currentDate);
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    set({ currentDate, currentYearMonth: formatYearMonth(currentDate) });
   },
 
   /**
@@ -57,8 +88,7 @@ export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
    * @param attendance
    */
   postAttendance: async (attendance: NewAttendance) => {
-    alert(
-      `出勤簿入力処理: ${attendance.date} ${attendance.start_time} ${attendance.end_time}`
-    );
+    // TODO: APIで出勤簿をPOSTする
+    alert("出勤簿処理: " + JSON.stringify(attendance));
   },
 }));

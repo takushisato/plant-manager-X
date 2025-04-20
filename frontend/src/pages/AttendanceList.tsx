@@ -3,6 +3,7 @@ import GenericTable from "@/components/common/GenericTable";
 import { Box, Button, Flex } from "@chakra-ui/react";
 import { Column } from "@/domain/common/generic-table";
 import { useAttendanceStore } from "@/hooks/useAttendanceStore";
+import { useEffect } from "react";
 
 type UserAttendanceList = {
   id: number;
@@ -17,51 +18,38 @@ const AttendanceList = () => {
     { header: "今月の出勤数", accessor: "attendance_count" },
     { header: "詳細", accessor: "detail" },
   ];
-  const { currentYearMonth, handlePrevMonth, handleNextMonth } =
-    useAttendanceStore();
+  const {
+    currentYearMonth,
+    handlePrevMonth,
+    handleNextMonth,
+    allUserAttendanceList,
+    getUserAttendanceList,
+  } = useAttendanceStore();
 
-  const data: UserAttendanceList[] = [
-    {
-      id: 1,
-      name: "山田太郎",
-      attendance_count: 10,
-      detail: "",
-    },
-    {
-      id: 2,
-      name: "鈴木次郎",
-      attendance_count: 10,
-      detail: "",
-    },
-    {
-      id: 3,
-      name: "佐藤三郎",
-      attendance_count: 10,
-      detail: "",
-    },
-  ];
+  useEffect(() => {
+    getUserAttendanceList();
+  }, [getUserAttendanceList]);
 
-  // 現在の月を管理
-  // const [currentDate, setCurrentDate] = useState(() => new Date());
-
-  // // 表示用の年月文字列を作成
-  // const currentYearMonth = `${currentDate.getFullYear()}年${
-  //   currentDate.getMonth() + 1
-  // }月`;
-
-  // // 1ヶ月前に移動
-  // const handlePrevMonth = () => {
-  //   const newDate = new Date(currentDate);
-  //   newDate.setMonth(currentDate.getMonth() - 1);
-  //   setCurrentDate(newDate);
-  // };
-
-  // // 1ヶ月後に移動
-  // const handleNextMonth = () => {
-  //   const newDate = new Date(currentDate);
-  //   newDate.setMonth(currentDate.getMonth() + 1);
-  //   setCurrentDate(newDate);
-  // };
+  // const data: UserAttendanceList[] = [
+  //   {
+  //     id: 1,
+  //     name: "山田太郎",
+  //     attendance_count: 10,
+  //     detail: "",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "鈴木次郎",
+  //     attendance_count: 10,
+  //     detail: "",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "佐藤三郎",
+  //     attendance_count: 10,
+  //     detail: "",
+  //   },
+  // ];
 
   return (
     <Layout>
@@ -78,7 +66,7 @@ const AttendanceList = () => {
           <h1>{currentYearMonth}</h1>
           <Button onClick={handleNextMonth}>→</Button>
         </Flex>
-        <GenericTable columns={columns} data={data} />
+        <GenericTable columns={columns} data={allUserAttendanceList} />
       </Box>
     </Layout>
   );
