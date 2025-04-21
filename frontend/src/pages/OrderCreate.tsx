@@ -1,9 +1,9 @@
 import Layout from "@/layouts/Layout";
-
+import OrderCreateForm from "@/components/order/OrderCreateForm";
 const OrderCreate = () => {
   return (
     <Layout>
-      <p>受注の作成</p>
+      <OrderCreateForm />
     </Layout>
   );
 };
