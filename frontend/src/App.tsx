@@ -13,7 +13,6 @@ import ProductionPlanUpdate from "@/pages/ProductionPlanUpdate";
 import OrderList from "@/pages/OrderList";
 import OrderCreate from "@/pages/OrderCreate";
 import OrderUpdate from "@/pages/OrderUpdate";
-import OrderById from "@/pages/OrderById";
 import DefectList from "@/pages/DefectList";
 import DefectCreate from "@/pages/DefectCreate";
 import DefectUpdate from "@/pages/DefectUpdate";
@@ -44,7 +43,6 @@ function App() {
         <Route path="/order" element={<OrderList />} />
         <Route path="/order/create" element={<OrderCreate />} />
         <Route path="/order/:id/update" element={<OrderUpdate />} />
-        <Route path="/order/:id" element={<OrderById />} />
         <Route path="/defect" element={<DefectList />} />
         <Route path="/defect/create" element={<DefectCreate />} />
         <Route path="/defect/:id/update" element={<DefectUpdate />} />
