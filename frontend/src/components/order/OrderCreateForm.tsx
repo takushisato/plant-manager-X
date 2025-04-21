@@ -1,22 +1,37 @@
 import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
-import { useState } from "react";
-import { OrderCreate } from "@/types/order";
 import { useOrderStore } from "@/hooks/useOrderStore";
+import { useEffect } from "react";
 
 const OrderCreateForm = () => {
-  const today = new Date().toISOString().split("T")[0];
-  const { createOrder } = useOrderStore();
+  const {
+    createOrder,
+    customer_name,
+    order_number,
+    order_date,
+    product_name,
+    quantity,
+    price,
+    deadline,
+    note,
+    setCustomerName,
+    setOrderNumber,
+    setOrderDate,
+    setProductName,
+    setQuantity,
+    setPrice,
+    setDeadline,
+    setNote,
+  } = useOrderStore();
 
-  const [order, setOrder] = useState<OrderCreate>({
-    customer_name: "",
-    order_number: "",
-    order_date: today,
-    product_name: "",
-    quantity: 0,
-    price: 0,
-    deadline: "",
-    note: "",
-  });
+  /**
+   * 注文日が未入力の場合（主に新規作成時）デフォルトで今日の日付を設定
+   */
+  useEffect(() => {
+    if (!order_date) {
+      const today = new Date().toISOString().split("T")[0];
+      setOrderDate(today);
+    }
+  }, [order_date, setOrderDate]);
 
   /**
    * 注文を作成
@@ -24,7 +39,7 @@ const OrderCreateForm = () => {
    */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createOrder(order);
+    createOrder();
   };
 
   return (
@@ -33,70 +48,64 @@ const OrderCreateForm = () => {
         <FormLabel>顧客名</FormLabel>
         <Input
           type="text"
-          value={order.customer_name}
-          onChange={(e) =>
-            setOrder({ ...order, customer_name: e.target.value })
-          }
+          value={customer_name}
+          onChange={(e) => setCustomerName(e.target.value)}
         />
       </FormControl>
       <FormControl>
         <FormLabel>注文番号</FormLabel>
         <Input
           type="text"
-          value={order.order_number}
-          onChange={(e) => setOrder({ ...order, order_number: e.target.value })}
+          value={order_number}
+          onChange={(e) => setOrderNumber(e.target.value)}
         />
       </FormControl>
       <FormControl>
         <FormLabel>注文日</FormLabel>
         <Input
           type="date"
-          value={order.order_date}
-          onChange={(e) => setOrder({ ...order, order_date: e.target.value })}
+          value={order_date}
+          onChange={(e) => setOrderDate(e.target.value)}
         />
       </FormControl>
       <FormControl>
         <FormLabel>商品名</FormLabel>
         <Input
           type="text"
-          value={order.product_name}
-          onChange={(e) => setOrder({ ...order, product_name: e.target.value })}
+          value={product_name}
+          onChange={(e) => setProductName(e.target.value)}
         />
       </FormControl>
       <FormControl>
         <FormLabel>数量</FormLabel>
         <Input
           type="number"
-          value={order.quantity}
-          onChange={(e) =>
-            setOrder({ ...order, quantity: parseInt(e.target.value) })
-          }
+          value={quantity}
+          onChange={(e) => setQuantity(parseInt(e.target.value))}
         />
       </FormControl>
       <FormControl>
         <FormLabel>価格</FormLabel>
         <Input
           type="number"
-          value={order.price}
-          onChange={(e) =>
-            setOrder({ ...order, price: parseInt(e.target.value) })
-          }
+          value={price}
+          onChange={(e) => setPrice(parseInt(e.target.value))}
         />
       </FormControl>
       <FormControl>
         <FormLabel>納期</FormLabel>
         <Input
           type="date"
-          value={order.deadline}
-          onChange={(e) => setOrder({ ...order, deadline: e.target.value })}
+          value={deadline}
+          onChange={(e) => setDeadline(e.target.value)}
         />
       </FormControl>
       <FormControl>
         <FormLabel>備考</FormLabel>
         <Input
           type="text"
-          value={order.note}
-          onChange={(e) => setOrder({ ...order, note: e.target.value })}
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
         />
       </FormControl>
       <Button type="submit" mt={4}>
