@@ -1,9 +1,11 @@
 import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { OrderCreate } from "@/types/order";
+import { useOrderStore } from "@/hooks/useOrderStore";
 
 const OrderCreateForm = () => {
   const today = new Date().toISOString().split("T")[0];
+  const { createOrder } = useOrderStore();
 
   const [order, setOrder] = useState<OrderCreate>({
     customer_name: "",
@@ -16,9 +18,13 @@ const OrderCreateForm = () => {
     note: "",
   });
 
+  /**
+   * 注文を作成
+   * @param e
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("注文を作成しました");
+    createOrder(order);
   };
 
   return (
