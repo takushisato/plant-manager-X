@@ -1,10 +1,10 @@
 import Layout from "@/layouts/Layout";
-import OrderCreateForm from "@/components/order/OrderCreateForm";
+import OrderForm from "@/components/order/OrderForm";
 
 const OrderCreate = () => {
   return (
     <Layout>
-      <OrderCreateForm id={undefined} />
+      <OrderForm id={undefined} />
     </Layout>
   );
 };

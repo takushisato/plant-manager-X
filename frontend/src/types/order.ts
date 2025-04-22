@@ -34,6 +34,6 @@ export type OrderCreate = {
   note: string;
 };
 
-export type OrderCreateFormProps = {
+export type OrderFormProps = {
   id: string | undefined;
 };

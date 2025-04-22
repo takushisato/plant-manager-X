@@ -1,5 +1,5 @@
 import Layout from "@/layouts/Layout";
-import OrderCreateForm from "@/components/order/OrderCreateForm";
+import OrderForm from "@/components/order/OrderForm";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -13,7 +13,7 @@ const OrderUpdate = () => {
 
   return (
     <Layout>
-      <OrderCreateForm id={orderId} />
+      <OrderForm id={orderId} />
     </Layout>
   );
 };
