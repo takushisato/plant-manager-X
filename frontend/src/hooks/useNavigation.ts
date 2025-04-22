@@ -79,18 +79,13 @@ const accessMap: Record<
   },
   can_view_order: {
     title: "受注管理",
-    menu: [
-      { label: "受注を確認", path: siteMap.order_list },
-      { label: "受注の詳細", path: siteMap.order_by_id("dummy") },
-    ],
+    menu: [{ label: "受注を確認", path: siteMap.order_list }],
   },
   can_edit_order: {
     title: "受注管理",
     menu: [
       { label: "受注を確認", path: siteMap.order_list },
-      { label: "受注の詳細", path: siteMap.order_by_id("dummy") },
       { label: "受注の新規登録", path: siteMap.order_create },
-      { label: "受注の編集", path: siteMap.order_update("dummy") },
     ],
   },
   can_view_defect: {
