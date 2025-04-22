@@ -1,9 +1,9 @@
 import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { useOrderStore } from "@/hooks/useOrderStore";
 import { useEffect } from "react";
-import { OrderCreateFormProps } from "@/types/order";
+import { OrderFormProps } from "@/types/order";
 
-const OrderCreateForm = ({ id }: OrderCreateFormProps) => {
+const OrderForm = ({ id }: OrderFormProps) => {
   const {
     createOrder,
     customer_name,
@@ -136,4 +136,4 @@ const OrderCreateForm = ({ id }: OrderCreateFormProps) => {
   );
 };
 
-export default OrderCreateForm;
+export default OrderForm;
