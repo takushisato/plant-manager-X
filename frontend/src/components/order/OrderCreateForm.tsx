@@ -1,8 +1,9 @@
 import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { useOrderStore } from "@/hooks/useOrderStore";
 import { useEffect } from "react";
+import { OrderCreateFormProps } from "@/types/order";
 
-const OrderCreateForm = () => {
+const OrderCreateForm = ({ id }: OrderCreateFormProps) => {
   const {
     createOrder,
     customer_name,
@@ -21,7 +22,27 @@ const OrderCreateForm = () => {
     setPrice,
     setDeadline,
     setNote,
+    getOrder,
   } = useOrderStore();
+
+  /**
+   * idが存在する場合は注文を取得
+   */
+  useEffect(() => {
+    if (id) {
+      getOrder(parseInt(id)).then(() => {
+        const fetchedOrder = useOrderStore.getState().order;
+        setCustomerName(fetchedOrder.customer_name);
+        setOrderNumber(fetchedOrder.order_number);
+        setOrderDate(fetchedOrder.order_date);
+        setProductName(fetchedOrder.product_name);
+        setQuantity(fetchedOrder.quantity);
+        setPrice(fetchedOrder.price);
+        setDeadline(fetchedOrder.deadline);
+        setNote(fetchedOrder.note);
+      });
+    }
+  }, [id, getOrder]);
 
   /**
    * 注文日が未入力の場合（主に新規作成時）デフォルトで今日の日付を設定
