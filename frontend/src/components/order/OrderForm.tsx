@@ -1,9 +1,9 @@
 import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { useOrderStore } from "@/hooks/useOrderStore";
 import { useEffect } from "react";
-import { OrderFormProps } from "@/types/order";
+import { useParams } from "react-router-dom";
 
-const OrderForm = ({ id }: OrderFormProps) => {
+const OrderForm = () => {
   const {
     createOrder,
     customer_name,
@@ -22,27 +22,43 @@ const OrderForm = ({ id }: OrderFormProps) => {
     setPrice,
     setDeadline,
     setNote,
+    order,
     getOrder,
   } = useOrderStore();
+
+  const { id } = useParams();
 
   /**
    * idが存在する場合は注文を取得
    */
   useEffect(() => {
     if (id) {
-      getOrder(parseInt(id)).then(() => {
-        const fetchedOrder = useOrderStore.getState().order;
-        setCustomerName(fetchedOrder.customer_name);
-        setOrderNumber(fetchedOrder.order_number);
-        setOrderDate(fetchedOrder.order_date);
-        setProductName(fetchedOrder.product_name);
-        setQuantity(fetchedOrder.quantity);
-        setPrice(fetchedOrder.price);
-        setDeadline(fetchedOrder.deadline);
-        setNote(fetchedOrder.note);
-      });
+      getOrder(Number(id));
+    } else {
+      setCustomerName("");
+      setOrderNumber("");
+      setOrderDate("");
+      setProductName("");
+      setQuantity(0);
+      setPrice(0);
+      setDeadline("");
+      setNote("");
     }
-  }, [id, getOrder]);
+  }, [id]);
+
+  useEffect(() => {
+    if (id && order.customer_name) {
+      setCustomerName(order.customer_name);
+      setOrderNumber(order.order_number);
+      setOrderDate(order.order_date);
+      setProductName(order.product_name);
+      setQuantity(order.quantity);
+      setPrice(order.price);
+      setDeadline(order.deadline);
+      setNote(order.note);
+      console.log("取得後の注文:", order);
+    }
+  }, [order, id]);
 
   /**
    * 注文日が未入力の場合（主に新規作成時）デフォルトで今日の日付を設定
@@ -64,7 +80,14 @@ const OrderForm = ({ id }: OrderFormProps) => {
   };
 
   return (
-    <Box as="form" onSubmit={handleSubmit} w="100%" maxW="1200px" mx="auto">
+    <Box
+      as="form"
+      onSubmit={handleSubmit}
+      w="100%"
+      maxW="1200px"
+      mx="auto"
+      data-testid="order-form"
+    >
       <FormControl>
         <FormLabel>顧客名</FormLabel>
         <Input

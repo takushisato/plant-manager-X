@@ -4,7 +4,7 @@ import OrderForm from "@/components/order/OrderForm";
 const OrderCreate = () => {
   return (
     <Layout>
-      <OrderForm id={undefined} />
+      <OrderForm />
     </Layout>
   );
 };
