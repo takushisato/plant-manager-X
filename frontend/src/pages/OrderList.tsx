@@ -21,6 +21,7 @@ const OrderList = () => {
     { header: "価格", accessor: "price" },
     { header: "納期", accessor: "deadline" },
     { header: "備考", accessor: "note" },
+    { header: "更新", accessor: "order_update_button" },
   ];
 
   return (

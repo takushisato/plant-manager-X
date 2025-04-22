@@ -57,6 +57,17 @@ function GenericTable<T extends Record<string, ReactNode>>({
                         詳細
                       </Button>
                     )}
+                    {col.accessor === "order_update_button" && (
+                      <Button
+                        as="a"
+                        href={`/order/${row.id}/update`}
+                        rel="noopener noreferrer"
+                        size="sm"
+                        colorScheme="teal"
+                      >
+                        更新
+                      </Button>
+                    )}
                   </Td>
                 );
               })}

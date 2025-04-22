@@ -60,6 +60,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
         price: 1000,
         deadline: "2021-01-01",
         note: "備考1",
+        order_update_button: "",
       },
       {
         id: 2,
@@ -71,6 +72,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
         price: 2000,
         deadline: "2021-01-02",
         note: "備考2",
+        order_update_button: "",
       },
       {
         id: 3,
@@ -82,6 +84,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
         price: 3000,
         deadline: "2021-01-03",
         note: "備考3",
+        order_update_button: "",
       },
       {
         id: 4,
@@ -93,6 +96,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
         price: 4000,
         deadline: "2021-01-04",
         note: "備考4",
+        order_update_button: "",
       },
       {
         id: 5,
@@ -104,6 +108,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
         price: 5000,
         deadline: "2021-01-05",
         note: "備考5",
+        order_update_button: "",
       },
     ];
     set({ orders: mockData });
