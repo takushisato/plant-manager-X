@@ -1,3 +1,15 @@
+export type OrderTableItem = {
+  id: number;
+  customer_name: string;
+  order_number: string;
+  order_date: string;
+  product_name: string;
+  quantity: number;
+  price: number;
+  deadline: string;
+  note: string;
+};
+
 export type OrderTableList = {
   id: number;
   customer_name: string;
@@ -20,4 +32,8 @@ export type OrderCreate = {
   price: number;
   deadline: string;
   note: string;
+};
+
+export type OrderCreateFormProps = {
+  id: string | undefined;
 };
