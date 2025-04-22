@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { OrderCreate, OrderTableList } from "@/types/order";
+import { OrderCreate, OrderTableItem, OrderTableList } from "@/types/order";
 
 type OrderStore = {
   customer_name: string;
@@ -11,6 +11,7 @@ type OrderStore = {
   deadline: string;
   note: string;
   orders: OrderTableList[];
+  order: OrderTableItem;
   setOrders: (orders: OrderTableList[]) => void;
   createOrder: () => void;
   getOrders: () => Promise<void>;
@@ -22,6 +23,8 @@ type OrderStore = {
   setPrice: (value: number) => void;
   setDeadline: (value: string) => void;
   setNote: (value: string) => void;
+  getOrder: (id: number) => Promise<void>;
+  updateOrder: (id: number) => Promise<void>;
 };
 
 export const useOrderStore = create<OrderStore>((set, get) => ({
@@ -34,6 +37,17 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
   deadline: "",
   note: "",
   orders: [],
+  order: {
+    id: 0,
+    customer_name: "",
+    order_number: "",
+    order_date: "",
+    product_name: "",
+    quantity: 0,
+    price: 0,
+    deadline: "",
+    note: "",
+  },
   setOrders: (orders: OrderTableList[]) => set({ orders }),
   setCustomerName: (value: string) => set({ customer_name: value }),
   setOrderNumber: (value: string) => set({ order_number: value }),
@@ -115,6 +129,26 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
   },
 
   /**
+   * 注文を取得
+   * @param id
+   */
+  getOrder: async (id: number): Promise<void> => {
+    const mockData: OrderTableItem = {
+      id: 1,
+      customer_name: "updare顧客1",
+      order_number: "updare注文番号1",
+      order_date: "2021-01-01",
+      product_name: "updare商品名1",
+      quantity: 100,
+      price: 1000,
+      deadline: "2021-01-01",
+      note: "updare備考1",
+    };
+    set({ order: mockData });
+    console.log("注文を取得しました" + id);
+  },
+
+  /**
    * 注文を作成
    * @param get
    */
@@ -131,5 +165,13 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
     };
 
     alert("注文を作成しました" + JSON.stringify(order));
+  },
+
+  /**
+   * 注文を更新
+   * @param id
+   */
+  updateOrder: async (id: number): Promise<void> => {
+    alert("注文を更新しました" + id);
   },
 }));
