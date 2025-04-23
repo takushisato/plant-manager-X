@@ -25,8 +25,6 @@ const siteMap: SiteMap = {
   // 不具合管理画面
   defect_list: "/defect",
   defect_create: "/defect/create",
-  defect_by_id: (id: string) => `/defect/${id}`,
-  defect_update: (id: string) => `/defect/${id}/update`,
 
   // メール画面
   mail_list: "/mail",
@@ -90,18 +88,13 @@ const accessMap: Record<
   },
   can_view_defect: {
     title: "不具合管理",
-    menu: [
-      { label: "不具合を確認", path: siteMap.defect_list },
-      { label: "不具合の詳細", path: siteMap.defect_by_id("dummy") },
-    ],
+    menu: [{ label: "不具合を確認", path: siteMap.defect_list }],
   },
   can_edit_defect: {
     title: "不具合管理",
     menu: [
       { label: "不具合を確認", path: siteMap.defect_list },
       { label: "不具合の新規登録", path: siteMap.defect_create },
-      { label: "不具合の編集", path: siteMap.defect_update("dummy") },
-      { label: "不具合の詳細", path: siteMap.defect_by_id("dummy") },
     ],
   },
   mail_access: {

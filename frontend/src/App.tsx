@@ -15,7 +15,6 @@ import OrderCreate from "@/pages/OrderCreate";
 import OrderUpdate from "@/pages/OrderUpdate";
 import DefectList from "@/pages/DefectList";
 import DefectCreate from "@/pages/DefectCreate";
-import DefectUpdate from "@/pages/DefectUpdate";
 import DefectDetail from "@/pages/DefectDetail";
 import MailCreate from "@/pages/MailCreate";
 import MailList from "@/pages/MailList";
@@ -45,7 +44,6 @@ function App() {
         <Route path="/order/:id/update" element={<OrderUpdate />} />
         <Route path="/defect" element={<DefectList />} />
         <Route path="/defect/create" element={<DefectCreate />} />
-        <Route path="/defect/:id/update" element={<DefectUpdate />} />
         <Route path="/defect/:id" element={<DefectDetail />} />
         <Route path="/mail" element={<MailList />} />
         <Route path="/mail/create" element={<MailCreate />} />

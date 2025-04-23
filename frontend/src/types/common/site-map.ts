@@ -22,8 +22,6 @@ export type SiteMap = {
   // 不具合管理画面
   defect_create: string;
   defect_list: string;
-  defect_by_id: (defect_id: string) => string;
-  defect_update: (defect_id: string) => string;
 
   // メール画面
   mail_create: string;
