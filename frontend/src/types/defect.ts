@@ -1,3 +1,16 @@
+export type DefectItem = {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  occurred_at: string;
+  title: string;
+  defect_detail: string;
+  submission: string;
+  submission_deadline: string;
+  create_user: number;
+  order: number;
+};
+
 export type DefectTableList = {
   id: number;
   create_user_name: string;

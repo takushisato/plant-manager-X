@@ -1,13 +1,27 @@
 import { create } from "zustand";
-import { DefectTableList } from "@/types/defect";
+import { DefectTableList, DefectItem } from "@/types/defect";
 
 type DefectStore = {
   defectList: DefectTableList[];
+  defectItem: DefectItem;
   getDefects: () => Promise<void>;
+  getDefect: () => Promise<void>;
 };
 
 export const useDefectStore = create<DefectStore>((set) => ({
   defectList: [],
+  defectItem: {
+    id: 0,
+    created_at: "",
+    updated_at: "",
+    occurred_at: "",
+    title: "",
+    defect_detail: "",
+    submission: "",
+    submission_deadline: "",
+    create_user: 0,
+    order: 0,
+  },
 
   /**
    * 不具合を取得
@@ -41,5 +55,21 @@ export const useDefectStore = create<DefectStore>((set) => ({
       },
     ];
     set({ defectList: mockData });
+  },
+  getDefect: async () => {
+    const mockData: DefectItem = {
+      id: 1,
+      title: "タイトル1",
+      defect_detail: "不具合詳細1",
+      submission: "対策1",
+      submission_deadline: "2021-01-01",
+      create_user: 1,
+      order: 1,
+      created_at: "2021-01-01",
+      updated_at: "2021-01-01",
+      occurred_at: "2021-01-01",
+    };
+    set({ defectItem: mockData });
+    console.log("defectItem", mockData);
   },
 }));
