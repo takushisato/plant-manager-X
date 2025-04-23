@@ -28,7 +28,7 @@ const DefectDetail = () => {
 
   const handleSave = () => {
     if (!id) return;
-    updateSubmission(Number(id), editedSubmission); // ← API or Zustand更新
+    updateSubmission(Number(id), editedSubmission);
     setIsEditing(false);
   };
 
