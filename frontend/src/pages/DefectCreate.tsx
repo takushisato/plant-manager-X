@@ -64,6 +64,7 @@ const DefectCreate = () => {
                 name="defect_detail"
                 value={form.defect_detail}
                 onChange={handleChange}
+                minHeight="600px"
               />
             </FormControl>
             <FormControl>
