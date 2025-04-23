@@ -19,3 +19,11 @@ export type DefectTableList = {
   title: string;
   defect_detail_button: string;
 };
+
+export type DefectCreateItem = {
+  occurred_at: string;
+  title: string;
+  defect_detail: string;
+  submission: string;
+  submission_deadline: string;
+};
