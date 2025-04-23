@@ -56,6 +56,11 @@ export const useDefectStore = create<DefectStore>((set) => ({
     ];
     set({ defectList: mockData });
   },
+
+  /**
+   * 不具合の詳細を取得
+   * TODO モックからAPIに変更する
+   */
   getDefect: async () => {
     const mockData: DefectItem = {
       id: 1,
