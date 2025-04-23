@@ -9,10 +9,13 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuthStore } from "@/hooks/useAuthStore";
+import { useDefectStore } from "@/hooks/useDefectStore";
+import { DefectCreateItem } from "@/types/defect";
 
 const DefectCreate = () => {
+  const { createDefect } = useDefectStore();
   const { user } = useAuthStore();
   const [form, setForm] = useState({
     occurred_at: "",
@@ -24,6 +27,15 @@ const DefectCreate = () => {
     order: "",
   });
 
+  useEffect(() => {
+    if (user?.id) {
+      setForm((prev) => ({ ...prev, create_user: user.id }));
+    }
+  }, [user]);
+
+  /*
+   * 入力フォームの変更
+   */
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -31,10 +43,12 @@ const DefectCreate = () => {
     setForm({ ...form, [name]: value });
   };
 
+  /*
+   * 不具合を新規登録
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Zustand や API 経由で登録処理を実装
-    alert("不具合を登録しました: " + JSON.stringify(form));
+    createDefect(form as DefectCreateItem);
   };
 
   return (

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { DefectTableList, DefectItem } from "@/types/defect";
+import { DefectTableList, DefectItem, DefectCreateItem } from "@/types/defect";
 
 type DefectStore = {
   defectList: DefectTableList[];
@@ -7,6 +7,7 @@ type DefectStore = {
   getDefects: () => Promise<void>;
   getDefect: (id: number) => Promise<void>;
   updateSubmission: (id: number, submission: string) => Promise<void>;
+  createDefect: (defectItem: DefectCreateItem) => Promise<void>;
 };
 
 export const useDefectStore = create<DefectStore>((set, get) => ({
@@ -77,6 +78,14 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
     };
     set({ defectItem: mockData });
     console.log("defectItem", id);
+  },
+
+  /**
+   * 不具合を作成
+   */
+  createDefect: async (defectCreateItem: DefectCreateItem) => {
+    console.log("defectCreateItem", defectCreateItem);
+    alert("不具合を登録しました: " + JSON.stringify(defectCreateItem));
   },
 
   /**
