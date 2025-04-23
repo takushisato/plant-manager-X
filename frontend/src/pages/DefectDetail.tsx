@@ -3,7 +3,7 @@ import { useDefectStore } from "@/hooks/useDefectStore";
 import { useEffect } from "react";
 import { Box, Heading, Text, Stack, Divider } from "@chakra-ui/react";
 
-const DefectById = () => {
+const DefectDetail = () => {
   const { defectItem, getDefect } = useDefectStore();
 
   useEffect(() => {
@@ -60,4 +60,4 @@ const DefectById = () => {
   );
 };
 
-export default DefectById;
+export default DefectDetail;
