@@ -66,11 +66,19 @@ const DefectCreate = () => {
                 name="occurred_at"
                 value={form.occurred_at}
                 onChange={handleChange}
+                id="occurred_at"
+                data-testid="occurred_at"
               />
             </FormControl>
             <FormControl isRequired>
               <FormLabel>タイトル</FormLabel>
-              <Input name="title" value={form.title} onChange={handleChange} />
+              <Input
+                name="title"
+                value={form.title}
+                onChange={handleChange}
+                id="title"
+                data-testid="title"
+              />
             </FormControl>
             <FormControl isRequired>
               <FormLabel>不具合詳細</FormLabel>
@@ -79,6 +87,8 @@ const DefectCreate = () => {
                 value={form.defect_detail}
                 onChange={handleChange}
                 minHeight="600px"
+                id="defect_detail"
+                data-testid="defect_detail"
               />
             </FormControl>
             <FormControl>
@@ -88,6 +98,8 @@ const DefectCreate = () => {
                 name="submission_deadline"
                 value={form.submission_deadline}
                 onChange={handleChange}
+                id="submission_deadline"
+                data-testid="submission_deadline"
               />
             </FormControl>
             <FormControl>
@@ -98,6 +110,8 @@ const DefectCreate = () => {
                 value={form.create_user}
                 onChange={handleChange}
                 isDisabled
+                id="create_user"
+                data-testid="create_user"
               />
             </FormControl>
             <FormControl>
@@ -107,6 +121,8 @@ const DefectCreate = () => {
                 name="order"
                 value={form.order}
                 onChange={handleChange}
+                id="order"
+                data-testid="order"
               />
             </FormControl>
             <Button type="submit" colorScheme="teal">
