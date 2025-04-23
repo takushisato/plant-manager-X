@@ -1,16 +1,36 @@
+import {
+  Box,
+  Heading,
+  Text,
+  Stack,
+  Divider,
+  Textarea,
+  Button,
+} from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
 import { useDefectStore } from "@/hooks/useDefectStore";
-import { useEffect } from "react";
-import { Box, Heading, Text, Stack, Divider } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const DefectDetail = () => {
-  const { defectItem, getDefect } = useDefectStore();
+  const { defectItem, getDefect, updateSubmission } = useDefectStore();
   const { id } = useParams();
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedSubmission, setEditedSubmission] = useState("");
 
   useEffect(() => {
-    getDefect(Number(id));
-  }, []);
+    if (id) getDefect(Number(id));
+  }, [id]);
+
+  useEffect(() => {
+    setEditedSubmission(defectItem.submission);
+  }, [defectItem.submission]);
+
+  const handleSave = () => {
+    if (!id) return;
+    updateSubmission(Number(id), editedSubmission); // ← API or Zustand更新
+    setIsEditing(false);
+  };
 
   return (
     <Layout>
@@ -42,8 +62,32 @@ const DefectDetail = () => {
           <Divider />
           <Box>
             <Text fontWeight="bold">対策内容</Text>
-            <Box p={4} borderWidth="1px" borderRadius="md" bg="gray.50">
-              <Text whiteSpace="pre-wrap">{defectItem.submission}</Text>
+            <Box
+              p={4}
+              borderWidth="1px"
+              borderRadius="md"
+              bg={isEditing ? "white" : "gray.50"}
+            >
+              {isEditing ? (
+                <>
+                  <Textarea
+                    value={editedSubmission}
+                    onChange={(e) => setEditedSubmission(e.target.value)}
+                    minH="120px"
+                  />
+                  <Button mt={2} colorScheme="teal" onClick={handleSave}>
+                    更新
+                  </Button>
+                </>
+              ) : (
+                <Text
+                  whiteSpace="pre-wrap"
+                  cursor="pointer"
+                  onClick={() => setIsEditing(true)}
+                >
+                  {defectItem.submission || "（未入力）"}
+                </Text>
+              )}
             </Box>
           </Box>
           <Divider />

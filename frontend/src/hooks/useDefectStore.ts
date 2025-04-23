@@ -6,9 +6,10 @@ type DefectStore = {
   defectItem: DefectItem;
   getDefects: () => Promise<void>;
   getDefect: (id: number) => Promise<void>;
+  updateSubmission: (id: number, submission: string) => Promise<void>;
 };
 
-export const useDefectStore = create<DefectStore>((set) => ({
+export const useDefectStore = create<DefectStore>((set, get) => ({
   defectList: [],
   defectItem: {
     id: 0,
@@ -76,5 +77,15 @@ export const useDefectStore = create<DefectStore>((set) => ({
     };
     set({ defectItem: mockData });
     console.log("defectItem", id);
+  },
+
+  /**
+   * 不具合を更新
+   */
+  updateSubmission: async (id: number, submission: string) => {
+    const currentState = get();
+    set({ defectItem: { ...currentState.defectItem, submission } });
+    console.log("defectItem", id);
+    console.log("submission", submission);
   },
 }));
