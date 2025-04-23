@@ -2,12 +2,14 @@ import Layout from "@/layouts/Layout";
 import { useDefectStore } from "@/hooks/useDefectStore";
 import { useEffect } from "react";
 import { Box, Heading, Text, Stack, Divider } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 
 const DefectDetail = () => {
   const { defectItem, getDefect } = useDefectStore();
+  const { id } = useParams();
 
   useEffect(() => {
-    getDefect();
+    getDefect(Number(id));
   }, []);
 
   return (

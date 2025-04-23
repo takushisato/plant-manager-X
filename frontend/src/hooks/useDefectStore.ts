@@ -5,7 +5,7 @@ type DefectStore = {
   defectList: DefectTableList[];
   defectItem: DefectItem;
   getDefects: () => Promise<void>;
-  getDefect: () => Promise<void>;
+  getDefect: (id: number) => Promise<void>;
 };
 
 export const useDefectStore = create<DefectStore>((set) => ({
@@ -61,7 +61,7 @@ export const useDefectStore = create<DefectStore>((set) => ({
    * 不具合の詳細を取得
    * TODO モックからAPIに変更する
    */
-  getDefect: async () => {
+  getDefect: async (id: number) => {
     const mockData: DefectItem = {
       id: 1,
       title: "タイトル1",
@@ -75,6 +75,6 @@ export const useDefectStore = create<DefectStore>((set) => ({
       occurred_at: "2021-01-01",
     };
     set({ defectItem: mockData });
-    console.log("defectItem", mockData);
+    console.log("defectItem", id);
   },
 }));
