@@ -1,6 +1,6 @@
 import Layout from "@/layouts/Layout";
-import { MailGroupList } from "@/types/mail-group";
-import { useMailGroupStore } from "@/hooks/useMailGroupStore";
+import { MailGroupList } from "@/types/mail";
+import { useMailStore } from "@/hooks/useMailStore";
 import { useEffect } from "react";
 
 const MailCreate = () => {
@@ -9,7 +9,7 @@ const MailCreate = () => {
     getMailGroupList,
     selectedMailGroup,
     setSelectedMailGroup,
-  } = useMailGroupStore();
+  } = useMailStore();
 
   useEffect(() => {
     getMailGroupList();
@@ -43,8 +43,13 @@ const MailCreate = () => {
       {/* ← 条件付き表示 */}
       {selectedMailGroup && (
         <div style={{ marginTop: "24px" }}>
-          <p>メールの送信</p>
           <p>選択中のグループ: {selectedMailGroup.group_title}</p>
+          {/* メールのタイトル入力 */}
+          <input type="text" placeholder="タイトル" />
+          {/* メールの本文入力 */}
+          <textarea placeholder="本文" />
+          {/* メールの送信ボタン */}
+          <button>送信</button>
         </div>
       )}
     </Layout>

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Mail, MailTable } from "@/types/mail";
+import { Mail, MailTable, MailGroupList } from "@/types/mail";
 
 type MailStore = {
   mail: Mail | null;
@@ -8,6 +8,12 @@ type MailStore = {
   allMailTableList: MailTable[];
   getMails: () => void;
   getMailTableList: () => void;
+  sendMail: (mail: Mail) => void;
+  mailGroupList: MailGroupList[];
+  selectedMailGroup: MailGroupList | null;
+  setMailGroupList: (mailGroupList: MailGroupList[]) => void;
+  setSelectedMailGroup: (selectedMailGroup: MailGroupList | null) => void;
+  getMailGroupList: () => void;
 };
 
 export const useMailStore = create<MailStore>((set) => ({
@@ -15,6 +21,11 @@ export const useMailStore = create<MailStore>((set) => ({
   setMail: (mail: Mail) => set({ mail }),
   allMailList: [] as Mail[],
   allMailTableList: [] as MailTable[],
+  mailGroupList: [],
+  selectedMailGroup: null,
+  setMailGroupList: (mailGroupList: MailGroupList[]) => set({ mailGroupList }),
+  setSelectedMailGroup: (selectedMailGroup: MailGroupList | null) =>
+    set({ selectedMailGroup }),
 
   /*
    * メール一覧を取得する
@@ -56,5 +67,54 @@ export const useMailStore = create<MailStore>((set) => ({
         title: mail.title,
       }));
     set({ allMailTableList: mockMailTableList });
+  },
+
+  /*
+   * メールグループ一覧を取得する
+   */
+  getMailGroupList: () => {
+    const mockMailGroupList: MailGroupList[] = [
+      {
+        id: 1,
+        group_title: "テストグループ1",
+        note: "テストグループ1の説明",
+        records: [
+          {
+            recipient_user: 1,
+            recipient_user_name: "山田太郎",
+          },
+          {
+            recipient_user: 2,
+            recipient_user_name: "山田花子",
+          },
+        ],
+      },
+      {
+        id: 2,
+        group_title: "テストグループ2",
+        note: "テストグループ2の説明",
+        records: [
+          {
+            recipient_user: 1,
+            recipient_user_name: "山田太郎",
+          },
+        ],
+      },
+    ];
+    set({ mailGroupList: mockMailGroupList });
+    console.log(mockMailGroupList);
+  },
+
+  /*
+   * メールを送信する
+   * TODO APIと連携する
+   */
+  sendMail: (mail_detail: Mail) => {
+    const mail = {
+      group_id: 1,
+      title: mail_detail.title,
+      message: mail_detail.message,
+    };
+    console.log(mail);
   },
 }));
