@@ -1,9 +1,25 @@
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Text,
+} from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
 import GenericTable from "@/components/common/GenericTable";
 import { Column } from "@/types/common/generic-table";
 import { Mail, MailTable } from "@/types/mail";
+import { useState } from "react";
 
 const MailList = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedMail, setSelectedMail] = useState<Mail | null>(null);
+
   const allMailList: Mail[] = [
     {
       created_at: "2021-01-01 10:00:00",
@@ -38,12 +54,12 @@ const MailList = () => {
   }));
 
   const handleRowClick = (row: MailTable) => {
-    // クリックされた行のメール情報を取得
     const mail = allMailList.find(
       (m) => m.created_at === row.created_at && m.title === row.title
     );
     if (mail) {
-      console.log("メールの詳細:", mail);
+      setSelectedMail(mail);
+      onOpen();
     }
   };
 
@@ -54,6 +70,37 @@ const MailList = () => {
         data={allMailTableList}
         onRowClick={handleRowClick}
       />
+
+      {/* モーダル */}
+      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>メール詳細</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {selectedMail && (
+              <>
+                <Text fontWeight="bold">送信日時</Text>
+                <Text mb={2}>{selectedMail.created_at}</Text>
+
+                <Text fontWeight="bold">送信先</Text>
+                <Text mb={2}>{selectedMail.posted_member}</Text>
+
+                <Text fontWeight="bold">タイトル</Text>
+                <Text mb={2}>{selectedMail.title}</Text>
+
+                <Text fontWeight="bold">メッセージ</Text>
+                <Text whiteSpace="pre-wrap">{selectedMail.message}</Text>
+              </>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="teal" onClick={onClose}>
+              閉じる
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Layout>
   );
 };
