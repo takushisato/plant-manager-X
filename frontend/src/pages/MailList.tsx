@@ -12,34 +12,21 @@ import {
 } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
 import GenericTable from "@/components/common/GenericTable";
-import { Column } from "@/types/common/generic-table";
 import { Mail, MailTable } from "@/types/mail";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useMailStore } from "@/hooks/useMailStore";
+import { Column } from "@/types/common/generic-table";
 
 const MailList = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedMail, setSelectedMail] = useState<Mail | null>(null);
+  const { allMailList, allMailTableList, getMails, getMailTableList } =
+    useMailStore();
 
-  const allMailList: Mail[] = [
-    {
-      created_at: "2021-01-01 10:00:00",
-      posted_member: "山田太郎、山田花子、鈴木一郎",
-      title: "テストメール1",
-      message: "こんにちは1",
-    },
-    {
-      created_at: "2021-01-01 11:00:00",
-      posted_member: "山田太郎、山田花子、鈴木一郎",
-      title: "テストメール2",
-      message: "こんにちは2",
-    },
-    {
-      created_at: "2021-01-01 11:00:00",
-      posted_member: "山田太郎、山田花子、鈴木一郎",
-      title: "テストメール3",
-      message: "こんにちは3",
-    },
-  ];
+  useEffect(() => {
+    getMails();
+    getMailTableList();
+  }, []);
 
   const columns: Column<MailTable>[] = [
     { header: "メール送信日時", accessor: "created_at" },
@@ -47,12 +34,10 @@ const MailList = () => {
     { header: "メールタイトル", accessor: "title" },
   ];
 
-  const allMailTableList: MailTable[] = allMailList.map((mail) => ({
-    created_at: mail.created_at,
-    posted_member: mail.posted_member,
-    title: mail.title,
-  }));
-
+  /*
+   * テーブルの行をクリックしたときの処理
+   * 選択されたメールを表示する
+   */
   const handleRowClick = (row: MailTable) => {
     const mail = allMailList.find(
       (m) => m.created_at === row.created_at && m.title === row.title
