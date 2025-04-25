@@ -28,8 +28,15 @@ import { mockUsers } from "@/fixtures/users"; // TODO APIから取得する様�
 
 const MailCreate = () => {
   const { sendMail, postMail, setPostMail } = useMailStore();
-  const { mailGroupList, getMailGroupList, createMailGroup } =
-    useMailGroupStore();
+  const {
+    mailGroupList,
+    getMailGroupList,
+    createMailGroup,
+    groupTitle,
+    setGroupTitle,
+    groupNote,
+    setGroupNote,
+  } = useMailGroupStore();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgSelected = useColorModeValue("teal.100", "teal.700");
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
@@ -155,11 +162,19 @@ const MailCreate = () => {
               <VStack spacing={4}>
                 <Box w="100%">
                   <Text mb={1}>グループ名</Text>
-                  <Input placeholder="グループ名を入力" />
+                  <Input
+                    placeholder="グループ名を入力"
+                    value={groupTitle}
+                    onChange={(e) => setGroupTitle(e.target.value)}
+                  />
                 </Box>
                 <Box w="100%">
                   <Text mb={1}>説明</Text>
-                  <Textarea placeholder="グループの説明を入力" />
+                  <Textarea
+                    placeholder="グループの説明を入力"
+                    value={groupNote}
+                    onChange={(e) => setGroupNote(e.target.value)}
+                  />
                 </Box>
                 <Box w="100%">
                   <Text mb={2}>メンバー選択</Text>

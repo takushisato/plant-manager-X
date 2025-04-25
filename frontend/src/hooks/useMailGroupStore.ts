@@ -8,11 +8,19 @@ type MailGroupStore = {
   setMailGroupList: (mailGroupList: MailGroupList[]) => void;
   getMailGroupList: () => void;
   createMailGroup: (selectedUsers: User[]) => void;
+  groupTitle: string;
+  setGroupTitle: (groupTitle: string) => void;
+  groupNote: string;
+  setGroupNote: (groupNote: string) => void;
 };
 
-export const useMailGroupStore = create<MailGroupStore>((set) => ({
+export const useMailGroupStore = create<MailGroupStore>((set, get) => ({
   mailGroupList: [] as MailGroupList[],
   setMailGroupList: (mailGroupList: MailGroupList[]) => set({ mailGroupList }),
+  groupTitle: "",
+  setGroupTitle: (groupTitle: string) => set({ groupTitle }),
+  groupNote: "",
+  setGroupNote: (groupNote: string) => set({ groupNote }),
 
   /*
    * メールグループ一覧を取得する
@@ -27,6 +35,15 @@ export const useMailGroupStore = create<MailGroupStore>((set) => ({
    * TODO APIと連携する
    */
   createMailGroup: (selectedUsers: User[]) => {
-    console.log(selectedUsers);
+    const { groupTitle, groupNote } = get();
+    const postData = {
+      group_title: groupTitle,
+      note: groupNote,
+      records: selectedUsers.map((user) => ({
+        recipient_user: user.id,
+        recipient_user_name: user.name,
+      })),
+    };
+    console.log(postData);
   },
 }));
