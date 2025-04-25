@@ -100,8 +100,8 @@ const accessMap: Record<
   mail_access: {
     title: "メール管理",
     menu: [
-      { label: "メールを確認", path: siteMap.mail_list },
-      { label: "メールの新規登録", path: siteMap.mail_create },
+      { label: "送信済みメールを確認", path: siteMap.mail_list },
+      { label: "新規メールを作成", path: siteMap.mail_create },
     ],
   },
 };
