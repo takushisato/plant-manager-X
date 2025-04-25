@@ -18,7 +18,7 @@ export const useMailStore = create<MailStore>((set) => ({
   allMailList: [] as Mail[],
   allMailTableList: [] as MailTable[],
 
-  /*
+  /**
    * メール一覧を取得する
    * TODO バックエンドから取得する
    */
@@ -27,7 +27,7 @@ export const useMailStore = create<MailStore>((set) => ({
     set({ allMailList: mailList });
   },
 
-  /*
+  /**
    * メール一覧から詳細情報を取得する
    */
   getMailTableList: () => {
@@ -41,9 +41,10 @@ export const useMailStore = create<MailStore>((set) => ({
     set({ allMailTableList: mockMailTableList });
   },
 
-  /*
+  /**
    * メールを送信する
    * TODO APIと連携する
+   * @param mailGroupId メールグループID
    */
   sendMail: (mailGroupId: number) => {
     const postMail = useMailStore.getState().postMail;

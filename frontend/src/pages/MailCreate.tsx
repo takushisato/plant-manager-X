@@ -50,14 +50,15 @@ const MailCreate = () => {
     getMailGroupList();
   }, []);
 
-  /*
+  /**
    * メールグループを選択
+   * @param mailGroup メールグループ
    */
   const handleSelectedMailGroup = (mailGroup: MailGroupList) => {
     setSelectedMailGroup(mailGroup);
   };
 
-  /*
+  /**
    * メールを送信
    * storeで処理する形に実装
    */
@@ -66,6 +67,10 @@ const MailCreate = () => {
     sendMail(selectedMailGroup.id);
   };
 
+  /**
+   * ユーザーを選択
+   * @param userId ユーザーID
+   */
   const handleUserSelect = (userId: number) => {
     const user = users.find((u) => u.id === userId);
     if (!user) return;
@@ -77,6 +82,9 @@ const MailCreate = () => {
     );
   };
 
+  /**
+   * メールグループを作成
+   */
   const handleCreateMailGroup = () => {
     if (!selectedUsers) return;
     createMailGroup(selectedUsers);

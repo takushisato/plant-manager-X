@@ -22,7 +22,7 @@ export const useMailGroupStore = create<MailGroupStore>((set, get) => ({
   groupNote: "",
   setGroupNote: (groupNote: string) => set({ groupNote }),
 
-  /*
+  /**
    * メールグループ一覧を取得する
    */
   getMailGroupList: () => {
@@ -30,9 +30,10 @@ export const useMailGroupStore = create<MailGroupStore>((set, get) => ({
     set({ mailGroupList });
   },
 
-  /*
+  /**
    * メールグループを作成する
    * TODO APIと連携する
+   * @param selectedUsers 選択されたユーザー
    */
   createMailGroup: (selectedUsers: User[]) => {
     const { groupTitle, groupNote } = get();
