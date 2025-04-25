@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Mail, MailTable, PostMail } from "@/types/mail";
+import { mockMailList } from "@/fixtures/mail-list";
 
 type MailStore = {
   postMail: PostMail | null;
@@ -22,27 +23,8 @@ export const useMailStore = create<MailStore>((set) => ({
    * TODO バックエンドから取得する
    */
   getMails: () => {
-    const mockMailList: Mail[] = [
-      {
-        created_at: "2021-01-01 10:00:00",
-        posted_member: "山田太郎、山田花子、鈴木一郎",
-        title: "テストメール1",
-        message: "こんにちは1",
-      },
-      {
-        created_at: "2021-01-01 11:00:00",
-        posted_member: "山田太郎、山田花子、鈴木一郎",
-        title: "テストメール2",
-        message: "こんにちは2",
-      },
-      {
-        created_at: "2021-01-01 11:00:00",
-        posted_member: "山田太郎、山田花子、鈴木一郎",
-        title: "テストメール3",
-        message: "こんにちは3",
-      },
-    ];
-    set({ allMailList: mockMailList });
+    const mailList = mockMailList;
+    set({ allMailList: mailList });
   },
 
   /*
