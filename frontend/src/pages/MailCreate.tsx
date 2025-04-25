@@ -103,11 +103,15 @@ const MailCreate = () => {
               cursor="pointer"
               onClick={() => handleSelectedMailGroup(mailGroup)}
             >
-              {mailGroup.group_title}
+              <Text fontWeight="bold">{mailGroup.group_title}</Text>
+              <Text fontSize="sm" color="gray.600" mt={1}>
+                {mailGroup.records
+                  .map((record) => record.recipient_user_name)
+                  .join(", ")}
+              </Text>
             </Box>
           ))}
         </Stack>
-
         {selectedMailGroup && (
           <Box mt={8} p={4} borderWidth="1px" borderRadius="md">
             <Text fontWeight="bold" mb={4}>
