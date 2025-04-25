@@ -8,6 +8,7 @@ import {
   Heading,
   Stack,
   useColorModeValue,
+  Flex,
 } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
 import { MailGroupList } from "@/types/mail";
@@ -49,9 +50,10 @@ const MailCreate = () => {
   return (
     <Layout>
       <Box maxW="600px" mx="auto" p={6}>
-        <Heading size="md" mb={4}>
-          メールグループの選択
-        </Heading>
+        <Flex justify="space-between" align="center" mb={4}>
+          <Heading size="md">メールグループの選択</Heading>
+          <Button size="sm">新規にグループを作成</Button>
+        </Flex>
         <Stack spacing={2}>
           {mailGroupList.map((mailGroup) => (
             <Box
