@@ -21,22 +21,18 @@ import {
 import Layout from "@/layouts/Layout";
 import { MailGroupList } from "@/types/mail";
 import { useMailStore } from "@/hooks/useMailStore";
+import { useMailGroupStore } from "@/hooks/useMailGroupStore";
 import { useEffect, useState } from "react";
 import { User } from "@/types/user";
 const MailCreate = () => {
-  const {
-    mailGroupList,
-    getMailGroupList,
-    selectedMailGroup,
-    setSelectedMailGroup,
-    sendMail,
-    postMail,
-    setPostMail,
-    createMailGroup,
-  } = useMailStore();
+  const { sendMail, postMail, setPostMail } = useMailStore();
+  const { mailGroupList, getMailGroupList, createMailGroup } =
+    useMailGroupStore();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgSelected = useColorModeValue("teal.100", "teal.700");
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+  const [selectedMailGroup, setSelectedMailGroup] =
+    useState<MailGroupList | null>(null);
 
   // TODO APIから取得する様にする
   const users: User[] = [
@@ -228,7 +224,8 @@ const MailCreate = () => {
    * storeで処理する形に実装
    */
   const handleSendMail = () => {
-    sendMail();
+    if (!selectedMailGroup) return;
+    sendMail(selectedMailGroup.id);
   };
 
   const handleUserSelect = (userId: number) => {
@@ -243,6 +240,7 @@ const MailCreate = () => {
   };
 
   const handleCreateMailGroup = () => {
+    if (!selectedUsers) return;
     createMailGroup(selectedUsers);
   };
 

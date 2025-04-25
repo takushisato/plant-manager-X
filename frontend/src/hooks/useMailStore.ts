@@ -1,6 +1,5 @@
 import { create } from "zustand";
-import { Mail, MailTable, MailGroupList, PostMail } from "@/types/mail";
-import { User } from "@/types/user";
+import { Mail, MailTable, PostMail } from "@/types/mail";
 
 type MailStore = {
   postMail: PostMail | null;
@@ -9,13 +8,7 @@ type MailStore = {
   allMailTableList: MailTable[];
   getMails: () => void;
   getMailTableList: () => void;
-  sendMail: () => void;
-  mailGroupList: MailGroupList[];
-  selectedMailGroup: MailGroupList | null;
-  setMailGroupList: (mailGroupList: MailGroupList[]) => void;
-  setSelectedMailGroup: (selectedMailGroup: MailGroupList | null) => void;
-  getMailGroupList: () => void;
-  createMailGroup: (selectedUsers: User[]) => void;
+  sendMail: (mailGroupId: number) => void;
 };
 
 export const useMailStore = create<MailStore>((set) => ({
@@ -23,11 +16,6 @@ export const useMailStore = create<MailStore>((set) => ({
   setPostMail: (postMail: PostMail) => set({ postMail }),
   allMailList: [] as Mail[],
   allMailTableList: [] as MailTable[],
-  mailGroupList: [] as MailGroupList[],
-  selectedMailGroup: null,
-  setMailGroupList: (mailGroupList: MailGroupList[]) => set({ mailGroupList }),
-  setSelectedMailGroup: (selectedMailGroup: MailGroupList | null) =>
-    set({ selectedMailGroup }),
 
   /*
    * メール一覧を取得する
@@ -72,71 +60,22 @@ export const useMailStore = create<MailStore>((set) => ({
   },
 
   /*
-   * メールグループ一覧を取得する
-   */
-  getMailGroupList: () => {
-    const mockMailGroupList: MailGroupList[] = [
-      {
-        id: 1,
-        group_title: "テストグループ1",
-        note: "テストグループ1の説明",
-        records: [
-          {
-            recipient_user: 1,
-            recipient_user_name: "山田太郎",
-          },
-          {
-            recipient_user: 2,
-            recipient_user_name: "山田花子",
-          },
-        ],
-      },
-      {
-        id: 2,
-        group_title: "テストグループ2",
-        note: "テストグループ2の説明",
-        records: [
-          {
-            recipient_user: 1,
-            recipient_user_name: "山田太郎",
-          },
-        ],
-      },
-    ];
-    set({ mailGroupList: mockMailGroupList });
-    console.log(mockMailGroupList);
-  },
-
-  /*
    * メールを送信する
    * TODO APIと連携する
    */
-  sendMail: () => {
-    const selectedGroup = useMailStore.getState().selectedMailGroup;
+  sendMail: (mailGroupId: number) => {
     const postMail = useMailStore.getState().postMail;
 
-    if (!selectedGroup?.id || !postMail?.title || !postMail?.message) {
+    if (!mailGroupId || !postMail?.title || !postMail?.message) {
       console.error("Missing required fields for mail");
       return;
     }
 
-    /*
-     * メールを送信する
-     * TODO APIと連携する
-     */
     const mail: PostMail = {
-      group_id: selectedGroup.id,
+      group_id: mailGroupId,
       title: postMail.title,
       message: postMail.message,
     };
     console.log(mail);
-  },
-
-  /*
-   * メールグループを作成する
-   * TODO APIと連携する
-   */
-  createMailGroup: (selectedUsers: User[]) => {
-    console.log(selectedUsers);
   },
 }));
