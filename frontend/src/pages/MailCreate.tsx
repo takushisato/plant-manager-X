@@ -16,12 +16,13 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Checkbox,
 } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
 import { MailGroupList } from "@/types/mail";
 import { useMailStore } from "@/hooks/useMailStore";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import { User } from "@/types/user";
 const MailCreate = () => {
   const {
     mailGroupList,
@@ -31,8 +32,185 @@ const MailCreate = () => {
     sendMail,
     postMail,
     setPostMail,
+    createMailGroup,
   } = useMailStore();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const bgSelected = useColorModeValue("teal.100", "teal.700");
+  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+
+  // TODO APIから取得する様にする
+  const users: User[] = [
+    {
+      id: 1,
+      name: "山田太郎",
+      email: "yamada@example.com",
+      permission: {
+        material_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: false,
+        can_view_production_plan: true,
+        can_edit_production_plan: false,
+        can_view_order: true,
+        can_edit_order: false,
+        can_view_defect: true,
+        can_edit_defect: false,
+        mail_access: true,
+      },
+    },
+    {
+      id: 2,
+      name: "山田花子",
+      email: "hanako@example.com",
+      permission: {
+        material_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: false,
+        can_view_production_plan: true,
+        can_edit_production_plan: false,
+        can_view_order: true,
+        can_edit_order: false,
+        can_view_defect: true,
+        can_edit_defect: false,
+        mail_access: true,
+      },
+    },
+    {
+      id: 3,
+      name: "山田次郎",
+      email: "jiro@example.com",
+      permission: {
+        material_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: false,
+        can_view_production_plan: true,
+        can_edit_production_plan: false,
+        can_view_order: true,
+        can_edit_order: false,
+        can_view_defect: true,
+        can_edit_defect: false,
+        mail_access: true,
+      },
+    },
+    {
+      id: 4,
+      name: "山田三郎",
+      email: "saburo@example.com",
+      permission: {
+        material_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: false,
+        can_view_production_plan: true,
+        can_edit_production_plan: false,
+        can_view_order: true,
+        can_edit_order: false,
+        can_view_defect: true,
+        can_edit_defect: false,
+        mail_access: true,
+      },
+    },
+    {
+      id: 5,
+      name: "山田四郎",
+      email: "shiro@example.com",
+      permission: {
+        material_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: false,
+        can_view_production_plan: true,
+        can_edit_production_plan: false,
+        can_view_order: true,
+        can_edit_order: false,
+        can_view_defect: true,
+        can_edit_defect: false,
+        mail_access: true,
+      },
+    },
+    {
+      id: 6,
+      name: "山田五郎",
+      email: "goro@example.com",
+      permission: {
+        material_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: false,
+        can_view_production_plan: true,
+        can_edit_production_plan: false,
+        can_view_order: true,
+        can_edit_order: false,
+        can_view_defect: true,
+        can_edit_defect: false,
+        mail_access: true,
+      },
+    },
+    {
+      id: 7,
+      name: "山田六郎",
+      email: "rokuro@example.com",
+      permission: {
+        material_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: false,
+        can_view_production_plan: true,
+        can_edit_production_plan: false,
+        can_view_order: true,
+        can_edit_order: false,
+        can_view_defect: true,
+        can_edit_defect: false,
+        mail_access: true,
+      },
+    },
+    {
+      id: 8,
+      name: "山田七郎",
+      email: "shichiro@example.com",
+      permission: {
+        material_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: false,
+        can_view_production_plan: true,
+        can_edit_production_plan: false,
+        can_view_order: true,
+        can_edit_order: false,
+        can_view_defect: true,
+        can_edit_defect: false,
+        mail_access: true,
+      },
+    },
+    {
+      id: 9,
+      name: "山田八郎",
+      email: "hachiro@example.com",
+      permission: {
+        material_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: false,
+        can_view_production_plan: true,
+        can_edit_production_plan: false,
+        can_view_order: true,
+        can_edit_order: false,
+        can_view_defect: true,
+        can_edit_defect: false,
+        mail_access: true,
+      },
+    },
+    {
+      id: 10,
+      name: "山田九郎",
+      email: "kuro@example.com",
+      permission: {
+        material_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: false,
+        can_view_production_plan: true,
+        can_edit_production_plan: false,
+        can_view_order: true,
+        can_edit_order: false,
+        can_view_defect: true,
+        can_edit_defect: false,
+        mail_access: true,
+      },
+    },
+  ];
 
   useEffect(() => {
     getMailGroupList();
@@ -53,7 +231,20 @@ const MailCreate = () => {
     sendMail();
   };
 
-  const bgSelected = useColorModeValue("teal.100", "teal.700");
+  const handleUserSelect = (userId: number) => {
+    const user = users.find((u) => u.id === userId);
+    if (!user) return;
+
+    setSelectedUsers(
+      selectedUsers.some((u) => u.id === userId)
+        ? selectedUsers.filter((u) => u.id !== userId)
+        : [...selectedUsers, user]
+    );
+  };
+
+  const handleCreateMailGroup = () => {
+    createMailGroup(selectedUsers);
+  };
 
   return (
     <Layout>
@@ -141,7 +332,25 @@ const MailCreate = () => {
                   <Text mb={1}>説明</Text>
                   <Textarea placeholder="グループの説明を入力" />
                 </Box>
-                <Button colorScheme="teal" w="100%">
+                <Box w="100%">
+                  <Text mb={2}>メンバー選択</Text>
+                  <Stack spacing={2} maxH="200px" overflowY="auto">
+                    {users.map((user) => (
+                      <Checkbox
+                        key={user.id}
+                        isChecked={selectedUsers.some((u) => u.id === user.id)}
+                        onChange={() => handleUserSelect(user.id)}
+                      >
+                        {user.name}
+                      </Checkbox>
+                    ))}
+                  </Stack>
+                </Box>
+                <Button
+                  colorScheme="teal"
+                  w="100%"
+                  onClick={handleCreateMailGroup}
+                >
                   作成
                 </Button>
               </VStack>

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Mail, MailTable, MailGroupList, PostMail } from "@/types/mail";
+import { User } from "@/types/user";
 
 type MailStore = {
   postMail: PostMail | null;
@@ -14,6 +15,7 @@ type MailStore = {
   setMailGroupList: (mailGroupList: MailGroupList[]) => void;
   setSelectedMailGroup: (selectedMailGroup: MailGroupList | null) => void;
   getMailGroupList: () => void;
+  createMailGroup: (selectedUsers: User[]) => void;
 };
 
 export const useMailStore = create<MailStore>((set) => ({
@@ -118,11 +120,23 @@ export const useMailStore = create<MailStore>((set) => ({
       return;
     }
 
+    /*
+     * メールを送信する
+     * TODO APIと連携する
+     */
     const mail: PostMail = {
       group_id: selectedGroup.id,
       title: postMail.title,
       message: postMail.message,
     };
     console.log(mail);
+  },
+
+  /*
+   * メールグループを作成する
+   * TODO APIと連携する
+   */
+  createMailGroup: (selectedUsers: User[]) => {
+    console.log(selectedUsers);
   },
 }));
