@@ -9,6 +9,13 @@ import {
   Stack,
   useColorModeValue,
   Flex,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
 import { MailGroupList } from "@/types/mail";
@@ -25,6 +32,7 @@ const MailCreate = () => {
     postMail,
     setPostMail,
   } = useMailStore();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     getMailGroupList();
@@ -52,7 +60,9 @@ const MailCreate = () => {
       <Box maxW="600px" mx="auto" p={6}>
         <Flex justify="space-between" align="center" mb={4}>
           <Heading size="md">メールグループの選択</Heading>
-          <Button size="sm">新規にグループを作成</Button>
+          <Button size="sm" onClick={onOpen}>
+            新規にグループを作成
+          </Button>
         </Flex>
         <Stack spacing={2}>
           {mailGroupList.map((mailGroup) => (
@@ -115,6 +125,29 @@ const MailCreate = () => {
             </VStack>
           </Box>
         )}
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>新規メールグループ作成</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody pb={6}>
+              <VStack spacing={4}>
+                <Box w="100%">
+                  <Text mb={1}>グループ名</Text>
+                  <Input placeholder="グループ名を入力" />
+                </Box>
+                <Box w="100%">
+                  <Text mb={1}>説明</Text>
+                  <Textarea placeholder="グループの説明を入力" />
+                </Box>
+                <Button colorScheme="teal" w="100%">
+                  作成
+                </Button>
+              </VStack>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </Box>
     </Layout>
   );
