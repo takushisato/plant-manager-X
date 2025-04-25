@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 function GenericTable<T extends Record<string, ReactNode>>({
   columns,
   data,
+  onRowClick,
 }: GenericTableProps<T>) {
   return (
     <TableContainer maxW="1200px" mx="auto">
@@ -28,7 +29,12 @@ function GenericTable<T extends Record<string, ReactNode>>({
         </Thead>
         <Tbody>
           {data.map((row, rowIndex) => (
-            <Tr key={rowIndex}>
+            <Tr
+              key={rowIndex}
+              onClick={() => onRowClick?.(row)}
+              cursor={onRowClick ? "pointer" : "default"}
+              _hover={onRowClick ? { bg: "teal.50" } : undefined}
+            >
               {columns.map((col) => {
                 const cellValue = row[col.accessor];
                 const isUrl =
