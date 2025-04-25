@@ -29,7 +29,7 @@ export type MailGroup = {
   recipient_users: User[];
 };
 
-export type MailPost = {
+export type PostMail = {
   group_id: number;
   title: string;
   message: string;

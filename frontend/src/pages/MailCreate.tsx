@@ -20,15 +20,28 @@ const MailCreate = () => {
     getMailGroupList,
     selectedMailGroup,
     setSelectedMailGroup,
+    sendMail,
+    postMail,
+    setPostMail,
   } = useMailStore();
 
   useEffect(() => {
     getMailGroupList();
   }, []);
 
+  /*
+   * メールグループを選択
+   */
   const handleSelectedMailGroup = (mailGroup: MailGroupList) => {
     setSelectedMailGroup(mailGroup);
-    console.log("選択中のグループ:", mailGroup);
+  };
+
+  /*
+   * メールを送信
+   * storeで処理する形に実装
+   */
+  const handleSendMail = () => {
+    sendMail();
   };
 
   const bgSelected = useColorModeValue("teal.100", "teal.700");
@@ -65,15 +78,38 @@ const MailCreate = () => {
             <VStack spacing={4} align="stretch">
               <Box>
                 <Text mb={1}>タイトル</Text>
-                <Input placeholder="メールタイトルを入力" />
+                <Input
+                  placeholder="メールタイトルを入力"
+                  value={postMail?.title}
+                  onChange={(e) =>
+                    setPostMail({
+                      title: e.target.value,
+                      message: postMail?.message || "",
+                      group_id: selectedMailGroup.id,
+                    })
+                  }
+                />
               </Box>
 
               <Box>
                 <Text mb={1}>本文</Text>
-                <Textarea placeholder="メール本文を入力" rows={6} />
+                <Textarea
+                  placeholder="メール本文を入力"
+                  rows={6}
+                  value={postMail?.message}
+                  onChange={(e) =>
+                    setPostMail({
+                      title: postMail?.title || "",
+                      message: e.target.value,
+                      group_id: selectedMailGroup.id,
+                    })
+                  }
+                />
               </Box>
 
-              <Button colorScheme="teal">送信</Button>
+              <Button colorScheme="teal" onClick={handleSendMail}>
+                送信
+              </Button>
             </VStack>
           </Box>
         )}

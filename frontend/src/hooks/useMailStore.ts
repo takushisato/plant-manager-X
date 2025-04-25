@@ -1,14 +1,14 @@
 import { create } from "zustand";
-import { Mail, MailTable, MailGroupList } from "@/types/mail";
+import { Mail, MailTable, MailGroupList, PostMail } from "@/types/mail";
 
 type MailStore = {
-  mail: Mail | null;
-  setMail: (mail: Mail) => void;
+  postMail: PostMail | null;
+  setPostMail: (postMail: PostMail) => void;
   allMailList: Mail[];
   allMailTableList: MailTable[];
   getMails: () => void;
   getMailTableList: () => void;
-  sendMail: (mail: Mail) => void;
+  sendMail: () => void;
   mailGroupList: MailGroupList[];
   selectedMailGroup: MailGroupList | null;
   setMailGroupList: (mailGroupList: MailGroupList[]) => void;
@@ -17,11 +17,11 @@ type MailStore = {
 };
 
 export const useMailStore = create<MailStore>((set) => ({
-  mail: null,
-  setMail: (mail: Mail) => set({ mail }),
+  postMail: { title: "", message: "", group_id: 0 },
+  setPostMail: (postMail: PostMail) => set({ postMail }),
   allMailList: [] as Mail[],
   allMailTableList: [] as MailTable[],
-  mailGroupList: [],
+  mailGroupList: [] as MailGroupList[],
   selectedMailGroup: null,
   setMailGroupList: (mailGroupList: MailGroupList[]) => set({ mailGroupList }),
   setSelectedMailGroup: (selectedMailGroup: MailGroupList | null) =>
@@ -109,11 +109,19 @@ export const useMailStore = create<MailStore>((set) => ({
    * メールを送信する
    * TODO APIと連携する
    */
-  sendMail: (mail_detail: Mail) => {
-    const mail = {
-      group_id: 1,
-      title: mail_detail.title,
-      message: mail_detail.message,
+  sendMail: () => {
+    const selectedGroup = useMailStore.getState().selectedMailGroup;
+    const postMail = useMailStore.getState().postMail;
+
+    if (!selectedGroup?.id || !postMail?.title || !postMail?.message) {
+      console.error("Missing required fields for mail");
+      return;
+    }
+
+    const mail: PostMail = {
+      group_id: selectedGroup.id,
+      title: postMail.title,
+      message: postMail.message,
     };
     console.log(mail);
   },
