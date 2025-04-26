@@ -1,8 +1,13 @@
 import { create } from "zustand";
-import { MaterialList, MaterialReceiveStock } from "@/types/material";
+import {
+  MaterialList,
+  MaterialReceiveStock,
+  MaterialUseStock,
+} from "@/types/material";
 import {
   mockMaterialList,
   mockMaterialReceiveStock,
+  mockMaterialUseStock,
 } from "@/fixtures/material";
 
 type MaterialStore = {
@@ -14,6 +19,9 @@ type MaterialStore = {
     materialReceiveStock: MaterialReceiveStock[]
   ) => void;
   getMaterialReceiveStock: () => Promise<void>;
+  materialUseStock: MaterialUseStock[];
+  setMaterialUseStock: (materialUseStock: MaterialUseStock[]) => void;
+  getMaterialUseStock: () => Promise<void>;
 };
 
 export const useMaterialStore = create<MaterialStore>((set) => ({
@@ -22,6 +30,9 @@ export const useMaterialStore = create<MaterialStore>((set) => ({
   materialReceiveStock: [],
   setMaterialReceiveStock: (materialReceiveStock: MaterialReceiveStock[]) =>
     set({ materialReceiveStock }),
+  materialUseStock: [],
+  setMaterialUseStock: (materialUseStock: MaterialUseStock[]) =>
+    set({ materialUseStock }),
 
   /**
    * 資材一覧を取得する
@@ -39,5 +50,14 @@ export const useMaterialStore = create<MaterialStore>((set) => ({
   getMaterialReceiveStock: async () => {
     const mockData = mockMaterialReceiveStock;
     set({ materialReceiveStock: mockData });
+  },
+
+  /**
+   * 資材払い出し一覧を取得する
+   * TODO モックからAPIに変更する
+   */
+  getMaterialUseStock: async () => {
+    const mockData = mockMaterialUseStock;
+    set({ materialUseStock: mockData });
   },
 }));
