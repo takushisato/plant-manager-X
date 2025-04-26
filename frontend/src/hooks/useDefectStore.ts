@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { DefectTableList, DefectItem, DefectCreateItem } from "@/types/defect";
-import { mockDefectTableList, mockDefectItem } from "@/fixtures/defect-list";
+import { mockDefectTableList, mockDefectItem } from "@/fixtures/defect";
 
 type DefectStore = {
   defectList: DefectTableList[];
