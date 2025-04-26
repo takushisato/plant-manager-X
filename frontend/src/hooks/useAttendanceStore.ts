@@ -1,9 +1,7 @@
 import { create } from "zustand";
-import {
-  AttendanceStore,
-  AllUserAttendanceList,
-  NewAttendance,
-} from "@/types/attendance";
+import { AttendanceStore, NewAttendance } from "@/types/attendance";
+import { mockAttendanceList } from "@/fixtures/attendance-list";
+
 /**
  * 年月を表示用の文字列に変換
  * @param date
@@ -21,28 +19,10 @@ export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
 
   /**
    * 全ユーザーの出勤簿リストを取得
+   * TODO: APIから取得する様に変更する
    */
   getUserAttendanceList: async () => {
-    const mockData: AllUserAttendanceList[] = [
-      {
-        id: 1,
-        name: "山田太郎",
-        attendance_count: 10,
-        detail: "",
-      },
-      {
-        id: 2,
-        name: "鈴木次郎",
-        attendance_count: 10,
-        detail: "",
-      },
-      {
-        id: 3,
-        name: "佐藤三郎",
-        attendance_count: 10,
-        detail: "",
-      },
-    ];
+    const mockData = mockAttendanceList;
     set({ allUserAttendanceList: mockData });
   },
 
