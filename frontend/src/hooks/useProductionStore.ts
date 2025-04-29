@@ -15,9 +15,11 @@ type ProductionStore = {
   dateToDayIndex: (date: Date | null) => number | null;
 };
 
+const today = new Date();
+
 export const useProductionStore = create<ProductionStore>((set, get) => ({
-  chartStartDate: new Date(),
-  chartEndDate: new Date(),
+  chartStartDate: new Date(today.setDate(today.getDate())),
+  chartEndDate: new Date(today.setDate(today.getDate() + 60)),
   productionPlanList: {
     id: 0,
     organization: { organization_name: "", description: "" },
@@ -40,23 +42,20 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
     );
   },
 
+  /**
+   * 生産計画リストを取得する
+   * TODO: 生産計画リストを取得するAPIを作成する
+   */
   getProductionPlanList: () => {
-    const list = productionPlanList;
-
-    const today = new Date();
-    const chartStart = new Date(today);
-    chartStart.setDate(today.getDate());
-
-    const chartEnd = new Date(today);
-    chartEnd.setDate(today.getDate() + 60);
-
     const days =
-      (chartEnd.getTime() - chartStart.getTime()) / (1000 * 60 * 60 * 24) + 1;
+      (get().chartEndDate.getTime() - get().chartStartDate.getTime()) /
+        (1000 * 60 * 60 * 24) +
+      1;
 
     set({
-      productionPlanList: list,
-      chartStartDate: chartStart,
-      chartEndDate: chartEnd,
+      productionPlanList: productionPlanList,
+      chartStartDate: get().chartStartDate,
+      chartEndDate: get().chartEndDate,
       totalDays: days,
     });
   },
