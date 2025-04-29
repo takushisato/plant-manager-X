@@ -13,8 +13,6 @@ const siteMap: SiteMap = {
 
   // 生産管理画面
   production_plan_list: "/production_plan",
-  production_plan_create: "/production_plan/create",
-  production_plan_update: (id: string) => `/production_plan/${id}/update`,
 
   // 受注管理画面
   order_list: "/order",
@@ -66,14 +64,7 @@ const accessMap: Record<
   },
   can_edit_production_plan: {
     title: "生産計画管理",
-    menu: [
-      { label: "生産計画を確認", path: siteMap.production_plan_list },
-      { label: "生産計画の新規登録", path: siteMap.production_plan_create },
-      {
-        label: "生産計画の編集",
-        path: siteMap.production_plan_update("dummy"),
-      },
-    ],
+    menu: [{ label: "生産計画を確認", path: siteMap.production_plan_list }],
   },
   can_view_order: {
     title: "受注管理",
