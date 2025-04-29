@@ -47,16 +47,11 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
    * TODO: 生産計画リストを取得するAPIを作成する
    */
   getProductionPlanList: () => {
-    const days =
-      (get().chartEndDate.getTime() - get().chartStartDate.getTime()) /
-        (1000 * 60 * 60 * 24) +
-      1;
-
-    set({
-      productionPlanList: productionPlanList,
-      chartStartDate: get().chartStartDate,
-      chartEndDate: get().chartEndDate,
-      totalDays: days,
-    });
+    set({ productionPlanList: productionPlanList });
+    const startDate = new Date(get().chartStartDate);
+    const endDate = new Date(get().chartEndDate);
+    const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+    set({ totalDays: diffDays });
   },
 }));

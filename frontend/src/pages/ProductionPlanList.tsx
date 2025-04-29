@@ -28,18 +28,29 @@ const ProductionPlanList = () => {
         <Box overflowX="auto">
           <Grid
             templateColumns={`200px repeat(${totalDays}, 50px)`}
-            gap={1}
+            gap={0}
             minWidth="800px"
           >
             {/* ヘッダー */}
-            <GridItem>
+            <GridItem
+              p={2}
+              borderBottom="1px"
+              borderRight="1px"
+              borderColor="gray.200"
+            >
               <Text fontWeight="bold">タスク</Text>
             </GridItem>
             {Array.from({ length: totalDays }, (_, i) => {
               const currentDate = new Date(chartStartDate);
               currentDate.setDate(chartStartDate.getDate() + i);
               return (
-                <GridItem key={i}>
+                <GridItem
+                  key={i}
+                  p={2}
+                  borderBottom="1px"
+                  borderRight="1px"
+                  borderColor="gray.200"
+                >
                   <Text fontSize="xs" textAlign="center">
                     {currentDate.getMonth() + 1}/{currentDate.getDate()}
                   </Text>
@@ -51,7 +62,12 @@ const ProductionPlanList = () => {
             {productionPlanList.records.map((record) => (
               <React.Fragment key={record.id}>
                 {/* タイトル */}
-                <GridItem>
+                <GridItem
+                  p={2}
+                  borderBottom="1px"
+                  borderRight="1px"
+                  borderColor="gray.200"
+                >
                   <Text>{record.title}</Text>
                 </GridItem>
 
@@ -82,7 +98,15 @@ const ProductionPlanList = () => {
                     i <= actualEnd;
 
                   return (
-                    <GridItem key={`${record.id}-${i}`}>
+                    <GridItem
+                      key={`${record.id}-${i}`}
+                      p={2}
+                      borderBottom="1px"
+                      borderRight="1px"
+                      borderColor="gray.200"
+                      display="flex"
+                      alignItems="center"
+                    >
                       {isActual ? (
                         <Box
                           bg="blue.400"
