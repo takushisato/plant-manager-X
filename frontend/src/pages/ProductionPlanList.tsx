@@ -16,9 +16,8 @@ import {
   Input,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useProductionStore } from "@/hooks/useProductionStore";
-import { CreateProductionPlanRecord } from "@/types/production";
 const ProductionPlanList = () => {
   const {
     productionPlanList,
@@ -27,6 +26,12 @@ const ProductionPlanList = () => {
     getProductionPlanList,
     dateToDayIndex,
     addProductionPlanRecord,
+    taskTitle,
+    taskStartDate,
+    taskEndDate,
+    setTaskTitle,
+    setTaskStartDate,
+    setTaskEndDate,
   } = useProductionStore();
 
   useEffect(() => {
@@ -34,34 +39,18 @@ const ProductionPlanList = () => {
   }, [getProductionPlanList]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [title, setTitle] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
-  const parseLocalDate = (dateStr: string) => {
-    const [year, month, day] = dateStr.split("-").map(Number);
-    return new Date(year, month - 1, day + 1);
-  };
-
+  /**
+   * タスクを追加する
+   * 追加のロジックはuseProductionStoreに記載
+   */
   const handleAddTask = () => {
-    if (!title || !startDate || !endDate) return;
+    if (!taskTitle || !taskStartDate || !taskEndDate) return;
 
-    const newRecord: CreateProductionPlanRecord = {
-      title: title,
-      planned_start_date: parseLocalDate(startDate),
-      planned_end_date: parseLocalDate(endDate),
-      actual_start_date: null,
-      actual_end_date: null,
-      sort: productionPlanList.records.length + 1,
-      note: "",
-    };
+    addProductionPlanRecord();
 
-    addProductionPlanRecord(newRecord);
-
-    // 入力リセット
-    setTitle("");
-    setStartDate("");
-    setEndDate("");
+    setTaskTitle("");
+    setTaskStartDate("");
+    setTaskEndDate("");
     onClose();
   };
 
@@ -92,8 +81,8 @@ const ProductionPlanList = () => {
                   タイトル
                 </Text>
                 <Input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  value={taskTitle}
+                  onChange={(e) => setTaskTitle(e.target.value)}
                 />
               </Box>
               <Box mb={4}>
@@ -102,8 +91,8 @@ const ProductionPlanList = () => {
                 </Text>
                 <Input
                   type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
+                  value={taskStartDate}
+                  onChange={(e) => setTaskStartDate(e.target.value)}
                 />
               </Box>
               <Box mb={4}>
@@ -112,8 +101,8 @@ const ProductionPlanList = () => {
                 </Text>
                 <Input
                   type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
+                  value={taskEndDate}
+                  onChange={(e) => setTaskEndDate(e.target.value)}
                 />
               </Box>
             </ModalBody>

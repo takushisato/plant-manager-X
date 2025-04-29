@@ -6,22 +6,32 @@ import {
 } from "@/types/production";
 
 type ProductionStore = {
+  taskTitle: string;
+  taskStartDate: string;
+  taskEndDate: string;
   chartStartDate: Date;
   chartEndDate: Date;
   productionPlanList: ProductionPlanList;
   totalDays: number;
+  setTaskTitle: (title: string) => void;
+  setTaskStartDate: (date: string) => void;
+  setTaskEndDate: (date: string) => void;
   setChartStartDate: (date: Date) => void;
   setChartEndDate: (date: Date) => void;
   setProductionPlanList: (list: ProductionPlanList) => void;
   setTotalDays: (days: number) => void;
   getProductionPlanList: () => void;
-  addProductionPlanRecord: (record: CreateProductionPlanRecord) => void;
+  addProductionPlanRecord: () => void;
   dateToDayIndex: (date: Date | null) => number | null;
+  parseLocalDate: (dateStr: string) => Date;
 };
 
 const today = new Date();
 
 export const useProductionStore = create<ProductionStore>((set, get) => ({
+  taskTitle: "",
+  taskStartDate: "",
+  taskEndDate: "",
   chartStartDate: new Date(today.setDate(today.getDate())),
   chartEndDate: new Date(today.setDate(today.getDate() + 60)),
   productionPlanList: {
@@ -32,6 +42,9 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
     records: [],
   },
   totalDays: 0,
+  setTaskTitle: (title: string) => set({ taskTitle: title }),
+  setTaskStartDate: (date: string) => set({ taskStartDate: date }),
+  setTaskEndDate: (date: string) => set({ taskEndDate: date }),
   setChartStartDate: (date: Date) => set({ chartStartDate: date }),
   setChartEndDate: (date: Date) => set({ chartEndDate: date }),
   setProductionPlanList: (list: ProductionPlanList) =>
@@ -39,7 +52,7 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
   setTotalDays: (days: number) => set({ totalDays: days }),
 
   /**
-   * 日付をインデックスに変換する
+   * 日付からインデックスを取得する
    * @param date 日付
    * @returns インデックス
    */
@@ -66,16 +79,35 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
 
   /**
    * 生産計画リストに新しいレコードを追加する
-   * @param record 新しいレコード
+   * TODO: APIにて実装する
    */
-  addProductionPlanRecord: (record: CreateProductionPlanRecord) => {
+  addProductionPlanRecord: () => {
     const currentList = get().productionPlanList;
     const newId = currentList.records.length + 1;
+    const newRecord: CreateProductionPlanRecord = {
+      title: get().taskTitle,
+      planned_start_date: get().parseLocalDate(get().taskStartDate),
+      planned_end_date: get().parseLocalDate(get().taskEndDate),
+      actual_start_date: null,
+      actual_end_date: null,
+      sort: newId,
+      note: "",
+    };
     set({
       productionPlanList: {
         ...currentList,
-        records: [...currentList.records, { ...record, id: newId }],
+        records: [...currentList.records, { ...newRecord, id: newId }],
       },
     });
+  },
+
+  /**
+   * 日付を日本の日付に変換する
+   * @param dateStr 日付
+   * @returns 日本の日付
+   */
+  parseLocalDate: (dateStr: string) => {
+    const [year, month, day] = dateStr.split("-").map(Number);
+    return new Date(year, month - 1, day + 1);
   },
 }));
