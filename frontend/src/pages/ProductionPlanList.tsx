@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useProductionStore } from "@/hooks/useProductionStore";
+import { ProductionPlanRecord } from "@/types/production";
 const ProductionPlanList = () => {
   const {
     productionPlanList,
@@ -32,6 +33,9 @@ const ProductionPlanList = () => {
     setTaskTitle,
     setTaskStartDate,
     setTaskEndDate,
+    setCurrentEditTaskId,
+    currentEditTaskId,
+    updateProductionPlanRecord,
   } = useProductionStore();
 
   useEffect(() => {
@@ -40,14 +44,32 @@ const ProductionPlanList = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   /**
-   * タスクを追加する
-   * 追加のロジックはuseProductionStoreに記載
+   * タスクを編集する
+   * @param record 編集するタスク
    */
-  const handleAddTask = () => {
+  const handleEditTask = (record: ProductionPlanRecord) => {
+    setTaskTitle(record.title);
+    setTaskStartDate(record.planned_start_date.toISOString().slice(0, 10));
+    setTaskEndDate(record.planned_end_date.toISOString().slice(0, 10));
+    setCurrentEditTaskId(record.id);
+    onOpen();
+  };
+
+  /**
+   * タスクを保存する
+   */
+  const handleSaveTask = () => {
     if (!taskTitle || !taskStartDate || !taskEndDate) return;
 
-    addProductionPlanRecord();
+    if (currentEditTaskId === null) {
+      // 新規追加モード
+      addProductionPlanRecord();
+    } else {
+      // 編集モード
+      updateProductionPlanRecord();
+    }
 
+    // 入力リセット
     setTaskTitle("");
     setTaskStartDate("");
     setTaskEndDate("");
@@ -108,7 +130,7 @@ const ProductionPlanList = () => {
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="teal" mr={3} onClick={handleAddTask}>
+              <Button colorScheme="teal" mr={3} onClick={handleSaveTask}>
                 保存
               </Button>
               <Button onClick={onClose}>キャンセル</Button>
@@ -160,10 +182,11 @@ const ProductionPlanList = () => {
                   borderRight="1px"
                   borderColor="gray.200"
                   bg={index % 2 === 1 ? "green.50" : "white"}
+                  onClick={() => handleEditTask(record)}
+                  cursor="pointer"
                 >
                   <Text>{record.title}</Text>
                 </GridItem>
-
                 {/* ガントバー */}
                 {Array.from({ length: totalDays }, (_, i) => {
                   const plannedStart = dateToDayIndex(

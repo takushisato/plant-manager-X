@@ -13,6 +13,9 @@ type ProductionStore = {
   chartEndDate: Date;
   productionPlanList: ProductionPlanList;
   totalDays: number;
+  currentEditTaskId: number | null; // 編集対象のタスクID
+  setCurrentEditTaskId: (id: number | null) => void;
+  updateProductionPlanRecord: () => void; // 更新するメソッド
   setTaskTitle: (title: string) => void;
   setTaskStartDate: (date: string) => void;
   setTaskEndDate: (date: string) => void;
@@ -42,6 +45,7 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
     records: [],
   },
   totalDays: 0,
+  currentEditTaskId: null,
   setTaskTitle: (title: string) => set({ taskTitle: title }),
   setTaskStartDate: (date: string) => set({ taskStartDate: date }),
   setTaskEndDate: (date: string) => set({ taskEndDate: date }),
@@ -50,6 +54,7 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
   setProductionPlanList: (list: ProductionPlanList) =>
     set({ productionPlanList: list }),
   setTotalDays: (days: number) => set({ totalDays: days }),
+  setCurrentEditTaskId: (id: number | null) => set({ currentEditTaskId: id }),
 
   /**
    * 日付からインデックスを取得する
@@ -109,5 +114,36 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
   parseLocalDate: (dateStr: string) => {
     const [year, month, day] = dateStr.split("-").map(Number);
     return new Date(year, month - 1, day + 1);
+  },
+
+  updateProductionPlanRecord: () => {
+    const {
+      productionPlanList,
+      currentEditTaskId,
+      taskTitle,
+      taskStartDate,
+      taskEndDate,
+      parseLocalDate,
+    } = get();
+    if (currentEditTaskId === null) return;
+
+    const updatedRecords = productionPlanList.records.map((record) =>
+      record.id === currentEditTaskId
+        ? {
+            ...record,
+            title: taskTitle,
+            planned_start_date: parseLocalDate(taskStartDate),
+            planned_end_date: parseLocalDate(taskEndDate),
+          }
+        : record
+    );
+
+    set({
+      productionPlanList: {
+        ...productionPlanList,
+        records: updatedRecords,
+      },
+      currentEditTaskId: null, // 更新後リセット
+    });
   },
 }));
