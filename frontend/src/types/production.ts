@@ -1,6 +1,7 @@
 import { Organization } from "@/types/organization";
 
 export type ProductionPlanRecord = {
+  id: number;
   title: string;
   planned_start_date: Date;
   planned_end_date: Date;
@@ -11,6 +12,7 @@ export type ProductionPlanRecord = {
 };
 
 export type ProductionPlanList = {
+  id: number;
   organization: Organization;
   plan_date: Date;
   note: string | null;

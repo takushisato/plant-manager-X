@@ -1,33 +1,7 @@
 import Layout from "@/layouts/Layout";
 import { Box, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
 import React from "react";
-
-const productionPlanRecords = [
-  {
-    id: 1,
-    title: "材料準備",
-    planned_start_date: "2025-05-01",
-    planned_end_date: "2025-05-05",
-    actual_start_date: "2025-05-02",
-    actual_end_date: "2025-05-06",
-  },
-  {
-    id: 2,
-    title: "組立作業",
-    planned_start_date: "2025-05-06",
-    planned_end_date: "2025-05-12",
-    actual_start_date: null,
-    actual_end_date: null,
-  },
-  {
-    id: 3,
-    title: "検査工程",
-    planned_start_date: "2025-05-13",
-    planned_end_date: "2025-05-16",
-    actual_start_date: null,
-    actual_end_date: null,
-  },
-];
+import { productionPlanList } from "@/fixtures/production";
 
 const chartStartDate = new Date("2025-05-01");
 const chartEndDate = new Date("2025-05-20");
@@ -60,17 +34,25 @@ const ProductionPlanList = () => {
               </Text>
             </GridItem>
           ))}
-          {productionPlanRecords.map((record) => (
+          {productionPlanList.records.map((record) => (
             <React.Fragment key={record.id}>
               <GridItem key={`${record.id}-title`}>
                 <Text>{record.title}</Text>
               </GridItem>
 
               {Array.from({ length: totalDays }, (_, i) => {
-                const plannedStart = dateToDayIndex(record.planned_start_date);
-                const plannedEnd = dateToDayIndex(record.planned_end_date);
-                const actualStart = dateToDayIndex(record.actual_start_date);
-                const actualEnd = dateToDayIndex(record.actual_end_date);
+                const plannedStart = dateToDayIndex(
+                  record.planned_start_date.toISOString()
+                );
+                const plannedEnd = dateToDayIndex(
+                  record.planned_end_date.toISOString()
+                );
+                const actualStart = dateToDayIndex(
+                  record.actual_start_date?.toISOString() ?? null
+                );
+                const actualEnd = dateToDayIndex(
+                  record.actual_end_date?.toISOString() ?? null
+                );
 
                 const isPlanned =
                   plannedStart !== null &&
