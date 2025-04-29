@@ -1,28 +1,21 @@
 import Layout from "@/layouts/Layout";
 import { Box, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
-import React from "react";
-import { productionPlanList } from "@/fixtures/production";
-
-const today = new Date();
-const chartStartDate = new Date(today);
-chartStartDate.setDate(today.getDate());
-
-const chartEndDate = new Date(today);
-chartEndDate.setDate(today.getDate() + 60);
-
-const totalDays =
-  (chartEndDate.getTime() - chartStartDate.getTime()) / (1000 * 60 * 60 * 24) +
-  1;
-
-const dateToDayIndex = (dateStr: string | null) => {
-  if (!dateStr) return null;
-  const date = new Date(dateStr);
-  return Math.floor(
-    (date.getTime() - chartStartDate.getTime()) / (1000 * 60 * 60 * 24)
-  );
-};
+import React, { useEffect } from "react";
+import { useProductionStore } from "@/hooks/useProductionStore";
 
 const ProductionPlanList = () => {
+  const {
+    productionPlanList,
+    totalDays,
+    chartStartDate,
+    getProductionPlanList,
+    dateToDayIndex,
+  } = useProductionStore();
+
+  useEffect(() => {
+    getProductionPlanList();
+  }, [getProductionPlanList]);
+
   return (
     <Layout>
       <Box p={8}>
@@ -65,17 +58,17 @@ const ProductionPlanList = () => {
                 {/* ガントバー */}
                 {Array.from({ length: totalDays }, (_, i) => {
                   const plannedStart = dateToDayIndex(
-                    record.planned_start_date.toISOString()
+                    new Date(record.planned_start_date)
                   );
                   const plannedEnd = dateToDayIndex(
-                    record.planned_end_date.toISOString()
+                    new Date(record.planned_end_date)
                   );
-                  const actualStart = dateToDayIndex(
-                    record.actual_start_date?.toISOString() ?? null
-                  );
-                  const actualEnd = dateToDayIndex(
-                    record.actual_end_date?.toISOString() ?? null
-                  );
+                  const actualStart = record.actual_start_date
+                    ? dateToDayIndex(new Date(record.actual_start_date))
+                    : null;
+                  const actualEnd = record.actual_end_date
+                    ? dateToDayIndex(new Date(record.actual_end_date))
+                    : null;
 
                   const isPlanned =
                     plannedStart !== null &&
@@ -91,11 +84,21 @@ const ProductionPlanList = () => {
                   return (
                     <GridItem key={`${record.id}-${i}`}>
                       {isActual ? (
-                        <Box bg="blue.400" height="8px" borderRadius="full" />
+                        <Box
+                          bg="blue.400"
+                          height="8px"
+                          borderRadius="full"
+                          width="100%"
+                        />
                       ) : isPlanned ? (
-                        <Box bg="green.400" height="8px" borderRadius="full" />
+                        <Box
+                          bg="green.400"
+                          height="8px"
+                          borderRadius="full"
+                          width="100%"
+                        />
                       ) : (
-                        <Box height="8px" />
+                        <Box height="8px" width="100%" />
                       )}
                     </GridItem>
                   );
