@@ -59,7 +59,7 @@ const ProductionPlanList = () => {
             })}
 
             {/* レコード一覧 */}
-            {productionPlanList.records.map((record) => (
+            {productionPlanList.records.map((record, index) => (
               <React.Fragment key={record.id}>
                 {/* タイトル */}
                 <GridItem
@@ -67,6 +67,7 @@ const ProductionPlanList = () => {
                   borderBottom="1px"
                   borderRight="1px"
                   borderColor="gray.200"
+                  bg={index % 2 === 1 ? "green.50" : "white"}
                 >
                   <Text>{record.title}</Text>
                 </GridItem>
@@ -106,6 +107,7 @@ const ProductionPlanList = () => {
                       borderColor="gray.200"
                       display="flex"
                       alignItems="center"
+                      bg={index % 2 === 1 ? "green.50" : "white"}
                     >
                       {isActual ? (
                         <Box
