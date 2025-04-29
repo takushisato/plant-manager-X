@@ -5,13 +5,10 @@ import { productionPlanList } from "@/fixtures/production";
 
 const today = new Date();
 const chartStartDate = new Date(today);
-chartStartDate.setDate(today.getDate() - 30);
+chartStartDate.setDate(today.getDate());
 
 const chartEndDate = new Date(today);
-chartEndDate.setDate(today.getDate() + 30);
-
-const displayEndDate = new Date(today);
-displayEndDate.setDate(today.getDate() + 20);
+chartEndDate.setDate(today.getDate() + 60);
 
 const totalDays =
   (chartEndDate.getTime() - chartStartDate.getTime()) / (1000 * 60 * 60 * 24) +
@@ -37,7 +34,7 @@ const ProductionPlanList = () => {
         {/* スクロール可能エリア */}
         <Box overflowX="auto">
           <Grid
-            templateColumns={`200px repeat(${totalDays}, 40px)`}
+            templateColumns={`200px repeat(${totalDays}, 50px)`}
             gap={1}
             minWidth="800px"
           >
