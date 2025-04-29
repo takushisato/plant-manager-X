@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useProductionStore } from "@/hooks/useProductionStore";
-
+import { CreateProductionPlanRecord } from "@/types/production";
 const ProductionPlanList = () => {
   const {
     productionPlanList,
@@ -46,8 +46,7 @@ const ProductionPlanList = () => {
   const handleAddTask = () => {
     if (!title || !startDate || !endDate) return;
 
-    const newRecord = {
-      id: productionPlanList.records.length + 1,
+    const newRecord: CreateProductionPlanRecord = {
       title: title,
       planned_start_date: parseLocalDate(startDate),
       planned_end_date: parseLocalDate(endDate),

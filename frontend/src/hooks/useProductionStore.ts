@@ -1,6 +1,9 @@
 import { create } from "zustand";
 import { productionPlanList } from "@/fixtures/production";
-import { ProductionPlanList, ProductionPlanRecord } from "@/types/production";
+import {
+  ProductionPlanList,
+  CreateProductionPlanRecord,
+} from "@/types/production";
 
 type ProductionStore = {
   chartStartDate: Date;
@@ -12,16 +15,7 @@ type ProductionStore = {
   setProductionPlanList: (list: ProductionPlanList) => void;
   setTotalDays: (days: number) => void;
   getProductionPlanList: () => void;
-  addProductionPlanRecord: (newRecord: {
-    id: number;
-    title: string;
-    planned_start_date: Date;
-    planned_end_date: Date;
-    actual_start_date: Date | null;
-    actual_end_date: Date | null;
-    sort: number;
-    note: string;
-  }) => void;
+  addProductionPlanRecord: (record: CreateProductionPlanRecord) => void;
   dateToDayIndex: (date: Date | null) => number | null;
 };
 
@@ -44,6 +38,11 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
     set({ productionPlanList: list }),
   setTotalDays: (days: number) => set({ totalDays: days }),
 
+  /**
+   * 日付をインデックスに変換する
+   * @param date 日付
+   * @returns インデックス
+   */
   dateToDayIndex: (date: Date | null) => {
     if (!date) return null;
     const startDate = new Date(get().chartStartDate);
@@ -65,12 +64,17 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
     set({ totalDays: diffDays });
   },
 
-  addProductionPlanRecord: (newRecord) => {
-    const currentState = get();
+  /**
+   * 生産計画リストに新しいレコードを追加する
+   * @param record 新しいレコード
+   */
+  addProductionPlanRecord: (record: CreateProductionPlanRecord) => {
+    const currentList = get().productionPlanList;
+    const newId = currentList.records.length + 1;
     set({
       productionPlanList: {
-        ...currentState.productionPlanList,
-        records: [...currentState.productionPlanList.records, newRecord],
+        ...currentList,
+        records: [...currentList.records, { ...record, id: newId }],
       },
     });
   },

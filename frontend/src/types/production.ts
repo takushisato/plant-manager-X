@@ -18,3 +18,14 @@ export type ProductionPlanList = {
   note: string | null;
   records: ProductionPlanRecord[];
 };
+
+export type CreateProductionPlanRecord = {
+  title: string;
+  planned_start_date: Date;
+  planned_end_date: Date;
+  actual_start_date: Date | null;
+  actual_end_date: Date | null;
+  sort: number;
+  note: string | null;
+};
+  
