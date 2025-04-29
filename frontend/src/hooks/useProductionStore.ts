@@ -14,6 +14,10 @@ type ProductionStore = {
   productionPlanList: ProductionPlanList;
   totalDays: number;
   currentEditTaskId: number | null;
+  actualStartDate: string;
+  actualEndDate: string;
+  setActualStartDate: (date: string) => void;
+  setActualEndDate: (date: string) => void;
   setCurrentEditTaskId: (id: number | null) => void;
   updateProductionPlanRecord: () => void;
   setTaskTitle: (title: string) => void;
@@ -46,6 +50,10 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
   },
   totalDays: 0,
   currentEditTaskId: null,
+  actualStartDate: "",
+  actualEndDate: "",
+  setActualStartDate: (date: string) => set({ actualStartDate: date }),
+  setActualEndDate: (date: string) => set({ actualEndDate: date }),
   setTaskTitle: (title: string) => set({ taskTitle: title }),
   setTaskStartDate: (date: string) => set({ taskStartDate: date }),
   setTaskEndDate: (date: string) => set({ taskEndDate: date }),
@@ -93,8 +101,12 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
       title: get().taskTitle,
       planned_start_date: get().parseLocalDate(get().taskStartDate),
       planned_end_date: get().parseLocalDate(get().taskEndDate),
-      actual_start_date: null,
-      actual_end_date: null,
+      actual_start_date: get().actualStartDate
+        ? get().parseLocalDate(get().actualStartDate)
+        : null,
+      actual_end_date: get().actualEndDate
+        ? get().parseLocalDate(get().actualEndDate)
+        : null,
       sort: newId,
       note: "",
     };
@@ -128,6 +140,8 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
       taskStartDate,
       taskEndDate,
       parseLocalDate,
+      actualStartDate,
+      actualEndDate,
     } = get();
     if (currentEditTaskId === null) return;
 
@@ -138,6 +152,12 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
             title: taskTitle,
             planned_start_date: parseLocalDate(taskStartDate),
             planned_end_date: parseLocalDate(taskEndDate),
+            actual_start_date: actualStartDate
+              ? parseLocalDate(actualStartDate)
+              : null,
+            actual_end_date: actualEndDate
+              ? parseLocalDate(actualEndDate)
+              : null,
           }
         : record
     );

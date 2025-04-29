@@ -36,6 +36,10 @@ const ProductionPlanList = () => {
     setCurrentEditTaskId,
     currentEditTaskId,
     updateProductionPlanRecord,
+    actualStartDate,
+    actualEndDate,
+    setActualStartDate,
+    setActualEndDate,
   } = useProductionStore();
 
   useEffect(() => {
@@ -51,6 +55,16 @@ const ProductionPlanList = () => {
     setTaskTitle(record.title);
     setTaskStartDate(record.planned_start_date.toISOString().slice(0, 10));
     setTaskEndDate(record.planned_end_date.toISOString().slice(0, 10));
+    setActualStartDate(
+      record.actual_start_date
+        ? record.actual_start_date.toISOString().slice(0, 10)
+        : ""
+    );
+    setActualEndDate(
+      record.actual_end_date
+        ? record.actual_end_date.toISOString().slice(0, 10)
+        : ""
+    );
     setCurrentEditTaskId(record.id);
     onOpen();
   };
@@ -109,7 +123,7 @@ const ProductionPlanList = () => {
               </Box>
               <Box mb={4}>
                 <Text fontSize="sm" mb={1}>
-                  開始日
+                  開始予定日
                 </Text>
                 <Input
                   type="date"
@@ -119,12 +133,32 @@ const ProductionPlanList = () => {
               </Box>
               <Box mb={4}>
                 <Text fontSize="sm" mb={1}>
-                  終了日
+                  終了予定日
                 </Text>
                 <Input
                   type="date"
                   value={taskEndDate}
                   onChange={(e) => setTaskEndDate(e.target.value)}
+                />
+              </Box>
+              <Box mb={4}>
+                <Text fontSize="sm" mb={1}>
+                  実績開始日
+                </Text>
+                <Input
+                  type="date"
+                  value={actualStartDate}
+                  onChange={(e) => setActualStartDate(e.target.value)}
+                />
+              </Box>
+              <Box mb={4}>
+                <Text fontSize="sm" mb={1}>
+                  実績終了日
+                </Text>
+                <Input
+                  type="date"
+                  value={actualEndDate}
+                  onChange={(e) => setActualEndDate(e.target.value)}
                 />
               </Box>
             </ModalBody>
