@@ -142,6 +142,9 @@ const ProductionPlanList = () => {
         <Box overflowX="auto">
           <Grid
             templateColumns={`200px repeat(${totalDays}, 50px)`}
+            templateRows={`repeat(${
+              productionPlanList.records.length * 2
+            }, auto)`}
             gap={0}
             minWidth="800px"
           >
@@ -151,32 +154,38 @@ const ProductionPlanList = () => {
               borderBottom="1px"
               borderRight="1px"
               borderColor="gray.200"
+              rowSpan={2}
             >
               <Text fontWeight="bold">タスク</Text>
             </GridItem>
-            {Array.from({ length: totalDays }, (_, i) => {
-              const currentDate = new Date(chartStartDate);
-              currentDate.setDate(chartStartDate.getDate() + i);
-              return (
-                <GridItem
-                  key={i}
-                  p={2}
-                  borderBottom="1px"
-                  borderRight="1px"
-                  borderColor="gray.200"
-                >
-                  <Text fontSize="xs" textAlign="center">
-                    {currentDate.getMonth() + 1}/{currentDate.getDate()}
-                  </Text>
-                </GridItem>
-              );
-            })}
+            {Array.from({ length: totalDays }, (_, i) => (
+              <GridItem
+                key={`header-${i}`}
+                p={2}
+                borderBottom="1px"
+                borderRight="1px"
+                borderColor="gray.200"
+                colSpan={1}
+                rowSpan={2}
+              >
+                <Text fontSize="xs" textAlign="center">
+                  {(() => {
+                    const currentDate = new Date(chartStartDate);
+                    currentDate.setDate(chartStartDate.getDate() + i);
+                    return `${
+                      currentDate.getMonth() + 1
+                    }/${currentDate.getDate()}`;
+                  })()}
+                </Text>
+              </GridItem>
+            ))}
 
             {/* レコード一覧 */}
             {productionPlanList.records.map((record, index) => (
               <React.Fragment key={record.id}>
-                {/* タイトル */}
+                {/* タイトル（rowSpan=2） */}
                 <GridItem
+                  rowSpan={2}
                   p={2}
                   borderBottom="1px"
                   borderRight="1px"
@@ -184,10 +193,13 @@ const ProductionPlanList = () => {
                   bg={index % 2 === 1 ? "green.50" : "white"}
                   onClick={() => handleEditTask(record)}
                   cursor="pointer"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
                 >
                   <Text>{record.title}</Text>
                 </GridItem>
-                {/* ガントバー */}
+                {/* 予定ガントバー（1行目） */}
                 {Array.from({ length: totalDays }, (_, i) => {
                   const plannedStart = dateToDayIndex(
                     new Date(record.planned_start_date)
@@ -195,27 +207,51 @@ const ProductionPlanList = () => {
                   const plannedEnd = dateToDayIndex(
                     new Date(record.planned_end_date)
                   );
+                  const isPlanned =
+                    plannedStart !== null &&
+                    plannedEnd !== null &&
+                    i >= plannedStart &&
+                    i <= plannedEnd;
+                  return (
+                    <GridItem
+                      key={`planned-${record.id}-${i}`}
+                      p={2}
+                      borderBottom="1px"
+                      borderRight="1px"
+                      borderColor="gray.200"
+                      display="flex"
+                      alignItems="center"
+                      bg={index % 2 === 1 ? "green.50" : "white"}
+                    >
+                      {isPlanned ? (
+                        <Box
+                          bg="green.400"
+                          height="8px"
+                          borderRadius="full"
+                          width="100%"
+                        />
+                      ) : (
+                        <Box height="8px" width="100%" />
+                      )}
+                    </GridItem>
+                  );
+                })}
+                {/* 実績ガントバー（2行目） */}
+                {Array.from({ length: totalDays }, (_, i) => {
                   const actualStart = record.actual_start_date
                     ? dateToDayIndex(new Date(record.actual_start_date))
                     : null;
                   const actualEnd = record.actual_end_date
                     ? dateToDayIndex(new Date(record.actual_end_date))
                     : null;
-
-                  const isPlanned =
-                    plannedStart !== null &&
-                    plannedEnd !== null &&
-                    i >= plannedStart &&
-                    i <= plannedEnd;
                   const isActual =
                     actualStart !== null &&
                     actualEnd !== null &&
                     i >= actualStart &&
                     i <= actualEnd;
-
                   return (
                     <GridItem
-                      key={`${record.id}-${i}`}
+                      key={`actual-${record.id}-${i}`}
                       p={2}
                       borderBottom="1px"
                       borderRight="1px"
@@ -227,13 +263,6 @@ const ProductionPlanList = () => {
                       {isActual ? (
                         <Box
                           bg="blue.400"
-                          height="8px"
-                          borderRadius="full"
-                          width="100%"
-                        />
-                      ) : isPlanned ? (
-                        <Box
-                          bg="green.400"
                           height="8px"
                           borderRadius="full"
                           width="100%"
