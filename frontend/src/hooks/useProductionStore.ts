@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { productionPlanList } from "@/fixtures/production";
-import { ProductionPlanList } from "@/types/production";
+import { ProductionPlanList, ProductionPlanRecord } from "@/types/production";
 
 type ProductionStore = {
   chartStartDate: Date;
@@ -12,6 +12,16 @@ type ProductionStore = {
   setProductionPlanList: (list: ProductionPlanList) => void;
   setTotalDays: (days: number) => void;
   getProductionPlanList: () => void;
+  addProductionPlanRecord: (newRecord: {
+    id: number;
+    title: string;
+    planned_start_date: Date;
+    planned_end_date: Date;
+    actual_start_date: Date | null;
+    actual_end_date: Date | null;
+    sort: number;
+    note: string;
+  }) => void;
   dateToDayIndex: (date: Date | null) => number | null;
 };
 
@@ -53,5 +63,15 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
     const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
     set({ totalDays: diffDays });
+  },
+
+  addProductionPlanRecord: (newRecord) => {
+    const currentState = get();
+    set({
+      productionPlanList: {
+        ...currentState.productionPlanList,
+        records: [...currentState.productionPlanList.records, newRecord],
+      },
+    });
   },
 }));
