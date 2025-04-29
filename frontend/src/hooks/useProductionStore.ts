@@ -13,9 +13,9 @@ type ProductionStore = {
   chartEndDate: Date;
   productionPlanList: ProductionPlanList;
   totalDays: number;
-  currentEditTaskId: number | null; // 編集対象のタスクID
+  currentEditTaskId: number | null;
   setCurrentEditTaskId: (id: number | null) => void;
-  updateProductionPlanRecord: () => void; // 更新するメソッド
+  updateProductionPlanRecord: () => void;
   setTaskTitle: (title: string) => void;
   setTaskStartDate: (date: string) => void;
   setTaskEndDate: (date: string) => void;
@@ -116,6 +116,10 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
     return new Date(year, month - 1, day + 1);
   },
 
+  /**
+   * 生産計画リストを更新する
+   * TODO: APIにて実装する
+   */
   updateProductionPlanRecord: () => {
     const {
       productionPlanList,
@@ -143,7 +147,7 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
         ...productionPlanList,
         records: updatedRecords,
       },
-      currentEditTaskId: null, // 更新後リセット
+      currentEditTaskId: null,
     });
   },
 }));
