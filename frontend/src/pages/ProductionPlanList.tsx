@@ -40,6 +40,8 @@ const ProductionPlanList = () => {
     actualEndDate,
     setActualStartDate,
     setActualEndDate,
+    moveUp,
+    moveDown,
   } = useProductionStore();
 
   useEffect(() => {
@@ -225,13 +227,25 @@ const ProductionPlanList = () => {
                   borderRight="1px"
                   borderColor="gray.200"
                   bg={index % 2 === 1 ? "green.50" : "white"}
-                  onClick={() => handleEditTask(record)}
-                  cursor="pointer"
                   display="flex"
+                  flexDirection="column"
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Text>{record.title}</Text>
+                  <Button size="xs" onClick={() => moveUp(record.id)} mb={1}>
+                    ↑
+                  </Button>
+                  <Text
+                    fontSize="sm"
+                    textAlign="center"
+                    cursor="pointer"
+                    onClick={() => handleEditTask(record)}
+                  >
+                    {record.title}
+                  </Text>
+                  <Button size="xs" onClick={() => moveDown(record.id)} mt={1}>
+                    ↓
+                  </Button>
                 </GridItem>
                 {/* 予定ガントバー（1行目） */}
                 {Array.from({ length: totalDays }, (_, i) => {

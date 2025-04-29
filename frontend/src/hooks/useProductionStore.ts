@@ -16,6 +16,8 @@ type ProductionStore = {
   currentEditTaskId: number | null;
   actualStartDate: string;
   actualEndDate: string;
+  moveUp: (id: number) => void;
+  moveDown: (id: number) => void;
   setActualStartDate: (date: string) => void;
   setActualEndDate: (date: string) => void;
   setCurrentEditTaskId: (id: number | null) => void;
@@ -63,6 +65,49 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
     set({ productionPlanList: list }),
   setTotalDays: (days: number) => set({ totalDays: days }),
   setCurrentEditTaskId: (id: number | null) => set({ currentEditTaskId: id }),
+
+  /**
+   * タスクを上に移動する
+   * @param id タスクのID
+   */
+  moveUp: (id: number) => {
+    const { productionPlanList } = get();
+    const idx = productionPlanList.records.findIndex((r) => r.id === id);
+    if (idx > 0) {
+      const newRecords = [...productionPlanList.records];
+      [newRecords[idx - 1], newRecords[idx]] = [
+        newRecords[idx],
+        newRecords[idx - 1],
+      ];
+      // sort番号振り直し
+      const updated = newRecords.map((record, i) => ({
+        ...record,
+        sort: i + 1,
+      }));
+      set({ productionPlanList: { ...productionPlanList, records: updated } });
+    }
+  },
+
+  /**
+   * タスクを下に移動する
+   * @param id タスクのID
+   */
+  moveDown: (id: number) => {
+    const { productionPlanList } = get();
+    const idx = productionPlanList.records.findIndex((r) => r.id === id);
+    if (idx < productionPlanList.records.length - 1) {
+      const newRecords = [...productionPlanList.records];
+      [newRecords[idx], newRecords[idx + 1]] = [
+        newRecords[idx + 1],
+        newRecords[idx],
+      ];
+      const updated = newRecords.map((record, i) => ({
+        ...record,
+        sort: i + 1,
+      }));
+      set({ productionPlanList: { ...productionPlanList, records: updated } });
+    }
+  },
 
   /**
    * 日付からインデックスを取得する
