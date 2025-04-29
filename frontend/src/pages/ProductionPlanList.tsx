@@ -21,8 +21,10 @@ const ProductionPlanList = () => {
   return (
     <Layout>
       <Box p={8}>
-        <Heading mb={6}>生産計画ガントチャート</Heading>
-
+        <Heading mb={6}>
+          {productionPlanList.organization.organization_name}{" "}
+          生産計画ガントチャート
+        </Heading>
         <Grid templateColumns="200px repeat(20, 1fr)" gap={1}>
           <GridItem>
             <Text fontWeight="bold">タスク</Text>
