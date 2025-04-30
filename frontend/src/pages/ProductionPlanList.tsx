@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import Layout from "@/layouts/Layout";
 import {
   Box,
@@ -15,10 +16,12 @@ import {
   ModalFooter,
   Input,
   useDisclosure,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
 import { useProductionStore } from "@/hooks/useProductionStore";
 import { ProductionPlanRecord } from "@/types/production";
+
 const ProductionPlanList = () => {
   const {
     productionPlanList,
@@ -42,12 +45,31 @@ const ProductionPlanList = () => {
     setActualEndDate,
     moveUp,
     moveDown,
+    setChartStartDate,
+    setChartEndDate,
   } = useProductionStore();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isPeriodModalOpen,
+    onOpen: onPeriodModalOpen,
+    onClose: onPeriodModalClose,
+  } = useDisclosure();
+
+  const [periodStartDate, setPeriodStartDate] = useState(
+    chartStartDate.toISOString().slice(0, 10)
+  );
+  const [periodEndDate, setPeriodEndDate] = useState(
+    (() => {
+      const endDate = new Date(chartStartDate);
+      endDate.setDate(endDate.getDate() + totalDays - 1);
+      return endDate.toISOString().slice(0, 10);
+    })()
+  );
 
   useEffect(() => {
     getProductionPlanList();
   }, [getProductionPlanList]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   /**
    * タスクを編集する
@@ -84,26 +106,63 @@ const ProductionPlanList = () => {
       // 編集モード
       updateProductionPlanRecord();
     }
+  };
 
-    // 入力リセット
+  /**
+   * 値を初期化してモーダルを開く
+   */
+  const handleOpenModal = () => {
     setTaskTitle("");
     setTaskStartDate("");
     setTaskEndDate("");
+    setActualStartDate("");
+    setActualEndDate("");
+    onOpen();
+  };
+
+  /**
+   * タスクを削除する
+   * TODO: 論理削除処理をAPIで実装する
+   */
+  const handleDeleteTask = () => {
+    console.log("削除", currentEditTaskId);
     onClose();
+  };
+
+  /**
+   * 表示期間変更モーダーを開く
+   */
+  const handleOpenChartPeriodModal = () => {
+    onPeriodModalOpen();
+  };
+
+  /**
+   * 表示期間を変更して生産計画を再取得する
+   */
+  const handleSaveChartPeriod = () => {
+    const startDate = new Date(periodStartDate);
+    const endDate = new Date(periodEndDate);
+    setChartStartDate(startDate);
+    setChartEndDate(endDate);
+    onPeriodModalClose();
+    getProductionPlanList();
   };
 
   return (
     <Layout>
       <Box p={8}>
-        <Heading mb={6}>
+        <Heading mb={6} fontSize="xl">
           {productionPlanList.organization.organization_name}{" "}
           生産計画ガントチャート
         </Heading>
 
         {/* 追加ボタン */}
         <Box mb={8}>
-          <Button colorScheme="teal" onClick={onOpen}>
+          <Button colorScheme="teal" onClick={handleOpenModal} mr={4}>
             タスク追加
+          </Button>
+          <Button colorScheme="teal" onClick={handleOpenChartPeriodModal}>
+            表示期間を変更
           </Button>
         </Box>
 
@@ -143,33 +202,76 @@ const ProductionPlanList = () => {
                   onChange={(e) => setTaskEndDate(e.target.value)}
                 />
               </Box>
-              <Box mb={4}>
-                <Text fontSize="sm" mb={1}>
-                  実績開始日
-                </Text>
-                <Input
-                  type="date"
-                  value={actualStartDate}
-                  onChange={(e) => setActualStartDate(e.target.value)}
-                />
-              </Box>
-              <Box mb={4}>
-                <Text fontSize="sm" mb={1}>
-                  実績終了日
-                </Text>
-                <Input
-                  type="date"
-                  value={actualEndDate}
-                  onChange={(e) => setActualEndDate(e.target.value)}
-                />
-              </Box>
+              {currentEditTaskId !== null && (
+                <>
+                  <Box mb={4}>
+                    <Text fontSize="sm" mb={1}>
+                      実績開始日
+                    </Text>
+                    <Input
+                      type="date"
+                      value={actualStartDate}
+                      onChange={(e) => setActualStartDate(e.target.value)}
+                    />
+                  </Box>
+                  <Box mb={4}>
+                    <Text fontSize="sm" mb={1}>
+                      実績終了日
+                    </Text>
+                    <Input
+                      type="date"
+                      value={actualEndDate}
+                      onChange={(e) => setActualEndDate(e.target.value)}
+                    />
+                  </Box>
+                </>
+              )}
             </ModalBody>
+            <ModalFooter display="flex" justifyContent="space-between">
+              <Box>
+                <Button colorScheme="teal" mr={3} onClick={handleSaveTask}>
+                  保存
+                </Button>
+                <Button onClick={onClose}>キャンセル</Button>
+              </Box>
+              {currentEditTaskId !== null && (
+                <Button colorScheme="red" onClick={handleDeleteTask}>
+                  削除
+                </Button>
+              )}
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
 
+        {/* 表示期間変更モーダル */}
+        <Modal isOpen={isPeriodModalOpen} onClose={onPeriodModalClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>表示期間を変更</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <FormControl mb={4}>
+                <FormLabel>開始日</FormLabel>
+                <Input
+                  type="date"
+                  value={periodStartDate}
+                  onChange={(e) => setPeriodStartDate(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>終了日</FormLabel>
+                <Input
+                  type="date"
+                  value={periodEndDate}
+                  onChange={(e) => setPeriodEndDate(e.target.value)}
+                />
+              </FormControl>
+            </ModalBody>
             <ModalFooter>
-              <Button colorScheme="teal" mr={3} onClick={handleSaveTask}>
+              <Button colorScheme="teal" mr={3} onClick={handleSaveChartPeriod}>
                 保存
               </Button>
-              <Button onClick={onClose}>キャンセル</Button>
+              <Button onClick={onPeriodModalClose}>キャンセル</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
@@ -240,6 +342,7 @@ const ProductionPlanList = () => {
                     textAlign="center"
                     cursor="pointer"
                     onClick={() => handleEditTask(record)}
+                    _hover={{ bg: "gray.100" }}
                   >
                     {record.title}
                   </Text>
@@ -247,8 +350,9 @@ const ProductionPlanList = () => {
                     ↓
                   </Button>
                 </GridItem>
+
                 {/* 予定ガントバー（1行目） */}
-                {Array.from({ length: totalDays }, (_, i) => {
+                {Array.from({ length: totalDays }, (_: unknown, i: number) => {
                   const plannedStart = dateToDayIndex(
                     new Date(record.planned_start_date)
                   );
@@ -270,6 +374,9 @@ const ProductionPlanList = () => {
                       display="flex"
                       alignItems="center"
                       bg={index % 2 === 1 ? "green.50" : "white"}
+                      _hover={{ bg: "gray.100" }}
+                      cursor="pointer"
+                      onClick={() => handleEditTask(record)}
                     >
                       {isPlanned ? (
                         <Box
@@ -284,8 +391,9 @@ const ProductionPlanList = () => {
                     </GridItem>
                   );
                 })}
+
                 {/* 実績ガントバー（2行目） */}
-                {Array.from({ length: totalDays }, (_, i) => {
+                {Array.from({ length: totalDays }, (_: unknown, i: number) => {
                   const actualStart = record.actual_start_date
                     ? dateToDayIndex(new Date(record.actual_start_date))
                     : null;
@@ -307,6 +415,9 @@ const ProductionPlanList = () => {
                       display="flex"
                       alignItems="center"
                       bg={index % 2 === 1 ? "green.50" : "white"}
+                      cursor="pointer"
+                      onClick={() => handleEditTask(record)}
+                      _hover={{ bg: "gray.100" }}
                     >
                       {isActual ? (
                         <Box
