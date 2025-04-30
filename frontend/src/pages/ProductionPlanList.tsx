@@ -247,8 +247,9 @@ const ProductionPlanList = () => {
                     ↓
                   </Button>
                 </GridItem>
+
                 {/* 予定ガントバー（1行目） */}
-                {Array.from({ length: totalDays }, (_, i) => {
+                {Array.from({ length: totalDays }, (_: unknown, i: number) => {
                   const plannedStart = dateToDayIndex(
                     new Date(record.planned_start_date)
                   );
@@ -270,6 +271,8 @@ const ProductionPlanList = () => {
                       display="flex"
                       alignItems="center"
                       bg={index % 2 === 1 ? "green.50" : "white"}
+                      cursor="pointer"
+                      onClick={() => handleEditTask(record)}
                     >
                       {isPlanned ? (
                         <Box
@@ -284,8 +287,9 @@ const ProductionPlanList = () => {
                     </GridItem>
                   );
                 })}
+
                 {/* 実績ガントバー（2行目） */}
-                {Array.from({ length: totalDays }, (_, i) => {
+                {Array.from({ length: totalDays }, (_: unknown, i: number) => {
                   const actualStart = record.actual_start_date
                     ? dateToDayIndex(new Date(record.actual_start_date))
                     : null;
@@ -307,6 +311,8 @@ const ProductionPlanList = () => {
                       display="flex"
                       alignItems="center"
                       bg={index % 2 === 1 ? "green.50" : "white"}
+                      cursor="pointer"
+                      onClick={() => handleEditTask(record)}
                     >
                       {isActual ? (
                         <Box
