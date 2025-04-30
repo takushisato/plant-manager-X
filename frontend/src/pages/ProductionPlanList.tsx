@@ -84,12 +84,18 @@ const ProductionPlanList = () => {
       // 編集モード
       updateProductionPlanRecord();
     }
+  };
 
-    // 入力リセット
+  /**
+   * 値を初期化してモーダルを開く
+   */
+  const handleOpenModal = () => {
     setTaskTitle("");
     setTaskStartDate("");
     setTaskEndDate("");
-    onClose();
+    setActualStartDate("");
+    setActualEndDate("");
+    onOpen();
   };
 
   return (
@@ -102,7 +108,7 @@ const ProductionPlanList = () => {
 
         {/* 追加ボタン */}
         <Box mb={8}>
-          <Button colorScheme="teal" onClick={onOpen}>
+          <Button colorScheme="teal" onClick={handleOpenModal}>
             タスク追加
           </Button>
         </Box>
