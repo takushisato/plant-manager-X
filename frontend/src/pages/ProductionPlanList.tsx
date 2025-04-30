@@ -240,6 +240,7 @@ const ProductionPlanList = () => {
                     textAlign="center"
                     cursor="pointer"
                     onClick={() => handleEditTask(record)}
+                    _hover={{ bg: "gray.100" }}
                   >
                     {record.title}
                   </Text>
@@ -271,6 +272,7 @@ const ProductionPlanList = () => {
                       display="flex"
                       alignItems="center"
                       bg={index % 2 === 1 ? "green.50" : "white"}
+                      _hover={{ bg: "gray.100" }}
                       cursor="pointer"
                       onClick={() => handleEditTask(record)}
                     >
@@ -313,6 +315,7 @@ const ProductionPlanList = () => {
                       bg={index % 2 === 1 ? "green.50" : "white"}
                       cursor="pointer"
                       onClick={() => handleEditTask(record)}
+                      _hover={{ bg: "gray.100" }}
                     >
                       {isActual ? (
                         <Box
