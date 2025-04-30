@@ -98,6 +98,15 @@ const ProductionPlanList = () => {
     onOpen();
   };
 
+  /**
+   * タスクを削除する
+   * TODO: 論理削除処理をAPIで実装する
+   */
+  const handleDeleteTask = () => {
+    console.log("削除", currentEditTaskId);
+    onClose();
+  };
+
   return (
     <Layout>
       <Box p={8}>
@@ -170,12 +179,18 @@ const ProductionPlanList = () => {
                 />
               </Box>
             </ModalBody>
-
-            <ModalFooter>
-              <Button colorScheme="teal" mr={3} onClick={handleSaveTask}>
-                保存
-              </Button>
-              <Button onClick={onClose}>キャンセル</Button>
+            <ModalFooter display="flex" justifyContent="space-between">
+              <Box>
+                <Button colorScheme="teal" mr={3} onClick={handleSaveTask}>
+                  保存
+                </Button>
+                <Button onClick={onClose}>キャンセル</Button>
+              </Box>
+              {currentEditTaskId !== null && (
+                <Button colorScheme="red" onClick={handleDeleteTask}>
+                  削除
+                </Button>
+              )}
             </ModalFooter>
           </ModalContent>
         </Modal>
