@@ -151,7 +151,7 @@ const ProductionPlanList = () => {
   return (
     <Layout>
       <Box p={8}>
-        <Heading mb={6}>
+        <Heading mb={6} fontSize="xl">
           {productionPlanList.organization.organization_name}{" "}
           生産計画ガントチャート
         </Heading>
