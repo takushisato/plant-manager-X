@@ -202,26 +202,30 @@ const ProductionPlanList = () => {
                   onChange={(e) => setTaskEndDate(e.target.value)}
                 />
               </Box>
-              <Box mb={4}>
-                <Text fontSize="sm" mb={1}>
-                  実績開始日
-                </Text>
-                <Input
-                  type="date"
-                  value={actualStartDate}
-                  onChange={(e) => setActualStartDate(e.target.value)}
-                />
-              </Box>
-              <Box mb={4}>
-                <Text fontSize="sm" mb={1}>
-                  実績終了日
-                </Text>
-                <Input
-                  type="date"
-                  value={actualEndDate}
-                  onChange={(e) => setActualEndDate(e.target.value)}
-                />
-              </Box>
+              {currentEditTaskId !== null && (
+                <>
+                  <Box mb={4}>
+                    <Text fontSize="sm" mb={1}>
+                      実績開始日
+                    </Text>
+                    <Input
+                      type="date"
+                      value={actualStartDate}
+                      onChange={(e) => setActualStartDate(e.target.value)}
+                    />
+                  </Box>
+                  <Box mb={4}>
+                    <Text fontSize="sm" mb={1}>
+                      実績終了日
+                    </Text>
+                    <Input
+                      type="date"
+                      value={actualEndDate}
+                      onChange={(e) => setActualEndDate(e.target.value)}
+                    />
+                  </Box>
+                </>
+              )}
             </ModalBody>
             <ModalFooter display="flex" justifyContent="space-between">
               <Box>
