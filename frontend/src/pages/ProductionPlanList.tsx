@@ -15,10 +15,13 @@ import {
   ModalFooter,
   Input,
   useDisclosure,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useProductionStore } from "@/hooks/useProductionStore";
 import { ProductionPlanRecord } from "@/types/production";
+
 const ProductionPlanList = () => {
   const {
     productionPlanList,
@@ -42,12 +45,31 @@ const ProductionPlanList = () => {
     setActualEndDate,
     moveUp,
     moveDown,
+    setChartStartDate,
+    setChartEndDate,
   } = useProductionStore();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isPeriodModalOpen,
+    onOpen: onPeriodModalOpen,
+    onClose: onPeriodModalClose,
+  } = useDisclosure();
+
+  const [periodStartDate, setPeriodStartDate] = React.useState(
+    chartStartDate.toISOString().slice(0, 10)
+  );
+  const [periodEndDate, setPeriodEndDate] = React.useState(
+    (() => {
+      const endDate = new Date(chartStartDate);
+      endDate.setDate(endDate.getDate() + totalDays - 1);
+      return endDate.toISOString().slice(0, 10);
+    })()
+  );
 
   useEffect(() => {
     getProductionPlanList();
   }, [getProductionPlanList]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   /**
    * タスクを編集する
@@ -107,6 +129,25 @@ const ProductionPlanList = () => {
     onClose();
   };
 
+  /**
+   * 表示期間変更モーダーを開く
+   */
+  const handleOpenChartPeriodModal = () => {
+    onPeriodModalOpen();
+  };
+
+  /**
+   * 表示期間を保存する
+   */
+  const handleSaveChartPeriod = () => {
+    const startDate = new Date(periodStartDate);
+    const endDate = new Date(periodEndDate);
+    setChartStartDate(startDate);
+    setChartEndDate(endDate);
+    onPeriodModalClose();
+    getProductionPlanList();
+  };
+
   return (
     <Layout>
       <Box p={8}>
@@ -117,8 +158,11 @@ const ProductionPlanList = () => {
 
         {/* 追加ボタン */}
         <Box mb={8}>
-          <Button colorScheme="teal" onClick={handleOpenModal}>
+          <Button colorScheme="teal" onClick={handleOpenModal} mr={4}>
             タスク追加
+          </Button>
+          <Button colorScheme="teal" onClick={handleOpenChartPeriodModal}>
+            表示期間を変更
           </Button>
         </Box>
 
@@ -191,6 +235,39 @@ const ProductionPlanList = () => {
                   削除
                 </Button>
               )}
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
+        {/* 表示期間変更モーダル */}
+        <Modal isOpen={isPeriodModalOpen} onClose={onPeriodModalClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>表示期間を変更</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <FormControl mb={4}>
+                <FormLabel>開始日</FormLabel>
+                <Input
+                  type="date"
+                  value={periodStartDate}
+                  onChange={(e) => setPeriodStartDate(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>終了日</FormLabel>
+                <Input
+                  type="date"
+                  value={periodEndDate}
+                  onChange={(e) => setPeriodEndDate(e.target.value)}
+                />
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="teal" mr={3} onClick={handleSaveChartPeriod}>
+                保存
+              </Button>
+              <Button onClick={onPeriodModalClose}>キャンセル</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
