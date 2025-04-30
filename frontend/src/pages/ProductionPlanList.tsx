@@ -137,7 +137,7 @@ const ProductionPlanList = () => {
   };
 
   /**
-   * 表示期間を保存する
+   * 表示期間を変更して生産計画を再取得する
    */
   const handleSaveChartPeriod = () => {
     const startDate = new Date(periodStartDate);
