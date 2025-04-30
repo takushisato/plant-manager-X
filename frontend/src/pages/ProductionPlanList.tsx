@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import Layout from "@/layouts/Layout";
 import {
   Box,
@@ -18,7 +19,6 @@ import {
   FormControl,
   FormLabel,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
 import { useProductionStore } from "@/hooks/useProductionStore";
 import { ProductionPlanRecord } from "@/types/production";
 
@@ -56,10 +56,10 @@ const ProductionPlanList = () => {
     onClose: onPeriodModalClose,
   } = useDisclosure();
 
-  const [periodStartDate, setPeriodStartDate] = React.useState(
+  const [periodStartDate, setPeriodStartDate] = useState(
     chartStartDate.toISOString().slice(0, 10)
   );
-  const [periodEndDate, setPeriodEndDate] = React.useState(
+  const [periodEndDate, setPeriodEndDate] = useState(
     (() => {
       const endDate = new Date(chartStartDate);
       endDate.setDate(endDate.getDate() + totalDays - 1);
