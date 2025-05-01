@@ -17,6 +17,7 @@ jest.mock("@/hooks/useVacation", () => ({
   useVacation: jest.fn(() => ({
     postVacation: jest.fn(),
     vacation: [],
+    getVacationDays: jest.fn(() => 10),
   })),
 }));
 
@@ -67,7 +68,7 @@ describe("AttendanceByUserId", () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByRole("combobox")).toBeInTheDocument();
+    expect(screen.getByRole("radiogroup")).toBeInTheDocument();
     expect(screen.getByText("出勤簿入力")).toBeInTheDocument();
     expect(screen.getByText("有給申請")).toBeInTheDocument();
   });
@@ -80,8 +81,6 @@ describe("AttendanceByUserId", () => {
     );
 
     expect(screen.getByTestId("attendance-calendar")).toBeInTheDocument();
-    expect(
-      screen.getByText((content) => content.includes("2024-04"))
-    ).toBeInTheDocument();
+    expect(screen.getByText("入力モードの選択")).toBeInTheDocument();
   });
 });

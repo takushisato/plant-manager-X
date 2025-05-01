@@ -49,7 +49,15 @@ export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
    * @param attendance
    */
   postAttendance: async (attendance: NewAttendance) => {
-    // TODO: APIで出勤簿をPOSTする
-    alert("出勤簿処理: " + JSON.stringify(attendance));
+    if (attendance.start_time) {
+      // 出勤時間が存在する場合、出勤簿をPOSTする
+      // TODO: APIで出勤簿をPOSTする
+      alert("出勤簿処理: " + JSON.stringify(attendance));
+    }
+    if (attendance.end_time) {
+      // 退勤時間が存在する場合、退勤簿をPOSTする
+      // TODO: APIで退勤簿をPOSTする
+      alert("退勤簿処理: " + JSON.stringify(attendance));
+    }
   },
 }));
