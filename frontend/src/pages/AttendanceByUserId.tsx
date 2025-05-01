@@ -10,15 +10,24 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { VACATION_MODE, ATTENDANCE_MODE } from "@/utils/consts";
+import {
+  VACATION_MODE,
+  ATTENDANCE_MODE,
+  START_ATTENDANCE_MODE,
+  END_ATTENDANCE_MODE,
+} from "@/utils/consts";
 import { useAttendanceStore } from "@/hooks/useAttendanceStore";
 import { useVacation } from "@/hooks/useVacation";
 import { useToast } from "@chakra-ui/react";
 
 const AttendanceByUserId = () => {
   const [mode, setMode] = useState<
-    typeof ATTENDANCE_MODE | typeof VACATION_MODE
-  >("attendance");
+    typeof VACATION_MODE | typeof ATTENDANCE_MODE
+  >(VACATION_MODE);
+  const [attendanceType, setAttendanceType] = useState<
+    typeof START_ATTENDANCE_MODE | typeof END_ATTENDANCE_MODE
+  >(START_ATTENDANCE_MODE);
+
   const { postAttendance, overtimeHours, currentYearMonth } =
     useAttendanceStore();
   const { postVacation, vacation } = useVacation();
@@ -26,21 +35,39 @@ const AttendanceByUserId = () => {
 
   const handleDateClick = (date: Date) => {
     const formattedDate = date.toISOString().split("T")[0];
+    const now = new Date();
+    const currentTime = now.toTimeString().slice(0, 5);
+
     if (mode === ATTENDANCE_MODE) {
-      postAttendance({
-        user_id: 1,
-        date: formattedDate,
-        start_time: "09:00",
-        end_time: "18:00",
-      });
+      const data =
+        attendanceType === START_ATTENDANCE_MODE
+          ? {
+              user_id: 1,
+              date: formattedDate,
+              start_time: currentTime,
+              end_time: "",
+            }
+          : {
+              user_id: 1,
+              date: formattedDate,
+              start_time: "",
+              end_time: currentTime,
+            };
+      postAttendance(data);
       toast({
-        title: "出勤簿を登録しました",
+        title: `${
+          attendanceType === START_ATTENDANCE_MODE ? "出勤" : "退勤"
+        }を登録しました`,
         status: "success",
         duration: 2000,
       });
     } else {
       postVacation(formattedDate, "09:00", "18:00");
-      toast({ title: "有給申請しました", status: "success", duration: 2000 });
+      toast({
+        title: "有給申請しました",
+        status: "success",
+        duration: 2000,
+      });
     }
   };
 
@@ -52,18 +79,34 @@ const AttendanceByUserId = () => {
         </Heading>
         <RadioGroup
           value={mode}
-          onChange={(value) =>
-            setMode(value as typeof ATTENDANCE_MODE | typeof VACATION_MODE)
-          }
+          onChange={(value) => setMode(value as typeof mode)}
           mb={4}
         >
           <Stack direction="row" spacing={6}>
-            <Radio value={ATTENDANCE_MODE}>出勤簿入力</Radio>
-            <Radio value={VACATION_MODE}>有給申請</Radio>
+            <Radio value="attendance">出勤簿入力</Radio>
+            <Radio value="vacation">有給申請</Radio>
           </Stack>
         </RadioGroup>
+
+        {mode === "attendance" && (
+          <Box mb={6}>
+            <Text fontSize="sm" mb={2}>
+              出勤 / 退勤を選択
+            </Text>
+            <RadioGroup
+              value={attendanceType}
+              onChange={(val) => setAttendanceType(val as "start" | "end")}
+            >
+              <Stack direction="row" spacing={6}>
+                <Radio value="start">出勤</Radio>
+                <Radio value="end">退勤</Radio>
+              </Stack>
+            </RadioGroup>
+          </Box>
+        )}
+
         <Text fontSize="sm" mb={8} color="gray.600">
-          {mode === ATTENDANCE_MODE ? "出勤簿を入力" : "有給を申請"}
+          {mode === "attendance" ? "出勤簿を入力" : "有給を申請"}
           する日付を選択してください。
         </Text>
 
@@ -75,13 +118,12 @@ const AttendanceByUserId = () => {
           borderRadius="md"
           bg="gray.50"
         >
-          {mode === ATTENDANCE_MODE && (
+          {mode === "attendance" ? (
             <Text>
               {currentYearMonth} の残業時間:{" "}
               <strong>{overtimeHours} 時間</strong>
             </Text>
-          )}
-          {mode === VACATION_MODE && (
+          ) : (
             <Text>
               有給残り: <strong>{vacation.length} 日</strong>
             </Text>
