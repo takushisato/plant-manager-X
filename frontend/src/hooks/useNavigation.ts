@@ -1,6 +1,5 @@
 import { User } from "@/types/user";
 import { SiteMap } from "@/types/common/site-map";
-
 const siteMap: SiteMap = {
   // 資材管理画面
   materials_list: "/materials",
@@ -31,7 +30,12 @@ const siteMap: SiteMap = {
 
 const accessMap: Record<
   string,
-  { title: string; menu: { label: string; path: string }[] }
+  {
+    title: string;
+    menu:
+      | { label: string; path: string }[]
+      | ((user: User) => { label: string; path: string }[]);
+  }
 > = {
   material_access: {
     title: "資材管理",
@@ -49,13 +53,15 @@ const accessMap: Record<
   },
   can_manage_own_attendance: {
     title: "出勤簿管理",
-    menu: [{ label: "出勤簿", path: siteMap.attendance_by_user_id("dummy") }],
+    menu: (user: User) => [
+      { label: "出勤簿", path: siteMap.attendance_by_user_id(String(user.id)) },
+    ],
   },
   can_manage_all_attendance: {
     title: "出勤簿管理",
-    menu: [
+    menu: (user: User) => [
       { label: "全従業員の出勤を確認", path: siteMap.attendance_list },
-      { label: "出勤簿", path: siteMap.attendance_by_user_id("dummy") },
+      { label: "出勤簿", path: siteMap.attendance_by_user_id(String(user.id)) },
     ],
   },
   can_view_production_plan: {
@@ -108,7 +114,9 @@ export const useNavigation = () => {
 
     for (const [key, pages] of Object.entries(accessMap)) {
       if (user.permission[key as keyof typeof user.permission]) {
-        accessiblePages.push({ title: pages.title, menu: pages.menu });
+        const menu =
+          typeof pages.menu === "function" ? pages.menu(user) : pages.menu;
+        accessiblePages.push({ title: pages.title, menu });
       }
     }
 
