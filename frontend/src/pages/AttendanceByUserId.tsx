@@ -1,6 +1,6 @@
 import Layout from "@/layouts/Layout";
 import AttendanceCalendar from "@/components/attendance/Calendar";
-import { Box, Select, Text } from "@chakra-ui/react";
+import { Box, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { VACATION_MODE, ATTENDANCE_MODE } from "@/utils/consts";
 import { useAttendanceStore } from "@/hooks/useAttendanceStore";
@@ -30,32 +30,43 @@ const AttendanceByUserId = () => {
 
   return (
     <Layout>
-      <Box maxW="380px" mx="auto" mt={6}>
-        <Select
-          maxW="200px"
-          mb={4}
+      <Box maxW="1000px" mx="auto" mt={6}>
+        <RadioGroup
           value={mode}
-          onChange={(e) =>
-            setMode(
-              e.target.value as typeof ATTENDANCE_MODE | typeof VACATION_MODE
-            )
+          onChange={(value) =>
+            setMode(value as typeof ATTENDANCE_MODE | typeof VACATION_MODE)
           }
+          mb={8}
         >
-          <option value={ATTENDANCE_MODE}>出勤簿入力</option>
-          <option value={VACATION_MODE}>有給申請</option>
-        </Select>
+          <Stack direction="row" spacing={6}>
+            <Radio value={ATTENDANCE_MODE}>出勤簿入力</Radio>
+            <Radio value={VACATION_MODE}>有給申請</Radio>
+          </Stack>
+        </RadioGroup>
         <Text mb={4}>
           {mode === ATTENDANCE_MODE ? "出勤簿を入力" : "有給を申請"}
           する日付を選択してください
         </Text>
-        <AttendanceCalendar
-          label="出勤簿カレンダー"
-          onDateClick={handleDateClick}
-        />
-        <p>有給残り: {vacation.length}</p>
-        <p>
-          {currentYearMonth}の残業時間: {overtimeHours}
-        </p>
+        <Box mt={8}>
+          {mode === ATTENDANCE_MODE && (
+            <>
+              <p>
+                {currentYearMonth}の残業時間: {overtimeHours}
+              </p>
+            </>
+          )}
+          {mode === VACATION_MODE && (
+            <>
+              <p>有給残り: {vacation.length}</p>
+            </>
+          )}
+        </Box>
+        <Box w="100%" maxW="1000px" mx="auto">
+          <AttendanceCalendar
+            label="出勤簿カレンダー"
+            onDateClick={handleDateClick}
+          />
+        </Box>
       </Box>
     </Layout>
   );

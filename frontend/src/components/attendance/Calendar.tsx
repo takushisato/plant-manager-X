@@ -18,7 +18,7 @@ const AttendanceCalendar = ({ onDateClick, label }: Props) => {
 
   return (
     <Box
-      maxW="350px"
+      maxW="100%"
       mx="auto"
       mt={4}
       bg="white"
@@ -27,12 +27,31 @@ const AttendanceCalendar = ({ onDateClick, label }: Props) => {
       boxShadow="md"
     >
       <Text>{label}</Text>
-      <Calendar
-        onClickDay={handleClick}
-        value={value}
-        locale="ja-JP"
-        calendarType="gregory"
-      />
+      <Box
+        sx={{
+          ".react-calendar": {
+            width: "auto",
+            height: "800px",
+            "& button": {
+              height: "120px",
+              fontSize: "1.2rem",
+            },
+            "& .react-calendar__month-view__weekdays": {
+              fontSize: "1.2rem",
+              fontWeight: "bold",
+              marginBottom: "16px",
+              marginTop: "16px",
+            },
+          },
+        }}
+      >
+        <Calendar
+          onClickDay={handleClick}
+          value={value}
+          locale="ja-JP"
+          calendarType="gregory"
+        />
+      </Box>
     </Box>
   );
 };
