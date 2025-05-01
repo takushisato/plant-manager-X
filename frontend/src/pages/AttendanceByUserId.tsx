@@ -30,8 +30,9 @@ const AttendanceByUserId = () => {
 
   const { postAttendance, overtimeHours, currentYearMonth } =
     useAttendanceStore();
-  const { postVacation, vacation } = useVacation();
+  const { postVacation, getVacationDays } = useVacation();
   const toast = useToast();
+  const vacationDays = getVacationDays();
 
   const handleDateClick = (date: Date) => {
     const formattedDate = date.toISOString().split("T")[0];
@@ -125,7 +126,7 @@ const AttendanceByUserId = () => {
             </Text>
           ) : (
             <Text>
-              有給残り: <strong>{vacation.length} 日</strong>
+              有給残り: <strong>{vacationDays} 日</strong>
             </Text>
           )}
         </Box>
