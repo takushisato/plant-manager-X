@@ -31,7 +31,7 @@ const AttendanceCalendar = ({ onDateClick, label }: Props) => {
         sx={{
           ".react-calendar": {
             width: "auto",
-            height: "800px",
+            height: "731px",
             "& button": {
               height: "120px",
               fontSize: "1.2rem",
