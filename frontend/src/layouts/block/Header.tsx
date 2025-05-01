@@ -21,9 +21,11 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 import { useNavigation } from "@/hooks/useNavigation";
+import { useProductionStore } from "@/hooks/useProductionStore";
 
 const Header = () => {
   const { user, restoreSession, logout } = useAuthStore();
+  const { productionPlanList } = useProductionStore();
   const [isOpen, setIsOpen] = useState(false);
   const siteMap = useNavigation();
 
@@ -91,33 +93,40 @@ const Header = () => {
             {user && (
               <Box px={3} py={2}>
                 <Accordion allowToggle>
-                  {siteMap.navigateMenu(user).map((group, idx) => (
-                    <AccordionItem key={idx} border="none">
-                      <AccordionButton _hover={{ bg: "teal.100" }}>
-                        <Box
-                          as="span"
-                          flex="1"
-                          textAlign="left"
-                          fontWeight="bold"
-                          minWidth="200px"
-                        >
-                          {group.title}
-                        </Box>
-                        <AccordionIcon />
-                      </AccordionButton>
-                      <AccordionPanel pb={2}>
-                        {group.menu.map((item, i) => (
-                          <Box key={i} py={1} pl={4}>
-                            <Link to={item.path}>
-                              <Text _hover={{ textDecoration: "underline" }}>
-                                {item.label}
-                              </Text>
-                            </Link>
+                  {/* .navigateMenu(user, productionPlanList.organization) */}
+                  {/* TODO: 組織とユーザーの所属のモデルを作成して、APIでそのモデルを取得する */}
+                  {siteMap
+                    .navigateMenu(user, {
+                      organization_name: "1",
+                      description: "1",
+                    })
+                    .map((group, idx) => (
+                      <AccordionItem key={idx} border="none">
+                        <AccordionButton _hover={{ bg: "teal.100" }}>
+                          <Box
+                            as="span"
+                            flex="1"
+                            textAlign="left"
+                            fontWeight="bold"
+                            minWidth="200px"
+                          >
+                            {group.title}
                           </Box>
-                        ))}
-                      </AccordionPanel>
-                    </AccordionItem>
-                  ))}
+                          <AccordionIcon />
+                        </AccordionButton>
+                        <AccordionPanel pb={2}>
+                          {group.menu.map((item, i) => (
+                            <Box key={i} py={1} pl={4}>
+                              <Link to={item.path}>
+                                <Text _hover={{ textDecoration: "underline" }}>
+                                  {item.label}
+                                </Text>
+                              </Link>
+                            </Box>
+                          ))}
+                        </AccordionPanel>
+                      </AccordionItem>
+                    ))}
                 </Accordion>
               </Box>
             )}

@@ -1,4 +1,5 @@
 import { User } from "@/types/user";
+import { Organization } from "@/types/organization";
 import { SiteMap } from "@/types/common/site-map";
 const siteMap: SiteMap = {
   // 資材管理画面
@@ -34,35 +35,50 @@ const accessMap: Record<
     title: string;
     menu:
       | { label: string; path: string }[]
-      | ((user: User) => { label: string; path: string }[]);
+      | ((param: User | Organization) => { label: string; path: string }[]);
   }
 > = {
   material_access: {
     title: "資材管理",
-    menu: [
-      { label: "資材一覧", path: siteMap.materials_list },
-      {
-        label: "資材払い出し",
-        path: siteMap.materials_use("dummy"),
-      },
-      {
-        label: "資材受け入れ",
-        path: siteMap.materials_receive("dummy"),
-      },
-    ],
+    menu: (param: User | Organization) => {
+      const organization = param as Organization;
+      return [
+        { label: "資材一覧", path: siteMap.materials_list },
+        {
+          label: "資材払い出し",
+          path: siteMap.materials_use(organization.organization_name),
+        },
+        {
+          label: "資材受け入れ",
+          path: siteMap.materials_receive(organization.organization_name),
+        },
+      ];
+    },
   },
   can_manage_own_attendance: {
     title: "出勤簿管理",
-    menu: (user: User) => [
-      { label: "出勤簿", path: siteMap.attendance_by_user_id(String(user.id)) },
-    ],
+    menu: (param: User | Organization) => {
+      const user = param as User;
+      return [
+        {
+          label: "出勤簿",
+          path: siteMap.attendance_by_user_id(String(user.id)),
+        },
+      ];
+    },
   },
   can_manage_all_attendance: {
     title: "出勤簿管理",
-    menu: (user: User) => [
-      { label: "全従業員の出勤を確認", path: siteMap.attendance_list },
-      { label: "出勤簿", path: siteMap.attendance_by_user_id(String(user.id)) },
-    ],
+    menu: (param: User | Organization) => {
+      const user = param as User;
+      return [
+        { label: "全従業員の出勤を確認", path: siteMap.attendance_list },
+        {
+          label: "出勤簿",
+          path: siteMap.attendance_by_user_id(String(user.id)),
+        },
+      ];
+    },
   },
   can_view_production_plan: {
     title: "生産計画管理",
@@ -105,7 +121,8 @@ const accessMap: Record<
 
 export const useNavigation = () => {
   const navigateMenu = (
-    user: User
+    user: User,
+    organization: Organization
   ): { title: string; menu: { label: string; path: string }[] }[] => {
     const accessiblePages: {
       title: string;
@@ -115,7 +132,9 @@ export const useNavigation = () => {
     for (const [key, pages] of Object.entries(accessMap)) {
       if (user.permission[key as keyof typeof user.permission]) {
         const menu =
-          typeof pages.menu === "function" ? pages.menu(user) : pages.menu;
+          typeof pages.menu === "function"
+            ? pages.menu(key === "material_access" ? organization : user)
+            : pages.menu;
         accessiblePages.push({ title: pages.title, menu });
       }
     }
