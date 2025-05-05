@@ -66,7 +66,7 @@ function MaterialReceiveTable({ columns, data }: MaterialReceiveTableProps) {
           <InputWithTooltip
             label="数量"
             name="quantity"
-            tooltip="数量を入力してください"
+            tooltip="在庫として受け入れる数量を半角数字で入力してください"
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
