@@ -1,21 +1,10 @@
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Button,
-  useDisclosure,
-  Input,
-  FormControl,
-  FormLabel,
-} from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button, useDisclosure, FormControl } from "@chakra-ui/react";
 import { useState } from "react";
 import { GenericTableProps } from "@/types/common/generic-table";
 import { MaterialUseStock } from "@/types/material";
 import GenericModal from "@/components/common/GenericModal";
+import InputWithTooltip from "../common/InputWithTooltip";
+
 type MaterialUseStockTableProps = GenericTableProps<MaterialUseStock>;
 
 function MaterialUseStockTable({ columns, data }: MaterialUseStockTableProps) {
@@ -53,11 +42,7 @@ function MaterialUseStockTable({ columns, data }: MaterialUseStockTableProps) {
                   return (
                     <Td key={col.accessor as string}>
                       {col.accessor === "use_stock" ? (
-                        <Button
-                          size="sm"
-                          colorScheme="teal"
-                          onClick={() => handleUseStock(row.id)}
-                        >
+                        <Button size="sm" colorScheme="teal" onClick={() => handleUseStock(row.id)}>
                           処理
                         </Button>
                       ) : (
@@ -79,8 +64,10 @@ function MaterialUseStockTable({ columns, data }: MaterialUseStockTableProps) {
         submitLabel="払い出し"
       >
         <FormControl mb={4}>
-          <FormLabel>数量</FormLabel>
-          <Input
+          <InputWithTooltip
+            label="数量"
+            name="quantity"
+            tooltip="使用した数量を半角数字で入力してください"
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
