@@ -1,7 +1,7 @@
-import { Box, Button, FormControl, FormLabel, Input, VStack, Heading, Tooltip, Flex } from "@chakra-ui/react";
-import { QuestionIcon } from "@chakra-ui/icons";
+import { Box, Button, VStack, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import { useAuthStore } from "@/hooks/useAuthStore";
+import LabeledInputWithTooltip from "@/components/common/LabeledInputWithTooltip";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -19,44 +19,25 @@ const LoginForm = () => {
         ログイン
       </Heading>
       <VStack spacing={4}>
-        <FormControl isRequired>
-          <Flex align="center" gap={1}>
-            <FormLabel mb={0} htmlFor="email">
-              メールアドレス
-            </FormLabel>
-            <Tooltip label="登録済みのメールアドレスを入力してください" hasArrow>
-              <Box as="span" display="inline-flex" alignItems="center">
-                <QuestionIcon boxSize={4} color="gray.500" cursor="help" />
-              </Box>
-            </Tooltip>
-          </Flex>
-          <Input
-            type="email"
-            placeholder="email@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </FormControl>
+        <LabeledInputWithTooltip
+          label="メールアドレス"
+          name="email"
+          tooltip="登録済みのメールアドレスを入力してください"
+          type="email"
+          placeholder="email@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-        <FormControl isRequired>
-          <Flex align="center" gap={1}>
-            <FormLabel mb={0} htmlFor="password">
-              パスワード
-            </FormLabel>
-            <Tooltip label="8文字以上のパスワードを入力してください" hasArrow>
-              <Box as="span" display="inline-flex" alignItems="center">
-                <QuestionIcon boxSize={4} color="gray.500" cursor="help" />
-              </Box>
-            </Tooltip>
-          </Flex>
-          <Input
-            type="password"
-            placeholder="登録済みのパスワード"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </FormControl>
-
+        <LabeledInputWithTooltip
+          label="パスワード"
+          name="password"
+          tooltip="8文字以上のパスワードを入力してください"
+          type="password"
+          placeholder="登録済みのパスワード"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <Button type="submit" colorScheme="teal" w="full">
           ログイン
         </Button>
