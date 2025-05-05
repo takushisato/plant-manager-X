@@ -1,12 +1,5 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  VStack,
-  Heading,
-} from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Input, VStack, Heading, Tooltip, Flex } from "@chakra-ui/react";
+import { QuestionIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { useAuthStore } from "@/hooks/useAuthStore";
 
@@ -27,7 +20,16 @@ const LoginForm = () => {
       </Heading>
       <VStack spacing={4}>
         <FormControl isRequired>
-          <FormLabel>メールアドレス</FormLabel>
+          <Flex align="center" gap={1}>
+            <FormLabel mb={0} htmlFor="email">
+              メールアドレス
+            </FormLabel>
+            <Tooltip label="登録済みのメールアドレスを入力してください" hasArrow>
+              <Box as="span" display="inline-flex" alignItems="center">
+                <QuestionIcon boxSize={4} color="gray.500" cursor="help" />
+              </Box>
+            </Tooltip>
+          </Flex>
           <Input
             type="email"
             placeholder="email@example.com"
@@ -37,7 +39,16 @@ const LoginForm = () => {
         </FormControl>
 
         <FormControl isRequired>
-          <FormLabel>パスワード</FormLabel>
+          <Flex align="center" gap={1}>
+            <FormLabel mb={0} htmlFor="password">
+              パスワード
+            </FormLabel>
+            <Tooltip label="8文字以上のパスワードを入力してください" hasArrow>
+              <Box as="span" display="inline-flex" alignItems="center">
+                <QuestionIcon boxSize={4} color="gray.500" cursor="help" />
+              </Box>
+            </Tooltip>
+          </Flex>
           <Input
             type="password"
             placeholder="登録済みのパスワード"
