@@ -1,7 +1,7 @@
 import { Box, Button, VStack, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import { useAuthStore } from "@/hooks/useAuthStore";
-import LabeledInputWithTooltip from "@/components/common/LabeledInputWithTooltip";
+import InputWithTooltip from "@/components/common/InputWithTooltip";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ const LoginForm = () => {
         ログイン
       </Heading>
       <VStack spacing={4}>
-        <LabeledInputWithTooltip
+        <InputWithTooltip
           label="メールアドレス"
           name="email"
           tooltip="登録済みのメールアドレスを入力してください"
@@ -29,7 +29,7 @@ const LoginForm = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <LabeledInputWithTooltip
+        <InputWithTooltip
           label="パスワード"
           name="password"
           tooltip="8文字以上のパスワードを入力してください"
