@@ -1,21 +1,22 @@
-import { Box, Button, FormControl, FormLabel, Input, Textarea, VStack, Heading } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
+import { Box, Heading } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { useDefectStore } from "@/hooks/useDefectStore";
 import { DefectCreateItem } from "@/types/defect";
+import DefectCreateForm from "@/components/defect/DefectCreateForm";
 
 const DefectCreate = () => {
   const { createDefect } = useDefectStore();
   const { user } = useAuthStore();
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<DefectCreateItem>({
     occurred_at: "",
     title: "",
     defect_detail: "",
     submission: "当事者が後日入力",
     submission_deadline: "",
-    create_user: user?.id ?? "",
-    order: "",
+    create_user: user?.id ?? NaN,
+    order: 0,
   });
 
   useEffect(() => {
@@ -24,20 +25,14 @@ const DefectCreate = () => {
     }
   }, [user]);
 
-  /*
-   * 入力フォームの変更
-   */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
-  /*
-   * 不具合を新規登録
-   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createDefect(form as DefectCreateItem);
+    createDefect(form);
   };
 
   return (
@@ -46,79 +41,7 @@ const DefectCreate = () => {
         <Heading size="md" mb={4}>
           不具合の新規投稿
         </Heading>
-        <form onSubmit={handleSubmit}>
-          <VStack spacing={4} align="stretch">
-            <FormControl isRequired>
-              <FormLabel>発生日</FormLabel>
-              <Input
-                type="date"
-                name="occurred_at"
-                value={form.occurred_at}
-                onChange={handleChange}
-                id="occurred_at"
-                data-testid="occurred_at"
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel>タイトル</FormLabel>
-              <Input name="title" value={form.title} onChange={handleChange} id="title" data-testid="title" />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel>不具合詳細</FormLabel>
-              <Textarea
-                name="defect_detail"
-                value={form.defect_detail}
-                onChange={handleChange}
-                minHeight="600px"
-                id="defect_detail"
-                data-testid="defect_detail"
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel>対策の入力期限</FormLabel>
-              <Input
-                type="date"
-                name="submission_deadline"
-                value={form.submission_deadline}
-                onChange={handleChange}
-                id="submission_deadline"
-                data-testid="submission_deadline"
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>作成者ID</FormLabel>
-              <Input
-                type="number"
-                name="create_user"
-                value={form.create_user}
-                onChange={handleChange}
-                isDisabled
-                id="create_user"
-                data-testid="create_user"
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel>関連注文ID</FormLabel>
-              <Input
-                type="number"
-                name="order"
-                value={form.order}
-                onChange={handleChange}
-                id="order"
-                data-testid="order"
-              />
-            </FormControl>
-            <Button
-              type="submit"
-              colorScheme="teal"
-              isDisabled={
-                !form.occurred_at || !form.title || !form.defect_detail || !form.submission_deadline || !form.order
-              }
-            >
-              登録
-            </Button>
-          </VStack>
-        </form>
+        <DefectCreateForm form={form} onChange={handleChange} onSubmit={handleSubmit} />
       </Box>
     </Layout>
   );
