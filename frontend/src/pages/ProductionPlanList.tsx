@@ -14,13 +14,11 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-  Input,
   useDisclosure,
-  FormControl,
-  FormLabel,
 } from "@chakra-ui/react";
 import { useProductionStore } from "@/hooks/useProductionStore";
 import { ProductionPlanRecord } from "@/types/production";
+import InputWithTooltip from "@/components/common/InputWithTooltip";
 
 const ProductionPlanList = () => {
   const {
@@ -50,15 +48,9 @@ const ProductionPlanList = () => {
   } = useProductionStore();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isPeriodModalOpen,
-    onOpen: onPeriodModalOpen,
-    onClose: onPeriodModalClose,
-  } = useDisclosure();
+  const { isOpen: isPeriodModalOpen, onOpen: onPeriodModalOpen, onClose: onPeriodModalClose } = useDisclosure();
 
-  const [periodStartDate, setPeriodStartDate] = useState(
-    chartStartDate.toISOString().slice(0, 10)
-  );
+  const [periodStartDate, setPeriodStartDate] = useState(chartStartDate.toISOString().slice(0, 10));
   const [periodEndDate, setPeriodEndDate] = useState(
     (() => {
       const endDate = new Date(chartStartDate);
@@ -79,16 +71,8 @@ const ProductionPlanList = () => {
     setTaskTitle(record.title);
     setTaskStartDate(record.planned_start_date.toISOString().slice(0, 10));
     setTaskEndDate(record.planned_end_date.toISOString().slice(0, 10));
-    setActualStartDate(
-      record.actual_start_date
-        ? record.actual_start_date.toISOString().slice(0, 10)
-        : ""
-    );
-    setActualEndDate(
-      record.actual_end_date
-        ? record.actual_end_date.toISOString().slice(0, 10)
-        : ""
-    );
+    setActualStartDate(record.actual_start_date ? record.actual_start_date.toISOString().slice(0, 10) : "");
+    setActualEndDate(record.actual_end_date ? record.actual_end_date.toISOString().slice(0, 10) : "");
     setCurrentEditTaskId(record.id);
     onOpen();
   };
@@ -152,8 +136,7 @@ const ProductionPlanList = () => {
     <Layout>
       <Box p={8}>
         <Heading mb={6} fontSize="xl">
-          {productionPlanList.organization.organization_name}{" "}
-          生産計画ガントチャート
+          {productionPlanList.organization.organization_name} 生産計画ガントチャート
         </Heading>
 
         {/* 追加ボタン */}
@@ -177,29 +160,42 @@ const ProductionPlanList = () => {
                 <Text fontSize="sm" mb={1}>
                   タイトル
                 </Text>
-                <Input
+                <InputWithTooltip
+                  label="タイトル"
+                  name="taskTitle"
+                  tooltip="タスクの見出しを入力してください"
+                  type="text"
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
+                  isRequired={true}
                 />
               </Box>
               <Box mb={4}>
                 <Text fontSize="sm" mb={1}>
                   開始予定日
                 </Text>
-                <Input
+                <InputWithTooltip
+                  label="開始予定日"
+                  name="taskStartDate"
+                  tooltip="開始予定日を入力してください"
                   type="date"
                   value={taskStartDate}
                   onChange={(e) => setTaskStartDate(e.target.value)}
+                  isRequired={true}
                 />
               </Box>
               <Box mb={4}>
                 <Text fontSize="sm" mb={1}>
                   終了予定日
                 </Text>
-                <Input
+                <InputWithTooltip
+                  label="終了予定日"
+                  name="taskEndDate"
+                  tooltip="終了予定日を入力してください"
                   type="date"
                   value={taskEndDate}
                   onChange={(e) => setTaskEndDate(e.target.value)}
+                  isRequired={true}
                 />
               </Box>
               {currentEditTaskId !== null && (
@@ -208,20 +204,28 @@ const ProductionPlanList = () => {
                     <Text fontSize="sm" mb={1}>
                       実績開始日
                     </Text>
-                    <Input
+                    <InputWithTooltip
+                      label="実績開始日"
+                      name="actualStartDate"
+                      tooltip="実績の開始日を入力してください"
                       type="date"
                       value={actualStartDate}
                       onChange={(e) => setActualStartDate(e.target.value)}
+                      isRequired={false}
                     />
                   </Box>
                   <Box mb={4}>
                     <Text fontSize="sm" mb={1}>
                       実績終了日
                     </Text>
-                    <Input
+                    <InputWithTooltip
+                      label="実績終了日"
+                      name="actualEndDate"
+                      tooltip="実績の終了日を入力してください"
                       type="date"
                       value={actualEndDate}
                       onChange={(e) => setActualEndDate(e.target.value)}
+                      isRequired={false}
                     />
                   </Box>
                 </>
@@ -229,7 +233,12 @@ const ProductionPlanList = () => {
             </ModalBody>
             <ModalFooter display="flex" justifyContent="space-between">
               <Box>
-                <Button colorScheme="teal" mr={3} onClick={handleSaveTask}>
+                <Button
+                  colorScheme="teal"
+                  mr={3}
+                  onClick={handleSaveTask}
+                  isDisabled={!taskTitle || !taskStartDate || !taskEndDate}
+                >
                   保存
                 </Button>
                 <Button onClick={onClose}>キャンセル</Button>
@@ -250,22 +259,22 @@ const ProductionPlanList = () => {
             <ModalHeader>表示期間を変更</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <FormControl mb={4}>
-                <FormLabel>開始日</FormLabel>
-                <Input
-                  type="date"
-                  value={periodStartDate}
-                  onChange={(e) => setPeriodStartDate(e.target.value)}
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>終了日</FormLabel>
-                <Input
-                  type="date"
-                  value={periodEndDate}
-                  onChange={(e) => setPeriodEndDate(e.target.value)}
-                />
-              </FormControl>
+              <InputWithTooltip
+                label="開始日"
+                name="periodStartDate"
+                tooltip="表示する期間の開始日を入力してください"
+                type="date"
+                value={periodStartDate}
+                onChange={(e) => setPeriodStartDate(e.target.value)}
+              />
+              <InputWithTooltip
+                label="終了日"
+                name="periodEndDate"
+                tooltip="表示する期間の終了日を入力してください"
+                type="date"
+                value={periodEndDate}
+                onChange={(e) => setPeriodEndDate(e.target.value)}
+              />
             </ModalBody>
             <ModalFooter>
               <Button colorScheme="teal" mr={3} onClick={handleSaveChartPeriod}>
@@ -280,20 +289,12 @@ const ProductionPlanList = () => {
         <Box overflowX="auto">
           <Grid
             templateColumns={`200px repeat(${totalDays}, 50px)`}
-            templateRows={`repeat(${
-              productionPlanList.records.length * 2
-            }, auto)`}
+            templateRows={`repeat(${productionPlanList.records.length * 2}, auto)`}
             gap={0}
             minWidth="800px"
           >
             {/* ヘッダー */}
-            <GridItem
-              p={2}
-              borderBottom="1px"
-              borderRight="1px"
-              borderColor="gray.200"
-              rowSpan={2}
-            >
+            <GridItem p={2} borderBottom="1px" borderRight="1px" borderColor="gray.200" rowSpan={2}>
               <Text fontWeight="bold">タスク</Text>
             </GridItem>
             {Array.from({ length: totalDays }, (_, i) => (
@@ -310,9 +311,7 @@ const ProductionPlanList = () => {
                   {(() => {
                     const currentDate = new Date(chartStartDate);
                     currentDate.setDate(chartStartDate.getDate() + i);
-                    return `${
-                      currentDate.getMonth() + 1
-                    }/${currentDate.getDate()}`;
+                    return `${currentDate.getMonth() + 1}/${currentDate.getDate()}`;
                   })()}
                 </Text>
               </GridItem>
@@ -353,17 +352,10 @@ const ProductionPlanList = () => {
 
                 {/* 予定ガントバー（1行目） */}
                 {Array.from({ length: totalDays }, (_: unknown, i: number) => {
-                  const plannedStart = dateToDayIndex(
-                    new Date(record.planned_start_date)
-                  );
-                  const plannedEnd = dateToDayIndex(
-                    new Date(record.planned_end_date)
-                  );
+                  const plannedStart = dateToDayIndex(new Date(record.planned_start_date));
+                  const plannedEnd = dateToDayIndex(new Date(record.planned_end_date));
                   const isPlanned =
-                    plannedStart !== null &&
-                    plannedEnd !== null &&
-                    i >= plannedStart &&
-                    i <= plannedEnd;
+                    plannedStart !== null && plannedEnd !== null && i >= plannedStart && i <= plannedEnd;
                   return (
                     <GridItem
                       key={`planned-${record.id}-${i}`}
@@ -379,12 +371,7 @@ const ProductionPlanList = () => {
                       onClick={() => handleEditTask(record)}
                     >
                       {isPlanned ? (
-                        <Box
-                          bg="green.400"
-                          height="8px"
-                          borderRadius="full"
-                          width="100%"
-                        />
+                        <Box bg="green.400" height="8px" borderRadius="full" width="100%" />
                       ) : (
                         <Box height="8px" width="100%" />
                       )}
@@ -397,14 +384,8 @@ const ProductionPlanList = () => {
                   const actualStart = record.actual_start_date
                     ? dateToDayIndex(new Date(record.actual_start_date))
                     : null;
-                  const actualEnd = record.actual_end_date
-                    ? dateToDayIndex(new Date(record.actual_end_date))
-                    : null;
-                  const isActual =
-                    actualStart !== null &&
-                    actualEnd !== null &&
-                    i >= actualStart &&
-                    i <= actualEnd;
+                  const actualEnd = record.actual_end_date ? dateToDayIndex(new Date(record.actual_end_date)) : null;
+                  const isActual = actualStart !== null && actualEnd !== null && i >= actualStart && i <= actualEnd;
                   return (
                     <GridItem
                       key={`actual-${record.id}-${i}`}
@@ -420,12 +401,7 @@ const ProductionPlanList = () => {
                       _hover={{ bg: "gray.100" }}
                     >
                       {isActual ? (
-                        <Box
-                          bg="blue.400"
-                          height="8px"
-                          borderRadius="full"
-                          width="100%"
-                        />
+                        <Box bg="blue.400" height="8px" borderRadius="full" width="100%" />
                       ) : (
                         <Box height="8px" width="100%" />
                       )}
