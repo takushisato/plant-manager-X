@@ -277,7 +277,12 @@ const ProductionPlanList = () => {
               />
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="teal" mr={3} onClick={handleSaveChartPeriod}>
+              <Button
+                colorScheme="teal"
+                mr={3}
+                onClick={handleSaveChartPeriod}
+                isDisabled={!periodStartDate || !periodEndDate}
+              >
                 保存
               </Button>
               <Button onClick={onPeriodModalClose}>キャンセル</Button>
