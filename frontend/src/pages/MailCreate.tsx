@@ -25,6 +25,7 @@ import { useMailGroupStore } from "@/hooks/useMailGroupStore";
 import { useEffect, useState } from "react";
 import { User } from "@/types/user";
 import { mockUsers } from "@/fixtures/users"; // TODO APIから取得する様にしたら削除
+import TooltipIcon from "@/components/common/TooltipIcon";
 
 const MailCreate = () => {
   const { sendMail, postMail, setPostMail } = useMailStore();
@@ -165,15 +166,26 @@ const MailCreate = () => {
             <ModalBody pb={6}>
               <VStack spacing={4}>
                 <Box w="100%">
-                  <Text mb={1}>グループ名</Text>
+                  <Box as="span" display="inline-flex" alignItems="center">
+                    <Text mb={1} mr={2}>
+                      グループ名
+                    </Text>
+                    <TooltipIcon label="グループ名を入力してください" />
+                  </Box>
                   <Input
                     placeholder="グループ名を入力"
                     value={groupTitle}
                     onChange={(e) => setGroupTitle(e.target.value)}
+                    isRequired
                   />
                 </Box>
                 <Box w="100%">
-                  <Text mb={1}>説明</Text>
+                  <Box as="span" display="inline-flex" alignItems="center">
+                    <Text mb={1} mr={2}>
+                      説明
+                    </Text>
+                    <TooltipIcon label="グループの説明があれば入力してください" />
+                  </Box>
                   <Textarea
                     placeholder="グループの説明を入力"
                     value={groupNote}
@@ -194,7 +206,12 @@ const MailCreate = () => {
                     ))}
                   </Stack>
                 </Box>
-                <Button colorScheme="teal" w="100%" onClick={handleCreateMailGroup}>
+                <Button
+                  colorScheme="teal"
+                  w="100%"
+                  onClick={handleCreateMailGroup}
+                  isDisabled={!selectedUsers.length || !groupTitle}
+                >
                   作成
                 </Button>
               </VStack>
