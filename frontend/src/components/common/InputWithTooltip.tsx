@@ -2,9 +2,9 @@ import { FormControl, FormLabel, Input, Flex } from "@chakra-ui/react";
 import TooltipIcon from "@/components/common/TooltipIcon";
 import { InputWithTooltipProps } from "@/types/login";
 
-const InputWithTooltip = ({ label, name, tooltip, ...inputProps }: InputWithTooltipProps) => {
+const InputWithTooltip = ({ label, name, tooltip, isRequired = false, ...inputProps }: InputWithTooltipProps) => {
   return (
-    <FormControl isRequired>
+    <FormControl isRequired={isRequired}>
       <Flex align="center" gap={1}>
         <FormLabel mb={0} htmlFor={name}>
           {label}

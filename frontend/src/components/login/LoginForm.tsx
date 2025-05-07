@@ -27,6 +27,7 @@ const LoginForm = () => {
           placeholder="email@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          isRequired={true}
         />
 
         <InputWithTooltip
@@ -37,8 +38,9 @@ const LoginForm = () => {
           placeholder="登録済みのパスワード"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          isRequired={true}
         />
-        <Button type="submit" colorScheme="teal" w="full">
+        <Button type="submit" colorScheme="teal" w="full" isDisabled={!email || !password}>
           ログイン
         </Button>
       </VStack>
