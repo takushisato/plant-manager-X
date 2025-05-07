@@ -266,6 +266,7 @@ const ProductionPlanList = () => {
                 type="date"
                 value={periodStartDate}
                 onChange={(e) => setPeriodStartDate(e.target.value)}
+                isRequired={true}
               />
               <InputWithTooltip
                 label="終了日"
@@ -274,6 +275,7 @@ const ProductionPlanList = () => {
                 type="date"
                 value={periodEndDate}
                 onChange={(e) => setPeriodEndDate(e.target.value)}
+                isRequired={true}
               />
             </ModalBody>
             <ModalFooter>
