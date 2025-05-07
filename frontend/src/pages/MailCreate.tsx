@@ -28,20 +28,12 @@ import { mockUsers } from "@/fixtures/users"; // TODO APIから取得する様�
 
 const MailCreate = () => {
   const { sendMail, postMail, setPostMail } = useMailStore();
-  const {
-    mailGroupList,
-    getMailGroupList,
-    createMailGroup,
-    groupTitle,
-    setGroupTitle,
-    groupNote,
-    setGroupNote,
-  } = useMailGroupStore();
+  const { mailGroupList, getMailGroupList, createMailGroup, groupTitle, setGroupTitle, groupNote, setGroupNote } =
+    useMailGroupStore();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgSelected = useColorModeValue("teal.100", "teal.700");
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
-  const [selectedMailGroup, setSelectedMailGroup] =
-    useState<MailGroupList | null>(null);
+  const [selectedMailGroup, setSelectedMailGroup] = useState<MailGroupList | null>(null);
 
   // TODO APIから取得する様にする
   const users = mockUsers;
@@ -113,9 +105,7 @@ const MailCreate = () => {
             >
               <Text fontWeight="bold">{mailGroup.group_title}</Text>
               <Text fontSize="sm" color="gray.600" mt={1}>
-                {mailGroup.records
-                  .map((record) => record.recipient_user_name)
-                  .join(", ")}
+                {mailGroup.records.map((record) => record.recipient_user_name).join(", ")}
               </Text>
             </Box>
           ))}
@@ -139,6 +129,7 @@ const MailCreate = () => {
                       group_id: selectedMailGroup.id,
                     })
                   }
+                  isRequired
                 />
               </Box>
 
@@ -155,10 +146,11 @@ const MailCreate = () => {
                       group_id: selectedMailGroup.id,
                     })
                   }
+                  isRequired
                 />
               </Box>
 
-              <Button colorScheme="teal" onClick={handleSendMail}>
+              <Button colorScheme="teal" onClick={handleSendMail} isDisabled={!postMail?.title || !postMail?.message}>
                 送信
               </Button>
             </VStack>
@@ -202,11 +194,7 @@ const MailCreate = () => {
                     ))}
                   </Stack>
                 </Box>
-                <Button
-                  colorScheme="teal"
-                  w="100%"
-                  onClick={handleCreateMailGroup}
-                >
+                <Button colorScheme="teal" w="100%" onClick={handleCreateMailGroup}>
                   作成
                 </Button>
               </VStack>
