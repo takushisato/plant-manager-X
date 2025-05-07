@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  VStack,
-  Heading,
-} from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Input, Textarea, VStack, Heading } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
 import { useState, useEffect } from "react";
 import { useAuthStore } from "@/hooks/useAuthStore";
@@ -36,9 +27,7 @@ const DefectCreate = () => {
   /*
    * 入力フォームの変更
    */
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
@@ -72,13 +61,7 @@ const DefectCreate = () => {
             </FormControl>
             <FormControl isRequired>
               <FormLabel>タイトル</FormLabel>
-              <Input
-                name="title"
-                value={form.title}
-                onChange={handleChange}
-                id="title"
-                data-testid="title"
-              />
+              <Input name="title" value={form.title} onChange={handleChange} id="title" data-testid="title" />
             </FormControl>
             <FormControl isRequired>
               <FormLabel>不具合詳細</FormLabel>
@@ -91,7 +74,7 @@ const DefectCreate = () => {
                 data-testid="defect_detail"
               />
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel>対策の入力期限</FormLabel>
               <Input
                 type="date"
@@ -114,7 +97,7 @@ const DefectCreate = () => {
                 data-testid="create_user"
               />
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel>関連注文ID</FormLabel>
               <Input
                 type="number"
@@ -125,7 +108,13 @@ const DefectCreate = () => {
                 data-testid="order"
               />
             </FormControl>
-            <Button type="submit" colorScheme="teal">
+            <Button
+              type="submit"
+              colorScheme="teal"
+              isDisabled={
+                !form.occurred_at || !form.title || !form.defect_detail || !form.submission_deadline || !form.order
+              }
+            >
               登録
             </Button>
           </VStack>
