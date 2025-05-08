@@ -84,7 +84,7 @@ describe("DefectDetail", () => {
     fireEvent.change(textarea, { target: { value: "新しい対策内容" } });
 
     // 更新ボタンをクリック
-    fireEvent.click(screen.getByRole("button", { name: "更新" }));
+    fireEvent.click(screen.getByRole("button", { name: "対策を申請する" }));
 
     await waitFor(() => {
       expect(mockUpdateSubmission).toHaveBeenCalledWith(1, "新しい対策内容");

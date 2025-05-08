@@ -25,23 +25,16 @@ import { useMailGroupStore } from "@/hooks/useMailGroupStore";
 import { useEffect, useState } from "react";
 import { User } from "@/types/user";
 import { mockUsers } from "@/fixtures/users"; // TODO APIから取得する様にしたら削除
+import TooltipIcon from "@/components/common/TooltipIcon";
 
 const MailCreate = () => {
   const { sendMail, postMail, setPostMail } = useMailStore();
-  const {
-    mailGroupList,
-    getMailGroupList,
-    createMailGroup,
-    groupTitle,
-    setGroupTitle,
-    groupNote,
-    setGroupNote,
-  } = useMailGroupStore();
+  const { mailGroupList, getMailGroupList, createMailGroup, groupTitle, setGroupTitle, groupNote, setGroupNote } =
+    useMailGroupStore();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgSelected = useColorModeValue("teal.100", "teal.700");
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
-  const [selectedMailGroup, setSelectedMailGroup] =
-    useState<MailGroupList | null>(null);
+  const [selectedMailGroup, setSelectedMailGroup] = useState<MailGroupList | null>(null);
 
   // TODO APIから取得する様にする
   const users = mockUsers;
@@ -113,9 +106,7 @@ const MailCreate = () => {
             >
               <Text fontWeight="bold">{mailGroup.group_title}</Text>
               <Text fontSize="sm" color="gray.600" mt={1}>
-                {mailGroup.records
-                  .map((record) => record.recipient_user_name)
-                  .join(", ")}
+                {mailGroup.records.map((record) => record.recipient_user_name).join(", ")}
               </Text>
             </Box>
           ))}
@@ -139,6 +130,7 @@ const MailCreate = () => {
                       group_id: selectedMailGroup.id,
                     })
                   }
+                  isRequired
                 />
               </Box>
 
@@ -155,10 +147,11 @@ const MailCreate = () => {
                       group_id: selectedMailGroup.id,
                     })
                   }
+                  isRequired
                 />
               </Box>
 
-              <Button colorScheme="teal" onClick={handleSendMail}>
+              <Button colorScheme="teal" onClick={handleSendMail} isDisabled={!postMail?.title || !postMail?.message}>
                 送信
               </Button>
             </VStack>
@@ -173,15 +166,26 @@ const MailCreate = () => {
             <ModalBody pb={6}>
               <VStack spacing={4}>
                 <Box w="100%">
-                  <Text mb={1}>グループ名</Text>
+                  <Box as="span" display="inline-flex" alignItems="center">
+                    <Text mb={1} mr={2}>
+                      グループ名
+                    </Text>
+                    <TooltipIcon label="グループ名を入力してください" />
+                  </Box>
                   <Input
                     placeholder="グループ名を入力"
                     value={groupTitle}
                     onChange={(e) => setGroupTitle(e.target.value)}
+                    isRequired
                   />
                 </Box>
                 <Box w="100%">
-                  <Text mb={1}>説明</Text>
+                  <Box as="span" display="inline-flex" alignItems="center">
+                    <Text mb={1} mr={2}>
+                      説明
+                    </Text>
+                    <TooltipIcon label="グループの説明があれば入力してください" />
+                  </Box>
                   <Textarea
                     placeholder="グループの説明を入力"
                     value={groupNote}
@@ -206,6 +210,7 @@ const MailCreate = () => {
                   colorScheme="teal"
                   w="100%"
                   onClick={handleCreateMailGroup}
+                  isDisabled={!selectedUsers.length || !groupTitle}
                 >
                   作成
                 </Button>

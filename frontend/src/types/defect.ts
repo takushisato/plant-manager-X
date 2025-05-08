@@ -26,4 +26,6 @@ export type DefectCreateItem = {
   defect_detail: string;
   submission: string;
   submission_deadline: string;
+  create_user: number;
+  order: number;
 };

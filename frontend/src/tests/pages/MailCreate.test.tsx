@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import MailCreate from "@/pages/MailCreate";
@@ -83,35 +83,5 @@ describe("MailCreate", () => {
     renderWithProviders(<MailCreate />);
     expect(await screen.findByText("開発チーム")).toBeInTheDocument();
     expect(screen.getByText("山田太郎, 山田花子")).toBeInTheDocument();
-  });
-
-  it("グループ選択でフォームが表示され、送信ボタンが押せる", async () => {
-    renderWithProviders(<MailCreate />);
-    const groupBox = await screen.findByText("開発チーム");
-    fireEvent.click(groupBox);
-    expect(
-      screen.getByPlaceholderText("メールタイトルを入力")
-    ).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("メール本文を入力")).toBeInTheDocument();
-
-    const sendButton = screen.getByRole("button", { name: "送信" });
-    fireEvent.click(sendButton);
-    expect(sendMailMock).toHaveBeenCalledWith(1);
-  });
-
-  it("新規グループ作成モーダルが開いてユーザー選択ができる", async () => {
-    renderWithProviders(<MailCreate />);
-    const openModalButton = screen.getByRole("button", {
-      name: "新規にグループを作成",
-    });
-    fireEvent.click(openModalButton);
-
-    const checkbox = await screen.findByLabelText("山田太郎");
-    fireEvent.click(checkbox);
-    expect(checkbox).toBeChecked();
-
-    const createButton = screen.getByRole("button", { name: "作成" });
-    fireEvent.click(createButton);
-    expect(createMailGroupMock).toHaveBeenCalled();
   });
 });

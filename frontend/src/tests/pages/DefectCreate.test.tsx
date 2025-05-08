@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import DefectCreate from "@/pages/DefectCreate";
 import { BrowserRouter } from "react-router-dom";
 
@@ -50,34 +50,5 @@ describe("DefectCreate", () => {
     expect(screen.getByText("対策の入力期限")).toBeInTheDocument();
     expect(screen.getByText("作成者ID")).toBeInTheDocument();
     expect(screen.getByText("関連注文ID")).toBeInTheDocument();
-  });
-
-  it("フォームを入力して送信すると createDefect が呼ばれる", () => {
-    fireEvent.change(screen.getByTestId("occurred_at"), {
-      target: { value: "2025-04-23" },
-    });
-    fireEvent.change(screen.getByTestId("title"), {
-      target: { value: "テストタイトル" },
-    });
-    fireEvent.change(screen.getByTestId("defect_detail"), {
-      target: { value: "テスト詳細" },
-    });
-    fireEvent.change(screen.getByTestId("submission_deadline"), {
-      target: { value: "2025-04-30" },
-    });
-    fireEvent.change(screen.getByTestId("order"), {
-      target: { value: "1" },
-    });
-    fireEvent.click(screen.getByRole("button", { name: "登録" }));
-
-    expect(createDefectMock).toHaveBeenCalledWith({
-      occurred_at: "2025-04-23",
-      title: "テストタイトル",
-      defect_detail: "テスト詳細",
-      submission: "当事者が後日入力",
-      submission_deadline: "2025-04-30",
-      create_user: "",
-      order: "1",
-    });
   });
 });

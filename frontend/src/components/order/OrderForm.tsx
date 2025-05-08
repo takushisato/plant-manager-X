@@ -2,6 +2,7 @@ import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { useOrderStore } from "@/hooks/useOrderStore";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import InputWithTooltip from "@/components/common/InputWithTooltip";
 
 const OrderForm = () => {
   const {
@@ -80,77 +81,87 @@ const OrderForm = () => {
   };
 
   return (
-    <Box
-      as="form"
-      onSubmit={handleSubmit}
-      w="100%"
-      maxW="1200px"
-      mx="auto"
-      data-testid="order-form"
-    >
+    <Box as="form" onSubmit={handleSubmit} w="100%" maxW="1200px" mx="auto" data-testid="order-form">
       <FormControl>
-        <FormLabel>顧客名</FormLabel>
-        <Input
+        <InputWithTooltip
+          label="顧客名"
+          name="customer_name"
+          tooltip="顧客名を入力してください"
           type="text"
           value={customer_name}
           onChange={(e) => setCustomerName(e.target.value)}
+          isRequired={true}
         />
       </FormControl>
       <FormControl>
-        <FormLabel>注文番号</FormLabel>
-        <Input
+        <InputWithTooltip
+          label="注文番号"
+          name="order_number"
+          tooltip="未入力の場合は自動生成されます"
           type="text"
           value={order_number}
           onChange={(e) => setOrderNumber(e.target.value)}
+          isRequired={false}
         />
       </FormControl>
       <FormControl>
-        <FormLabel>注文日</FormLabel>
-        <Input
+        <InputWithTooltip
+          label="注文日"
+          name="order_date"
+          tooltip="今日の日付が自動設定されますが、必要に応じて変更してください"
           type="date"
           value={order_date}
           onChange={(e) => setOrderDate(e.target.value)}
+          isRequired={true}
         />
       </FormControl>
       <FormControl>
-        <FormLabel>商品名</FormLabel>
-        <Input
+        <InputWithTooltip
+          label="商品名"
+          name="product_name"
+          tooltip="商品名を入力してください"
           type="text"
           value={product_name}
           onChange={(e) => setProductName(e.target.value)}
+          isRequired={true}
         />
       </FormControl>
       <FormControl>
-        <FormLabel>数量</FormLabel>
-        <Input
+        <InputWithTooltip
+          label="数量"
+          name="quantity"
+          tooltip="半角数字で入力してください"
           type="number"
           value={quantity}
           onChange={(e) => setQuantity(parseInt(e.target.value))}
+          isRequired={true}
         />
       </FormControl>
       <FormControl>
-        <FormLabel>価格</FormLabel>
-        <Input
+        <InputWithTooltip
+          label="価格"
+          name="price"
+          tooltip="半角数字で入力してください"
           type="number"
           value={price}
           onChange={(e) => setPrice(parseInt(e.target.value))}
+          isRequired={true}
         />
       </FormControl>
       <FormControl>
-        <FormLabel>納期</FormLabel>
-        <Input
+        <InputWithTooltip
+          label="納期"
+          name="deadline"
+          tooltip="客先と合意した納期を入力してください"
           type="date"
           value={deadline}
           onChange={(e) => setDeadline(e.target.value)}
+          isRequired={true}
         />
       </FormControl>
       <FormControl>
         <FormLabel>備考</FormLabel>
-        <Input
-          type="text"
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-        />
+        <Input type="text" value={note} onChange={(e) => setNote(e.target.value)} />
       </FormControl>
       <Button type="submit" mt={4}>
         作成

@@ -1,22 +1,9 @@
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Button,
-  useDisclosure,
-  Input,
-  FormControl,
-  FormLabel,
-} from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button, useDisclosure, FormControl } from "@chakra-ui/react";
 import { useState } from "react";
 import { GenericTableProps } from "@/types/common/generic-table";
 import { MaterialReceiveStock } from "@/types/material";
 import GenericModal from "@/components/common/GenericModal";
-
+import InputWithTooltip from "@/components/common/InputWithTooltip";
 type MaterialReceiveTableProps = GenericTableProps<MaterialReceiveStock>;
 
 function MaterialReceiveTable({ columns, data }: MaterialReceiveTableProps) {
@@ -54,11 +41,7 @@ function MaterialReceiveTable({ columns, data }: MaterialReceiveTableProps) {
                   return (
                     <Td key={col.accessor as string}>
                       {col.accessor === "receive_stock" ? (
-                        <Button
-                          size="sm"
-                          colorScheme="teal"
-                          onClick={() => handleReceiveStock(row.id)}
-                        >
+                        <Button size="sm" colorScheme="teal" onClick={() => handleReceiveStock(row.id)}>
                           処理
                         </Button>
                       ) : (
@@ -80,8 +63,10 @@ function MaterialReceiveTable({ columns, data }: MaterialReceiveTableProps) {
         submitLabel="受け入れ"
       >
         <FormControl mb={4}>
-          <FormLabel>数量</FormLabel>
-          <Input
+          <InputWithTooltip
+            label="数量"
+            name="quantity"
+            tooltip="在庫として受け入れる数量を半角数字で入力してください"
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
