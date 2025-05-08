@@ -83,7 +83,6 @@ const OrderForm = () => {
   return (
     <Box as="form" onSubmit={handleSubmit} w="100%" maxW="1200px" mx="auto" data-testid="order-form">
       <FormControl>
-        <FormLabel>顧客名</FormLabel>
         <InputWithTooltip
           label="顧客名"
           name="customer_name"
@@ -95,7 +94,6 @@ const OrderForm = () => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel>注文番号</FormLabel>
         <InputWithTooltip
           label="注文番号"
           name="order_number"
@@ -118,7 +116,6 @@ const OrderForm = () => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel>商品名</FormLabel>
         <InputWithTooltip
           label="商品名"
           name="product_name"
@@ -130,7 +127,6 @@ const OrderForm = () => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel>数量</FormLabel>
         <InputWithTooltip
           label="数量"
           name="quantity"
@@ -142,7 +138,6 @@ const OrderForm = () => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel>価格</FormLabel>
         <InputWithTooltip
           label="価格"
           name="price"
@@ -154,7 +149,6 @@ const OrderForm = () => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel>納期</FormLabel>
         <InputWithTooltip
           label="納期"
           name="deadline"
