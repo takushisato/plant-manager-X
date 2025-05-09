@@ -1,5 +1,5 @@
 import pytest
-from apps.staff_hub.models import User
+from apps.staff_hub.models.user import User
 from tests.factory.user_factory import UserFactory
 from tests.factory.organization_factory import OrganizationFactory
 

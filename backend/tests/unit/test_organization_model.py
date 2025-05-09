@@ -1,6 +1,6 @@
 import pytest
 from django.db.utils import IntegrityError
-from apps.staff_hub.models import Organization
+from apps.staff_hub.models.organization import Organization
 from tests.factory.organization_factory import OrganizationFactory
 
 

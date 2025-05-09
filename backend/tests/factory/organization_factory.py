@@ -1,5 +1,5 @@
 import factory
-from apps.staff_hub.models import Organization
+from apps.staff_hub.models.organization import Organization
 
 
 class OrganizationFactory(factory.django.DjangoModelFactory):

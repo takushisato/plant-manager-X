@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from djoser.serializers import UserSerializer as DjoserUserSerializer
-from apps.staff_hub.models import Permission
+from apps.staff_hub.models.permission import Permission
 
 User = get_user_model()
 

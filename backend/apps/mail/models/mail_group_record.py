@@ -1,5 +1,5 @@
 from django.db import models
-from apps.staff_hub.models import User
+from apps.staff_hub.models.user import User
 from .mail_group import MailGroup
 from apps.utility.models import BaseModel
 

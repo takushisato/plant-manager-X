@@ -1,6 +1,6 @@
 from django.db import models
 from apps.utility.models import BaseModel
-from apps.staff_hub.models import User
+from apps.staff_hub.models.user import User
 
 class PaidLeave(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="ユーザー")

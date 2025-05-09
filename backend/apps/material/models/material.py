@@ -1,6 +1,6 @@
 from django.db import models
 from apps.utility.models import BaseModel
-from apps.staff_hub.models import Organization
+from apps.staff_hub.models.organization import Organization
 from django.shortcuts import get_object_or_404
 
 

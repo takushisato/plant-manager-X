@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
-from apps.staff_hub.models import Permission
-from apps.staff_hub.models import Organization
+from apps.staff_hub.models.permission import Permission
+from apps.staff_hub.models.organization import Organization
+from apps.staff_hub.models.organization_member import OrganizationMember
 User = get_user_model()
 
 
@@ -59,3 +60,4 @@ class UserAdminCustom(UserAdmin):
 admin.site.register(User, UserAdminCustom)
 admin.site.register(Permission)
 admin.site.register(Organization)
+admin.site.register(OrganizationMember)
