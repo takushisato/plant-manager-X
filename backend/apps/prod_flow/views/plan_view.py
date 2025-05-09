@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from drf_spectacular.utils import extend_schema
 from apps.prod_flow.models.production_plan import ProductionPlan
 from apps.prod_flow.serializer import PlanWithRecordSerializer
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.prod_flow.common import check_prod_flow_view_permission
 
 

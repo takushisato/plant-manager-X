@@ -1,5 +1,5 @@
 from rest_framework import permissions
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status

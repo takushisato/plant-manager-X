@@ -7,7 +7,7 @@ from drf_spectacular.utils import extend_schema
 
 from apps.trade_flow.models.orders import Order
 from apps.trade_flow.serializers import OrderCreateSerializer
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.trade_flow.common import check_trade_flow_edit_permission
 from django.utils import timezone
 

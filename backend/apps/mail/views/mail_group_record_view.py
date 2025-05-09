@@ -5,7 +5,7 @@ from drf_spectacular.utils import extend_schema
 from django.shortcuts import get_object_or_404
 
 from apps.mail.models.mail_group import MailGroup
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.mail.common import check_mail_access_permission
 from apps.utility.const import MESSAGES
 

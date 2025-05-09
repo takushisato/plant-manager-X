@@ -5,7 +5,7 @@ from drf_spectacular.utils import extend_schema
 
 from apps.mail.serializer import MailGroupRecordBulkCreateSerializer
 from apps.mail.models.mail_group_record import MailGroupRecord
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.mail.common import check_mail_access_permission
 from apps.utility.const import MESSAGES
 from apps.mail.views.validations import validate_recipient_users, validate_mail_group_ownership

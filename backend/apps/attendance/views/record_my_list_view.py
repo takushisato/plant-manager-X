@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema
 from apps.attendance.models.work_record import WorkRecord
 from apps.attendance.serializers import WorkRecordListSerializer
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.attendance.common import check_attendance_own_edit_permission
 from rest_framework import status
 from apps.attendance.views.validations import validate_month_param_exists, get_month_range_from_str

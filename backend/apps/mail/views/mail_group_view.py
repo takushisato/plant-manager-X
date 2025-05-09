@@ -5,7 +5,7 @@ from rest_framework import status
 from drf_spectacular.utils import extend_schema
 from apps.mail.models.mail_group import MailGroup
 from apps.mail.serializer import MailGroupWithRecordSerializer
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.mail.common import check_mail_access_permission
 from apps.mail.serializer import MailGroupCreateSerializer
 

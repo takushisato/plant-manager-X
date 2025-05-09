@@ -6,7 +6,7 @@ from drf_spectacular.utils import extend_schema
 
 from apps.attendance.models.work_record import WorkRecord
 from apps.attendance.serializers import WorkRecordCreateSerializer
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.attendance.common import check_attendance_own_edit_permission
 from apps.attendance.views.validations import validate_clock_order, validate_within_work_pattern, calculate_minutes, get_total_break_minutes, calculate_net_work_minutes, validate_duplicate_record
 

@@ -6,7 +6,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from apps.bug_note.models.defect import Defect
 from apps.bug_note.serializers import DefectDetailGetSerializer, DefectDetailUpdateSerializer
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.bug_note.common import check_bug_note_view_permission, check_bug_note_edit_permission
 from django.utils import timezone
 

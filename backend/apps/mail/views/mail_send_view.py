@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import permissions
 from apps.mail.models.mail_group_record import MailGroupRecord
 from apps.mail.serializer import MailSendSerializer
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.mail.common import check_mail_access_permission
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from apps.utility.const import MESSAGES

@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 from apps.material.models.material import Material
 from apps.material.serializers import MaterialSerializer
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.material.common import check_material_access_permission
 from drf_spectacular.utils import extend_schema
 
