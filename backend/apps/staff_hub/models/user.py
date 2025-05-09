@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     カスタムユーザーモデル
     """
     email = models.EmailField("メールアドレス", max_length=255, unique=True)
-    name = models.CharField("ニックネーム", max_length=255)
+    name = models.CharField("名前", max_length=255)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, verbose_name="組織", null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
