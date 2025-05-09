@@ -1,6 +1,6 @@
 from django.db import models
 from apps.utility.models import BaseModel
-from apps.staff_hub.models import User
+from apps.staff_hub.models.user import User
 from apps.trade_flow.models.orders import Order
 
 

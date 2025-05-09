@@ -4,7 +4,7 @@ from rest_framework import status, permissions
 from django.db import transaction
 from apps.material.models.material import Material
 from apps.material.serializers import ReceiveStockSerializer
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.material.common import check_material_access_permission
 from drf_spectacular.utils import extend_schema
 from apps.utility.const import MESSAGES

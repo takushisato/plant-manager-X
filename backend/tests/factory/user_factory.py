@@ -1,5 +1,5 @@
 import factory
-from apps.staff_hub.models import User
+from apps.staff_hub.models.user import User
 from .organization_factory import OrganizationFactory
 
 

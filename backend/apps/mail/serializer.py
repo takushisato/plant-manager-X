@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from apps.mail.models.mail_group import MailGroup
 from apps.mail.models.mail_group_record import MailGroupRecord
-from apps.staff_hub.models import User
+from apps.staff_hub.models.user import User
 
 
 class MailGroupCreateSerializer(serializers.ModelSerializer):

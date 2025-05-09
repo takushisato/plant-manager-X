@@ -1,7 +1,7 @@
 from django.db import models
 from apps.utility.models import BaseModel
 from apps.attendance.models.work_pattern import WorkPattern
-from apps.staff_hub.models import User
+from apps.staff_hub.models.user import User
 from apps.utility.enums import WorkStatus
 
 

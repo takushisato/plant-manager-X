@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
-from apps.staff_hub.models import Permission
-from apps.staff_hub.models import Organization
+from apps.staff_hub.models.permission import Permission
+from apps.staff_hub.models.organization import Organization
+
 User = get_user_model()
 
 

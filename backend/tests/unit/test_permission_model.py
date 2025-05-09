@@ -1,5 +1,5 @@
 import pytest
-from apps.staff_hub.models import Permission
+from apps.staff_hub.models.permission import Permission
 from tests.factory.permission_factory import PermissionFactory
 from tests.factory.user_factory import UserFactory
 from django.db import IntegrityError

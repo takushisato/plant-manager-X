@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from drf_spectacular.utils import extend_schema
 from apps.prod_flow.serializer import PlanWithRecordSerializer
-from apps.staff_hub.permission import HasUserPermissionObject
+from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.prod_flow.common import check_prod_flow_edit_permission
 from apps.prod_flow.models.production_plan import ProductionPlan
 from django.shortcuts import get_object_or_404

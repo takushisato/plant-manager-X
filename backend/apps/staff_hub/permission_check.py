@@ -1,5 +1,5 @@
 from rest_framework import permissions
-from apps.staff_hub.models import Permission
+from apps.staff_hub.models.permission import Permission
 
 class HasUserPermissionObject(permissions.BasePermission):
     """
