@@ -17,15 +17,24 @@ const LoginForm = () => {
    * @param e
    */
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await login(email, password);
-    toast({
-      title: "ログインしました",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
-    navigate("/");
+    try {
+      e.preventDefault();
+      await login(email, password);
+      toast({
+        title: "ログインしました",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "ログインに失敗しました",
+        description: "メールアドレスかパスワードが間違っています",
+        status: "error",
+      });
+    }
   };
 
   return (
