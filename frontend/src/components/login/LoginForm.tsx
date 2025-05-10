@@ -2,15 +2,39 @@ import { Box, Button, VStack, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import InputWithTooltip from "@/components/common/InputWithTooltip";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuthStore();
+  const navigate = useNavigate();
+  const toast = useToast();
 
+  /**
+   * ログインボタンをクリック
+   * @param e
+   */
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await login(email, password);
+    try {
+      e.preventDefault();
+      await login(email, password);
+      toast({
+        title: "ログインしました",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "ログインに失敗しました",
+        description: "メールアドレスかパスワードが間違っています",
+        status: "error",
+      });
+    }
   };
 
   return (

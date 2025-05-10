@@ -20,6 +20,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
         const data = await apiClient<User>({ url: endpoints.get.users });
         set({ user: data });
       } catch (error) {
+        console.error(error);
         Cookies.remove("token");
         set({ user: null });
       }
