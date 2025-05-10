@@ -2,15 +2,17 @@ import { Box, Button, VStack, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import InputWithTooltip from "@/components/common/InputWithTooltip";
-
+import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     await login(email, password);
+    navigate("/");
   };
 
   return (
