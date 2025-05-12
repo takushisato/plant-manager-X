@@ -4,8 +4,10 @@ import { useAuthStore } from "@/hooks/useAuthStore";
 import InputWithTooltip from "@/components/common/InputWithTooltip";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
+import { Loading } from "@/components/common/Loading";
 
 const LoginForm = () => {
+  const { showLoading, hideLoading, LoadingOverlay } = Loading();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuthStore();
@@ -18,6 +20,7 @@ const LoginForm = () => {
    */
   const handleLogin = async (e: React.FormEvent) => {
     try {
+      showLoading();
       e.preventDefault();
       await login(email, password);
       toast({
@@ -34,6 +37,8 @@ const LoginForm = () => {
         description: "メールアドレスかパスワードが間違っています",
         status: "error",
       });
+    } finally {
+      hideLoading();
     }
   };
 
@@ -68,6 +73,7 @@ const LoginForm = () => {
           ログイン
         </Button>
       </VStack>
+      <LoadingOverlay />
     </Box>
   );
 };
