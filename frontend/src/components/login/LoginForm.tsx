@@ -15,7 +15,7 @@ const LoginForm = () => {
   const toast = useToast();
 
   /**
-   * ログインボタンをクリック
+   * ログイン
    * @param e
    */
   const handleLogin = async (e: React.FormEvent) => {
