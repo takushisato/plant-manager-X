@@ -1,68 +1,101 @@
 [
-    {
-        "model": "material.Material",
-        "pk": 1,
-        "fields": {
-            "organization": 2,
-            "material_name": "1㎜ 鉄 鋼板",
-            "material_price": 1000,
-            "stock_qty": 100,
-            "order_suggestion_qty": 10
-        }
-    },
-    {
-        "model": "material.Material",
-        "pk": 2,
-        "fields": {
-            "organization": 2,
-            "material_name": "2㎜ 鉄 鋼板",
-            "material_price": 1500,
-            "stock_qty": 100,
-            "order_suggestion_qty": 10
-        }
-    },
-    {
-        "model": "material.Material",
-        "pk": 3,
-        "fields": {
-            "organization": 2,
-            "material_name": "3㎜ 鉄 鋼板",
-            "material_price": 2000,
-            "stock_qty": 100,
-            "order_suggestion_qty": 10
-        }
-    },
-    {
-        "model": "material.Material",
-        "pk": 4,
-        "fields": {
-            "organization": 2,
-            "material_name": "1㎜ ステンレス 鋼板",
-            "material_price": 1300,
-            "stock_qty": 100,
-            "order_suggestion_qty": 10
-        }
-    },
-    {
-        "model": "material.Material",
-        "pk": 5,
-        "fields": {
-            "organization": 2,
-            "material_name": "2㎜ ステンレス 鋼板",
-            "material_price": 1600,
-            "stock_qty": 100,
-            "order_suggestion_qty": 10
-        }
-    },
-    {
-        "model": "material.Material",
-        "pk": 6,
-        "fields": {
-            "organization": 2,
-            "material_name": "3㎜ ステンレス 鋼板",
-            "material_price": 2000,
-            "stock_qty": 100,
-            "order_suggestion_qty": 10
-        }
+  {
+    "model": "material.Material",
+    "pk": 1,
+    "fields": {
+      "organization": 2,
+      "material_name": "1㎜ 鉄 鋼板",
+      "material_price": 1000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
     }
+  },
+  {
+    "model": "material.Material",
+    "pk": 2,
+    "fields": {
+      "organization": 2,
+      "material_name": "2㎜ 鉄 鋼板",
+      "material_price": 1500,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 3,
+    "fields": {
+      "organization": 2,
+      "material_name": "3㎜ 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 4,
+    "fields": {
+      "organization": 2,
+      "material_name": "1㎜ ステンレス 鋼板",
+      "material_price": 1300,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 5,
+    "fields": {
+      "organization": 2,
+      "material_name": "2㎜ ステンレス 鋼板",
+      "material_price": 1600,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 6,
+    "fields": {
+      "organization": 2,
+      "material_name": "3㎜ ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 7,
+    "fields": {
+      "organization": 1,
+      "material_name": "印刷用紙 A4",
+      "material_price": 2000,
+      "stock_qty": 1000,
+      "order_suggestion_qty": 100
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 8,
+    "fields": {
+      "organization": 1,
+      "material_name": "印刷用紙 B4",
+      "material_price": 2500,
+      "stock_qty": 1000,
+      "order_suggestion_qty": 100
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 9,
+    "fields": {
+      "organization": 1,
+      "material_name": "印刷用紙 A3",
+      "material_price": 3000,
+      "stock_qty": 1000,
+      "order_suggestion_qty": 100
+    }
+  }
 ]
