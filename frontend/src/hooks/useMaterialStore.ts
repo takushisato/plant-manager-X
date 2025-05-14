@@ -1,23 +1,14 @@
 import { create } from "zustand";
-import {
-  MaterialList,
-  MaterialReceiveStock,
-  MaterialUseStock,
-} from "@/types/material";
-import {
-  mockMaterialList,
-  mockMaterialReceiveStock,
-  mockMaterialUseStock,
-} from "@/fixtures/material";
-
+import { MaterialList, MaterialReceiveStock, MaterialUseStock } from "@/types/material";
+import { mockMaterialReceiveStock, mockMaterialUseStock } from "@/fixtures/material";
+import { endpoints } from "@/utils/apiUrls";
+import axios from "axios";
 type MaterialStore = {
   materialList: MaterialList[];
   setMaterialList: (materialList: MaterialList[]) => void;
   getMaterialList: () => Promise<void>;
   materialReceiveStock: MaterialReceiveStock[];
-  setMaterialReceiveStock: (
-    materialReceiveStock: MaterialReceiveStock[]
-  ) => void;
+  setMaterialReceiveStock: (materialReceiveStock: MaterialReceiveStock[]) => void;
   getMaterialReceiveStock: () => Promise<void>;
   materialUseStock: MaterialUseStock[];
   setMaterialUseStock: (materialUseStock: MaterialUseStock[]) => void;
@@ -28,19 +19,17 @@ export const useMaterialStore = create<MaterialStore>((set) => ({
   materialList: [],
   setMaterialList: (materialList: MaterialList[]) => set({ materialList }),
   materialReceiveStock: [],
-  setMaterialReceiveStock: (materialReceiveStock: MaterialReceiveStock[]) =>
-    set({ materialReceiveStock }),
+  setMaterialReceiveStock: (materialReceiveStock: MaterialReceiveStock[]) => set({ materialReceiveStock }),
   materialUseStock: [],
-  setMaterialUseStock: (materialUseStock: MaterialUseStock[]) =>
-    set({ materialUseStock }),
+  setMaterialUseStock: (materialUseStock: MaterialUseStock[]) => set({ materialUseStock }),
 
   /**
    * 資材一覧を取得する
-   * TODO モックからAPIに変更する
    */
   getMaterialList: async () => {
-    const mockData = mockMaterialList;
-    set({ materialList: mockData });
+    const response = await axios.get(endpoints.get.materialList);
+    console.log(response);
+    set({ materialList: response.data.results });
   },
 
   /**

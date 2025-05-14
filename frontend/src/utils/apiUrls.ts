@@ -5,6 +5,7 @@ export const endpoints = {
   },
   get: {
     users: "/api/auth/custom/users/me",
+    materialList: "/api/materials",
   },
   put: {
     users: (id: string) => `/api/auth/users/${id}`,
