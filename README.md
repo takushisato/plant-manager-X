@@ -179,23 +179,23 @@ pytest
 | Django 管理画面           | localhost:8000/admin/ |
 | MySQL (データベース)      | localhost:3306        |
 
-### Windowsの場合
+### Windows の場合
 
-win機（WSL）の場合、mysqlclient 環境作成時にドライバが必要な時があります。
+win 機（WSL）の場合、mysqlclient 環境作成時にドライバが必要な時があります。
 
 ```
 # mysqlclient のビルドに必要なシステム依存パッケージ
 
-sudo apt update  
+sudo apt update
 sudo apt install -y pkg-config default-libmysqlclient-dev build-essential
 ```
 
-### CI及び自動について
+### CI 及び自動について
 
-現時点でpytestを実装済み。
-CIではモックのSQlite3を使用して、自動テストを行っている。
+現時点で pytest を実装済み。
+CI ではモックの SQlite3 を使用して、自動テストを行っている。
 
-ローカルでpytestを行う場合は、docker環境に入る必要がある。
+ローカルで pytest を行う場合は、docker 環境に入る必要がある。
 
 ```
 # docker環境のバックエンドに入る
