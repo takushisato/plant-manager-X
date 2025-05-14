@@ -2,7 +2,8 @@ import { create } from "zustand";
 import { MaterialList, MaterialReceiveStock, MaterialUseStock } from "@/types/material";
 import { mockMaterialReceiveStock, mockMaterialUseStock } from "@/fixtures/material";
 import { endpoints } from "@/utils/apiUrls";
-import axios from "axios";
+import { apiClient } from "@/domain/api/apiClient";
+
 type MaterialStore = {
   materialList: MaterialList[];
   setMaterialList: (materialList: MaterialList[]) => void;
@@ -24,12 +25,15 @@ export const useMaterialStore = create<MaterialStore>((set) => ({
   setMaterialUseStock: (materialUseStock: MaterialUseStock[]) => set({ materialUseStock }),
 
   /**
-   * 資材一覧を取得する
+   * 資材一覧を取得
+   * （ユーザーの所属している組織のもののみ取得可能になっている）
    */
   getMaterialList: async () => {
-    const response = await axios.get(endpoints.get.materialList);
-    console.log(response);
-    set({ materialList: response.data.results });
+    const response = await apiClient<MaterialList[]>({
+      url: endpoints.get.materialList,
+      method: "GET",
+    });
+    set({ materialList: response });
   },
 
   /**
