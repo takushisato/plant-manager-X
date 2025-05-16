@@ -10,7 +10,7 @@ type MaterialStore = {
   getMaterialList: () => Promise<void>;
   materialReceiveStock: MaterialReceiveStock[];
   setMaterialReceiveStock: (materialReceiveStock: MaterialReceiveStock[]) => void;
-  putMaterialReceiveStock: (id: string, quantity: number) => Promise<void>;
+  putMaterialReceiveStock: (id: number, quantity: number) => Promise<void>;
   materialUseStock: MaterialUseStock[];
   setMaterialUseStock: (materialUseStock: MaterialUseStock[]) => void;
   getMaterialUseStock: () => Promise<void>;
@@ -39,9 +39,9 @@ export const useMaterialStore = create<MaterialStore>((set) => ({
   /**
    * 資材受け入れ処理
    */
-  putMaterialReceiveStock: async (id: string, quantity: number) => {
+  putMaterialReceiveStock: async (id: number, quantity: number) => {
     const response = await apiClient<MaterialReceiveStock[]>({
-      url: endpoints.put.materialReceiveStock(id),
+      url: endpoints.put.materialReceiveStock(id.toString()),
       method: "PUT",
       data: {
         quantity,

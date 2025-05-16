@@ -2,6 +2,7 @@ import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button, useDisclosure,
 import { useState } from "react";
 import { GenericTableProps } from "@/types/common/generic-table";
 import { MaterialReceiveStock } from "@/types/material";
+import { useMaterialStore } from "@/hooks/useMaterialStore";
 import GenericModal from "@/components/common/GenericModal";
 import InputWithTooltip from "@/components/common/InputWithTooltip";
 
@@ -11,6 +12,7 @@ function MaterialReceiveTable({ columns, data }: MaterialReceiveTableProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [quantity, setQuantity] = useState("");
+  const { putMaterialReceiveStock } = useMaterialStore();
 
   const handleReceiveStock = (id: number) => {
     setSelectedId(id);
@@ -18,7 +20,9 @@ function MaterialReceiveTable({ columns, data }: MaterialReceiveTableProps) {
   };
 
   const handleSubmit = () => {
-    alert(`資材ID: ${selectedId}, 数量: ${quantity}`);
+    if (selectedId) {
+      putMaterialReceiveStock(selectedId, Number(quantity));
+    }
     onClose();
     setQuantity("");
   };
