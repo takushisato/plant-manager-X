@@ -7,7 +7,7 @@ import { useMaterialStore } from "@/hooks/useMaterialStore";
 import { useEffect } from "react";
 
 const MaterialsReceive = () => {
-  const { materialList, getMaterialList } = useMaterialStore();
+  const { materialList, getMaterialList, putMaterialReceiveStock } = useMaterialStore();
 
   useEffect(() => {
     getMaterialList();
@@ -29,7 +29,11 @@ const MaterialsReceive = () => {
   return (
     <Layout>
       <Box mt={4}>
-        <MaterialReceiveTable columns={columns} data={materialReceiveStock} />
+        <MaterialReceiveTable
+          columns={columns}
+          data={materialReceiveStock}
+          putMaterialReceiveStock={putMaterialReceiveStock}
+        />
       </Box>
     </Layout>
   );
