@@ -4,6 +4,7 @@ import { GenericTableProps } from "@/types/common/generic-table";
 import { MaterialReceiveStock } from "@/types/material";
 import GenericModal from "@/components/common/GenericModal";
 import InputWithTooltip from "@/components/common/InputWithTooltip";
+
 type MaterialReceiveTableProps = GenericTableProps<MaterialReceiveStock>;
 
 function MaterialReceiveTable({ columns, data }: MaterialReceiveTableProps) {

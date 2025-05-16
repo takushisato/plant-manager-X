@@ -7,11 +7,16 @@ import { useMaterialStore } from "@/hooks/useMaterialStore";
 import { useEffect } from "react";
 
 const MaterialsReceive = () => {
-  const { materialReceiveStock, getMaterialReceiveStock } = useMaterialStore();
+  const { materialList, getMaterialList } = useMaterialStore();
 
   useEffect(() => {
-    getMaterialReceiveStock();
+    getMaterialList();
   }, []);
+
+  const materialReceiveStock = materialList.map((material) => ({
+    ...material,
+    receive_stock: material.stock_qty,
+  }));
 
   const columns: Column<MaterialReceiveStock>[] = [
     { header: "資材名", accessor: "material_name" },
