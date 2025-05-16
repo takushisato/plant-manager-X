@@ -14,6 +14,9 @@ function MaterialReceiveTable({ columns, data, putMaterialReceiveStock }: Materi
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [quantity, setQuantity] = useState("");
 
+  /**
+   * 受け入れ処理を実行するモーダルを開く
+   */
   const handleReceiveStock = (id: number) => {
     setSelectedId(id);
     onOpen();
