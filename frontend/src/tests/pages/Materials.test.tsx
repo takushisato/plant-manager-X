@@ -1,48 +1,77 @@
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import { render, screen, waitFor } from "@testing-library/react";
 import Materials from "@/pages/Materials";
+import { BrowserRouter } from "react-router-dom";
+import { useMaterialStore } from "@/hooks/useMaterialStore";
 
-const renderWithRouter = (ui: React.ReactElement) => {
-  return render(<BrowserRouter>{ui}</BrowserRouter>);
-};
-
-jest.mock("@/hooks/useAuthStore", () => ({
+jest.mock("js-cookie", () => ({
   __esModule: true,
-  useAuthStore: jest.fn(() => ({
-    user: {
-      name: "テストユーザー",
-      permission: {
-        material_access: true,
-        staff_hub_access: false,
-        can_manage_own_attendance: false,
-        can_manage_all_attendance: false,
-        can_view_production_plan: false,
-        can_edit_production_plan: false,
-        can_view_order: false,
-        can_edit_order: false,
-        can_view_defect: false,
-        can_edit_defect: false,
-      },
-    },
-    logout: jest.fn(),
-    restoreSession: jest.fn(),
-  })),
+  default: {
+    get: jest.fn().mockReturnValue(undefined),
+    set: jest.fn(),
+    remove: jest.fn(),
+  },
 }));
 
-describe("Materials Page", () => {
-  beforeEach(() => {
-    renderWithRouter(<Materials />);
+jest.mock("@/hooks/useMaterialStore", () => ({
+  useMaterialStore: jest.fn(),
+}));
+
+const mockGetMaterialList = jest.fn();
+
+const mockMaterialList = [
+  {
+    id: 1,
+    material_name: "テスト資材A",
+    stock_qty: 100,
+    material_price: 500,
+    order_suggestion_qty: 20,
+  },
+  {
+    id: 2,
+    material_name: "テスト資材B",
+    stock_qty: 50,
+    material_price: 300,
+    order_suggestion_qty: 10,
+  },
+];
+
+beforeEach(() => {
+  (useMaterialStore as unknown as jest.Mock).mockReturnValue({
+    materialList: mockMaterialList,
+    getMaterialList: mockGetMaterialList,
+  });
+});
+
+const renderComponent = () =>
+  render(
+    <BrowserRouter>
+      <Materials />
+    </BrowserRouter>
+  );
+
+describe("Materials page", () => {
+  it("初回レンダリング時に getMaterialList が呼ばれる", async () => {
+    renderComponent();
+    await waitFor(() => {
+      expect(mockGetMaterialList).toHaveBeenCalled();
+    });
   });
 
-  it("テーブルヘッダーが表示される", () => {
+  it("資材名などのテーブル項目が表示される", async () => {
+    renderComponent();
+
+    expect(await screen.findByText("テスト資材A")).toBeInTheDocument();
+    expect(screen.getByText("テスト資材B")).toBeInTheDocument();
+    expect(screen.getByText("100")).toBeInTheDocument();
+    expect(screen.getByText("300")).toBeInTheDocument();
+  });
+
+  it("テーブルのカラムが表示される", () => {
+    renderComponent();
+
     expect(screen.getByText("資材名")).toBeInTheDocument();
     expect(screen.getByText("在庫数")).toBeInTheDocument();
     expect(screen.getByText("価格")).toBeInTheDocument();
     expect(screen.getByText("発注在庫数")).toBeInTheDocument();
-  });
-
-  it("資材データが表示される", () => {
-    expect(screen.getByText("資材1").closest("tr")).toHaveTextContent("100");
-    expect(screen.getByText("資材2").closest("tr")).toHaveTextContent("200");
   });
 });

@@ -5,20 +5,30 @@ import { MaterialUseStock } from "@/types/material";
 import GenericModal from "@/components/common/GenericModal";
 import InputWithTooltip from "../common/InputWithTooltip";
 
-type MaterialUseStockTableProps = GenericTableProps<MaterialUseStock>;
+type MaterialUseStockTableProps = GenericTableProps<MaterialUseStock> & {
+  putMaterialUseStock: (id: number, quantity: number) => void;
+};
 
-function MaterialUseStockTable({ columns, data }: MaterialUseStockTableProps) {
+function MaterialUseStockTable({ columns, data, putMaterialUseStock }: MaterialUseStockTableProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [quantity, setQuantity] = useState("");
 
+  /**
+   * 払い出し処理を実行するモーダルを開く
+   */
   const handleUseStock = (id: number) => {
     setSelectedId(id);
     onOpen();
   };
 
+  /**
+   * 払い出し処理を実行する
+   */
   const handleSubmit = () => {
-    alert(`資材ID: ${selectedId}, 数量: ${quantity}`);
+    if (selectedId) {
+      putMaterialUseStock(selectedId, Number(quantity));
+    }
     onClose();
     setQuantity("");
   };

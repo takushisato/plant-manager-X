@@ -1,3 +1,15 @@
+export type MaterialStore = {
+  materialList: MaterialList[];
+  setMaterialList: (materialList: MaterialList[]) => void;
+  getMaterialList: () => Promise<void>;
+  materialReceiveStock: MaterialReceiveStock[];
+  setMaterialReceiveStock: (materialReceiveStock: MaterialReceiveStock[]) => void;
+  putMaterialReceiveStock: (id: number, quantity: number) => Promise<void>;
+  materialUseStock: MaterialUseStock[];
+  setMaterialUseStock: (materialUseStock: MaterialUseStock[]) => void;
+  putMaterialUseStock: (id: number, quantity: number) => Promise<void>;
+};
+
 export type MaterialList = {
   id: number;
   material_name: string;
@@ -23,4 +35,3 @@ export type MaterialReceiveStock = {
   order_suggestion_qty: number;
   receive_stock: number;
 };
-  

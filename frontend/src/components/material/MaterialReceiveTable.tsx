@@ -4,20 +4,31 @@ import { GenericTableProps } from "@/types/common/generic-table";
 import { MaterialReceiveStock } from "@/types/material";
 import GenericModal from "@/components/common/GenericModal";
 import InputWithTooltip from "@/components/common/InputWithTooltip";
-type MaterialReceiveTableProps = GenericTableProps<MaterialReceiveStock>;
 
-function MaterialReceiveTable({ columns, data }: MaterialReceiveTableProps) {
+type MaterialReceiveTableProps = GenericTableProps<MaterialReceiveStock> & {
+  putMaterialReceiveStock: (id: number, quantity: number) => void;
+};
+
+function MaterialReceiveTable({ columns, data, putMaterialReceiveStock }: MaterialReceiveTableProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [quantity, setQuantity] = useState("");
 
+  /**
+   * 受け入れ処理を実行するモーダルを開く
+   */
   const handleReceiveStock = (id: number) => {
     setSelectedId(id);
     onOpen();
   };
 
+  /**
+   * 受け入れ処理を実行する
+   */
   const handleSubmit = () => {
-    alert(`資材ID: ${selectedId}, 数量: ${quantity}`);
+    if (selectedId) {
+      putMaterialReceiveStock(selectedId, Number(quantity));
+    }
     onClose();
     setQuantity("");
   };

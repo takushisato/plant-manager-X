@@ -1,52 +1,76 @@
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import { render, screen, fireEvent } from "@testing-library/react";
 import MaterialsReceive from "@/pages/MaterialsReceive";
+import { useMaterialStore } from "@/hooks/useMaterialStore";
+import { BrowserRouter } from "react-router-dom";
 
-const renderWithRouter = (ui: React.ReactElement) => {
-  return render(<BrowserRouter>{ui}</BrowserRouter>);
-};
+const mockData = [
+  {
+    id: 1,
+    material_name: "テスト資材A",
+    stock_qty: 10,
+    material_price: 100,
+    order_suggestion_qty: 5,
+  },
+];
 
-jest.mock("@/hooks/useAuthStore", () => ({
+const mockGetMaterialList = jest.fn();
+const mockPutMaterialReceiveStock = jest.fn();
+
+jest.mock("js-cookie", () => ({
   __esModule: true,
-  useAuthStore: jest.fn(() => ({
-    user: {
-      name: "テストユーザー",
-      permission: {
-        material_access: true,
-        staff_hub_access: false,
-        can_manage_own_attendance: false,
-        can_manage_all_attendance: false,
-        can_view_production_plan: false,
-        can_edit_production_plan: false,
-        can_view_order: false,
-        can_edit_order: false,
-        can_view_defect: false,
-        can_edit_defect: false,
-      },
-    },
-    logout: jest.fn(),
-    restoreSession: jest.fn(),
-  })),
+  default: {
+    get: jest.fn().mockReturnValue(undefined),
+    set: jest.fn(),
+    remove: jest.fn(),
+  },
 }));
 
-describe("Materials Page", () => {
+jest.mock("@/hooks/useMaterialStore", () => ({
+  useMaterialStore: jest.fn(),
+}));
+
+const renderComponent = () =>
+  render(
+    <BrowserRouter>
+      <MaterialsReceive />
+    </BrowserRouter>
+  );
+
+describe("MaterialsReceive page", () => {
   beforeEach(() => {
-    renderWithRouter(<MaterialsReceive />);
+    (useMaterialStore as unknown as jest.Mock).mockReturnValue({
+      materialList: mockData,
+      getMaterialList: mockGetMaterialList,
+      putMaterialReceiveStock: mockPutMaterialReceiveStock,
+    });
   });
 
-  it("テーブルヘッダーが表示される", () => {
-    expect(screen.getByText("資材名")).toBeInTheDocument();
-    expect(screen.getByText("在庫数")).toBeInTheDocument();
-    expect(screen.getByText("価格")).toBeInTheDocument();
-    expect(screen.getByText("発注在庫数")).toBeInTheDocument();
-    expect(screen.getByText("受け入れ")).toBeInTheDocument();
+  it("初回レンダリング時に getMaterialList が呼ばれる", () => {
+    renderComponent();
+    expect(mockGetMaterialList).toHaveBeenCalled();
   });
 
-  it("資材データが表示される", () => {
-    expect(screen.getByText("資材1").closest("tr")).toHaveTextContent("100");
-    expect(screen.getByText("資材2").closest("tr")).toHaveTextContent("110");
-    expect(screen.getByText("資材3").closest("tr")).toHaveTextContent("120");
-    expect(screen.getByText("資材4").closest("tr")).toHaveTextContent("130");
-    expect(screen.getByText("資材5").closest("tr")).toHaveTextContent("140");
+  it("テーブルに資材名が表示される", () => {
+    renderComponent();
+    expect(screen.getByText("テスト資材A")).toBeInTheDocument();
+  });
+
+  it("「処理」ボタンを押すとモーダルが表示される", () => {
+    renderComponent();
+    fireEvent.click(screen.getByRole("button", { name: "処理" }));
+    expect(screen.getByText("資材の受け入れ")).toBeInTheDocument();
+  });
+
+  it("数量を入力して「受け入れ」ボタンを押すと putMaterialReceiveStock が呼ばれる", () => {
+    renderComponent();
+    fireEvent.click(screen.getByRole("button", { name: "処理" }));
+
+    const input = screen.getByPlaceholderText("数量を入力");
+    fireEvent.change(input, { target: { value: "3" } });
+
+    const submitButton = screen.getByRole("button", { name: "受け入れ" });
+    fireEvent.click(submitButton);
+
+    expect(mockPutMaterialReceiveStock).toHaveBeenCalledWith(1, 3);
   });
 });
