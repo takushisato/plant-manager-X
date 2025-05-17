@@ -33,6 +33,7 @@ const MaterialsReceive = () => {
           columns={columns}
           data={materialReceiveStock}
           putMaterialReceiveStock={putMaterialReceiveStock}
+          getMaterialList={getMaterialList}
         />
       </Box>
     </Layout>

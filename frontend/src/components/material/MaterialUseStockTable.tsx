@@ -7,9 +7,10 @@ import InputWithTooltip from "../common/InputWithTooltip";
 
 type MaterialUseStockTableProps = GenericTableProps<MaterialUseStock> & {
   putMaterialUseStock: (id: number, quantity: number) => void;
+  getMaterialList: () => void;
 };
 
-function MaterialUseStockTable({ columns, data, putMaterialUseStock }: MaterialUseStockTableProps) {
+function MaterialUseStockTable({ columns, data, putMaterialUseStock, getMaterialList }: MaterialUseStockTableProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [quantity, setQuantity] = useState("");
@@ -25,12 +26,13 @@ function MaterialUseStockTable({ columns, data, putMaterialUseStock }: MaterialU
   /**
    * 払い出し処理を実行する
    */
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (selectedId) {
-      putMaterialUseStock(selectedId, Number(quantity));
+      await putMaterialUseStock(selectedId, Number(quantity));
     }
     onClose();
     setQuantity("");
+    await getMaterialList();
   };
 
   return (

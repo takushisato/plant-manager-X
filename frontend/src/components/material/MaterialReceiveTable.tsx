@@ -7,9 +7,10 @@ import InputWithTooltip from "@/components/common/InputWithTooltip";
 
 type MaterialReceiveTableProps = GenericTableProps<MaterialReceiveStock> & {
   putMaterialReceiveStock: (id: number, quantity: number) => void;
+  getMaterialList: () => void;
 };
 
-function MaterialReceiveTable({ columns, data, putMaterialReceiveStock }: MaterialReceiveTableProps) {
+function MaterialReceiveTable({ columns, data, putMaterialReceiveStock, getMaterialList }: MaterialReceiveTableProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [quantity, setQuantity] = useState("");
@@ -25,12 +26,13 @@ function MaterialReceiveTable({ columns, data, putMaterialReceiveStock }: Materi
   /**
    * 受け入れ処理を実行する
    */
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (selectedId) {
-      putMaterialReceiveStock(selectedId, Number(quantity));
+      await putMaterialReceiveStock(selectedId, Number(quantity));
     }
     onClose();
     setQuantity("");
+    await getMaterialList();
   };
 
   return (
