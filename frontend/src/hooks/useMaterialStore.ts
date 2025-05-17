@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { MaterialList, MaterialReceiveStock, MaterialUseStock } from "@/types/material";
-import { mockMaterialUseStock } from "@/fixtures/material";
 import { endpoints } from "@/utils/apiUrls";
 import { apiClient } from "@/domain/api/apiClient";
 
@@ -13,7 +12,7 @@ type MaterialStore = {
   putMaterialReceiveStock: (id: number, quantity: number) => Promise<void>;
   materialUseStock: MaterialUseStock[];
   setMaterialUseStock: (materialUseStock: MaterialUseStock[]) => void;
-  getMaterialUseStock: () => Promise<void>;
+  putMaterialUseStock: (id: number, quantity: number) => Promise<void>;
 };
 
 export const useMaterialStore = create<MaterialStore>((set) => ({
@@ -51,11 +50,16 @@ export const useMaterialStore = create<MaterialStore>((set) => ({
   },
 
   /**
-   * 資材払い出し一覧を取得する
-   * TODO モックからAPIに変更する
+   * 資材払い出し処理
    */
-  getMaterialUseStock: async () => {
-    const mockData = mockMaterialUseStock;
-    set({ materialUseStock: mockData });
+  putMaterialUseStock: async (id: number, quantity: number) => {
+    const response = await apiClient<MaterialUseStock[]>({
+      url: endpoints.put.materialUseStock(id.toString()),
+      method: "PUT",
+      data: {
+        quantity,
+      },
+    });
+    set({ materialUseStock: response });
   },
 }));

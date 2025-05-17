@@ -7,7 +7,7 @@ import { useMaterialStore } from "@/hooks/useMaterialStore";
 import { useEffect } from "react";
 
 const MaterialsUse = () => {
-  const { materialUseStock, getMaterialUseStock } = useMaterialStore();
+  const { materialList, getMaterialList, putMaterialUseStock } = useMaterialStore();
 
   const columns: Column<MaterialUseStock>[] = [
     { header: "資材名", accessor: "material_name" },
@@ -18,13 +18,18 @@ const MaterialsUse = () => {
   ];
 
   useEffect(() => {
-    getMaterialUseStock();
+    getMaterialList();
   }, []);
+
+  const materialUseStock = materialList.map((material) => ({
+    ...material,
+    use_stock: material.stock_qty,
+  }));
 
   return (
     <Layout>
       <Box mt={4}>
-        <MaterialUseStockTable columns={columns} data={materialUseStock} />
+        <MaterialUseStockTable columns={columns} data={materialUseStock} putMaterialUseStock={putMaterialUseStock} />
       </Box>
     </Layout>
   );
