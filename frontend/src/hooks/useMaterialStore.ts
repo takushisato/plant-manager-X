@@ -28,7 +28,7 @@ export const useMaterialStore = create<MaterialStore>((set) => ({
    */
   putMaterialReceiveStock: async (id: number, quantity: number) => {
     const response = await apiClient<MaterialReceiveStock[]>({
-      url: endpoints.put.materialReceiveStock(id.toString()),
+      url: endpoints.put.materialReceiveStock(id),
       method: "PUT",
       data: {
         quantity,
@@ -42,7 +42,7 @@ export const useMaterialStore = create<MaterialStore>((set) => ({
    */
   putMaterialUseStock: async (id: number, quantity: number) => {
     const response = await apiClient<MaterialUseStock[]>({
-      url: endpoints.put.materialUseStock(id.toString()),
+      url: endpoints.put.materialUseStock(id),
       method: "PUT",
       data: {
         quantity,
