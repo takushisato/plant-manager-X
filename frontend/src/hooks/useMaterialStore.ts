@@ -1,19 +1,7 @@
 import { create } from "zustand";
-import { MaterialList, MaterialReceiveStock, MaterialUseStock } from "@/types/material";
+import { MaterialList, MaterialReceiveStock, MaterialUseStock, MaterialStore } from "@/types/material";
 import { endpoints } from "@/utils/apiUrls";
 import { apiClient } from "@/domain/api/apiClient";
-
-type MaterialStore = {
-  materialList: MaterialList[];
-  setMaterialList: (materialList: MaterialList[]) => void;
-  getMaterialList: () => Promise<void>;
-  materialReceiveStock: MaterialReceiveStock[];
-  setMaterialReceiveStock: (materialReceiveStock: MaterialReceiveStock[]) => void;
-  putMaterialReceiveStock: (id: number, quantity: number) => Promise<void>;
-  materialUseStock: MaterialUseStock[];
-  setMaterialUseStock: (materialUseStock: MaterialUseStock[]) => void;
-  putMaterialUseStock: (id: number, quantity: number) => Promise<void>;
-};
 
 export const useMaterialStore = create<MaterialStore>((set) => ({
   materialList: [],
