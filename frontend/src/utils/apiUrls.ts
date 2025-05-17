@@ -8,11 +8,11 @@ export const endpoints = {
     materialList: "/api/materials",
   },
   put: {
-    users: (id: string) => `/api/auth/users/${id}`,
+    users: (id: number) => `/api/auth/users/${id}`,
     materialReceiveStock: (id: number) => `/api/materials/receive_stock/${id}`,
     materialUseStock: (id: number) => `/api/materials/use_stock/${id}`,
   },
   delete: {
-    users: (id: string) => `/api/auth/users/${id}`,
+    users: (id: number) => `/api/auth/users/${id}`,
   },
 };
