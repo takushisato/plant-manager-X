@@ -29,7 +29,12 @@ const MaterialsUse = () => {
   return (
     <Layout>
       <Box mt={4}>
-        <MaterialUseStockTable columns={columns} data={materialUseStock} putMaterialUseStock={putMaterialUseStock} />
+        <MaterialUseStockTable
+          columns={columns}
+          data={materialUseStock}
+          putMaterialUseStock={putMaterialUseStock}
+          getMaterialList={getMaterialList}
+        />
       </Box>
     </Layout>
   );

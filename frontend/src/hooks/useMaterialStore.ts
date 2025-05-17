@@ -31,7 +31,7 @@ export const useMaterialStore = create<MaterialStore>((set) => ({
       url: endpoints.put.materialReceiveStock(id),
       method: "PUT",
       data: {
-        quantity,
+        added_qty: quantity,
       },
     });
     set({ materialReceiveStock: response });
@@ -45,7 +45,7 @@ export const useMaterialStore = create<MaterialStore>((set) => ({
       url: endpoints.put.materialUseStock(id),
       method: "PUT",
       data: {
-        quantity,
+        used_qty: quantity,
       },
     });
     set({ materialUseStock: response });
