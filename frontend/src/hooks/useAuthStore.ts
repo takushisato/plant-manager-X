@@ -10,7 +10,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
   /**
    * ログイン状態を更新。
    * トークンが存在する場合はユーザー情報を取得してログイン状態にする。
-   * トークンが存在しない場合はログアウト状態にする。
+   * トークンが存在しない場合はログアウト状態にしてログイン画面にリダイレクト。
    * @returns
    */
   restoreSession: async () => {
@@ -26,6 +26,9 @@ export const useAuthStore = create<AuthStore>((set) => ({
       }
     } else {
       set({ user: null });
+      if (window.location.pathname !== "/login") {
+        window.location.href = "/login";
+      }
     }
   },
 
