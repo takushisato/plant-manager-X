@@ -1,3 +1,12 @@
+export type AttendanceByUserIdResponse = {
+  data: {
+    id: number;
+    name: string;
+    attendance_count: number;
+    detail: string | undefined;
+  }[];
+};
+
 export type UserAttendanceList = {
   id: number;
   name: string;
@@ -28,4 +37,14 @@ export type AllUserAttendanceList = {
   name: string;
   attendance_count: number;
   detail: string | undefined;
+};
+
+export type AttendanceListResponse = {
+  data: AllUserAttendanceList[];
+};
+
+export type UpdateAttendance = {
+  id: number;
+  start_time: string;
+  end_time: string;
 };

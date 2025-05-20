@@ -1,6 +1,13 @@
 import { create } from "zustand";
-import { AttendanceStore, NewAttendance } from "@/types/attendance";
-import { mockAttendanceList } from "@/fixtures/attendance-list";
+import {
+  AttendanceStore,
+  NewAttendance,
+  AttendanceListResponse,
+  UpdateAttendance,
+  AttendanceByUserIdResponse,
+} from "@/types/attendance";
+import { endpoints } from "@/utils/apiUrls";
+import { apiClient } from "@/domain/api/apiClient";
 
 /**
  * 年月を表示用の文字列に変換
@@ -18,12 +25,25 @@ export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
   overtimeHours: 0,
 
   /**
+   * ユーザーの出勤簿を取得
+   */
+  getAttendanceByUserId: async () => {
+    const response = await apiClient<AttendanceByUserIdResponse>({
+      url: endpoints.get.attendanceMyList,
+      method: "GET",
+    });
+    set({ allUserAttendanceList: response.data });
+  },
+
+  /**
    * 全ユーザーの出勤簿リストを取得
-   * TODO: APIから取得する様に変更する
    */
   getUserAttendanceList: async () => {
-    const mockData = mockAttendanceList;
-    set({ allUserAttendanceList: mockData });
+    const response = await apiClient<AttendanceListResponse>({
+      url: endpoints.get.attendanceAllList(get().currentYearMonth),
+      method: "GET",
+    });
+    set({ allUserAttendanceList: response.data });
   },
 
   /**
@@ -49,15 +69,28 @@ export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
    * @param attendance
    */
   postAttendance: async (attendance: NewAttendance) => {
-    if (attendance.start_time) {
-      // 出勤時間が存在する場合、出勤簿をPOSTする
-      // TODO: APIで出勤簿をPOSTする
-      alert("出勤簿処理: " + JSON.stringify(attendance));
+    const response = await apiClient<{ status: string }>({
+      url: endpoints.post.attendanceRecords,
+      method: "POST",
+      data: attendance,
+    });
+    if (response.status === "success") {
+      get().getUserAttendanceList();
     }
-    if (attendance.end_time) {
-      // 退勤時間が存在する場合、退勤簿をPOSTする
-      // TODO: APIで退勤簿をPOSTする
-      alert("退勤簿処理: " + JSON.stringify(attendance));
+  },
+
+  /**
+   * 出勤簿更新処理
+   * @param attendance
+   */
+  putAttendance: async (attendance: UpdateAttendance) => {
+    const response = await apiClient<{ status: string }>({
+      url: endpoints.put.attendanceRecords(attendance.id),
+      method: "PUT",
+      data: attendance,
+    });
+    if (response.status === "success") {
+      get().getUserAttendanceList();
     }
   },
 }));
