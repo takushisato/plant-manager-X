@@ -15,7 +15,7 @@ import { apiClient } from "@/domain/api/apiClient";
  * @returns
  */
 const formatYearMonth = (date: Date): string => {
-  return `${date.getFullYear()}年${date.getMonth() + 1}月`;
+  return `${date.getFullYear()}-${date.getMonth() + 1}`;
 };
 
 export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
@@ -39,11 +39,11 @@ export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
    * 全ユーザーの出勤簿リストを取得
    */
   getUserAttendanceList: async () => {
-    const response = await apiClient<AttendanceListResponse>({
+    const response = await apiClient<AttendanceListResponse[]>({
       url: endpoints.get.attendanceAllList(get().currentYearMonth),
       method: "GET",
     });
-    set({ allUserAttendanceList: response.data });
+    set({ allUserAttendanceList: response });
   },
 
   /**

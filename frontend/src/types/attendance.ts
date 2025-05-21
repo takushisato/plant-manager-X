@@ -40,7 +40,10 @@ export type AllUserAttendanceList = {
 };
 
 export type AttendanceListResponse = {
-  data: AllUserAttendanceList[];
+  id: number;
+  name: string;
+  attendance_count: number;
+  detail: string | undefined;
 };
 
 export type UpdateAttendance = {
