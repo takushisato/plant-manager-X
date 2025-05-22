@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema
-from apps.attendance.models.work_record import WorkRecord   
+from apps.attendance.models.work_record import WorkRecord
 from apps.attendance.serializers import WorkRecordListSerializer
 from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.attendance.common import check_attendance_all_edit_permission
@@ -27,6 +27,6 @@ class RecordAllListView(APIView):
 
         records = WorkRecord.get_records_by_month(month)
 
-        serializer = WorkRecordListSerializer(records, many=True) 
+        serializer = WorkRecordListSerializer(records, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
