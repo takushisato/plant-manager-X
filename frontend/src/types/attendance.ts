@@ -40,9 +40,11 @@ export type AllUserAttendanceList = {
 };
 
 export type AttendanceListResponse = {
-  id: number;
-  name: string;
-  attendance_count: number;
+  user: {
+    id: number;
+    name: string;
+  };
+  total_worked_date: number;
   detail: string | undefined;
 };
 

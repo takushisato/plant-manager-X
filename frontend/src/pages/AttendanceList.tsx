@@ -4,16 +4,17 @@ import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { Column } from "@/types/common/generic-table";
 import { useAttendanceStore } from "@/hooks/useAttendanceStore";
 import { useEffect } from "react";
-import { UserAttendanceList } from "@/types/attendance";
+import { AllUserAttendanceList } from "@/types/attendance";
 
 const AttendanceList = () => {
-  const columns: Column<UserAttendanceList>[] = [
+  const { currentYearMonth, handlePrevMonth, handleNextMonth, allUserAttendanceList, getUserAttendanceList } =
+    useAttendanceStore();
+
+  const columns: Column<AllUserAttendanceList>[] = [
     { header: "従業員名", accessor: "name" },
     { header: "今月の出勤数", accessor: "attendance_count" },
     { header: "詳細", accessor: "detail" },
   ];
-  const { currentYearMonth, handlePrevMonth, handleNextMonth, allUserAttendanceList, getUserAttendanceList } =
-    useAttendanceStore();
 
   useEffect(() => {
     getUserAttendanceList();

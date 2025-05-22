@@ -5,6 +5,7 @@ import {
   AttendanceListResponse,
   UpdateAttendance,
   AttendanceByUserIdResponse,
+  AllUserAttendanceList,
 } from "@/types/attendance";
 import { endpoints } from "@/utils/apiUrls";
 import { apiClient } from "@/domain/api/apiClient";
@@ -43,7 +44,15 @@ export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
       url: endpoints.get.attendanceAllList(get().currentYearMonth),
       method: "GET",
     });
-    set({ allUserAttendanceList: response });
+
+    const allUserAttendanceList: AllUserAttendanceList[] = response.map((item) => ({
+      id: item.user.id,
+      name: item.user.name,
+      attendance_count: item.total_worked_date,
+      detail: item.detail,
+    }));
+
+    set({ allUserAttendanceList });
   },
 
   /**
