@@ -46,15 +46,21 @@ class TestAttendanceRecordAllListGet:
         条件:
         - 管理者ユーザー
         - 指定された月の勤怠記録が存在する
-        
+
         結果:
         - 200ステータスコードが返される
-        - 勤怠記録の数が正しい
+        - ユーザーごとの勤務日数が正しい
         """
         client.force_authenticate(user=admin_user)
         response = client.get("/api/attendance/records/all_list/?month=2025-04")
         assert response.status_code == status.HTTP_200_OK
-        assert len(response.data) == 3
+
+        # データ例:
+        # [{'user': {'id': 1, 'name': 'John'}, 'total_worked_date': 3}]
+        data = response.data
+        assert len(data) == 1  # ユーザーごとのデータ
+        assert data[0]["user"]["id"] == admin_user.id
+        assert data[0]["total_worked_date"] == 3
 
     def test_missing_month_param(self, client, admin_user):
         """
@@ -62,7 +68,7 @@ class TestAttendanceRecordAllListGet:
 
         条件:
         - 月のパラメータが指定されていない
-        
+
         結果:
         - 400エラーが発生する
         - エラーメッセージが表示される
@@ -78,7 +84,7 @@ class TestAttendanceRecordAllListGet:
 
         条件:
         - 月のパラメータが無効な形式の場合
-        
+
         結果:
         - 400エラーが発生する
         - エラーメッセージが表示される
@@ -94,11 +100,11 @@ class TestAttendanceRecordAllListGet:
 
         条件:
         - 非管理者ユーザー
-        
+
         結果:
         - 403エラーが発生する
         - エラーメッセージが表示される
-        """ 
+        """
         client.force_authenticate(user=non_admin_user)
         response = client.get("/api/attendance/records/all_list/?month=2025-04")
         assert response.status_code == status.HTTP_403_FORBIDDEN
@@ -109,7 +115,7 @@ class TestAttendanceRecordAllListGet:
 
         条件:
         - 認証されていないユーザー
-        
+
         結果:
         - 401エラーが発生する
         - エラーメッセージが表示される

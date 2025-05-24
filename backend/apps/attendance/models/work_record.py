@@ -3,6 +3,7 @@ from apps.utility.models import BaseModel
 from apps.attendance.models.work_pattern import WorkPattern
 from apps.staff_hub.models.user import User
 from apps.utility.enums import WorkStatus
+from django.db.models import Count
 
 
 class WorkRecord(BaseModel):
@@ -28,20 +29,27 @@ class WorkRecord(BaseModel):
 
     def __str__(self):
         return f"{self.user.name} - {self.work_date} - {self.work_status}"
-    
+
+
     @classmethod
     def get_records_by_month(cls, month):
         """
-        全ユーザーの指定された月の勤怠記録を取得する
+        全ユーザーの指定された月の勤務日数を返す
         """
         from apps.attendance.views.validations import get_month_range
         start_date, end_date = get_month_range(month)
-        return cls.objects.filter(
-            work_date__gte=start_date,
-            work_date__lt=end_date,
-            deleted_at__isnull=True
-        ).select_related("user", "work_pattern")
-    
+
+        return (
+            cls.objects.filter(
+                work_date__gte=start_date,
+                work_date__lt=end_date,
+                deleted_at__isnull=True
+            )
+            .values("user__id", "user__name")
+            .annotate(total_worked_date=Count("id"))
+            .order_by("user__id")
+        )
+
 
     @classmethod
     def get_records_by_user_and_month(cls, user, start_date, end_date):
@@ -54,8 +62,8 @@ class WorkRecord(BaseModel):
             work_date__lt=end_date,
             deleted_at__isnull=True
         ).select_related("user", "work_pattern")
-    
-    
+
+
     @classmethod
     def create_record(cls, user, work_pattern, work_date, clock_in_time, clock_out_time, break_minutes, work_minutes, work_status, note):
         """
