@@ -53,3 +53,9 @@ export type UpdateAttendance = {
   start_time: string;
   end_time: string;
 };
+
+export type AttendanceData = {
+  date: string;
+  start_time: string | null;
+  end_time: string | null;
+};
