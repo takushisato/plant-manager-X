@@ -48,18 +48,27 @@ def test_get_records_by_month():
     """
     get_records_by_month が指定月の勤怠を正しく返すこと
     """
-    # 2025年4月分のデータを2件作成
-    WorkRecordFactory(work_date=date(2025, 4, 1))
-    WorkRecordFactory(work_date=date(2025, 4, 15))
+    record1 = WorkRecordFactory(work_date=date(2025, 4, 1))
+    record2 = WorkRecordFactory(user=record1.user, work_date=date(2025, 4, 15))
+    record3 = WorkRecordFactory(work_date=date(2025, 4, 20))
 
-    # 範囲外のデータ（3月末、5月初）も作成
     WorkRecordFactory(work_date=date(2025, 3, 31))
     WorkRecordFactory(work_date=date(2025, 5, 1))
 
-    results = WorkRecord.get_records_by_month(date(2025, 4, 1))
-    assert results.count() == 2
+    results = list(WorkRecord.get_records_by_month(date(2025, 4, 1)))
+
+    assert len(results) == 2  # 2人のユーザー
+
     for record in results:
-        assert record.work_date.month == 4
+        assert "user__id" in record
+        assert "user__name" in record
+        assert "total_worked_date" in record
+        if record["user__id"] == record1.user.id:
+            assert record["total_worked_date"] == 2
+            assert record["user__name"] == record1.user.name
+        elif record["user__id"] == record3.user.id:
+            assert record["total_worked_date"] == 1
+            assert record["user__name"] == record3.user.name
 
 
 @pytest.mark.django_db
