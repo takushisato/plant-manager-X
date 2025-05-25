@@ -1,12 +1,3 @@
-export type AttendanceByUserIdResponse = {
-  data: {
-    id: number;
-    name: string;
-    attendance_count: number;
-    detail: string | undefined;
-  }[];
-};
-
 export type UserAttendanceList = {
   id: number;
   name: string;
@@ -31,6 +22,7 @@ export type AttendanceStore = {
   getUserAttendanceList: () => Promise<void>;
   overtimeHours: number;
   getAttendanceByUserId: () => Promise<void>;
+  attendanceData: AttendanceData[];
 };
 
 export type AllUserAttendanceList = {
@@ -56,7 +48,7 @@ export type UpdateAttendance = {
 };
 
 export type AttendanceData = {
-  work_date: string;
-  clock_in_time: string | null;
-  clock_out_time: string | null;
+  date: string;
+  start_time: string | null;
+  end_time: string | null;
 };

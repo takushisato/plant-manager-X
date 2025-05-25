@@ -3,10 +3,11 @@ import Calendar from "react-calendar";
 import { Box, Text } from "@chakra-ui/react";
 import "react-calendar/dist/Calendar.css";
 import { AttendanceData } from "@/types/attendance";
+
 type Props = {
   onDateClick: (date: Date) => void;
   label: string;
-  attendanceData: AttendanceData[]; // 追加
+  attendanceData: AttendanceData[];
 };
 
 const AttendanceCalendar = ({ onDateClick, label, attendanceData }: Props) => {
@@ -22,13 +23,15 @@ const AttendanceCalendar = ({ onDateClick, label, attendanceData }: Props) => {
     if (view !== "month") return null;
 
     const dateStr = date.toISOString().split("T")[0];
-    const record = attendanceData.find((a) => a.work_date === dateStr);
+    const record = attendanceData.find((a) => a.date === dateStr);
     if (!record) return null;
+
+    console.log(record);
 
     return (
       <Box fontSize="xs" mt={1}>
-        {record.clock_in_time && <Text color="green.500">出: {record.clock_in_time}</Text>}
-        {record.clock_out_time && <Text color="red.500">退: {record.clock_out_time}</Text>}
+        {record.start_time && <Text color="green.500">出: {record.start_time}</Text>}
+        {record.end_time && <Text color="red.500">退: {record.end_time}</Text>}
       </Box>
     );
   };

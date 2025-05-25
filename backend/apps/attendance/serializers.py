@@ -25,7 +25,7 @@ class WorkRecordModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkRecord
         fields = [
-            "id", "work_date", "clock_in_time", "clock_out_time", "user",
+            "id", "date", "start_time", "end_time", "user",
             "work_minutes", "break_minutes", "work_status", "note"
         ]
 
@@ -40,6 +40,6 @@ class WorkRecordUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkRecord
         fields = [
-            "work_pattern", "work_date", "clock_in_time", "clock_out_time",
+            "work_pattern", "date", "start_time", "end_time",
             "work_status", "note"
         ]

@@ -6,7 +6,6 @@ import { VACATION_MODE, ATTENDANCE_MODE, START_ATTENDANCE_MODE, END_ATTENDANCE_M
 import { useAttendanceStore } from "@/hooks/useAttendanceStore";
 import { useVacation } from "@/hooks/useVacation";
 import { useToast } from "@chakra-ui/react";
-import { AttendanceData } from "@/types/attendance";
 
 const AttendanceByUserId = () => {
   const [mode, setMode] = useState<typeof VACATION_MODE | typeof ATTENDANCE_MODE>(VACATION_MODE);
@@ -14,7 +13,8 @@ const AttendanceByUserId = () => {
     START_ATTENDANCE_MODE
   );
 
-  const { postAttendance, overtimeHours, currentYearMonth, getAttendanceByUserId } = useAttendanceStore();
+  const { postAttendance, overtimeHours, currentYearMonth, getAttendanceByUserId, attendanceData } =
+    useAttendanceStore();
   const { postVacation, getVacationDays } = useVacation();
   const toast = useToast();
   const vacationDays = getVacationDays();
@@ -56,14 +56,18 @@ const AttendanceByUserId = () => {
   };
 
   useEffect(() => {
-    getAttendanceByUserId();
+    const fetchAttendanceData = async () => {
+      await getAttendanceByUserId();
+      console.log(attendanceData);
+    };
+    fetchAttendanceData();
   }, []);
 
   // TODO 出勤簿カレンダーのデータをAPIから取得する
-  const attendanceData: AttendanceData[] = [
-    { work_date: "2025-05-17", clock_in_time: "09:00", clock_out_time: "18:00" },
-    { work_date: "2025-05-18", clock_in_time: "10:00", clock_out_time: "19:00" },
-  ];
+  // const attendanceData: AttendanceData[] = [
+  //   { work_date: "2025-05-17", clock_in_time: "09:00", clock_out_time: "18:00" },
+  //   { work_date: "2025-05-18", clock_in_time: "10:00", clock_out_time: "19:00" },
+  // ];
 
   return (
     <Layout>
