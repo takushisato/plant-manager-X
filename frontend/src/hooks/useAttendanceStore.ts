@@ -30,7 +30,7 @@ export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
    */
   getAttendanceByUserId: async () => {
     const response = await apiClient<AttendanceByUserIdResponse>({
-      url: endpoints.get.attendanceMyList,
+      url: endpoints.get.attendanceMyList(get().currentYearMonth),
       method: "GET",
     });
     set({ allUserAttendanceList: response.data });
