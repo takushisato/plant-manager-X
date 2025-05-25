@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema
 from apps.attendance.models.work_record import WorkRecord
-from apps.attendance.serializers import WorkRecordListSerializer
+from apps.attendance.serializers import WorkRecordModelSerializer
 from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.attendance.common import check_attendance_own_edit_permission
 from rest_framework import status
@@ -17,7 +17,7 @@ class RecordMyListView(APIView):
     @extend_schema(
         tags=["attendance"],
         description="月を指定して自分の勤怠記録を取得",
-        responses={200: WorkRecordListSerializer(many=True)}
+        responses={200: WorkRecordModelSerializer(many=True)}
     )
     def get(self, request):
         check_attendance_own_edit_permission(request)
@@ -37,6 +37,6 @@ class RecordMyListView(APIView):
 
         records = WorkRecord.get_records_by_user_and_month(request.user, start_date, end_date)
 
-        serializer = WorkRecordListSerializer(records, many=True)
+        serializer = WorkRecordModelSerializer(records, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
