@@ -22,13 +22,13 @@ const AttendanceCalendar = ({ onDateClick, label, attendanceData }: Props) => {
     if (view !== "month") return null;
 
     const dateStr = date.toISOString().split("T")[0];
-    const record = attendanceData.find((a) => a.date === dateStr);
+    const record = attendanceData.find((a) => a.work_date === dateStr);
     if (!record) return null;
 
     return (
       <Box fontSize="xs" mt={1}>
-        {record.start_time && <Text color="green.500">出: {record.start_time}</Text>}
-        {record.end_time && <Text color="red.500">退: {record.end_time}</Text>}
+        {record.clock_in_time && <Text color="green.500">出: {record.clock_in_time}</Text>}
+        {record.clock_out_time && <Text color="red.500">退: {record.clock_out_time}</Text>}
       </Box>
     );
   };

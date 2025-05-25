@@ -56,7 +56,7 @@ export type UpdateAttendance = {
 };
 
 export type AttendanceData = {
-  date: string;
-  start_time: string | null;
-  end_time: string | null;
+  work_date: string;
+  clock_in_time: string | null;
+  clock_out_time: string | null;
 };

@@ -61,8 +61,8 @@ const AttendanceByUserId = () => {
 
   // TODO 出勤簿カレンダーのデータをAPIから取得する
   const attendanceData: AttendanceData[] = [
-    { date: "2025-05-17", start_time: "09:00", end_time: "18:00" },
-    { date: "2025-05-18", start_time: "10:00", end_time: "19:00" },
+    { work_date: "2025-05-17", clock_in_time: "09:00", clock_out_time: "18:00" },
+    { work_date: "2025-05-18", clock_in_time: "10:00", clock_out_time: "19:00" },
   ];
 
   return (
