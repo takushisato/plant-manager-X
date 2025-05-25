@@ -9,6 +9,8 @@ jest.mock("@/hooks/useAttendanceStore", () => ({
     getAttendance: jest.fn(() => []),
     overtimeHours: 0,
     currentYearMonth: "2024-04",
+    attendanceData: [],
+    getAttendanceByUserId: jest.fn(),
   })),
 }));
 
