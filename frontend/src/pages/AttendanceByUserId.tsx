@@ -1,7 +1,7 @@
 import Layout from "@/layouts/Layout";
 import AttendanceCalendar from "@/components/attendance/Calendar";
 import { Box, Radio, RadioGroup, Stack, Text, Heading, Divider } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { VACATION_MODE, ATTENDANCE_MODE, START_ATTENDANCE_MODE, END_ATTENDANCE_MODE } from "@/utils/consts";
 import { useAttendanceStore } from "@/hooks/useAttendanceStore";
 import { useVacation } from "@/hooks/useVacation";
@@ -14,7 +14,7 @@ const AttendanceByUserId = () => {
     START_ATTENDANCE_MODE
   );
 
-  const { postAttendance, overtimeHours, currentYearMonth } = useAttendanceStore();
+  const { postAttendance, overtimeHours, currentYearMonth, getAttendanceByUserId } = useAttendanceStore();
   const { postVacation, getVacationDays } = useVacation();
   const toast = useToast();
   const vacationDays = getVacationDays();
@@ -54,6 +54,10 @@ const AttendanceByUserId = () => {
       });
     }
   };
+
+  useEffect(() => {
+    getAttendanceByUserId();
+  }, []);
 
   // TODO 出勤簿カレンダーのデータをAPIから取得する
   const attendanceData: AttendanceData[] = [

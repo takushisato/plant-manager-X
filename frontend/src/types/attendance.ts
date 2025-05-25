@@ -30,6 +30,7 @@ export type AttendanceStore = {
   allUserAttendanceList: AllUserAttendanceList[];
   getUserAttendanceList: () => Promise<void>;
   overtimeHours: number;
+  getAttendanceByUserId: () => Promise<void>;
 };
 
 export type AllUserAttendanceList = {
