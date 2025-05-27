@@ -32,9 +32,9 @@ class TestAttendanceRecordPut:
         return WorkRecordFactory(
             user=authed_user,
             work_pattern=work_pattern,
-            clock_in_time=time(9, 0),
-            clock_out_time=time(17, 0),
-            work_date=date(2025, 4, 5)
+            start_time=time(9, 0),
+            end_time=time(17, 0),
+            date=date(2025, 4, 5)
         )
 
     def test_update_success(self, client, authed_user, record):
@@ -54,7 +54,7 @@ class TestAttendanceRecordPut:
         """
         client.force_authenticate(user=authed_user)
         payload = {
-            "clock_out_time": "17:30",
+            "end_time": "17:30",
             "note": "退勤時間修正"
         }
 
@@ -62,7 +62,7 @@ class TestAttendanceRecordPut:
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data["note"] == "退勤時間修正"
-        assert response.data["clock_out_time"] == "17:30:00"
+        assert response.data["end_time"] == "17:30:00"
 
     def test_invalid_time_order(self, client, authed_user, record):
         """
@@ -77,8 +77,8 @@ class TestAttendanceRecordPut:
         """
         client.force_authenticate(user=authed_user)
         payload = {
-            "clock_in_time": "17:00",
-            "clock_out_time": "09:00"
+            "start_time": "17:00",
+            "end_time": "09:00"
         }
 
         response = client.put(f"/api/attendance/records/{record.id}/", data=payload, format="json")
@@ -99,8 +99,8 @@ class TestAttendanceRecordPut:
         """
         client.force_authenticate(user=authed_user)
         payload = {
-            "clock_in_time": "08:00",
-            "clock_out_time": "18:30"
+            "start_time": "08:00",
+            "end_time": "18:30"
         }
 
         response = client.put(f"/api/attendance/records/{record.id}/", data=payload, format="json")
