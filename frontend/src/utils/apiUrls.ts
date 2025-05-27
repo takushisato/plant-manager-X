@@ -7,7 +7,7 @@ export const endpoints = {
   get: {
     users: "/api/auth/custom/users/me/",
     materialList: "/api/materials/",
-    attendanceMyList: "/api/attendance/records/my_list/",
+    attendanceMyList: (month: string) => `/api/attendance/records/my_list/?month=${month}`,
     attendanceAllList: (month: string) => `/api/attendance/records/all_list/?month=${month}`,
   },
   put: {

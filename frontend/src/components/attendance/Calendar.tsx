@@ -3,10 +3,11 @@ import Calendar from "react-calendar";
 import { Box, Text } from "@chakra-ui/react";
 import "react-calendar/dist/Calendar.css";
 import { AttendanceData } from "@/types/attendance";
+
 type Props = {
   onDateClick: (date: Date) => void;
   label: string;
-  attendanceData: AttendanceData[]; // 追加
+  attendanceData: AttendanceData[];
 };
 
 const AttendanceCalendar = ({ onDateClick, label, attendanceData }: Props) => {
@@ -24,6 +25,8 @@ const AttendanceCalendar = ({ onDateClick, label, attendanceData }: Props) => {
     const dateStr = date.toISOString().split("T")[0];
     const record = attendanceData.find((a) => a.date === dateStr);
     if (!record) return null;
+
+    console.log(record);
 
     return (
       <Box fontSize="xs" mt={1}>

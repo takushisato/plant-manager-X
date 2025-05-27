@@ -33,7 +33,7 @@ class TestAttendanceRecordMyListGet:
 
     @pytest.fixture
     def records_for_april(self, authed_user, work_pattern):
-        return WorkRecordFactory.create_batch(3, user=authed_user, work_pattern=work_pattern, work_date=date(2025, 4, 10))
+        return WorkRecordFactory.create_batch(3, user=authed_user, work_pattern=work_pattern, date=date(2025, 4, 10))
 
     def test_list_attendance_by_month_success(self, client, authed_user, records_for_april):
         """
@@ -53,7 +53,7 @@ class TestAttendanceRecordMyListGet:
 
         assert response.status_code == status.HTTP_200_OK
         assert len(response.data) == 3
-        assert all(r["work_date"].startswith("2025-04") for r in response.data)
+        assert all(r["date"].startswith("2025-04") for r in response.data)
 
     def test_missing_month_param(self, client, authed_user):
         """

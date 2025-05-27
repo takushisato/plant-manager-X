@@ -79,11 +79,11 @@ def calculate_net_work_minutes(work_duration, total_break):
     return net
 
 
-def validate_duplicate_record(user, work_date):
+def validate_duplicate_record(user, date):
     """
     同じ勤務日に同じユーザーが勤怠記録を作成していないかをチェック
     """
-    if WorkRecord.objects.filter(user=user, work_date=work_date, deleted_at__isnull=True).exists():
+    if WorkRecord.objects.filter(user=user, date=date, deleted_at__isnull=True).exists():
         raise ValidationError(MESSAGES["DUPLICATE_RECORD_ERROR"])
 
 

@@ -37,7 +37,7 @@ class TestAttendanceRecordAllListGet:
     def setup_records(self, admin_user):
         work_pattern = WorkPatternFactory()
         base_date = datetime(2025, 4, 1)
-        return WorkRecordFactory.create_batch(3, user=admin_user, work_pattern=work_pattern, work_date=base_date.date())
+        return WorkRecordFactory.create_batch(3, user=admin_user, work_pattern=work_pattern, date=base_date.date())
 
     def test_successful_retrieval(self, client, admin_user, setup_records):
         """
@@ -54,9 +54,6 @@ class TestAttendanceRecordAllListGet:
         client.force_authenticate(user=admin_user)
         response = client.get("/api/attendance/records/all_list/?month=2025-04")
         assert response.status_code == status.HTTP_200_OK
-
-        # データ例:
-        # [{'user': {'id': 1, 'name': 'John'}, 'total_worked_date': 3}]
         data = response.data
         assert len(data) == 1  # ユーザーごとのデータ
         assert data[0]["user"]["id"] == admin_user.id

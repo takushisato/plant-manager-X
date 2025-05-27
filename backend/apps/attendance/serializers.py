@@ -19,10 +19,27 @@ class WorkRecordListSerializer(serializers.Serializer):
         }
 
 
+class WorkRecordModelSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+
+    class Meta:
+        model = WorkRecord
+        fields = [
+            "id", "date", "start_time", "end_time", "user",
+            "work_minutes", "break_minutes", "work_status", "note"
+        ]
+
+    def get_user(self, obj):
+        return {
+            "id": obj.user.id,
+            "name": obj.user.name
+        }
+
+
 class WorkRecordUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkRecord
         fields = [
-            "work_pattern", "work_date", "clock_in_time", "clock_out_time",
+            "work_pattern", "date", "start_time", "end_time",
             "work_status", "note"
         ]

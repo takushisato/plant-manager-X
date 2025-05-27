@@ -54,9 +54,9 @@ class TestAttendanceRecordPost:
 
         payload = {
             "work_pattern": work_pattern.id,
-            "work_date": str(date.today()),
-            "clock_in_time": "09:00",
-            "clock_out_time": "18:00",
+            "date": str(date.today()),
+            "start_time": "09:00",
+            "end_time": "18:00",
             "work_status": "present",
             "note": "勤務記録テスト"
         }
@@ -64,7 +64,7 @@ class TestAttendanceRecordPost:
         response = client.post("/api/attendance/records/", data=payload, format="json")
 
         assert response.status_code == status.HTTP_201_CREATED
-        assert WorkRecord.objects.filter(user=authed_user, work_date=date.today()).exists()
+        assert WorkRecord.objects.filter(user=authed_user, date=date.today()).exists()
 
     def test_duplicate_record_error(self, client, authed_user, work_pattern):
         """
@@ -78,15 +78,15 @@ class TestAttendanceRecordPost:
         - エラーメッセージが表示される
         """
 
-        WorkRecordFactory(user=authed_user, work_date=date.today())
+        WorkRecordFactory(user=authed_user, date=date.today())
 
         client.force_authenticate(user=authed_user)
 
         payload = {
             "work_pattern": work_pattern.id,
-            "work_date": str(date.today()),
-            "clock_in_time": "09:00",
-            "clock_out_time": "18:00",
+            "date": str(date.today()),
+            "start_time": "09:00",
+            "end_time": "18:00",
             "work_status": "present"
         }
 
@@ -110,9 +110,9 @@ class TestAttendanceRecordPost:
 
         payload = {
             "work_pattern": work_pattern.id,
-            "work_date": str(date.today()),
-            "clock_in_time": "18:00",
-            "clock_out_time": "09:00",
+            "date": str(date.today()),
+            "start_time": "18:00",
+            "end_time": "09:00",
             "work_status": "present"
         }
 
@@ -136,9 +136,9 @@ class TestAttendanceRecordPost:
 
         payload = {
             "work_pattern": work_pattern.id,
-            "work_date": str(date.today()),
-            "clock_in_time": "08:00",
-            "clock_out_time": "19:00",
+            "date": str(date.today()),
+            "start_time": "08:00",
+            "end_time": "19:00",
             "work_status": "present"
         }
 
@@ -160,9 +160,9 @@ class TestAttendanceRecordPost:
 
         payload = {
             "work_pattern": work_pattern.id,
-            "work_date": str(date.today()),
-            "clock_in_time": "09:00",
-            "clock_out_time": "18:00",
+            "date": str(date.today()),
+            "start_time": "09:00",
+            "end_time": "18:00",
             "work_status": "present"
         }
 

@@ -1,12 +1,3 @@
-export type AttendanceByUserIdResponse = {
-  data: {
-    id: number;
-    name: string;
-    attendance_count: number;
-    detail: string | undefined;
-  }[];
-};
-
 export type UserAttendanceList = {
   id: number;
   name: string;
@@ -30,6 +21,8 @@ export type AttendanceStore = {
   allUserAttendanceList: AllUserAttendanceList[];
   getUserAttendanceList: () => Promise<void>;
   overtimeHours: number;
+  getAttendanceByUserId: () => Promise<void>;
+  attendanceData: AttendanceData[];
 };
 
 export type AllUserAttendanceList = {

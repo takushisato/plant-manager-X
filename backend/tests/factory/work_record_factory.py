@@ -12,9 +12,9 @@ class WorkRecordFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
     work_pattern = factory.SubFactory(WorkPatternFactory)
-    work_date = factory.Faker("date_this_year")
-    clock_in_time = factory.LazyFunction(lambda: time(9, 0))
-    clock_out_time = factory.LazyFunction(lambda: time(18, 0))
+    date = factory.Faker("date_this_year")
+    start_time = factory.LazyFunction(lambda: time(9, 0))
+    end_time = factory.LazyFunction(lambda: time(18, 0))
     break_minutes = 60
     work_minutes = 480
     work_status = WorkStatus.PRESENT

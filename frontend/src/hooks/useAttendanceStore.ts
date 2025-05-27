@@ -4,8 +4,8 @@ import {
   NewAttendance,
   AttendanceListResponse,
   UpdateAttendance,
-  AttendanceByUserIdResponse,
   AllUserAttendanceList,
+  AttendanceData,
 } from "@/types/attendance";
 import { endpoints } from "@/utils/apiUrls";
 import { apiClient } from "@/domain/api/apiClient";
@@ -24,16 +24,17 @@ export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
   currentYearMonth: formatYearMonth(new Date()),
   allUserAttendanceList: [],
   overtimeHours: 0,
+  attendanceData: [],
 
   /**
    * ユーザーの出勤簿を取得
    */
   getAttendanceByUserId: async () => {
-    const response = await apiClient<AttendanceByUserIdResponse>({
-      url: endpoints.get.attendanceMyList,
+    const response = await apiClient<AttendanceData[]>({
+      url: endpoints.get.attendanceMyList(get().currentYearMonth),
       method: "GET",
     });
-    set({ allUserAttendanceList: response.data });
+    set({ attendanceData: response });
   },
 
   /**
