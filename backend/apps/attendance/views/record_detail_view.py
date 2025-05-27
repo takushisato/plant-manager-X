@@ -31,11 +31,11 @@ class RecordDetailView(APIView):
 
         work_pattern = record.work_pattern
 
-        clock_in = data.get("clock_in_time", record.clock_in_time)
-        clock_out = data.get("clock_out_time", record.clock_out_time)
+        start_time = data.get("start_time", record.start_time)
+        end_time = data.get("end_time", record.end_time)
 
-        validate_clock_order(clock_in, clock_out)
-        validate_within_work_pattern(clock_in, clock_out, work_pattern)
+        validate_clock_order(start_time, end_time)
+        validate_within_work_pattern(start_time, end_time, work_pattern)
 
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
