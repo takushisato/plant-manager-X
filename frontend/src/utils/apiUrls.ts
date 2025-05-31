@@ -9,6 +9,7 @@ export const endpoints = {
     materialList: "/api/materials/",
     attendanceMyList: (month: string) => `/api/attendance/records/my_list/?month=${month}`,
     attendanceAllList: (month: string) => `/api/attendance/records/all_list/?month=${month}`,
+    orderList: "/api/trade/orders/",
   },
   put: {
     users: (id: number) => `/api/auth/users/${id}/`,

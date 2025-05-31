@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import { OrderCreate, OrderTableItem, OrderTableList } from "@/types/order";
-import { mockOrderTableList, mockOrderTableItem } from "@/fixtures/order";
-
+import { mockOrderTableItem } from "@/fixtures/order";
+import { endpoints } from "@/utils/apiUrls";
+import { apiClient } from "@/domain/api/apiClient";
 type OrderStore = {
   customer_name: string;
   order_number: string;
@@ -61,11 +62,12 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
 
   /**
    * 注文を取得
-   * TODO モックからAPIに変更する
    */
   getOrders: async () => {
-    const mockData = mockOrderTableList;
-    set({ orders: mockData });
+    const response = await apiClient<OrderTableList[]>({
+      url: endpoints.get.orderList,
+    });
+    set({ orders: response });
   },
 
   /**
