@@ -58,6 +58,7 @@ export const apiClient = async <T>(config: AxiosRequestConfig): Promise<T> => {
     if (axiosError.response) {
       processErrorResponse(axiosError.response.status, axiosError.message);
     }
+    console.error("APIエラー詳細:", error);
     throw new Error("An error occurred during the API call.");
   }
 };
