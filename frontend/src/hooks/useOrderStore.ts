@@ -66,6 +66,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
   getOrders: async () => {
     const response = await apiClient<OrderTableList[]>({
       url: endpoints.get.orderList,
+      method: "GET",
     });
     set({ orders: response });
   },
@@ -78,6 +79,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
     console.log(id);
     const response = await apiClient<OrderTableItem>({
       url: endpoints.get.orderDetail(id),
+      method: "GET",
     });
     console.log(response);
     set({ order: response });

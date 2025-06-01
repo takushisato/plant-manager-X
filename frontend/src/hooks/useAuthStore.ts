@@ -17,7 +17,10 @@ export const useAuthStore = create<AuthStore>((set) => ({
     const token = Cookies.get("token");
     if (token) {
       try {
-        const data = await apiClient<User>({ url: endpoints.get.users });
+        const data = await apiClient<User>({
+          url: endpoints.get.users,
+          method: "GET",
+        });
         set({ user: data });
       } catch (error) {
         console.error(error);
@@ -41,6 +44,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
   login: async (email: string, password: string) => {
     const response = await apiClient<{ auth_token: string }>({
       url: endpoints.post.login,
+      method: "POST",
       data: { email, password },
     });
     Cookies.set("token", response.auth_token, {
@@ -55,7 +59,10 @@ export const useAuthStore = create<AuthStore>((set) => ({
    * @returns
    */
   logout: async () => {
-    const response = await apiClient<void>({ url: endpoints.post.logout });
+    const response = await apiClient<void>({
+      url: endpoints.post.logout,
+      method: "POST",
+    });
     Cookies.remove("token");
     return response;
   },
