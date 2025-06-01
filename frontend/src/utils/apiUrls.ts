@@ -3,6 +3,7 @@ export const endpoints = {
     login: "/api/auth/token/login",
     logout: "/api/auth/token/logout",
     attendanceRecords: "/api/attendance/records/",
+    order: "/api/trade/orders/",
   },
   get: {
     users: "/api/auth/custom/users/me/",

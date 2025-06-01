@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { OrderCreate, OrderTableItem, OrderTableList } from "@/types/order";
+import { OrderTableItem, OrderTableList } from "@/types/order";
 import { endpoints } from "@/utils/apiUrls";
 import { apiClient } from "@/domain/api/apiClient";
 
@@ -90,18 +90,23 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
    * @param get
    */
   createOrder: async (): Promise<void> => {
-    const order: OrderCreate = {
-      customer_name: get().customer_name,
-      order_number: get().order_number,
-      order_date: get().order_date,
-      product_name: get().product_name,
-      quantity: get().quantity,
-      price: get().price,
-      deadline: get().deadline,
-      note: get().note,
-    };
-
-    alert("注文を作成しました" + JSON.stringify(order));
+    const response = await apiClient<OrderTableItem>({
+      // TODO: 顧客を選択できるようにする
+      url: endpoints.post.order,
+      method: "POST",
+      data: {
+        customer: 1,
+        customer_name: get().customer_name,
+        order_number: get().order_number,
+        order_date: get().order_date,
+        product_name: get().product_name,
+        quantity: get().quantity,
+        price: get().price,
+        deadline: get().deadline,
+        note: get().note,
+      },
+    });
+    console.log(response);
   },
 
   /**
