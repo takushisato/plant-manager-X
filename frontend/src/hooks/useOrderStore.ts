@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { OrderCreate, OrderTableItem, OrderTableList } from "@/types/order";
-import { mockOrderTableItem } from "@/fixtures/order";
 import { endpoints } from "@/utils/apiUrls";
 import { apiClient } from "@/domain/api/apiClient";
+
 type OrderStore = {
   customer_name: string;
   order_number: string;
@@ -75,9 +75,12 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
    * @param id
    */
   getOrder: async (id: number): Promise<void> => {
-    const mockData = mockOrderTableItem;
-    set({ order: mockData });
-    console.log("注文を取得しました" + id);
+    console.log(id);
+    const response = await apiClient<OrderTableItem>({
+      url: endpoints.get.orderDetail(id),
+    });
+    console.log(response);
+    set({ order: response });
   },
 
   /**
