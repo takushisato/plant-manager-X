@@ -16,6 +16,19 @@ class OrderDetailView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(
+        tags=["order"],
+        description="詳細な注文情報を取得する",
+        responses={200: OrderCreateSerializer},
+    )
+    def get(self, request, pk):
+        check_trade_flow_edit_permission(request)
+
+        order = get_object_or_404(Order, pk=pk)
+        serializer = OrderCreateSerializer(order)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @extend_schema(
         request=OrderCreateSerializer,
         responses={200: OrderCreateSerializer},
         tags=["order"],
