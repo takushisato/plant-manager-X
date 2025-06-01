@@ -20,3 +20,11 @@ class OrderListSerializer(serializers.ModelSerializer):
             'id', 'order_number', 'order_date', 'product_name', 'quantity',
             'price', 'deadline', 'note', 'customer', 'customer_name'
         ]
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = [
+            'id', 'order_number', 'order_date', 'product_name', 'quantity',
+            'price', 'deadline', 'note', 'customer', 'customer_name'
+        ]
