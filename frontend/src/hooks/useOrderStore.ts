@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { OrderCreate, OrderTableItem, OrderTableList } from "@/types/order";
-import { mockOrderTableList, mockOrderTableItem } from "@/fixtures/order";
+import { OrderTableItem, OrderTableList } from "@/types/order";
+import { endpoints } from "@/utils/apiUrls";
+import { apiClient } from "@/domain/api/apiClient";
 
 type OrderStore = {
   customer_name: string;
@@ -61,11 +62,13 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
 
   /**
    * 注文を取得
-   * TODO モックからAPIに変更する
    */
   getOrders: async () => {
-    const mockData = mockOrderTableList;
-    set({ orders: mockData });
+    const response = await apiClient<OrderTableList[]>({
+      url: endpoints.get.orderList,
+      method: "GET",
+    });
+    set({ orders: response });
   },
 
   /**
@@ -73,9 +76,12 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
    * @param id
    */
   getOrder: async (id: number): Promise<void> => {
-    const mockData = mockOrderTableItem;
-    set({ order: mockData });
-    console.log("注文を取得しました" + id);
+    console.log(id);
+    const response = await apiClient<OrderTableItem>({
+      url: endpoints.get.orderDetail(id),
+      method: "GET",
+    });
+    set({ order: response });
   },
 
   /**
@@ -83,18 +89,23 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
    * @param get
    */
   createOrder: async (): Promise<void> => {
-    const order: OrderCreate = {
-      customer_name: get().customer_name,
-      order_number: get().order_number,
-      order_date: get().order_date,
-      product_name: get().product_name,
-      quantity: get().quantity,
-      price: get().price,
-      deadline: get().deadline,
-      note: get().note,
-    };
-
-    alert("注文を作成しました" + JSON.stringify(order));
+    const response = await apiClient<OrderTableItem>({
+      // TODO: 顧客を選択できるようにする
+      url: endpoints.post.order,
+      method: "POST",
+      data: {
+        customer: 1,
+        customer_name: get().customer_name,
+        order_number: get().order_number,
+        order_date: get().order_date,
+        product_name: get().product_name,
+        quantity: get().quantity,
+        price: get().price,
+        deadline: get().deadline,
+        note: get().note,
+      },
+    });
+    console.log(response);
   },
 
   /**
@@ -102,6 +113,23 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
    * @param id
    */
   updateOrder: async (id: number): Promise<void> => {
-    alert("注文を更新しました" + id);
+    // TODO: 顧客を選択できるようにする
+    const response = await apiClient<OrderTableItem>({
+      url: endpoints.put.orderDetail(id),
+      method: "PUT",
+      data: {
+        id: id,
+        customer: 1,
+        customer_name: get().customer_name,
+        order_number: get().order_number,
+        order_date: get().order_date,
+        product_name: get().product_name,
+        quantity: get().quantity,
+        price: get().price,
+        deadline: get().deadline,
+        note: get().note,
+      },
+    });
+    console.log(response);
   },
 }));
