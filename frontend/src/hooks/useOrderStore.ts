@@ -113,6 +113,23 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
    * @param id
    */
   updateOrder: async (id: number): Promise<void> => {
-    alert("注文を更新しました" + id);
+    // TODO: 顧客を選択できるようにする
+    const response = await apiClient<OrderTableItem>({
+      url: endpoints.put.orderDetail(id),
+      method: "PUT",
+      data: {
+        id: id,
+        customer: 1,
+        customer_name: get().customer_name,
+        order_number: get().order_number,
+        order_date: get().order_date,
+        product_name: get().product_name,
+        quantity: get().quantity,
+        price: get().price,
+        deadline: get().deadline,
+        note: get().note,
+      },
+    });
+    console.log(response);
   },
 }));
