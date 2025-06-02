@@ -25,6 +25,7 @@ const OrderForm = () => {
     setNote,
     order,
     getOrder,
+    updateOrder,
   } = useOrderStore();
 
   const { id } = useParams();
@@ -72,12 +73,16 @@ const OrderForm = () => {
   }, [order_date, setOrderDate]);
 
   /**
-   * 注文を作成
+   * 注文を作成または更新
    * @param e
    */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createOrder();
+    if (id) {
+      updateOrder(Number(id));
+    } else {
+      createOrder();
+    }
   };
 
   return (
@@ -164,7 +169,7 @@ const OrderForm = () => {
         <Input type="text" value={note} onChange={(e) => setNote(e.target.value)} />
       </FormControl>
       <Button type="submit" mt={4}>
-        作成
+        {id ? "更新" : "作成"}
       </Button>
     </Box>
   );
