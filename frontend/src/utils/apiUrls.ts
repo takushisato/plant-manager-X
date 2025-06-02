@@ -18,6 +18,7 @@ export const endpoints = {
     materialReceiveStock: (id: number) => `/api/materials/receive_stock/${id}/`,
     materialUseStock: (id: number) => `/api/materials/use_stock/${id}/`,
     attendanceRecords: (id: number) => `/api/attendance/records/${id}/`,
+    orderDetail: (id: number) => `/api/trade/orders/${id}/`,
   },
   delete: {
     users: (id: number) => `/api/auth/users/${id}/`,
