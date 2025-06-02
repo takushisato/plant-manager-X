@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
 
 from apps.trade_flow.models.orders import Order
-from apps.trade_flow.serializers import OrderCreateSerializer, OrderDetailSerializer
+from apps.trade_flow.serializers import OrderDetailSerializer
 from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.trade_flow.common import check_trade_flow_edit_permission
 from django.utils import timezone
@@ -29,8 +29,8 @@ class OrderDetailView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(
-        request=OrderCreateSerializer,
-        responses={200: OrderCreateSerializer},
+        request=OrderDetailSerializer,
+        responses={200: OrderDetailSerializer},
         tags=["order"],
         description="注文情報を更新する"
     )
@@ -38,7 +38,7 @@ class OrderDetailView(APIView):
         check_trade_flow_edit_permission(request)
 
         order = get_object_or_404(Order, pk=pk)
-        serializer = OrderCreateSerializer(order, data=request.data)
+        serializer = OrderDetailSerializer(order, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
