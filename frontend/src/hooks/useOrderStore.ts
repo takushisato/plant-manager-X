@@ -81,7 +81,6 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
       url: endpoints.get.orderDetail(id),
       method: "GET",
     });
-    console.log(response);
     set({ order: response });
   },
 
