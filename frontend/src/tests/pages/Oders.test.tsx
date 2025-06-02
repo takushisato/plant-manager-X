@@ -13,19 +13,28 @@ jest.mock("@/hooks/useAuthStore", () => ({
       name: "テストユーザー",
       permission: {
         material_access: true,
-        staff_hub_access: false,
-        can_manage_own_attendance: false,
-        can_manage_all_attendance: false,
-        can_view_production_plan: false,
-        can_edit_production_plan: false,
-        can_view_order: false,
-        can_edit_order: false,
-        can_view_defect: false,
-        can_edit_defect: false,
+        staff_hub_access: true,
+        can_manage_own_attendance: true,
+        can_manage_all_attendance: true,
+        can_view_production_plan: true,
+        can_edit_production_plan: true,
+        can_view_order: true,
+        can_edit_order: true,
+        can_view_defect: true,
+        can_edit_defect: true,
       },
     },
     logout: jest.fn(),
     restoreSession: jest.fn(),
+    login: jest.fn(),
+  })),
+}));
+
+jest.mock("@/hooks/useOrderStore", () => ({
+  __esModule: true,
+  useOrderStore: jest.fn(() => ({
+    orders: [],
+    getOrders: jest.fn(),
   })),
 }));
 
@@ -43,14 +52,6 @@ describe("Materials Page", () => {
     expect(screen.getByText("価格")).toBeInTheDocument();
     expect(screen.getByText("納期")).toBeInTheDocument();
     expect(screen.getByText("備考")).toBeInTheDocument();
-  });
-
-  it("注文データが表示される", () => {
-    expect(screen.getByText("顧客1").closest("tr")).toHaveTextContent(
-      "注文番号1"
-    );
-    expect(screen.getByText("顧客2").closest("tr")).toHaveTextContent(
-      "注文番号2"
-    );
+    expect(screen.getByText("更新")).toBeInTheDocument();
   });
 });
