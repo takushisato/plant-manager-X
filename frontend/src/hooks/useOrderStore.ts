@@ -14,6 +14,8 @@ type OrderStore = {
   note: string;
   orders: OrderTableList[];
   order: OrderTableItem;
+  customer_id: number;
+  setCustomerId: (value: number) => void;
   setOrders: (orders: OrderTableList[]) => void;
   createOrder: () => void;
   getOrders: () => Promise<void>;
@@ -30,6 +32,7 @@ type OrderStore = {
 };
 
 export const useOrderStore = create<OrderStore>((set, get) => ({
+  customer_id: 1,
   customer_name: "",
   order_number: "",
   order_date: "",
@@ -51,6 +54,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
     note: "",
   },
   setOrders: (orders: OrderTableList[]) => set({ orders }),
+  setCustomerId: (value: number) => set({ customer_id: value }),
   setCustomerName: (value: string) => set({ customer_name: value }),
   setOrderNumber: (value: string) => set({ order_number: value }),
   setOrderDate: (value: string) => set({ order_date: value }),
@@ -90,12 +94,11 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
    */
   createOrder: async (): Promise<void> => {
     const response = await apiClient<OrderTableItem>({
-      // TODO: 顧客を選択できるようにする
       url: endpoints.post.order,
       method: "POST",
       data: {
-        customer: 1,
-        customer_name: get().customer_name,
+        customer: get().customer_id,
+        // customer_name: get().customer_name,
         order_number: get().order_number,
         order_date: get().order_date,
         product_name: get().product_name,
@@ -119,8 +122,8 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
       method: "PUT",
       data: {
         id: id,
-        customer: 1,
-        customer_name: get().customer_name,
+        customer: get().customer_id,
+        // customer_name: get().customer_name,
         order_number: get().order_number,
         order_date: get().order_date,
         product_name: get().product_name,

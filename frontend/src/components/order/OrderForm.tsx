@@ -8,7 +8,7 @@ import { useCustomerStore } from "@/hooks/useCustomerStore";
 const OrderForm = () => {
   const {
     createOrder,
-    customer_name,
+    customer_id,
     order_number,
     order_date,
     product_name,
@@ -16,7 +16,7 @@ const OrderForm = () => {
     price,
     deadline,
     note,
-    setCustomerName,
+    setCustomerId,
     setOrderNumber,
     setOrderDate,
     setProductName,
@@ -38,7 +38,7 @@ const OrderForm = () => {
     if (id) {
       getOrder(Number(id));
     } else {
-      setCustomerName("");
+      setCustomerId(0);
       setOrderNumber("");
       setOrderDate("");
       setProductName("");
@@ -51,7 +51,6 @@ const OrderForm = () => {
 
   useEffect(() => {
     if (id && order.customer_name) {
-      setCustomerName(order.customer_name);
       setOrderNumber(order.order_number);
       setOrderDate(order.order_date);
       setProductName(order.product_name);
@@ -95,9 +94,9 @@ const OrderForm = () => {
   return (
     <Box as="form" onSubmit={handleSubmit} w="100%" maxW="1200px" mx="auto" data-testid="order-form" mt={4}>
       <FormControl>
-        <Select value={customer_name} onChange={(e) => setCustomerName(e.target.value)} isRequired={true}>
+        <Select value={customer_id} onChange={(e) => setCustomerId(Number(e.target.value))} isRequired={true}>
           {customers.map((customer) => (
-            <option key={customer.id} value={customer.customer_name}>
+            <option key={customer.id} value={customer.id}>
               {customer.customer_name}
             </option>
           ))}
