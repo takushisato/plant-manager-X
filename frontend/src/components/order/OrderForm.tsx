@@ -1,8 +1,9 @@
-import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, Button, Select } from "@chakra-ui/react";
 import { useOrderStore } from "@/hooks/useOrderStore";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import InputWithTooltip from "@/components/common/InputWithTooltip";
+import { useCustomerStore } from "@/hooks/useCustomerStore";
 
 const OrderForm = () => {
   const {
@@ -62,6 +63,12 @@ const OrderForm = () => {
     }
   }, [order, id]);
 
+  const { customers, getCustomers } = useCustomerStore();
+
+  useEffect(() => {
+    getCustomers();
+  }, []);
+
   /**
    * 注文日が未入力の場合（主に新規作成時）デフォルトで今日の日付を設定
    */
@@ -86,17 +93,15 @@ const OrderForm = () => {
   };
 
   return (
-    <Box as="form" onSubmit={handleSubmit} w="100%" maxW="1200px" mx="auto" data-testid="order-form">
+    <Box as="form" onSubmit={handleSubmit} w="100%" maxW="1200px" mx="auto" data-testid="order-form" mt={4}>
       <FormControl>
-        <InputWithTooltip
-          label="顧客名"
-          name="customer_name"
-          tooltip="顧客名を入力してください"
-          type="text"
-          value={customer_name}
-          onChange={(e) => setCustomerName(e.target.value)}
-          isRequired={true}
-        />
+        <Select value={customer_name} onChange={(e) => setCustomerName(e.target.value)} isRequired={true}>
+          {customers.map((customer) => (
+            <option key={customer.id} value={customer.customer_name}>
+              {customer.customer_name}
+            </option>
+          ))}
+        </Select>
       </FormControl>
       <FormControl>
         <InputWithTooltip
