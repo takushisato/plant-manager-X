@@ -12,7 +12,7 @@ class Customer(BaseModel):
     client_contact = models.CharField("客先担当者名", max_length=100, null=True, blank=True)
     internal_contact = models.CharField("弊社担当者名", max_length=100, null=True, blank=True)
     note = models.TextField("備考",max_length=1000, null=True, blank=True)
-    
+
     class Meta:
         verbose_name = "顧客"
         verbose_name_plural = "顧客"
