@@ -37,6 +37,7 @@ const OrderForm = () => {
   useEffect(() => {
     if (id) {
       getOrder(Number(id));
+      setCustomerId(order.customer_id);
     } else {
       setCustomerId(0);
       setOrderNumber("");

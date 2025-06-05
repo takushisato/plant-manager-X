@@ -52,6 +52,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
     price: 0,
     deadline: "",
     note: "",
+    customer_id: 0,
   },
   setOrders: (orders: OrderTableList[]) => set({ orders }),
   setCustomerId: (value: number) => set({ customer_id: value }),
@@ -86,6 +87,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
       method: "GET",
     });
     set({ order: response });
+    set({ customer_id: response.customer_id });
   },
 
   /**
@@ -98,7 +100,6 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
       method: "POST",
       data: {
         customer: get().customer_id,
-        // customer_name: get().customer_name,
         order_number: get().order_number,
         order_date: get().order_date,
         product_name: get().product_name,
@@ -123,7 +124,6 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
       data: {
         id: id,
         customer: get().customer_id,
-        // customer_name: get().customer_name,
         order_number: get().order_number,
         order_date: get().order_date,
         product_name: get().product_name,
