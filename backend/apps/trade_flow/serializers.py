@@ -29,7 +29,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         model = Order
         fields = [
             'id', 'order_number', 'order_date', 'product_name', 'quantity',
-            'price', 'deadline', 'note', 'customer', 'customer_name'
+            'price', 'deadline', 'note', 'customer', 'customer_name', 'customer_id'
         ]
 
     def update(self, instance, validated_data):
