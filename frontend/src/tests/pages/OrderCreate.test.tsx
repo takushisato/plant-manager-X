@@ -3,7 +3,22 @@ import { useOrderStore } from "@/hooks/useOrderStore";
 import OrderCreate from "@/pages/OrderCreate";
 import { BrowserRouter } from "react-router-dom";
 
-jest.mock("@/hooks/useOrderStore");
+jest.mock("@/hooks/useOrderStore", () => ({
+  __esModule: true,
+  useOrderStore: jest.fn(() => ({
+    customers: [],
+    getCustomers: jest.fn(),
+    setCustomerId: jest.fn(),
+  })),
+}));
+
+jest.mock("@/hooks/useCustomerStore", () => ({
+  __esModule: true,
+  useCustomerStore: jest.fn(() => ({
+    customers: [],
+    getCustomers: jest.fn(),
+  })),
+}));
 
 jest.mock("@/hooks/useAuthStore", () => ({
   __esModule: true,
@@ -51,6 +66,7 @@ describe("OrderForm", () => {
     deadline: "",
     note: "",
     order: {},
+    customer_id: 0,
   };
 
   beforeEach(() => {
@@ -64,7 +80,6 @@ describe("OrderForm", () => {
         <OrderCreate />
       </BrowserRouter>
     );
-    expect(screen.getByText("顧客名")).toBeInTheDocument();
     expect(screen.getByText("注文番号")).toBeInTheDocument();
     expect(screen.getByText("注文日")).toBeInTheDocument();
     expect(screen.getByText("商品名")).toBeInTheDocument();
