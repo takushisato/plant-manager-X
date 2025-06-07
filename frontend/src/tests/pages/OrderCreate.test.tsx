@@ -5,11 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 jest.mock("@/hooks/useOrderStore", () => ({
   __esModule: true,
-  useOrderStore: jest.fn(() => ({
-    customers: [],
-    getCustomers: jest.fn(),
-    setCustomerId: jest.fn(),
-  })),
+  useOrderStore: jest.fn(),
 }));
 
 jest.mock("@/hooks/useCustomerStore", () => ({
@@ -47,6 +43,7 @@ jest.mock("@/hooks/useAuthStore", () => ({
 describe("OrderForm", () => {
   const createOrderMock = jest.fn();
   const setMock = {
+    setCustomerId: jest.fn(),
     setCustomerName: jest.fn(),
     setOrderNumber: jest.fn(),
     setOrderDate: jest.fn(),
