@@ -6,11 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 
 jest.mock("@/hooks/useOrderStore", () => ({
   __esModule: true,
-  useOrderStore: jest.fn(() => ({
-    customers: [],
-    getCustomers: jest.fn(),
-    setCustomerId: jest.fn(),
-  })),
+  useOrderStore: jest.fn(),
 }));
 
 jest.mock("@/hooks/useCustomerStore", () => ({
@@ -48,6 +44,7 @@ jest.mock("@/hooks/useAuthStore", () => ({
 describe("OrderForm", () => {
   const createOrderMock = jest.fn();
   const setMock = {
+    setCustomerId: jest.fn(),
     setCustomerName: jest.fn(),
     setOrderNumber: jest.fn(),
     setOrderDate: jest.fn(),
@@ -57,7 +54,7 @@ describe("OrderForm", () => {
     setDeadline: jest.fn(),
     setNote: jest.fn(),
     createOrder: createOrderMock,
-    getOrder: jest.fn(() => Promise.resolve()),
+    getOrder: jest.fn(),
     customer_name: "",
     order_number: "",
     order_date: "",
@@ -66,7 +63,8 @@ describe("OrderForm", () => {
     price: 0,
     deadline: "",
     note: "",
-    customer_id: 1,
+    order: {},
+    customer_id: 0,
   };
 
   beforeEach(() => {
