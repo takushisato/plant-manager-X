@@ -8,6 +8,7 @@ export type OrderTableItem = {
   price: number;
   deadline: string;
   note: string;
+  customer_id: number;
 };
 
 export type OrderTableList = {

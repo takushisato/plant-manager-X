@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from apps.trade_flow.models.orders import Order
+from apps.trade_flow.models.customer import Customer
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
@@ -28,7 +29,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         model = Order
         fields = [
             'id', 'order_number', 'order_date', 'product_name', 'quantity',
-            'price', 'deadline', 'note', 'customer', 'customer_name'
+            'price', 'deadline', 'note', 'customer', 'customer_name', 'customer_id'
         ]
 
     def update(self, instance, validated_data):
@@ -36,3 +37,8 @@ class OrderDetailSerializer(serializers.ModelSerializer):
             setattr(instance, attr, value)
         instance.save()
         return instance
+
+class CustomerListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ['id', 'customer_name']

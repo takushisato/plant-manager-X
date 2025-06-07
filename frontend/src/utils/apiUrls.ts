@@ -12,6 +12,7 @@ export const endpoints = {
     attendanceAllList: (month: string) => `/api/attendance/records/all_list/?month=${month}`,
     orderList: "/api/trade/orders/",
     orderDetail: (id: number) => `/api/trade/orders/${id}/`,
+    customers: "/api/trade/customers/",
   },
   put: {
     users: (id: number) => `/api/auth/users/${id}/`,

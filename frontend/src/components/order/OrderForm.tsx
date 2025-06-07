@@ -1,13 +1,14 @@
-import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, Button, Select } from "@chakra-ui/react";
 import { useOrderStore } from "@/hooks/useOrderStore";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import InputWithTooltip from "@/components/common/InputWithTooltip";
+import { useCustomerStore } from "@/hooks/useCustomerStore";
 
 const OrderForm = () => {
   const {
     createOrder,
-    customer_name,
+    customer_id,
     order_number,
     order_date,
     product_name,
@@ -15,7 +16,7 @@ const OrderForm = () => {
     price,
     deadline,
     note,
-    setCustomerName,
+    setCustomerId,
     setOrderNumber,
     setOrderDate,
     setProductName,
@@ -36,8 +37,9 @@ const OrderForm = () => {
   useEffect(() => {
     if (id) {
       getOrder(Number(id));
+      setCustomerId(order.customer_id);
     } else {
-      setCustomerName("");
+      setCustomerId(0);
       setOrderNumber("");
       setOrderDate("");
       setProductName("");
@@ -50,7 +52,6 @@ const OrderForm = () => {
 
   useEffect(() => {
     if (id && order.customer_name) {
-      setCustomerName(order.customer_name);
       setOrderNumber(order.order_number);
       setOrderDate(order.order_date);
       setProductName(order.product_name);
@@ -61,6 +62,12 @@ const OrderForm = () => {
       console.log("取得後の注文:", order);
     }
   }, [order, id]);
+
+  const { customers, getCustomers } = useCustomerStore();
+
+  useEffect(() => {
+    getCustomers();
+  }, []);
 
   /**
    * 注文日が未入力の場合（主に新規作成時）デフォルトで今日の日付を設定
@@ -86,17 +93,15 @@ const OrderForm = () => {
   };
 
   return (
-    <Box as="form" onSubmit={handleSubmit} w="100%" maxW="1200px" mx="auto" data-testid="order-form">
+    <Box as="form" onSubmit={handleSubmit} w="100%" maxW="1200px" mx="auto" data-testid="order-form" mt={4}>
       <FormControl>
-        <InputWithTooltip
-          label="顧客名"
-          name="customer_name"
-          tooltip="顧客名を入力してください"
-          type="text"
-          value={customer_name}
-          onChange={(e) => setCustomerName(e.target.value)}
-          isRequired={true}
-        />
+        <Select value={customer_id} onChange={(e) => setCustomerId(Number(e.target.value))} isRequired={true}>
+          {customers.map((customer) => (
+            <option key={customer.id} value={customer.id}>
+              {customer.customer_name}
+            </option>
+          ))}
+        </Select>
       </FormControl>
       <FormControl>
         <InputWithTooltip

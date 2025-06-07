@@ -4,7 +4,18 @@ import OrderUpdate from "@/pages/OrderUpdate";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 
-jest.mock("@/hooks/useOrderStore");
+jest.mock("@/hooks/useOrderStore", () => ({
+  __esModule: true,
+  useOrderStore: jest.fn(),
+}));
+
+jest.mock("@/hooks/useCustomerStore", () => ({
+  __esModule: true,
+  useCustomerStore: jest.fn(() => ({
+    customers: [],
+    getCustomers: jest.fn(),
+  })),
+}));
 
 jest.mock("@/hooks/useAuthStore", () => ({
   __esModule: true,
@@ -33,6 +44,7 @@ jest.mock("@/hooks/useAuthStore", () => ({
 describe("OrderForm", () => {
   const createOrderMock = jest.fn();
   const setMock = {
+    setCustomerId: jest.fn(),
     setCustomerName: jest.fn(),
     setOrderNumber: jest.fn(),
     setOrderDate: jest.fn(),
@@ -42,7 +54,7 @@ describe("OrderForm", () => {
     setDeadline: jest.fn(),
     setNote: jest.fn(),
     createOrder: createOrderMock,
-    getOrder: jest.fn(() => Promise.resolve()),
+    getOrder: jest.fn(),
     customer_name: "",
     order_number: "",
     order_date: "",
@@ -51,6 +63,8 @@ describe("OrderForm", () => {
     price: 0,
     deadline: "",
     note: "",
+    order: {},
+    customer_id: 0,
   };
 
   beforeEach(() => {
@@ -91,7 +105,6 @@ describe("OrderForm", () => {
         <OrderUpdate />
       </BrowserRouter>
     );
-    expect(screen.getByText("顧客名")).toBeInTheDocument();
     expect(screen.getByText("注文番号")).toBeInTheDocument();
     expect(screen.getByText("注文日")).toBeInTheDocument();
     expect(screen.getByText("商品名")).toBeInTheDocument();
