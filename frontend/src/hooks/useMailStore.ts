@@ -1,6 +1,9 @@
 import { create } from "zustand";
 import { Mail, MailTable, PostMail } from "@/types/mail";
 import { mockMailList } from "@/fixtures/mail-list";
+import { endpoints } from "@/utils/apiUrls";
+import { apiClient } from "@/domain/api/apiClient";
+import { MailGroup } from "@/types/mail";
 
 type MailStore = {
   postMail: PostMail | null;
@@ -10,6 +13,8 @@ type MailStore = {
   getMails: () => void;
   getMailTableList: () => void;
   sendMail: (mailGroupId: number) => void;
+  getMailGroupList: () => Promise<void>;
+  mailGroupList: MailGroup[];
 };
 
 export const useMailStore = create<MailStore>((set) => ({
@@ -17,6 +22,19 @@ export const useMailStore = create<MailStore>((set) => ({
   setPostMail: (postMail: PostMail) => set({ postMail }),
   allMailList: [] as Mail[],
   allMailTableList: [] as MailTable[],
+  mailGroupList: [] as MailGroup[],
+
+  /**
+   * メールグループ一覧を取得する
+   */
+  getMailGroupList: async (): Promise<void> => {
+    const response = await apiClient<MailGroup[]>({
+      url: endpoints.get.mailGroupList,
+      method: "GET",
+    });
+    console.log(response);
+    set({ mailGroupList: response });
+  },
 
   /**
    * メール一覧を取得する
@@ -31,13 +49,11 @@ export const useMailStore = create<MailStore>((set) => ({
    * メール一覧から詳細情報を取得する
    */
   getMailTableList: () => {
-    const mockMailTableList: MailTable[] = useMailStore
-      .getState()
-      .allMailList.map((mail) => ({
-        created_at: mail.created_at,
-        posted_member: mail.posted_member,
-        title: mail.title,
-      }));
+    const mockMailTableList: MailTable[] = useMailStore.getState().allMailList.map((mail) => ({
+      created_at: mail.created_at,
+      posted_member: mail.posted_member,
+      title: mail.title,
+    }));
     set({ allMailTableList: mockMailTableList });
   },
 
