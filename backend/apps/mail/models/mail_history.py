@@ -17,3 +17,10 @@ class MailHistory(BaseModel):
     def __str__(self):
         return self.title
 
+
+    @classmethod
+    def get_mail_history_by_user(cls, user):
+        """
+        メールグループに紐づくメール履歴を取得する
+        """
+        return cls.objects.filter(mail_group__create_user=user)
