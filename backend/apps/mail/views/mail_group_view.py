@@ -28,7 +28,7 @@ class MailGroupView(APIView):
         responses={201: MailGroupCreateSerializer},
         tags=["mail"],
         description="メールグループを新規作成"
-    )   
+    )
     def post(self, request):
         check_mail_access_permission(request)
         serializer = MailGroupCreateSerializer(data=request.data)
