@@ -1,11 +1,14 @@
 import { create } from "zustand";
-import { MailGroupList } from "@/types/mail";
+// import { MailGroupList } from "@/types/mail";
 import { User } from "@/types/user";
-import { mockMailGroupList } from "@/fixtures/mail-group-list";
+// import { mockMailGroupList } from "@/fixtures/mail-group-list";
+import { apiClient } from "@/domain/api/apiClient";
+import { endpoints } from "@/utils/apiUrls";
+import { MailGroup } from "@/types/mail";
 
 type MailGroupStore = {
-  mailGroupList: MailGroupList[];
-  setMailGroupList: (mailGroupList: MailGroupList[]) => void;
+  mailGroupList: MailGroup[];
+  setMailGroupList: (mailGroupList: MailGroup[]) => void;
   getMailGroupList: () => void;
   createMailGroup: (selectedUsers: User[]) => void;
   groupTitle: string;
@@ -15,8 +18,8 @@ type MailGroupStore = {
 };
 
 export const useMailGroupStore = create<MailGroupStore>((set, get) => ({
-  mailGroupList: [] as MailGroupList[],
-  setMailGroupList: (mailGroupList: MailGroupList[]) => set({ mailGroupList }),
+  mailGroupList: [] as MailGroup[],
+  setMailGroupList: (mailGroupList: MailGroup[]) => set({ mailGroupList }),
   groupTitle: "",
   setGroupTitle: (groupTitle: string) => set({ groupTitle }),
   groupNote: "",
@@ -25,9 +28,13 @@ export const useMailGroupStore = create<MailGroupStore>((set, get) => ({
   /**
    * メールグループ一覧を取得する
    */
-  getMailGroupList: () => {
-    const mailGroupList = mockMailGroupList;
-    set({ mailGroupList });
+  getMailGroupList: async (): Promise<void> => {
+    const response = await apiClient<MailGroup[]>({
+      url: endpoints.get.mailGroupList,
+      method: "GET",
+    });
+    console.log(response);
+    set({ mailGroupList: response });
   },
 
   /**
