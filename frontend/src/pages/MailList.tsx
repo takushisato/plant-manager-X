@@ -16,11 +16,13 @@ import { Mail, MailTable } from "@/types/mail";
 import { useState, useEffect } from "react";
 import { useMailStore } from "@/hooks/useMailStore";
 import { Column } from "@/types/common/generic-table";
+import { useMailGroupStore } from "@/hooks/useMailGroupStore";
 
 const MailList = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedMail, setSelectedMail] = useState<Mail | null>(null);
-  const { allMailList, allMailTableList, getMails, getMailTableList, getMailGroupList } = useMailStore();
+  const { allMailList, allMailTableList, getMails, getMailTableList } = useMailStore();
+  const { getMailGroupList } = useMailGroupStore();
 
   useEffect(() => {
     getMails();
