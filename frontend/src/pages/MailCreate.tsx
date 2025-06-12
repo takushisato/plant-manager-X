@@ -21,16 +21,24 @@ import {
 import Layout from "@/layouts/Layout";
 import { MailGroupList } from "@/types/mail";
 import { useMailStore } from "@/hooks/useMailStore";
-import { useMailGroupStore } from "@/hooks/useMailGroupStore";
 import { useEffect, useState } from "react";
 import { User } from "@/types/user";
 import { mockUsers } from "@/fixtures/users"; // TODO APIから取得する様にしたら削除
 import TooltipIcon from "@/components/common/TooltipIcon";
 
 const MailCreate = () => {
-  const { sendMail, postMail, setPostMail } = useMailStore();
-  const { mailGroupList, getMailGroupList, createMailGroup, groupTitle, setGroupTitle, groupNote, setGroupNote } =
-    useMailGroupStore();
+  const {
+    sendMail,
+    postMail,
+    setPostMail,
+    mailGroupList,
+    getMailGroupList,
+    createMailGroup,
+    groupTitle,
+    setGroupTitle,
+    groupNote,
+    setGroupNote,
+  } = useMailStore();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgSelected = useColorModeValue("teal.100", "teal.700");
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
@@ -106,7 +114,7 @@ const MailCreate = () => {
             >
               <Text fontWeight="bold">{mailGroup.group_title}</Text>
               <Text fontSize="sm" color="gray.600" mt={1}>
-                {mailGroup.records.map((record) => record.recipient_user_name).join(", ")}
+                {mailGroup.recipient_users.map((user) => user.recipient_user_name).join(", ")}
               </Text>
             </Box>
           ))}

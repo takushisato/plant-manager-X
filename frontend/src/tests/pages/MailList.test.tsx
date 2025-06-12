@@ -22,10 +22,6 @@ const mockMailTableList: MailTable[] = [
   },
 ];
 
-jest.mock("@/hooks/useMailStore", () => ({
-  useMailStore: jest.fn(),
-}));
-
 jest.mock("@/hooks/useAuthStore", () => ({
   __esModule: true,
   useAuthStore: jest.fn(() => ({
@@ -64,6 +60,13 @@ describe("MailList", () => {
       allMailTableList: mockMailTableList,
       getMails: jest.fn(),
       getMailTableList: jest.fn(),
+      mailGroupList: jest.fn(),
+      getMailGroupList: jest.fn(),
+      createMailGroup: jest.fn(),
+      groupTitle: "",
+      setGroupTitle: jest.fn(),
+      groupNote: "",
+      setGroupNote: jest.fn(),
     });
   });
 
@@ -82,9 +85,7 @@ describe("MailList", () => {
     await waitFor(() => {
       expect(screen.getByText("メール詳細")).toBeInTheDocument();
       expect(screen.getByText("送信日時")).toBeInTheDocument();
-      expect(
-        screen.getByText("これはテストメッセージです")
-      ).toBeInTheDocument();
+      expect(screen.getByText("これはテストメッセージです")).toBeInTheDocument();
     });
 
     const closeButton = screen.getByRole("button", { name: "閉じる" });
