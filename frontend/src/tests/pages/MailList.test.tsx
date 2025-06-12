@@ -22,6 +22,11 @@ const mockMailTableList: MailTable[] = [
   },
 ];
 
+jest.mock("@/hooks/useMailStore", () => ({
+  __esModule: true,
+  useMailStore: jest.fn(),
+}));
+
 jest.mock("@/hooks/useAuthStore", () => ({
   __esModule: true,
   useAuthStore: jest.fn(() => ({
