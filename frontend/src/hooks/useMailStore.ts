@@ -86,7 +86,6 @@ export const useMailStore = create<MailStore>((set, get) => ({
       url: endpoints.get.mailGroupList,
       method: "GET",
     });
-    console.log(response);
     set({ mailGroupList: response });
   },
 
