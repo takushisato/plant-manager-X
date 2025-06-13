@@ -8,6 +8,8 @@ from apps.mail.serializer import MailGroupWithRecordSerializer
 from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.mail.common import check_mail_access_permission
 from apps.mail.serializer import MailGroupCreateSerializer
+from apps.mail.models.mail_group_record import MailGroupRecord
+
 
 class MailGroupView(APIView):
     permission_classes = [IsAuthenticated, HasUserPermissionObject]
@@ -20,6 +22,7 @@ class MailGroupView(APIView):
     def get(self, request):
         check_mail_access_permission(request)
         groups = MailGroup.get_with_records_by_user(request.user)
+        # history = MailHistory.get_mail_history_by_user(request.user)
         serializer = MailGroupWithRecordSerializer(groups, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -28,7 +31,7 @@ class MailGroupView(APIView):
         responses={201: MailGroupCreateSerializer},
         tags=["mail"],
         description="メールグループを新規作成"
-    )   
+    )
     def post(self, request):
         check_mail_access_permission(request)
         serializer = MailGroupCreateSerializer(data=request.data)

@@ -19,7 +19,6 @@ class MailGroupRecord(BaseModel):
     def delete(self, *args, **kwargs):
         # 論理削除ではなく、物理削除を強制
         super().delete(*args, **kwargs)
-        
 
     @classmethod
     def bulk_create_records(cls, mail_group, users):
@@ -31,8 +30,7 @@ class MailGroupRecord(BaseModel):
             for user in users
         ]
         return cls.objects.bulk_create(instances)
-    
-    
+
     @classmethod
     def get_mail_group_records_by_mail_group(cls, mail_group):
         """

@@ -3,15 +3,14 @@ import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import MailCreate from "@/pages/MailCreate";
 import { useMailStore } from "@/hooks/useMailStore";
-import { useMailGroupStore } from "@/hooks/useMailGroupStore";
-import { MailGroupList } from "@/types/mail";
+import { MailGroup } from "@/types/mail";
 
-const mockMailGroupList: MailGroupList[] = [
+const mockMailGroupList: MailGroup[] = [
   {
     id: 1,
     group_title: "開発チーム",
     note: "開発メンバー全員",
-    records: [
+    recipient_users: [
       { recipient_user: 1, recipient_user_name: "山田太郎" },
       { recipient_user: 2, recipient_user_name: "山田花子" },
     ],
@@ -45,10 +44,6 @@ jest.mock("@/hooks/useMailStore", () => ({
   useMailStore: jest.fn(),
 }));
 
-jest.mock("@/hooks/useMailGroupStore", () => ({
-  useMailGroupStore: jest.fn(),
-}));
-
 const renderWithProviders = (ui: React.ReactElement) => {
   return render(
     <ChakraProvider>
@@ -68,7 +63,7 @@ describe("MailCreate", () => {
       setPostMail: jest.fn(),
     });
 
-    (useMailGroupStore as unknown as jest.Mock).mockReturnValue({
+    (useMailStore as unknown as jest.Mock).mockReturnValue({
       mailGroupList: mockMailGroupList,
       getMailGroupList: jest.fn(),
       createMailGroup: createMailGroupMock,

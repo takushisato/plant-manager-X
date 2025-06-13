@@ -20,12 +20,12 @@ import { Column } from "@/types/common/generic-table";
 const MailList = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedMail, setSelectedMail] = useState<Mail | null>(null);
-  const { allMailList, allMailTableList, getMails, getMailTableList } =
-    useMailStore();
+  const { allMailList, allMailTableList, getMails, getMailTableList, getMailGroupList } = useMailStore();
 
   useEffect(() => {
     getMails();
     getMailTableList();
+    getMailGroupList();
   }, []);
 
   const columns: Column<MailTable>[] = [
@@ -39,9 +39,7 @@ const MailList = () => {
    * 選択されたメールを表示する
    */
   const handleRowClick = (row: MailTable) => {
-    const mail = allMailList.find(
-      (m) => m.created_at === row.created_at && m.title === row.title
-    );
+    const mail = allMailList.find((m) => m.created_at === row.created_at && m.title === row.title);
     if (mail) {
       setSelectedMail(mail);
       onOpen();
@@ -50,11 +48,7 @@ const MailList = () => {
 
   return (
     <Layout>
-      <GenericTable
-        columns={columns}
-        data={allMailTableList}
-        onRowClick={handleRowClick}
-      />
+      <GenericTable columns={columns} data={allMailTableList} onRowClick={handleRowClick} />
 
       {/* モーダル */}
       <Modal isOpen={isOpen} onClose={onClose} size="lg">

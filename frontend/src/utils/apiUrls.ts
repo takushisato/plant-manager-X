@@ -13,6 +13,7 @@ export const endpoints = {
     orderList: "/api/trade/orders/",
     orderDetail: (id: number) => `/api/trade/orders/${id}/`,
     customers: "/api/trade/customers/",
+    mailGroupList: "/api/mail/groups/",
   },
   put: {
     users: (id: number) => `/api/auth/users/${id}/`,

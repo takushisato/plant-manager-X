@@ -1,5 +1,3 @@
-import { User } from "./user";
-
 export type Mail = {
   created_at: string;
   posted_member: string;
@@ -17,16 +15,20 @@ export type MailGroupList = {
   id: number;
   group_title: string;
   note: string;
-  records: {
+  recipient_users: {
     recipient_user: number;
     recipient_user_name: string;
   }[];
 };
 
 export type MailGroup = {
+  id: number;
   group_title: string;
   note: string;
-  recipient_users: User[];
+  recipient_users: {
+    recipient_user: number;
+    recipient_user_name: string;
+  }[];
 };
 
 export type PostMail = {
