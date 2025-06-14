@@ -3,22 +3,20 @@ import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import MailList from "@/pages/MailList";
 import { useMailStore } from "@/hooks/useMailStore";
-import { Mail, MailTable } from "@/types/mail";
+import { MailGroup } from "@/types/mail";
 
-const mockMailList: Mail[] = [
+const mockMailList: MailGroup[] = [
   {
-    created_at: "2024-04-25 10:00",
-    posted_member: "山田太郎",
-    title: "サンプルタイトル",
-    message: "これはテストメッセージです",
-  },
-];
-
-const mockMailTableList: MailTable[] = [
-  {
-    created_at: "2024-04-25 10:00",
-    posted_member: "山田太郎",
-    title: "サンプルタイトル",
+    id: 1,
+    group_title: "開発チーム",
+    note: "開発メンバー全員",
+    history: [
+      {
+        sent_at: "2025-01-01",
+        title: "メールタイトル",
+        message: "メール本文",
+      },
+    ],
   },
 ];
 
@@ -61,11 +59,7 @@ const renderWithProviders = (ui: React.ReactElement) => {
 describe("MailList", () => {
   beforeEach(() => {
     (useMailStore as unknown as jest.Mock).mockReturnValue({
-      allMailList: mockMailList,
-      allMailTableList: mockMailTableList,
-      getMails: jest.fn(),
-      getMailTableList: jest.fn(),
-      mailGroupList: jest.fn(),
+      mailGroupList: mockMailList,
       getMailGroupList: jest.fn(),
       createMailGroup: jest.fn(),
       groupTitle: "",
@@ -77,20 +71,20 @@ describe("MailList", () => {
 
   it("テーブルが表示される", async () => {
     renderWithProviders(<MailList />);
-    expect(await screen.findByText("サンプルタイトル")).toBeInTheDocument();
-    expect(screen.getByText("山田太郎")).toBeInTheDocument();
+    expect(await screen.findByRole("table")).toBeInTheDocument();
+    expect(screen.getByText("開発チーム")).toBeInTheDocument();
   });
 
   it("行クリックでモーダルが開き、詳細が表示される", async () => {
     renderWithProviders(<MailList />);
 
-    const row = await screen.findByText("サンプルタイトル");
+    const row = await screen.findByRole("row", { name: /メールタイトル/ });
     fireEvent.click(row);
 
     await waitFor(() => {
       expect(screen.getByText("メール詳細")).toBeInTheDocument();
       expect(screen.getByText("送信日時")).toBeInTheDocument();
-      expect(screen.getByText("これはテストメッセージです")).toBeInTheDocument();
+      expect(screen.getByText("メール本文")).toBeInTheDocument();
     });
 
     const closeButton = screen.getByRole("button", { name: "閉じる" });

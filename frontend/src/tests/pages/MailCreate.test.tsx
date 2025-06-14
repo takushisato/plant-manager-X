@@ -3,16 +3,22 @@ import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import MailCreate from "@/pages/MailCreate";
 import { useMailStore } from "@/hooks/useMailStore";
-import { MailGroup } from "@/types/mail";
+import { MailGroupList } from "@/types/mail";
 
-const mockMailGroupList: MailGroup[] = [
+const mockMailGroupList: MailGroupList[] = [
   {
     id: 1,
     group_title: "開発チーム",
     note: "開発メンバー全員",
     recipient_users: [
-      { recipient_user: 1, recipient_user_name: "山田太郎" },
-      { recipient_user: 2, recipient_user_name: "山田花子" },
+      {
+        recipient_user: 1,
+        recipient_user_name: "山田太郎",
+      },
+      {
+        recipient_user: 2,
+        recipient_user_name: "山田花子",
+      },
     ],
   },
 ];
