@@ -36,7 +36,7 @@ const MailList = () => {
   const tableData: Record<string, ReactNode>[] = mailGroupList.map((mail) => ({
     id: mail.id,
     group_title: mail.group_title,
-    sent_at: mail.history[0]?.sent_at,
+    sent_at: mail.history[0]?.sent_at?.slice(0, 10),
     title: mail.history[0]?.title,
   }));
 
@@ -66,7 +66,7 @@ const MailList = () => {
             {selectedMail && (
               <>
                 <Text fontWeight="bold">送信日時</Text>
-                <Text mb={2}>{selectedMail.history[0].sent_at}</Text>
+                <Text mb={2}>{selectedMail.history[0].sent_at?.slice(0, 10)}</Text>
 
                 <Text fontWeight="bold">送信先</Text>
                 <Text mb={2}>{selectedMail.group_title}</Text>
