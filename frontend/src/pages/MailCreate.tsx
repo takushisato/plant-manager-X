@@ -22,9 +22,8 @@ import Layout from "@/layouts/Layout";
 import { MailGroup } from "@/types/mail";
 import { useMailStore } from "@/hooks/useMailStore";
 import { useEffect, useState } from "react";
-import { User } from "@/types/user";
-import { mockUsers } from "@/fixtures/users"; // TODO APIから取得する様にしたら削除
 import TooltipIcon from "@/components/common/TooltipIcon";
+import { useAuthStore } from "@/hooks/useAuthStore";
 
 const MailCreate = () => {
   const {
@@ -41,14 +40,13 @@ const MailCreate = () => {
   } = useMailStore();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgSelected = useColorModeValue("teal.100", "teal.700");
-  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
   const [selectedMailGroup, setSelectedMailGroup] = useState<MailGroup | null>(null);
-
-  // TODO APIから取得する様にする
-  const users = mockUsers;
+  const { allUsers, getAllUsers } = useAuthStore();
 
   useEffect(() => {
     getMailGroupList();
+    getAllUsers();
   }, []);
 
   /**
@@ -73,13 +71,11 @@ const MailCreate = () => {
    * @param userId ユーザーID
    */
   const handleUserSelect = (userId: number) => {
-    const user = users.find((u) => u.id === userId);
+    const user = allUsers.find((u) => u.id === userId);
     if (!user) return;
 
     setSelectedUsers(
-      selectedUsers.some((u) => u.id === userId)
-        ? selectedUsers.filter((u) => u.id !== userId)
-        : [...selectedUsers, user]
+      selectedUsers.some((u) => u === userId) ? selectedUsers.filter((u) => u !== userId) : [...selectedUsers, userId]
     );
   };
 
@@ -203,10 +199,10 @@ const MailCreate = () => {
                 <Box w="100%">
                   <Text mb={2}>メンバー選択</Text>
                   <Stack spacing={2} maxH="200px" overflowY="auto">
-                    {users.map((user) => (
+                    {allUsers.map((user) => (
                       <Checkbox
                         key={user.id}
-                        isChecked={selectedUsers.some((u) => u.id === user.id)}
+                        isChecked={selectedUsers.some((u) => u === user.id)}
                         onChange={() => handleUserSelect(user.id)}
                       >
                         {user.name}

@@ -7,6 +7,8 @@ export type User = {
 
 export type AuthStore = {
   user: User | null;
+  allUsers: AllUsers[];
+  getAllUsers: () => Promise<void>;
   restoreSession: () => Promise<void>;
   login: (email: string, password: string) => Promise<{ auth_token: string }>;
   logout: () => Promise<void>;
@@ -23,4 +25,9 @@ export type Permission = {
   can_view_defect: boolean;
   can_edit_defect: boolean;
   mail_access: boolean;
+};
+
+export type AllUsers = {
+  id: number;
+  name: string;
 };

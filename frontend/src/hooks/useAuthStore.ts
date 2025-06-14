@@ -2,10 +2,11 @@ import { apiClient } from "@/domain/api/apiClient";
 import { endpoints } from "@/utils/apiUrls";
 import Cookies from "js-cookie";
 import { create } from "zustand";
-import { User, AuthStore } from "@/types/user";
+import { User, AuthStore, AllUsers } from "@/types/user";
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
+  allUsers: [] as AllUsers[],
 
   /**
    * ログイン状態を更新。
@@ -65,5 +66,17 @@ export const useAuthStore = create<AuthStore>((set) => ({
     });
     Cookies.remove("token");
     return response;
+  },
+
+  /**
+   * 全ユーザーの名前とIDを取得
+   * @returns
+   */
+  getAllUsers: async () => {
+    const response = await apiClient<AllUsers[]>({
+      url: endpoints.get.allUsers,
+      method: "GET",
+    });
+    set({ allUsers: response });
   },
 }));
