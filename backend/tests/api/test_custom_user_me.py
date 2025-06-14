@@ -51,7 +51,7 @@ class TestCustomUserMeView:
         assert response.status_code == 200
         data = response.json()
 
-        assert data["email"] == "user18@example.com"
+        assert data["email"] == "user19@example.com"
         assert "permission" in data
         assert data["permission"]["material_access"] is False
 
