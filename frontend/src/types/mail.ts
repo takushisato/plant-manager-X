@@ -25,9 +25,10 @@ export type MailGroup = {
   id: number;
   group_title: string;
   note: string;
-  recipient_users: {
-    recipient_user: number;
-    recipient_user_name: string;
+  history: {
+    sent_at: string;
+    title: string;
+    message: string;
   }[];
 };
 

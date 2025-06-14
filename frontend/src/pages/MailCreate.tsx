@@ -19,7 +19,7 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
-import { MailGroupList } from "@/types/mail";
+import { MailGroup } from "@/types/mail";
 import { useMailStore } from "@/hooks/useMailStore";
 import { useEffect, useState } from "react";
 import { User } from "@/types/user";
@@ -42,7 +42,7 @@ const MailCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgSelected = useColorModeValue("teal.100", "teal.700");
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
-  const [selectedMailGroup, setSelectedMailGroup] = useState<MailGroupList | null>(null);
+  const [selectedMailGroup, setSelectedMailGroup] = useState<MailGroup | null>(null);
 
   // TODO APIから取得する様にする
   const users = mockUsers;
@@ -55,7 +55,7 @@ const MailCreate = () => {
    * メールグループを選択
    * @param mailGroup メールグループ
    */
-  const handleSelectedMailGroup = (mailGroup: MailGroupList) => {
+  const handleSelectedMailGroup = (mailGroup: MailGroup) => {
     setSelectedMailGroup(mailGroup);
   };
 
@@ -114,7 +114,7 @@ const MailCreate = () => {
             >
               <Text fontWeight="bold">{mailGroup.group_title}</Text>
               <Text fontSize="sm" color="gray.600" mt={1}>
-                {mailGroup.recipient_users.map((user) => user.recipient_user_name).join(", ")}
+                {mailGroup.note}
               </Text>
             </Box>
           ))}
