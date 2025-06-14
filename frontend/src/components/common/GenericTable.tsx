@@ -1,22 +1,9 @@
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Button,
-} from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button } from "@chakra-ui/react";
 import { GenericTableProps } from "@/types/common/generic-table";
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
-function GenericTable<T extends Record<string, ReactNode>>({
-  columns,
-  data,
-  onRowClick,
-}: GenericTableProps<T>) {
+function GenericTable<T extends Record<string, ReactNode>>({ columns, data, onRowClick }: GenericTableProps<T>) {
   return (
     <TableContainer maxW="1200px" mx="auto">
       <Table variant="striped" colorScheme="teal" size="sm">
@@ -37,8 +24,7 @@ function GenericTable<T extends Record<string, ReactNode>>({
             >
               {columns.map((col) => {
                 const cellValue = row[col.accessor];
-                const isUrl =
-                  typeof cellValue === "string" && cellValue.startsWith("http");
+                const isUrl = typeof cellValue === "string" && cellValue.startsWith("http");
 
                 return (
                   <Td key={col.accessor as string}>
@@ -75,13 +61,7 @@ function GenericTable<T extends Record<string, ReactNode>>({
                       </Button>
                     )}
                     {col.accessor === "defect_detail_button" && (
-                      <Button
-                        as="a"
-                        href={`/defect/${row.id}`}
-                        rel="noopener noreferrer"
-                        size="sm"
-                        colorScheme="teal"
-                      >
+                      <Button as="a" href={`/defect/${row.id}`} rel="noopener noreferrer" size="sm" colorScheme="teal">
                         詳細
                       </Button>
                     )}

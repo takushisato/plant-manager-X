@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { Mail, MailTable, PostMail } from "@/types/mail";
-import { mockMailList } from "@/fixtures/mail-list";
 import { MailGroup } from "@/types/mail";
 import { User } from "@/types/user";
 import { apiClient } from "@/domain/api/apiClient";
@@ -11,7 +10,6 @@ type MailStore = {
   setPostMail: (postMail: PostMail) => void;
   allMailList: Mail[];
   allMailTableList: MailTable[];
-  getMails: () => void;
   getMailTableList: () => void;
   sendMail: (mailGroupId: number) => void;
   mailGroupList: MailGroup[];
@@ -35,15 +33,6 @@ export const useMailStore = create<MailStore>((set, get) => ({
   setGroupTitle: (groupTitle: string) => set({ groupTitle }),
   groupNote: "",
   setGroupNote: (groupNote: string) => set({ groupNote }),
-
-  /**
-   * メール一覧を取得する
-   * TODO バックエンドから取得する
-   */
-  getMails: () => {
-    const mailList = mockMailList;
-    set({ allMailList: mailList });
-  },
 
   /**
    * メール一覧から詳細情報を取得する
@@ -79,7 +68,7 @@ export const useMailStore = create<MailStore>((set, get) => ({
   },
 
   /**
-   * メールグループ一覧を取得する
+   * メールグループ一覧とグループごとの送信履歴を取得する
    */
   getMailGroupList: async (): Promise<void> => {
     const response = await apiClient<MailGroup[]>({

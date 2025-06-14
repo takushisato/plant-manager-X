@@ -8,10 +8,6 @@ export type Column<T> = {
 export type GenericTableProps<T extends Record<string, ReactNode>> = {
   columns: Column<T>[];
   data: T[];
-  rowWrapper?: (
-    row: T,
-    index: number,
-    rowElement: React.ReactElement
-  ) => React.ReactElement;
+  rowWrapper?: (row: T, index: number, rowElement: React.ReactElement) => React.ReactElement;
   onRowClick?: (row: T) => void;
 };
