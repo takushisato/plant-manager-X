@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { Mail, MailTable, PostMail } from "@/types/mail";
 import { MailGroup } from "@/types/mail";
-import { User } from "@/types/user";
 import { apiClient } from "@/domain/api/apiClient";
 import { endpoints } from "@/utils/apiUrls";
 
@@ -15,7 +14,7 @@ type MailStore = {
   mailGroupList: MailGroup[];
   setMailGroupList: (mailGroupList: MailGroup[]) => void;
   getMailGroupList: () => void;
-  createMailGroup: (selectedUsers: User[]) => void;
+  createMailGroup: (selectedUserIds: number[]) => void;
   groupTitle: string;
   setGroupTitle: (groupTitle: string) => void;
   groupNote: string;
@@ -83,14 +82,13 @@ export const useMailStore = create<MailStore>((set, get) => ({
    * TODO APIと連携する
    * @param selectedUsers 選択されたユーザー
    */
-  createMailGroup: (selectedUsers: User[]) => {
+  createMailGroup: (selectedUserIds: number[]) => {
     const { groupTitle, groupNote } = get();
     const postData = {
       group_title: groupTitle,
       note: groupNote,
-      records: selectedUsers.map((user) => ({
-        recipient_user: user.id,
-        recipient_user_name: user.name,
+      records: selectedUserIds.map((userId) => ({
+        recipient_user: userId,
       })),
     };
     console.log(postData);

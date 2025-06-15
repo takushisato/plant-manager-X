@@ -35,3 +35,8 @@ class CustomUserSerializer(DjoserUserSerializer):
             }
         except Permission.DoesNotExist:
             return None
+
+class AllUsersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'name')

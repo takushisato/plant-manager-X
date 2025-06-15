@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from apps.staff_hub.views import CustomUserMeView
+from apps.staff_hub.views import AllUsersView
 
 urlpatterns = [
     # 管理者ページ
@@ -27,6 +28,7 @@ urlpatterns = [
     path("api/auth/custom/users/me/", CustomUserMeView.as_view(), name="custom-user-me"),
     path('api/', include('rest_framework.urls')),
     path('api/auth/', include('djoser.urls.authtoken')),
+    path('api/auth/all_users/', AllUsersView.as_view(), name="all-users"),
     # path('api/auth/', include('djoser.urls')), # ログイン、ログアウト、パスワード変更など。一旦コメントアウト
 
     # apps

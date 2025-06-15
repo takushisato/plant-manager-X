@@ -4,16 +4,17 @@ from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 from rest_framework.authtoken.models import Token
 
-@pytest.mark.django_db
-class TestCustomUserMeView:
-    """
-    ユーザー情報取得APIのテスト
 
-    URL: /api/auth/custom/users/me/
+@pytest.mark.django_db
+class TestAllUsersView:
+    """
+    AllUsersViewのテスト
+
+    URL: /api/auth/all_users/
     Method: GET
     """
 
-    def test_custom_user_me_view_with_permission(self):
+    def test_all_users_view_with_permission(self):
         """
         正常系: ユーザーが権限を持っている場合のテスト
 
@@ -22,7 +23,6 @@ class TestCustomUserMeView:
 
         結果:
         - ユーザー情報が取得できる
-        - ユーザーの権限が取得できる
         """
         user = UserFactory.create()
         PermissionFactory.create(
@@ -39,32 +39,14 @@ class TestCustomUserMeView:
             mail_access=True,
         )
 
-        # トークンを生成
         token = Token.objects.create(user=user)
-
         client = APIClient()
-        # トークンベースの認証を使用
         client.credentials(HTTP_AUTHORIZATION=f'Token {token.key}')
 
-        response = client.get("/api/auth/custom/users/me/")
+        response = client.get("/api/auth/all_users/")
 
         assert response.status_code == 200
         data = response.json()
-
-        assert data["email"] == "user19@example.com"
-        assert "permission" in data
-        assert data["permission"]["material_access"] is False
-
-    def test_custom_user_me_view_unauthenticated(self):
-        """
-        異常系: 認証されていない場合のテスト
-
-        条件:
-        - 認証されていない
-
-        結果:
-        - 401エラーが返される
-        """
-        client = APIClient()
-        response = client.get("/api/auth/custom/users/me/")
-        assert response.status_code == 401
+        assert len(data) == 1
+        assert data[0]["id"] == user.id
+        assert data[0]["name"] == user.name

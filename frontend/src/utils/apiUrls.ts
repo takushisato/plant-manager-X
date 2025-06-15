@@ -14,6 +14,7 @@ export const endpoints = {
     orderDetail: (id: number) => `/api/trade/orders/${id}/`,
     customers: "/api/trade/customers/",
     mailGroupList: "/api/mail/groups/",
+    allUsers: "/api/auth/all_users/",
   },
   put: {
     users: (id: number) => `/api/auth/users/${id}/`,
