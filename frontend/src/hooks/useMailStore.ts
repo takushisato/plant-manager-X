@@ -79,10 +79,9 @@ export const useMailStore = create<MailStore>((set, get) => ({
 
   /**
    * メールグループを作成する
-   * TODO APIと連携する
-   * @param selectedUsers 選択されたユーザー
+   * @param selectedUserIds 選択されたユーザーIDの配列
    */
-  createMailGroup: (selectedUserIds: number[]) => {
+  createMailGroup: async (selectedUserIds: number[]) => {
     const { groupTitle, groupNote } = get();
     const postData = {
       group_title: groupTitle,
@@ -91,6 +90,11 @@ export const useMailStore = create<MailStore>((set, get) => ({
         recipient_user: userId,
       })),
     };
-    console.log(postData);
+    const response = await apiClient<MailGroup>({
+      url: endpoints.post.mailGroup,
+      method: "POST",
+      data: postData,
+    });
+    set({ mailGroupList: [...get().mailGroupList, response] });
   },
 }));
