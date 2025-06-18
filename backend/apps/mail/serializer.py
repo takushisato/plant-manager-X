@@ -5,14 +5,27 @@ from apps.mail.models.mail_history import MailHistory
 from apps.staff_hub.models.user import User
 
 
+class MailGroupRecordCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MailGroupRecord
+        fields = ["recipient_user"]
+
 class MailGroupCreateSerializer(serializers.ModelSerializer):
+    records = MailGroupRecordCreateSerializer(many=True)
+
     class Meta:
         model = MailGroup
-        fields = ['group_title', 'note']
+        fields = ['group_title', 'note', 'records']
 
     def create(self, validated_data):
+        records_data = validated_data.pop("records")
         create_user = self.context["create_user"]
-        return MailGroup.objects.create(**validated_data, create_user=create_user)
+        mail_group = MailGroup.objects.create(**validated_data, create_user=create_user)
+
+        for record in records_data:
+            MailGroupRecord.objects.create(mail_group_record=mail_group, **record)
+
+        return mail_group
 
 
 class MailGroupRecordBulkCreateSerializer(serializers.Serializer):
