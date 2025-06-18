@@ -48,7 +48,12 @@ class TestMailGroupCreateView:
 
         mail_group_data = {
             "group_title": "品質管理チーム",
-            "note": "新規立ち上げ用グループ"
+            "note": "新規立ち上げ用グループ",
+            "records": [
+                {
+                    "recipient_user": authed_user_with_permission.id
+                }
+            ]
         }
 
         response = client.post("/api/mail/groups/", data=mail_group_data, format="json")
@@ -60,7 +65,7 @@ class TestMailGroupCreateView:
     def test_create_mail_group_forbidden(self, client, authed_user_without_permission):
         """
         異常系: mail_access 権限がないユーザーは作成不可（403）
-        
+
         条件:
         - mail_access 権限がないユーザー
         - メールグループの作成
