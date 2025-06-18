@@ -34,7 +34,7 @@ class MailGroupView(APIView):
     )
     def post(self, request):
         check_mail_access_permission(request)
-        serializer = MailGroupCreateSerializer(data=request.data)
+        serializer = MailGroupCreateSerializer(data=request.data, context={"create_user": request.user})
         serializer.is_valid(raise_exception=True)
-        mail_group = serializer.save(create_user=request.user)
-        return Response(MailGroupCreateSerializer(mail_group).data, status=status.HTTP_201_CREATED)
+        mail_group = serializer.save()
+        return Response(MailGroupWithRecordSerializer(mail_group).data, status=status.HTTP_201_CREATED)

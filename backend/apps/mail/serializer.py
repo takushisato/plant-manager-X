@@ -10,6 +10,10 @@ class MailGroupCreateSerializer(serializers.ModelSerializer):
         model = MailGroup
         fields = ['group_title', 'note']
 
+    def create(self, validated_data):
+        create_user = self.context["create_user"]
+        return MailGroup.objects.create(**validated_data, create_user=create_user)
+
 
 class MailGroupRecordBulkCreateSerializer(serializers.Serializer):
     mail_group_record = serializers.PrimaryKeyRelatedField(queryset=MailGroup.objects.all())
@@ -24,6 +28,16 @@ class MailGroupRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = MailGroupRecord
         fields = ["id", "recipient_user", "recipient_user_name"]
+
+    def create(self, validated_data):
+        records_data = validated_data.pop("records")
+        create_user = self.context["create_user"]
+        mail_group = MailGroup.objects.create(**validated_data, create_user=create_user)
+
+        for record_data in records_data:
+            MailGroupRecord.objects.create(mail_group=mail_group, **record_data)
+
+        return mail_group
 
 
 class MailHistorySerializer(serializers.ModelSerializer):
