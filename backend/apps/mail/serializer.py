@@ -2,7 +2,6 @@ from rest_framework import serializers
 from apps.mail.models.mail_group import MailGroup
 from apps.mail.models.mail_group_record import MailGroupRecord
 from apps.mail.models.mail_history import MailHistory
-from apps.staff_hub.models.user import User
 
 
 class MailGroupRecordCreateSerializer(serializers.ModelSerializer):
@@ -26,14 +25,6 @@ class MailGroupCreateSerializer(serializers.ModelSerializer):
             MailGroupRecord.objects.create(mail_group_record=mail_group, **record)
 
         return mail_group
-
-
-class MailGroupRecordBulkCreateSerializer(serializers.Serializer):
-    mail_group_record = serializers.PrimaryKeyRelatedField(queryset=MailGroup.objects.all())
-    recipient_users = serializers.PrimaryKeyRelatedField(
-        many=True,
-        queryset=User.objects.all()
-    )
 
 class MailGroupRecordSerializer(serializers.ModelSerializer):
     recipient_user_name = serializers.CharField(source="recipient_user.name", read_only=True)
