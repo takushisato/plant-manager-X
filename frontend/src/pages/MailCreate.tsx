@@ -131,7 +131,7 @@ const MailCreate = () => {
                     setPostMail({
                       title: e.target.value,
                       message: postMail?.message || "",
-                      group_id: selectedMailGroup.id,
+                      mail_group_id: selectedMailGroup.id,
                     })
                   }
                   isRequired
@@ -148,7 +148,7 @@ const MailCreate = () => {
                     setPostMail({
                       title: postMail?.title || "",
                       message: e.target.value,
-                      group_id: selectedMailGroup.id,
+                      mail_group_id: selectedMailGroup.id,
                     })
                   }
                   isRequired
