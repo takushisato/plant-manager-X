@@ -7,7 +7,12 @@ from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.mail.common import check_mail_access_permission
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from apps.utility.const import MESSAGES
-from apps.mail.views.validations import validate_mail_group_ownership, get_recipient_emails, validate_recipient_emails, save_mail_template
+from apps.mail.views.validations import (
+    validate_mail_group_ownership,
+    get_recipient_emails,
+    validate_recipient_emails,
+    save_mail_template,
+)
 from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.exceptions import ValidationError
@@ -34,7 +39,9 @@ class MailSendView(APIView):
 
         validate_mail_group_ownership(mail_group, request.user)
 
-        recipients = MailGroupRecord.get_mail_group_records_by_mail_group(mail_group)
+        recipients = MailGroupRecord.get_mail_group_records_by_mail_group(
+            mail_group
+        )
         to_emails = get_recipient_emails(recipients)
 
         validate_recipient_emails(to_emails)
@@ -59,4 +66,3 @@ def _send_mail(subject, message, to_list):
         )
     except Exception:
         raise ValidationError(MESSAGES["SEND_MAIL_EXECUTE_ERROR"])
-
