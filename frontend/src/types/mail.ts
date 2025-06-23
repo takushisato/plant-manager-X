@@ -33,7 +33,7 @@ export type MailGroup = {
 };
 
 export type PostMail = {
-  group_id: number;
+  mail_group_id: number;
   title: string;
   message: string;
 };
