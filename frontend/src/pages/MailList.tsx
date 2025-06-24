@@ -34,10 +34,10 @@ const MailList = () => {
   ];
 
   const tableData: Record<string, ReactNode>[] = mailGroupList.map((mail) => ({
-    id: mail.id,
+    id: mail.history.id,
     group_title: mail.group_title,
-    sent_at: mail.history[0]?.sent_at?.slice(0, 10),
-    title: mail.history[0]?.title,
+    sent_at: mail.history?.sent_at?.slice(0, 10),
+    title: mail.history?.title,
   }));
 
   /**
@@ -45,7 +45,7 @@ const MailList = () => {
    * 選択されたメールを表示する
    */
   const handleRowClick = (row: Record<string, ReactNode>) => {
-    const mail = mailGroupList.find((m) => m.id === row.id);
+    const mail = mailGroupList.find((m) => m.history.id === row.id);
     if (mail) {
       setSelectedMail(mail);
       onOpen();
@@ -66,16 +66,16 @@ const MailList = () => {
             {selectedMail && (
               <>
                 <Text fontWeight="bold">送信日時</Text>
-                <Text mb={2}>{selectedMail.history[0].sent_at?.slice(0, 10)}</Text>
+                <Text mb={2}>{selectedMail.history.sent_at?.slice(0, 10)}</Text>
 
                 <Text fontWeight="bold">送信先</Text>
                 <Text mb={2}>{selectedMail.group_title}</Text>
 
                 <Text fontWeight="bold">タイトル</Text>
-                <Text mb={2}>{selectedMail.history[0].title}</Text>
+                <Text mb={2}>{selectedMail.history.title}</Text>
 
                 <Text fontWeight="bold">メッセージ</Text>
-                <Text whiteSpace="pre-wrap">{selectedMail.history[0].message}</Text>
+                <Text whiteSpace="pre-wrap">{selectedMail.history.message}</Text>
               </>
             )}
           </ModalBody>
