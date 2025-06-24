@@ -21,10 +21,26 @@ class MailGroupView(APIView):
     )
     def get(self, request):
         check_mail_access_permission(request)
+
         groups = MailGroup.get_with_records_by_user(request.user)
-        # history = MailHistory.get_mail_history_by_user(request.user)
-        serializer = MailGroupWithRecordSerializer(groups, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+
+        result = []
+        for group in groups:
+            histories = group.mailhistory_set.all()
+            for history in histories:
+                result.append({
+                    "id": group.id,
+                    "group_title": group.group_title,
+                    "note": group.note,
+                    "history": {
+                        "id": history.id,
+                        "sent_at": history.sent_at,
+                        "title": history.title,
+                        "message": history.message
+                    }
+                })
+
+        return Response(result, status=status.HTTP_200_OK)
 
     @extend_schema(
         request=MailGroupCreateSerializer,
@@ -34,7 +50,7 @@ class MailGroupView(APIView):
     )
     def post(self, request):
         check_mail_access_permission(request)
-        serializer = MailGroupCreateSerializer(data=request.data)
+        serializer = MailGroupCreateSerializer(data=request.data, context={"create_user": request.user})
         serializer.is_valid(raise_exception=True)
-        mail_group = serializer.save(create_user=request.user)
-        return Response(MailGroupCreateSerializer(mail_group).data, status=status.HTTP_201_CREATED)
+        mail_group = serializer.save()
+        return Response(MailGroupWithRecordSerializer(mail_group).data, status=status.HTTP_201_CREATED)

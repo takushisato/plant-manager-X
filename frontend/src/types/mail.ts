@@ -26,14 +26,15 @@ export type MailGroup = {
   group_title: string;
   note: string;
   history: {
+    id: number;
     sent_at: string;
     title: string;
     message: string;
-  }[];
+  };
 };
 
 export type PostMail = {
-  group_id: number;
+  mail_group_id: number;
   title: string;
   message: string;
 };
