@@ -5,6 +5,8 @@ from tests.factory.mail_group_factory import MailGroupFactory
 from tests.factory.mail_group_record_factory import MailGroupRecordFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
+from tests.factory.mail_history_factory import MailHistoryFactory
+
 
 @pytest.mark.django_db
 class TestMailGroupGet:
@@ -48,7 +50,7 @@ class TestMailGroupGet:
 
         結果:
         - ステータスコード200
-        - メールグループ一覧が取得できる
+        - メールグループ一覧がない場合は取得できない
         - 自身のグループと詳細が取得できる
         """
         client.force_authenticate(user=authed_user_with_permission)
@@ -56,8 +58,30 @@ class TestMailGroupGet:
 
         assert response.status_code == status.HTTP_200_OK
         assert isinstance(response.data, list)
-        assert len(response.data) == 2
-        assert "records" in response.data[0]
+        assert len(response.data) == 0
+
+    def test_list_with_mail_history(self, client, authed_user_with_permission, mail_groups_with_details):
+        """
+        正常系: メール履歴がある場合、それぞれの履歴がグループと一緒に取得できる
+
+        条件:
+        - mail_access 権限ありユーザー
+        - ユーザーが作成したメールグループ
+        - 各グループにメール履歴あり
+
+        結果:
+        - ステータスコード200
+        - 各グループに対応する履歴が含まれる
+        """
+        for group in mail_groups_with_details:
+            MailHistoryFactory.create_batch(2, mail_group=group)
+
+        client.force_authenticate(user=authed_user_with_permission)
+        response = client.get("/api/mail/groups/")
+
+        assert response.status_code == status.HTTP_200_OK
+        assert isinstance(response.data, list)
+        assert len(response.data) == 4 # 2グループ * 2履歴
 
     def test_list_forbidden_without_permission(self, client, authed_user_without_permission):
         """

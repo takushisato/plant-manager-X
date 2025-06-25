@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import MailCreate from "@/pages/MailCreate";
@@ -41,6 +41,11 @@ jest.mock("@/hooks/useAuthStore", () => ({
         can_edit_defect: false,
       },
     },
+    allUsers: [
+      { id: 1, name: "山田太郎" },
+      { id: 2, name: "山田花子" },
+    ],
+    getAllUsers: jest.fn(),
     logout: jest.fn(),
     restoreSession: jest.fn(),
   })),
@@ -65,11 +70,8 @@ describe("MailCreate", () => {
   beforeEach(() => {
     (useMailStore as unknown as jest.Mock).mockReturnValue({
       sendMail: sendMailMock,
-      postMail: { title: "", message: "", group_id: 1 },
+      postMail: { title: "", message: "", mail_group_id: 1 },
       setPostMail: jest.fn(),
-    });
-
-    (useMailStore as unknown as jest.Mock).mockReturnValue({
       mailGroupList: mockMailGroupList,
       getMailGroupList: jest.fn(),
       createMailGroup: createMailGroupMock,
@@ -83,6 +85,21 @@ describe("MailCreate", () => {
   it("グループ一覧が表示される", async () => {
     renderWithProviders(<MailCreate />);
     expect(await screen.findByText("開発チーム")).toBeInTheDocument();
-    expect(screen.getByText("山田太郎, 山田花子")).toBeInTheDocument();
+    expect(screen.getByText("開発メンバー全員")).toBeInTheDocument();
+  });
+
+  it("新規グループ作成モーダルでユーザー一覧が表示される", async () => {
+    renderWithProviders(<MailCreate />);
+
+    // 新規にグループを作成ボタンをクリック
+    const createButton = screen.getByText("新規にグループを作成");
+    fireEvent.click(createButton);
+
+    // モーダルが開いてユーザー一覧が表示されることを確認
+    await waitFor(() => {
+      expect(screen.getByText("新規メールグループ作成")).toBeInTheDocument();
+      expect(screen.getByText("山田太郎")).toBeInTheDocument();
+      expect(screen.getByText("山田花子")).toBeInTheDocument();
+    });
   });
 });
