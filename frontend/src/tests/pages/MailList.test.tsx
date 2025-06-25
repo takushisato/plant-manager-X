@@ -10,13 +10,12 @@ const mockMailList: MailGroup[] = [
     id: 1,
     group_title: "開発チーム",
     note: "開発メンバー全員",
-    history: [
-      {
-        sent_at: "2025-01-01",
-        title: "メールタイトル",
-        message: "メール本文",
-      },
-    ],
+    history: {
+      id: 1,
+      sent_at: "2025-01-01",
+      title: "メールタイトル",
+      message: "メール本文",
+    },
   },
 ];
 
@@ -61,6 +60,7 @@ describe("MailList", () => {
     (useMailStore as unknown as jest.Mock).mockReturnValue({
       mailGroupList: mockMailList,
       getMailGroupList: jest.fn(),
+      getMailTableList: jest.fn(),
       createMailGroup: jest.fn(),
       groupTitle: "",
       setGroupTitle: jest.fn(),
@@ -73,12 +73,13 @@ describe("MailList", () => {
     renderWithProviders(<MailList />);
     expect(await screen.findByRole("table")).toBeInTheDocument();
     expect(screen.getByText("開発チーム")).toBeInTheDocument();
+    expect(screen.getByText("2025-01-01")).toBeInTheDocument();
   });
 
   it("行クリックでモーダルが開き、詳細が表示される", async () => {
     renderWithProviders(<MailList />);
 
-    const row = await screen.findByRole("row", { name: /メールタイトル/ });
+    const row = await screen.findByRole("row", { name: /2025-01-01/ });
     fireEvent.click(row);
 
     await waitFor(() => {
