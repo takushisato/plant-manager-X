@@ -18,6 +18,7 @@ export const endpoints = {
     mailGroupList: "/api/mail/groups/",
     allUsers: "/api/auth/all_users/",
     defectList: "/api/bug_note/defects/",
+    defectDetail: (id: number) => `/api/bug_note/defects/${id}/`,
   },
   put: {
     users: (id: number) => `/api/auth/users/${id}/`,

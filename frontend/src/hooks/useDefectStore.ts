@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { DefectTableList, DefectItem, DefectCreateItem } from "@/types/defect";
-import { mockDefectItem } from "@/fixtures/defect";
 import { endpoints } from "@/utils/apiUrls";
 import { apiClient } from "@/domain/api/apiClient";
 
@@ -41,12 +40,13 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
 
   /**
    * 不具合の詳細を取得
-   * TODO モックからAPIに変更する
    */
   getDefect: async (id: number) => {
-    const mockData = mockDefectItem;
-    set({ defectItem: mockData });
-    console.log("defectItem", id);
+    const response = await apiClient<DefectItem>({
+      url: endpoints.get.defectDetail(id),
+      method: "GET",
+    });
+    set({ defectItem: response });
   },
 
   /**
