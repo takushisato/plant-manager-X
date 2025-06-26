@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { DefectTableList, DefectItem, DefectCreateItem } from "@/types/defect";
-import { mockDefectTableList, mockDefectItem } from "@/fixtures/defect";
+import { mockDefectItem } from "@/fixtures/defect";
+import { endpoints } from "@/utils/apiUrls";
+import { apiClient } from "@/domain/api/apiClient";
 
 type DefectStore = {
   defectList: DefectTableList[];
@@ -27,12 +29,14 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
   },
 
   /**
-   * 不具合を取得
-   * TODO モックからAPIに変更する
+   * 不具合一覧を取得
    */
   getDefects: async () => {
-    const mockData = mockDefectTableList;
-    set({ defectList: mockData });
+    const response = await apiClient<DefectTableList[]>({
+      url: endpoints.get.defectList,
+      method: "GET",
+    });
+    set({ defectList: response });
   },
 
   /**
