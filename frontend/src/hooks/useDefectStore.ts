@@ -12,7 +12,7 @@ type DefectStore = {
   createDefect: (defectItem: DefectCreateItem) => Promise<void>;
 };
 
-export const useDefectStore = create<DefectStore>((set) => ({
+export const useDefectStore = create<DefectStore>((set, get) => ({
   defectList: [],
   defectItem: {
     id: 0,
@@ -59,18 +59,22 @@ export const useDefectStore = create<DefectStore>((set) => ({
 
   /**
    * 対策を申請
+   * TODO 動作確認
    */
   updateSubmission: async (id: number, submission: string) => {
-    // const currentState = get();
-    // set({ defectItem: { ...currentState.defectItem, submission } });
-    // console.log("defectItem", id);
-    // console.log("submission", submission);
-
-    // TODO 動作確認
+    const currentState = get();
+    const updateData = {
+      defect_detail: currentState.defectItem.defect_detail,
+      occurred_at: currentState.defectItem.occurred_at,
+      submission: submission,
+      order: currentState.defectItem.order,
+      submission_deadline: currentState.defectItem.submission_deadline,
+      title: currentState.defectItem.title,
+    };
     const response = await apiClient<DefectItem>({
       url: endpoints.put.defectDetail(id),
       method: "PUT",
-      data: { submission },
+      data: { updateData },
     });
     set({ defectItem: response });
   },
