@@ -28,31 +28,30 @@ class PlanWithRecordSerializer(serializers.ModelSerializer):
 
         return production_plan
 
+
+class updatePlanWithRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductionPlan
+        fields = [
+            "defect_detail",
+            "occurred_at",
+            "submission",
+            "order",
+            "submission_deadline",
+            "title",
+        ]
+
     def update(self, instance, validated_data):
-        records_data = validated_data.pop("records")
-
-        instance.plan_date = validated_data.get("plan_date", instance.plan_date)
-        instance.note = validated_data.get("note", instance.note)
+        instance.defect_detail = validated_data.get(
+            "defect_detail", instance.defect_detail
+        )
+        instance.occurred_at = validated_data.get("occurred_at", instance.occurred_at)
+        instance.submission = validated_data.get("submission", instance.submission)
+        instance.order = validated_data.get("order", instance.order)
+        instance.submission_deadline = validated_data.get(
+            "submission_deadline", instance.submission_deadline
+        )
+        instance.title = validated_data.get("title", instance.title)
         instance.save()
-
-        existing_records = {record.id: record for record in instance.records.all()}
-
-        for record_data in records_data:
-            record_id = record_data.get("id")
-            if record_id and record_id in existing_records:
-                # idが存在する場合は更新
-                for attr, value in record_data.items():
-                    setattr(existing_records[record_id], attr, value)
-                existing_records[record_id].save()
-                del existing_records[record_id]
-            else:
-                # idが存在しない場合は新規追加
-                ProductionPlanRecord.objects.create(
-                    production_plan=instance, **record_data
-                )
-
-        # 残ったものは削除されたとみなして削除
-        for remaining in existing_records.values():
-            remaining.delete()
 
         return instance
