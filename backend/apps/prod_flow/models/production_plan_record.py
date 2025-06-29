@@ -4,7 +4,12 @@ from apps.prod_flow.models.production_plan import ProductionPlan
 
 
 class ProductionPlanRecord(BaseModel):
-    production_plan = models.ForeignKey(ProductionPlan, related_name="records", on_delete=models.CASCADE, verbose_name="生産計画")
+    production_plan = models.ForeignKey(
+        ProductionPlan,
+        related_name="records",
+        on_delete=models.CASCADE,
+        verbose_name="生産計画",
+    )
     title = models.CharField("タイトル", max_length=255)
     planned_start_date = models.DateField("計画開始日")
     planned_end_date = models.DateField("計画終了日")
@@ -14,9 +19,9 @@ class ProductionPlanRecord(BaseModel):
     note = models.CharField("備考", max_length=1000, null=True, blank=True)
 
     class Meta:
-        verbose_name = '生産計画詳細'
-        verbose_name_plural = '生産計画詳細'
-        db_table = 'production_plan_records'
-    
+        verbose_name = "生産計画詳細"
+        verbose_name_plural = "生産計画詳細"
+        db_table = "production_plan_records"
+
     def __str__(self):
         return f"{self.production_plan.organization.organization_name} - {self.title}"

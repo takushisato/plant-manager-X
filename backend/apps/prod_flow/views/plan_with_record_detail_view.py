@@ -2,9 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from drf_spectacular.utils import extend_schema
-from apps.prod_flow.serializer import (
-    updatePlanWithRecordSerializer,
-)
+from apps.prod_flow.serializer import PlanWithRecordSerializer
 from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.prod_flow.common import check_prod_flow_edit_permission
 from apps.prod_flow.models.production_plan import ProductionPlan
@@ -17,8 +15,8 @@ class PlanWithRecordDetailView(APIView):
     permission_classes = [permissions.IsAuthenticated, HasUserPermissionObject]
 
     @extend_schema(
-        request=updatePlanWithRecordSerializer,
-        responses={200: updatePlanWithRecordSerializer},
+        request=PlanWithRecordSerializer,
+        responses={200: PlanWithRecordSerializer},
         tags=["production"],
         description="生産計画と詳細を一括更新",
     )
@@ -26,13 +24,11 @@ class PlanWithRecordDetailView(APIView):
         check_prod_flow_edit_permission(request)
         plan = get_object_or_404(ProductionPlan, pk=pk, deleted_at__isnull=True)
 
-        serializer = updatePlanWithRecordSerializer(plan, data=request.data)
+        serializer = PlanWithRecordSerializer(plan, data=request.data)
         serializer.is_valid(raise_exception=True)
         plan = serializer.save()
 
-        return Response(
-            updatePlanWithRecordSerializer(plan).data, status=status.HTTP_200_OK
-        )
+        return Response(PlanWithRecordSerializer(plan).data, status=status.HTTP_200_OK)
 
     @extend_schema(
         tags=["production"],
