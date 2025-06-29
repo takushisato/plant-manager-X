@@ -6,7 +6,7 @@ from apps.prod_flow.models.production_plan_record import ProductionPlanRecord
 class PlanDetailNestedSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductionPlanRecord
-        exclude = ['production_plan']
+        exclude = ["production_plan"]
 
 
 class PlanWithRecordSerializer(serializers.ModelSerializer):
@@ -14,10 +14,10 @@ class PlanWithRecordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductionPlan
-        fields = ['id', 'organization', 'plan_date', 'note', 'records']
+        fields = ["id", "organization", "plan_date", "note", "records"]
 
     def create(self, validated_data):
-        records_data = validated_data.pop('records')
+        records_data = validated_data.pop("records")
         production_plan = ProductionPlan.objects.create(**validated_data)
 
         records_instances = [
@@ -47,7 +47,9 @@ class PlanWithRecordSerializer(serializers.ModelSerializer):
                 del existing_records[record_id]
             else:
                 # idが存在しない場合は新規追加
-                ProductionPlanRecord.objects.create(production_plan=instance, **record_data)
+                ProductionPlanRecord.objects.create(
+                    production_plan=instance, **record_data
+                )
 
         # 残ったものは削除されたとみなして削除
         for remaining in existing_records.values():
