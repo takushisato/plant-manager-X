@@ -74,7 +74,7 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
     const response = await apiClient<DefectItem>({
       url: endpoints.put.defectDetail(id),
       method: "PUT",
-      data: { updateData },
+      data: updateData,
     });
     set({ defectItem: response });
   },
