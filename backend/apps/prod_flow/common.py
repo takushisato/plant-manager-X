@@ -5,8 +5,12 @@ def check_prod_flow_view_permission(request):
     """
     生産計画閲覧権限チェック
     """
-    if not (request.permission.can_view_production_plan or request.permission.can_edit_production_plan):
+    if not (
+        request.permission.can_view_production_plan
+        or request.permission.can_edit_production_plan
+    ):
         raise PermissionDenied("認証は確認しましたが権限がありません。")
+
 
 def check_prod_flow_edit_permission(request):
     """
@@ -14,4 +18,3 @@ def check_prod_flow_edit_permission(request):
     """
     if not (request.permission.can_edit_production_plan):
         raise PermissionDenied("認証は確認しましたが権限がありません。")
-

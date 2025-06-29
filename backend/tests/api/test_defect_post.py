@@ -50,7 +50,7 @@ class TestDefectPost:
             "title": "不具合テスト",
             "defect_detail": "詳細説明",
             "submission": "対策内容",
-            "submission_deadline": "2025-04-10T17:00:00Z"
+            "submission_deadline": "2025-04-10T17:00:00Z",
         }
 
         response = client.post("/api/bug_note/defects/", data=data, format="json")
@@ -76,7 +76,7 @@ class TestDefectPost:
             "title": "未認証",
             "defect_detail": "詳細",
             "submission": "対策",
-            "submission_deadline": "2025-04-10T17:00:00Z"
+            "submission_deadline": "2025-04-10T17:00:00Z",
         }
 
         response = client.post("/api/bug_note/defects/", data=data, format="json")
@@ -103,7 +103,7 @@ class TestDefectPost:
             "title": "権限なし",
             "defect_detail": "詳細",
             "submission": "対策",
-            "submission_deadline": "2025-04-10T17:00:00Z"
+            "submission_deadline": "2025-04-10T17:00:00Z",
         }
 
         response = client.post("/api/bug_note/defects/", data=data, format="json")

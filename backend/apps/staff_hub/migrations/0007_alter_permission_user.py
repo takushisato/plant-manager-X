@@ -8,13 +8,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('staff_hub', '0006_alter_permission_options_and_more'),
+        ("staff_hub", "0006_alter_permission_options_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='permission',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='ユーザー'),
+            model_name="permission",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="ユーザー",
+            ),
         ),
     ]

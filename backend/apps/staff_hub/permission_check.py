@@ -1,10 +1,12 @@
 from rest_framework import permissions
 from apps.staff_hub.models.permission import Permission
 
+
 class HasUserPermissionObject(permissions.BasePermission):
     """
     Permissionを返却
     """
+
     def has_permission(self, request, view):
         user = request.user
 

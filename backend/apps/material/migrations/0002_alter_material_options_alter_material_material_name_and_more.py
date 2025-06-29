@@ -6,22 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('material', '0001_initial'),
+        ("material", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='material',
-            options={'verbose_name': '資材', 'verbose_name_plural': '資材'},
+            name="material",
+            options={"verbose_name": "資材", "verbose_name_plural": "資材"},
         ),
         migrations.AlterField(
-            model_name='material',
-            name='material_name',
-            field=models.CharField(max_length=255, verbose_name='資材名'),
+            model_name="material",
+            name="material_name",
+            field=models.CharField(max_length=255, verbose_name="資材名"),
         ),
         migrations.AlterField(
-            model_name='material',
-            name='material_price',
-            field=models.FloatField(blank=True, null=True, verbose_name='資材価格'),
+            model_name="material",
+            name="material_price",
+            field=models.FloatField(blank=True, null=True, verbose_name="資材価格"),
         ),
     ]

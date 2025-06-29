@@ -10,7 +10,7 @@ from drf_spectacular.utils import extend_schema
     request=None,
     responses={200: MaterialSerializer},
     description="資材一覧を取得します。",
-    tags=["materials"]
+    tags=["materials"],
 )
 class MaterialView(generics.ListAPIView):
     queryset = Material.objects.all()

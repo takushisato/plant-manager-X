@@ -1,5 +1,10 @@
 from django.urls import path
-from apps.attendance.views import RecordView, RecordDetailView, RecordMyListView, RecordAllListView
+from apps.attendance.views import (
+    RecordView,
+    RecordDetailView,
+    RecordMyListView,
+    RecordAllListView,
+)
 
 
 urlpatterns = [

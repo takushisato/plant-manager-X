@@ -22,9 +22,7 @@ def test_work_pattern_default_break_time():
     休憩時間（break_total_minute）のデフォルトが 0 であることを確認
     """
     pattern = WorkPattern.objects.create(
-        work_pattern_name="朝勤",
-        start_time=time(8, 0),
-        end_time=time(17, 0)
+        work_pattern_name="朝勤", start_time=time(8, 0), end_time=time(17, 0)
     )
     assert pattern.break_total_minute == 0
 

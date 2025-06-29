@@ -5,5 +5,9 @@ from apps.prod_flow.views import PlanView, PlanWithRecordView, PlanWithRecordDet
 urlpatterns = [
     path("plans/", PlanView.as_view(), name="plan"),
     path("plan_with_records/", PlanWithRecordView.as_view(), name="plan-with-record"),
-    path("plan_with_records/<int:pk>/", PlanWithRecordDetailView.as_view(), name="plan-with-record-detail"),
+    path(
+        "plan_with_records/<int:pk>/",
+        PlanWithRecordDetailView.as_view(),
+        name="plan-with-record-detail",
+    ),
 ]

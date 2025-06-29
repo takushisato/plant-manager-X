@@ -17,6 +17,7 @@ def test_create_user_with_factory():
     assert user.organization is not None
     assert user.is_active is True
 
+
 @pytest.mark.django_db
 def test_create_user_manager():
     """
@@ -31,12 +32,13 @@ def test_create_user_manager():
         email="user@example.com",
         password="securepassword",
         organization=org,
-        name="Test User"
+        name="Test User",
     )
     assert user.email == "user@example.com"
     assert user.check_password("securepassword")
     assert user.organization == org
     assert user.is_staff is False
+
 
 @pytest.mark.django_db
 def test_create_superuser_manager():
@@ -46,9 +48,7 @@ def test_create_superuser_manager():
     - is_staff が True であること
     """
     user = User.objects.create_superuser(
-        email="admin@example.com",
-        password="adminpassword",
-        name="Admin User"
+        email="admin@example.com", password="adminpassword", name="Admin User"
     )
     assert user.is_superuser is True
     assert user.is_staff is True

@@ -61,7 +61,7 @@ class TestMailGroupSendPost:
         data = {
             "mail_group_id": mail_group.id,
             "title": "お知らせ",
-            "message": "これはテストメールです。"
+            "message": "これはテストメールです。",
         }
 
         response = client.post("/api/mail/groups/send/", data=data, format="json")
@@ -90,7 +90,7 @@ class TestMailGroupSendPost:
         data = {
             "mail_group_id": mail_group.id,
             "title": "権限なし",
-            "message": "送信できません"
+            "message": "送信できません",
         }
 
         response = client.post("/api/mail/groups/send/", data=data, format="json")
@@ -116,7 +116,7 @@ class TestMailGroupSendPost:
         data = {
             "mail_group_id": mail_group.id,
             "title": "誰もいない",
-            "message": "送信できません"
+            "message": "送信できません",
         }
 
         response = client.post("/api/mail/groups/send/", data=data, format="json")
@@ -139,7 +139,7 @@ class TestMailGroupSendPost:
         data = {
             "mail_group_id": mail_group.id,
             "title": "未ログイン",
-            "message": "送信できません"
+            "message": "送信できません",
         }
 
         response = client.post("/api/mail/groups/send/", data=data, format="json")

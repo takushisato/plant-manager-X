@@ -37,7 +37,9 @@ class TestProductionPlanWithRecordsPost:
         PermissionFactory(user=user, can_edit_production_plan=False)
         return user
 
-    def test_create_plan_with_records_success(self, client, user_with_permission, organization):
+    def test_create_plan_with_records_success(
+        self, client, user_with_permission, organization
+    ):
         """
         正常系: 生産計画と詳細を一括で作成成功
 
@@ -61,7 +63,7 @@ class TestProductionPlanWithRecordsPost:
                     "actual_start_date": "2025-04-01",
                     "actual_end_date": "2025-04-02",
                     "sort": 1,
-                    "note": "メモA"
+                    "note": "メモA",
                 },
                 {
                     "title": "工程B",
@@ -70,18 +72,22 @@ class TestProductionPlanWithRecordsPost:
                     "actual_start_date": None,
                     "actual_end_date": None,
                     "sort": 2,
-                    "note": "メモB"
-                }
-            ]
+                    "note": "メモB",
+                },
+            ],
         }
 
-        response = client.post("/api/production/plan_with_records/", data=payload, format="json")
+        response = client.post(
+            "/api/production/plan_with_records/", data=payload, format="json"
+        )
         assert response.status_code == status.HTTP_201_CREATED
         assert ProductionPlan.objects.count() == 1
         assert ProductionPlanRecord.objects.count() == 2
         assert response.data["note"] == "テスト計画"
 
-    def test_create_plan_without_permission(self, client, user_without_permission, organization):
+    def test_create_plan_without_permission(
+        self, client, user_without_permission, organization
+    ):
         """
         異常系: 作成権限がない場合
 
@@ -98,10 +104,12 @@ class TestProductionPlanWithRecordsPost:
             "organization": organization.id,
             "plan_date": "2025-04-01",
             "note": "テスト計画",
-            "records": []
+            "records": [],
         }
 
-        response = client.post("/api/production/plan_with_records/", data=payload, format="json")
+        response = client.post(
+            "/api/production/plan_with_records/", data=payload, format="json"
+        )
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_create_plan_unauthenticated(self, client, organization):
@@ -118,12 +126,14 @@ class TestProductionPlanWithRecordsPost:
             "organization": organization.id,
             "plan_date": "2025-04-01",
             "note": "テスト計画",
-            "records": []
+            "records": [],
         }
 
-        response = client.post("/api/production/plan_with_records/", data=payload, format="json")
+        response = client.post(
+            "/api/production/plan_with_records/", data=payload, format="json"
+        )
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
-    
+
     def test_create_plan_with_missing_body(self, client, user_with_permission):
         """
         異常系: リクエストボディが空の場合
@@ -136,7 +146,9 @@ class TestProductionPlanWithRecordsPost:
         """
         client.force_authenticate(user=user_with_permission)
 
-        response = client.post("/api/production/plan_with_records/", data={}, format="json")
+        response = client.post(
+            "/api/production/plan_with_records/", data={}, format="json"
+        )
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "organization" in response.data
@@ -158,10 +170,12 @@ class TestProductionPlanWithRecordsPost:
             "organization": 99999,  # 存在しないID
             "plan_date": "2025-04-01",
             "note": "不正な組織ID",
-            "records": []
+            "records": [],
         }
 
-        response = client.post("/api/production/plan_with_records/", data=payload, format="json")
+        response = client.post(
+            "/api/production/plan_with_records/", data=payload, format="json"
+        )
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "organization" in response.data

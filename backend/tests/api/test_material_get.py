@@ -7,7 +7,6 @@ from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 
 
-
 @pytest.mark.django_db
 class TestMaterialGet:
     """

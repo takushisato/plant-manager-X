@@ -4,6 +4,7 @@ from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 from rest_framework.authtoken.models import Token
 
+
 @pytest.mark.django_db
 class TestCustomUserMeView:
     """
@@ -44,7 +45,7 @@ class TestCustomUserMeView:
 
         client = APIClient()
         # トークンベースの認証を使用
-        client.credentials(HTTP_AUTHORIZATION=f'Token {token.key}')
+        client.credentials(HTTP_AUTHORIZATION=f"Token {token.key}")
 
         response = client.get("/api/auth/custom/users/me/")
 

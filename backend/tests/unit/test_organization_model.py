@@ -10,8 +10,7 @@ def test_create_organization():
     Organization インスタンスを正常に作成できる
     """
     org = Organization.objects.create(
-        organization_name="Test Company",
-        description="これはテスト用の組織です。"
+        organization_name="Test Company", description="これはテスト用の組織です。"
     )
     assert org.organization_name == "Test Company"
     assert org.description == "これはテスト用の組織です。"

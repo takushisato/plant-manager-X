@@ -17,7 +17,7 @@ class MailGroupView(APIView):
     @extend_schema(
         responses={200: MailGroupWithRecordSerializer(many=True)},
         tags=["mail"],
-        description="メールグループ一覧を宛先ユーザーとともに取得"
+        description="メールグループ一覧を宛先ユーザーとともに取得",
     )
     def get(self, request):
         check_mail_access_permission(request)
@@ -28,17 +28,19 @@ class MailGroupView(APIView):
         for group in groups:
             histories = group.mailhistory_set.all()
             for history in histories:
-                result.append({
-                    "id": group.id,
-                    "group_title": group.group_title,
-                    "note": group.note,
-                    "history": {
-                        "id": history.id,
-                        "sent_at": history.sent_at,
-                        "title": history.title,
-                        "message": history.message
+                result.append(
+                    {
+                        "id": group.id,
+                        "group_title": group.group_title,
+                        "note": group.note,
+                        "history": {
+                            "id": history.id,
+                            "sent_at": history.sent_at,
+                            "title": history.title,
+                            "message": history.message,
+                        },
                     }
-                })
+                )
 
         return Response(result, status=status.HTTP_200_OK)
 
@@ -46,11 +48,16 @@ class MailGroupView(APIView):
         request=MailGroupCreateSerializer,
         responses={201: MailGroupCreateSerializer},
         tags=["mail"],
-        description="メールグループを新規作成"
+        description="メールグループを新規作成",
     )
     def post(self, request):
         check_mail_access_permission(request)
-        serializer = MailGroupCreateSerializer(data=request.data, context={"create_user": request.user})
+        serializer = MailGroupCreateSerializer(
+            data=request.data, context={"create_user": request.user}
+        )
         serializer.is_valid(raise_exception=True)
         mail_group = serializer.save()
-        return Response(MailGroupWithRecordSerializer(mail_group).data, status=status.HTTP_201_CREATED)
+        return Response(
+            MailGroupWithRecordSerializer(mail_group).data,
+            status=status.HTTP_201_CREATED,
+        )

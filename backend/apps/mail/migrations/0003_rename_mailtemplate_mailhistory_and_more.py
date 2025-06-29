@@ -6,20 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mail', '0002_rename_create_user_mailgroupdetail_recipient_user'),
+        ("mail", "0002_rename_create_user_mailgroupdetail_recipient_user"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='MailTemplate',
-            new_name='MailHistory',
+            old_name="MailTemplate",
+            new_name="MailHistory",
         ),
         migrations.AlterModelOptions(
-            name='mailhistory',
-            options={'verbose_name': 'メール履歴', 'verbose_name_plural': 'メール履歴'},
+            name="mailhistory",
+            options={"verbose_name": "メール履歴", "verbose_name_plural": "メール履歴"},
         ),
         migrations.AlterModelTable(
-            name='mailhistory',
-            table='mail_histories',
+            name="mailhistory",
+            table="mail_histories",
         ),
     ]

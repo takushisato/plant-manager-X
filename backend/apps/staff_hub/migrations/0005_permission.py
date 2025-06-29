@@ -9,31 +9,95 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('staff_hub', '0004_alter_user_name'),
+        ("staff_hub", "0004_alter_user_name"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Permission',
+            name="Permission",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='作成日時')),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True, verbose_name='更新日時')),
-                ('deleted_at', models.DateTimeField(blank=True, null=True, verbose_name='削除日時')),
-                ('staff_hub_access', models.BooleanField(default=False, verbose_name='スタッフハブアクセス')),
-                ('material_access', models.BooleanField(default=False, verbose_name='資料アクセス')),
-                ('attendance_access', models.BooleanField(default=False, verbose_name='出勤アクセス')),
-                ('prod_flow_access', models.BooleanField(default=False, verbose_name='生産フローアクセス')),
-                ('trade_flow_access', models.BooleanField(default=False, verbose_name='取引フローアクセス')),
-                ('bug_note_access', models.BooleanField(default=False, verbose_name='バグノートアクセス')),
-                ('mail_access', models.BooleanField(default=False, verbose_name='メールアクセス')),
-                ('master_data_access', models.BooleanField(default=False, verbose_name='マスタデータアクセス')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='ユーザー')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="作成日時"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, null=True, verbose_name="更新日時"
+                    ),
+                ),
+                (
+                    "deleted_at",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="削除日時"
+                    ),
+                ),
+                (
+                    "staff_hub_access",
+                    models.BooleanField(
+                        default=False, verbose_name="スタッフハブアクセス"
+                    ),
+                ),
+                (
+                    "material_access",
+                    models.BooleanField(default=False, verbose_name="資料アクセス"),
+                ),
+                (
+                    "attendance_access",
+                    models.BooleanField(default=False, verbose_name="出勤アクセス"),
+                ),
+                (
+                    "prod_flow_access",
+                    models.BooleanField(
+                        default=False, verbose_name="生産フローアクセス"
+                    ),
+                ),
+                (
+                    "trade_flow_access",
+                    models.BooleanField(
+                        default=False, verbose_name="取引フローアクセス"
+                    ),
+                ),
+                (
+                    "bug_note_access",
+                    models.BooleanField(
+                        default=False, verbose_name="バグノートアクセス"
+                    ),
+                ),
+                (
+                    "mail_access",
+                    models.BooleanField(default=False, verbose_name="メールアクセス"),
+                ),
+                (
+                    "master_data_access",
+                    models.BooleanField(
+                        default=False, verbose_name="マスタデータアクセス"
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="ユーザー",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': '権限',
-                'verbose_name_plural': '権限',
-                'db_table': 'permissions',
+                "verbose_name": "権限",
+                "verbose_name_plural": "権限",
+                "db_table": "permissions",
             },
         ),
     ]

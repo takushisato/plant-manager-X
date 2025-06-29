@@ -6,28 +6,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('staff_hub', '0008_remove_permission_attendance_access_and_more'),
+        ("staff_hub", "0008_remove_permission_attendance_access_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='permission',
-            name='can_manage_own_attendance',
-            field=models.BooleanField(default=False, verbose_name='勤怠アクセス：自分のみ管理'),
+            model_name="permission",
+            name="can_manage_own_attendance",
+            field=models.BooleanField(
+                default=False, verbose_name="勤怠アクセス：自分のみ管理"
+            ),
         ),
         migrations.AddField(
-            model_name='permission',
-            name='can_view_defect',
-            field=models.BooleanField(default=False, verbose_name='不具合アクセス：閲覧'),
+            model_name="permission",
+            name="can_view_defect",
+            field=models.BooleanField(
+                default=False, verbose_name="不具合アクセス：閲覧"
+            ),
         ),
         migrations.AddField(
-            model_name='permission',
-            name='can_view_order',
-            field=models.BooleanField(default=False, verbose_name='受注アクセス：閲覧'),
+            model_name="permission",
+            name="can_view_order",
+            field=models.BooleanField(default=False, verbose_name="受注アクセス：閲覧"),
         ),
         migrations.AddField(
-            model_name='permission',
-            name='can_view_production_plan',
-            field=models.BooleanField(default=False, verbose_name='生産計画アクセス：閲覧'),
+            model_name="permission",
+            name="can_view_production_plan",
+            field=models.BooleanField(
+                default=False, verbose_name="生産計画アクセス：閲覧"
+            ),
         ),
     ]

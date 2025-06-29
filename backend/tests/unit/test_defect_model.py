@@ -44,7 +44,7 @@ def test_defect_all_fields_filled():
         title="異音発生",
         defect_detail="使用中に異常音が発生。動作に支障あり。",
         submission="ベアリング交換予定。根本原因調査中。",
-        submission_deadline=datetime(2025, 4, 5, 17, 0)
+        submission_deadline=datetime(2025, 4, 5, 17, 0),
     )
     assert defect.create_user.name == "品質管理 太郎"
     assert defect.order.product_name == "テスト機器A"

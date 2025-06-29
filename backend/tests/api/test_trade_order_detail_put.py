@@ -42,7 +42,7 @@ class TestTradeOrderDetailPut:
         条件:
         - ユーザーが認証されている
         - 顧客情報が存在する
-        
+
         結果:
         - ステータスコード 200
         - 注文情報が更新される
@@ -56,9 +56,11 @@ class TestTradeOrderDetailPut:
             "quantity": 10,
             "price": 5000,
             "deadline": "2025-04-30",
-            "note": "特記事項なし"
+            "note": "特記事項なし",
         }
-        response = client.put(f"/api/trade/orders/{order.id}/", data=payload, format="json")
+        response = client.put(
+            f"/api/trade/orders/{order.id}/", data=payload, format="json"
+        )
         assert response.status_code == status.HTTP_200_OK
         assert Order.objects.count() == 1
         assert response.data["order_number"] == "ORD-001"
@@ -69,7 +71,7 @@ class TestTradeOrderDetailPut:
 
         条件:
         - 未認証
-        
+
         結果:
         - ステータスコード 401
         - 注文情報が更新されない
@@ -83,7 +85,9 @@ class TestTradeOrderDetailPut:
             "price": 3000,
             "deadline": "2025-04-20",
         }
-        response = client.put(f"/api/trade/orders/{order.id}/", data=payload, format="json")
+        response = client.put(
+            f"/api/trade/orders/{order.id}/", data=payload, format="json"
+        )
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_update_order_forbidden(self, client, customer, order):
@@ -109,7 +113,9 @@ class TestTradeOrderDetailPut:
             "price": 1500,
             "deadline": "2025-04-15",
         }
-        response = client.put(f"/api/trade/orders/{order.id}/", data=payload, format="json")
+        response = client.put(
+            f"/api/trade/orders/{order.id}/", data=payload, format="json"
+        )
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_update_order_invalid_data(self, client, authed_user, customer, order):
@@ -118,7 +124,7 @@ class TestTradeOrderDetailPut:
 
         条件:
         - データ構造が不正
-        
+
         結果:
         - ステータスコード 400
         - 注文情報が更新されない
@@ -133,5 +139,7 @@ class TestTradeOrderDetailPut:
             "price": "free",
             "deadline": "not-a-date",
         }
-        response = client.put(f"/api/trade/orders/{order.id}/", data=payload, format="json")
+        response = client.put(
+            f"/api/trade/orders/{order.id}/", data=payload, format="json"
+        )
         assert response.status_code == status.HTTP_400_BAD_REQUEST

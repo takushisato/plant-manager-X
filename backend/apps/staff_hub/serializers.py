@@ -9,14 +9,14 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'name', 'email')
+        fields = ("id", "name", "email")
 
 
 class CustomUserSerializer(DjoserUserSerializer):
     permission = serializers.SerializerMethodField()
 
     class Meta(DjoserUserSerializer.Meta):
-        fields = DjoserUserSerializer.Meta.fields + ('permission',)
+        fields = DjoserUserSerializer.Meta.fields + ("permission",)
 
     def get_permission(self, obj):
         try:
@@ -36,7 +36,8 @@ class CustomUserSerializer(DjoserUserSerializer):
         except Permission.DoesNotExist:
             return None
 
+
 class AllUsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'name')
+        fields = ("id", "name")

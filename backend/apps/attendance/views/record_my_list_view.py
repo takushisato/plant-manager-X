@@ -7,7 +7,10 @@ from apps.attendance.serializers import WorkRecordModelSerializer
 from apps.staff_hub.permission_check import HasUserPermissionObject
 from apps.attendance.common import check_attendance_own_edit_permission
 from rest_framework import status
-from apps.attendance.views.validations import validate_month_param_exists, get_month_range_from_str
+from apps.attendance.views.validations import (
+    validate_month_param_exists,
+    get_month_range_from_str,
+)
 from apps.utility.const import MESSAGES
 
 
@@ -17,7 +20,7 @@ class RecordMyListView(APIView):
     @extend_schema(
         tags=["attendance"],
         description="月を指定して自分の勤怠記録を取得",
-        responses={200: WorkRecordModelSerializer(many=True)}
+        responses={200: WorkRecordModelSerializer(many=True)},
     )
     def get(self, request):
         check_attendance_own_edit_permission(request)
@@ -32,11 +35,12 @@ class RecordMyListView(APIView):
         except ValueError:
             return Response(
                 {"detail": MESSAGES["INVALID_MONTH_FORMAT"]},
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
-        records = WorkRecord.get_records_by_user_and_month(request.user, start_date, end_date)
+        records = WorkRecord.get_records_by_user_and_month(
+            request.user, start_date, end_date
+        )
 
         serializer = WorkRecordModelSerializer(records, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-

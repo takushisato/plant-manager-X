@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class WorkStatus(models.TextChoices):
     PRESENT = "present", "出勤"
     ABSENT = "absent", "欠勤"

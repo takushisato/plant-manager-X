@@ -7,29 +7,58 @@ class OrderCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = [
-            "customer", "order_number", "order_date", "product_name",
-            "quantity", "price", "deadline", "note"
+            "customer",
+            "order_number",
+            "order_date",
+            "product_name",
+            "quantity",
+            "price",
+            "deadline",
+            "note",
         ]
 
 
 class OrderListSerializer(serializers.ModelSerializer):
-    customer_name = serializers.CharField(source='customer.customer_name', read_only=True)
+    customer_name = serializers.CharField(
+        source="customer.customer_name", read_only=True
+    )
 
     class Meta:
         model = Order
         fields = [
-            'id', 'order_number', 'order_date', 'product_name', 'quantity',
-            'price', 'deadline', 'note', 'customer', 'customer_name'
+            "id",
+            "order_number",
+            "order_date",
+            "product_name",
+            "quantity",
+            "price",
+            "deadline",
+            "note",
+            "customer",
+            "customer_name",
         ]
 
+
 class OrderDetailSerializer(serializers.ModelSerializer):
-    customer_name = serializers.CharField(source='customer.customer_name', read_only=True)
+    customer_name = serializers.CharField(
+        source="customer.customer_name", read_only=True
+    )
     customer = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Order
         fields = [
-            'id', 'order_number', 'order_date', 'product_name', 'quantity',
-            'price', 'deadline', 'note', 'customer', 'customer_name', 'customer_id'
+            "id",
+            "order_number",
+            "order_date",
+            "product_name",
+            "quantity",
+            "price",
+            "deadline",
+            "note",
+            "customer",
+            "customer_name",
+            "customer_id",
         ]
 
     def update(self, instance, validated_data):
@@ -38,7 +67,8 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
 class CustomerListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ['id', 'customer_name']
+        fields = ["id", "customer_name"]

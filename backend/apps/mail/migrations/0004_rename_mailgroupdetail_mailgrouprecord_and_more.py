@@ -7,18 +7,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mail', '0003_rename_mailtemplate_mailhistory_and_more'),
+        ("mail", "0003_rename_mailtemplate_mailhistory_and_more"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='MailGroupDetail',
-            new_name='MailGroupRecord',
+            old_name="MailGroupDetail",
+            new_name="MailGroupRecord",
         ),
         migrations.RenameField(
-            model_name='mailgrouprecord',
-            old_name='mail_group_detail',
-            new_name='mail_group_record',
+            model_name="mailgrouprecord",
+            old_name="mail_group_detail",
+            new_name="mail_group_record",
         ),
     ]

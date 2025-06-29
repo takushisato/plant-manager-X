@@ -16,54 +16,159 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='MailGroup',
+            name="MailGroup",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='作成日時')),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True, verbose_name='更新日時')),
-                ('deleted_at', models.DateTimeField(blank=True, null=True, verbose_name='削除日時')),
-                ('group_title', models.CharField(max_length=255, verbose_name='グループ名')),
-                ('note', models.CharField(blank=True, max_length=1000, null=True, verbose_name='備考')),
-                ('create_user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='作成者')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="作成日時"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, null=True, verbose_name="更新日時"
+                    ),
+                ),
+                (
+                    "deleted_at",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="削除日時"
+                    ),
+                ),
+                (
+                    "group_title",
+                    models.CharField(max_length=255, verbose_name="グループ名"),
+                ),
+                (
+                    "note",
+                    models.CharField(
+                        blank=True, max_length=1000, null=True, verbose_name="備考"
+                    ),
+                ),
+                (
+                    "create_user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="作成者",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'メールの宛先グループ',
-                'verbose_name_plural': 'メールの宛先グループ',
-                'db_table': 'mail_groups',
+                "verbose_name": "メールの宛先グループ",
+                "verbose_name_plural": "メールの宛先グループ",
+                "db_table": "mail_groups",
             },
         ),
         migrations.CreateModel(
-            name='MailGroupDetail',
+            name="MailGroupDetail",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='作成日時')),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True, verbose_name='更新日時')),
-                ('deleted_at', models.DateTimeField(blank=True, null=True, verbose_name='削除日時')),
-                ('create_user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='送信先ユーザー')),
-                ('mail_group_detail', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='mail.mailgroup', verbose_name='メールの宛先グループ')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="作成日時"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, null=True, verbose_name="更新日時"
+                    ),
+                ),
+                (
+                    "deleted_at",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="削除日時"
+                    ),
+                ),
+                (
+                    "create_user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="送信先ユーザー",
+                    ),
+                ),
+                (
+                    "mail_group_detail",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="mail.mailgroup",
+                        verbose_name="メールの宛先グループ",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'メールの宛先グループ詳細',
-                'verbose_name_plural': 'メールの宛先グループ詳細',
-                'db_table': 'mail_group_details',
+                "verbose_name": "メールの宛先グループ詳細",
+                "verbose_name_plural": "メールの宛先グループ詳細",
+                "db_table": "mail_group_details",
             },
         ),
         migrations.CreateModel(
-            name='MailTemplate',
+            name="MailTemplate",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='作成日時')),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True, verbose_name='更新日時')),
-                ('deleted_at', models.DateTimeField(blank=True, null=True, verbose_name='削除日時')),
-                ('sent_at', models.DateTimeField(verbose_name='送信日時')),
-                ('title', models.CharField(max_length=255, verbose_name='タイトル')),
-                ('message', models.TextField(verbose_name='メッセージ')),
-                ('mail_group', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='mail.mailgroup', verbose_name='メールの宛先グループ')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="作成日時"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, null=True, verbose_name="更新日時"
+                    ),
+                ),
+                (
+                    "deleted_at",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="削除日時"
+                    ),
+                ),
+                ("sent_at", models.DateTimeField(verbose_name="送信日時")),
+                ("title", models.CharField(max_length=255, verbose_name="タイトル")),
+                ("message", models.TextField(verbose_name="メッセージ")),
+                (
+                    "mail_group",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="mail.mailgroup",
+                        verbose_name="メールの宛先グループ",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'メールテンプレート',
-                'verbose_name_plural': 'メールテンプレート',
-                'db_table': 'mail_templates',
+                "verbose_name": "メールテンプレート",
+                "verbose_name_plural": "メールテンプレート",
+                "db_table": "mail_templates",
             },
         ),
     ]

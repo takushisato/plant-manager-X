@@ -25,7 +25,7 @@ class MailSendView(APIView):
         request=MailSendSerializer,
         responses={200: OpenApiResponse(description="送信完了")},
         tags=["mail"],
-        description="メールグループに対してメールを送信し、履歴を保存"
+        description="メールグループに対してメールを送信し、履歴を保存",
     )
     def post(self, request):
         check_mail_access_permission(request)
@@ -39,9 +39,7 @@ class MailSendView(APIView):
 
         validate_mail_group_ownership(mail_group, request.user)
 
-        recipients = MailGroupRecord.get_mail_group_records_by_mail_group(
-            mail_group
-        )
+        recipients = MailGroupRecord.get_mail_group_records_by_mail_group(mail_group)
         to_emails = get_recipient_emails(recipients)
 
         validate_recipient_emails(to_emails)

@@ -6,23 +6,23 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('attendance', '0008_rename_record_workrecord_alter_workrecord_table'),
+        ("attendance", "0008_rename_record_workrecord_alter_workrecord_table"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='workrecord',
-            old_name='work_date',
-            new_name='date',
+            model_name="workrecord",
+            old_name="work_date",
+            new_name="date",
         ),
         migrations.RenameField(
-            model_name='workrecord',
-            old_name='clock_out_time',
-            new_name='end_time',
+            model_name="workrecord",
+            old_name="clock_out_time",
+            new_name="end_time",
         ),
         migrations.RenameField(
-            model_name='workrecord',
-            old_name='clock_in_time',
-            new_name='start_time',
+            model_name="workrecord",
+            old_name="clock_in_time",
+            new_name="start_time",
         ),
     ]

@@ -34,12 +34,16 @@ class TestPlanGet:
 
     @pytest.fixture
     def plans_with_records(self, authed_user_with_permission):
-        plans = ProductionPlanFactory.create_batch(2, organization=authed_user_with_permission.organization)
+        plans = ProductionPlanFactory.create_batch(
+            2, organization=authed_user_with_permission.organization
+        )
         for plan in plans:
             ProductionPlanRecordFactory.create_batch(3, production_plan=plan)
         return plans
 
-    def test_get_plans_with_permission(self, client, authed_user_with_permission, plans_with_records):
+    def test_get_plans_with_permission(
+        self, client, authed_user_with_permission, plans_with_records
+    ):
         """
         正常系: 生産計画一覧を取得成功
 

@@ -32,6 +32,4 @@ class PermissionFactory(factory.django.DjangoModelFactory):
             can_edit_defect=True,
             mail_access=True,
         )
-        material_only = factory.Trait(
-            material_access=True
-        )
+        material_only = factory.Trait(material_access=True)

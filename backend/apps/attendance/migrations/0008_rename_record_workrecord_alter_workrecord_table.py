@@ -7,17 +7,17 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('attendance', '0007_rename_attendancerecord_record'),
+        ("attendance", "0007_rename_attendancerecord_record"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='Record',
-            new_name='WorkRecord',
+            old_name="Record",
+            new_name="WorkRecord",
         ),
         migrations.AlterModelTable(
-            name='workrecord',
-            table='work_records',
+            name="workrecord",
+            table="work_records",
         ),
     ]

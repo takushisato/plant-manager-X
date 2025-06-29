@@ -5,6 +5,7 @@ from tests.factory.defect_factory import DefectFactory
 from tests.factory.user_factory import UserFactory
 from tests.factory.permission_factory import PermissionFactory
 
+
 @pytest.mark.django_db
 class TestDefectDetailGet:
     """
@@ -89,7 +90,7 @@ class TestDefectDetailGet:
         条件:
         - 認証されたユーザー
         - 不具合情報が存在しない
-        
+
         結果:
         - ステータスコード404
         - エラーメッセージが返される
@@ -97,4 +98,3 @@ class TestDefectDetailGet:
         client.force_authenticate(user=user_with_permission)
         response = client.get(f"/api/bug_note/defects/999999/")
         assert response.status_code == status.HTTP_404_NOT_FOUND
-

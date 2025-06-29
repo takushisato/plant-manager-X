@@ -23,7 +23,7 @@ def parse_month_string(month_str):
         return datetime.strptime(month_str, "%Y-%m")
     except ValueError:
         raise ValidationError(MESSAGES["INVALID_MONTH_FORMAT"])
-    
+
 
 def get_month_range(month: datetime):
     """
@@ -43,7 +43,7 @@ def validate_clock_order(clock_in, clock_out):
     """
     if clock_out <= clock_in:
         raise ValidationError(MESSAGES["CLOCK_ORDER_ERROR"])
-    
+
 
 def validate_within_work_pattern(clock_in, clock_out, work_pattern):
     """
@@ -58,7 +58,10 @@ def calculate_minutes(start, end):
     出勤時間と退勤時間の差を分で計算
     """
     base = datetime(2000, 1, 1)
-    return int((datetime.combine(base, end) - datetime.combine(base, start)).total_seconds() // 60)
+    return int(
+        (datetime.combine(base, end) - datetime.combine(base, start)).total_seconds()
+        // 60
+    )
 
 
 def get_total_break_minutes(work_pattern):
@@ -83,7 +86,9 @@ def validate_duplicate_record(user, date):
     """
     同じ勤務日に同じユーザーが勤怠記録を作成していないかをチェック
     """
-    if WorkRecord.objects.filter(user=user, date=date, deleted_at__isnull=True).exists():
+    if WorkRecord.objects.filter(
+        user=user, date=date, deleted_at__isnull=True
+    ).exists():
         raise ValidationError(MESSAGES["DUPLICATE_RECORD_ERROR"])
 
 
@@ -94,7 +99,7 @@ def validate_month_param_exists(month_str):
     if not month_str:
         return Response(
             {"detail": MESSAGES["MONTH_PARAM_ERROR"]},
-            status=status.HTTP_400_BAD_REQUEST
+            status=status.HTTP_400_BAD_REQUEST,
         )
     return None
 
@@ -105,6 +110,9 @@ def get_month_range_from_str(month_str):
     """
     year, month = map(int, month_str.split("-"))
     start_date = datetime(year, month, 1).date()
-    end_date = datetime(year + 1, 1, 1).date() if month == 12 else datetime(year, month + 1, 1).date()
+    end_date = (
+        datetime(year + 1, 1, 1).date()
+        if month == 12
+        else datetime(year, month + 1, 1).date()
+    )
     return start_date, end_date
-

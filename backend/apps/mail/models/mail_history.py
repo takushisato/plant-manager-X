@@ -4,7 +4,9 @@ from .mail_group import MailGroup
 
 
 class MailHistory(BaseModel):
-    mail_group = models.ForeignKey(MailGroup, on_delete=models.CASCADE, verbose_name="メールの宛先グループ")
+    mail_group = models.ForeignKey(
+        MailGroup, on_delete=models.CASCADE, verbose_name="メールの宛先グループ"
+    )
     sent_at = models.DateTimeField("送信日時")
     title = models.CharField("タイトル", max_length=255)
     message = models.TextField("メッセージ")
@@ -16,7 +18,6 @@ class MailHistory(BaseModel):
 
     def __str__(self):
         return self.title
-
 
     @classmethod
     def get_mail_history_by_user(cls, user):

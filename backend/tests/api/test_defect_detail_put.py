@@ -55,10 +55,12 @@ class TestDefectDetailPut:
             "title": "不具合テスト",
             "defect_detail": "詳細説明",
             "submission": "対策内容",
-            "submission_deadline": "2025-04-10T17:00:00Z"
+            "submission_deadline": "2025-04-10T17:00:00Z",
         }
 
-        response = client.put(f"/api/bug_note/defects/{defect.id}/", data=data, format="json")
+        response = client.put(
+            f"/api/bug_note/defects/{defect.id}/", data=data, format="json"
+        )
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data["title"] == "不具合テスト"
@@ -81,10 +83,12 @@ class TestDefectDetailPut:
             "title": "未認証",
             "defect_detail": "詳細",
             "submission": "対策",
-            "submission_deadline": "2025-04-10T17:00:00Z"
+            "submission_deadline": "2025-04-10T17:00:00Z",
         }
 
-        response = client.put(f"/api/bug_note/defects/{defect.id}/", data=data, format="json")
+        response = client.put(
+            f"/api/bug_note/defects/{defect.id}/", data=data, format="json"
+        )
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_user_without_permission_cannot_update(self, client, order, defect):
@@ -108,10 +112,12 @@ class TestDefectDetailPut:
             "title": "権限なし",
             "defect_detail": "詳細",
             "submission": "対策",
-            "submission_deadline": "2025-04-10T17:00:00Z"
+            "submission_deadline": "2025-04-10T17:00:00Z",
         }
 
-        response = client.put(f"/api/bug_note/defects/{defect.id}/", data=data, format="json")
+        response = client.put(
+            f"/api/bug_note/defects/{defect.id}/", data=data, format="json"
+        )
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_invalid_data(self, client, authed_user, defect):
@@ -126,5 +132,7 @@ class TestDefectDetailPut:
         - 不具合情報が編集されない
         """
         client.force_authenticate(user=authed_user)
-        response = client.put(f"/api/bug_note/defects/{defect.id}/", data={}, format="json")
+        response = client.put(
+            f"/api/bug_note/defects/{defect.id}/", data={}, format="json"
+        )
         assert response.status_code == status.HTTP_400_BAD_REQUEST

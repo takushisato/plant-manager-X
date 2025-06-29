@@ -34,10 +34,7 @@ def test_material_default_values():
     デフォルト値（stock_qty と order_suggestion_qty）が 0 であること
     """
     org = OrganizationFactory()
-    material = Material.objects.create(
-        organization=org,
-        material_name="新しい資材"
-    )
+    material = Material.objects.create(organization=org, material_name="新しい資材")
     assert material.stock_qty == 0
     assert material.order_suggestion_qty == 0
 

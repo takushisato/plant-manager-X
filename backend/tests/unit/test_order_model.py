@@ -42,7 +42,7 @@ def test_order_all_fields_filled():
         quantity=5,
         price=50000,
         deadline=date.today() + timedelta(days=10),
-        note="優先出荷希望"
+        note="優先出荷希望",
     )
     assert order.customer.customer_name == "株式会社〇〇"
     assert order.product_name == "電動レンチ"

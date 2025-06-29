@@ -5,8 +5,12 @@ from apps.utility.models import BaseModel
 
 
 class MailGroupRecord(BaseModel):
-    mail_group_record = models.ForeignKey(MailGroup, on_delete=models.CASCADE, verbose_name="メールの宛先グループ")
-    recipient_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="送信先ユーザー")
+    mail_group_record = models.ForeignKey(
+        MailGroup, on_delete=models.CASCADE, verbose_name="メールの宛先グループ"
+    )
+    recipient_user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="送信先ユーザー"
+    )
 
     class Meta:
         verbose_name = "メールの宛先グループ詳細"
@@ -26,8 +30,7 @@ class MailGroupRecord(BaseModel):
         指定されたメールグループに、複数のユーザーを一括登録する
         """
         instances = [
-            cls(mail_group_record=mail_group, recipient_user=user)
-            for user in users
+            cls(mail_group_record=mail_group, recipient_user=user) for user in users
         ]
         return cls.objects.bulk_create(instances)
 

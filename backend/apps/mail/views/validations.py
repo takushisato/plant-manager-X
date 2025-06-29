@@ -4,7 +4,6 @@ from rest_framework.exceptions import ValidationError, PermissionDenied
 from apps.utility.const import MESSAGES
 
 
-
 def validate_mail_group_ownership(mail_group, user):
     """
     ログインユーザーがグループの作成者か確認
@@ -26,17 +25,14 @@ def validate_recipient_emails(emails):
     """
     if not emails:
         raise ValidationError(MESSAGES["SEND_MAIL_ERROR"])
-    
+
 
 def save_mail_template(mail_group, title, message):
     """
     メール送信履歴を保存
     """
     MailHistory.objects.create(
-        mail_group=mail_group,
-        sent_at=timezone.now(),
-        title=title,
-        message=message
+        mail_group=mail_group, sent_at=timezone.now(), title=title, message=message
     )
 
 

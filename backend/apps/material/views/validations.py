@@ -3,7 +3,6 @@ from apps.material.serializers import ReceiveStockSerializer, UseStockSerializer
 from apps.utility.const import MESSAGES
 
 
-
 def validate_receive_stock_request(request):
     """
     受け入れ数のバリデーション
@@ -28,6 +27,7 @@ def apply_received_stock(material, added_qty):
     material.stock_qty += added_qty
     material.save()
     return material.stock_qty
+
 
 def validate_use_stock_request(request):
     """

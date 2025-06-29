@@ -37,7 +37,7 @@ class TestTradeOrderPost:
         条件:
         - ユーザーが認証されている
         - 顧客情報が存在する
-        
+
         結果:
         - ステータスコード 201
         - 注文情報が作成される
@@ -51,7 +51,7 @@ class TestTradeOrderPost:
             "quantity": 10,
             "price": 5000,
             "deadline": "2025-04-30",
-            "note": "特記事項なし"
+            "note": "特記事項なし",
         }
         response = client.post("/api/trade/orders/", data=payload, format="json")
         assert response.status_code == status.HTTP_201_CREATED
@@ -64,7 +64,7 @@ class TestTradeOrderPost:
 
         条件:
         - 未認証
-        
+
         結果:
         - ステータスコード 401
         - 注文情報が作成されない
@@ -113,7 +113,7 @@ class TestTradeOrderPost:
 
         条件:
         - データ構造が不正
-        
+
         結果:
         - ステータスコード 400
         - 注文情報が作成されない

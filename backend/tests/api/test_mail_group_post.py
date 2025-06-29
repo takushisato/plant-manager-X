@@ -49,11 +49,7 @@ class TestMailGroupCreateView:
         mail_group_data = {
             "group_title": "品質管理チーム",
             "note": "新規立ち上げ用グループ",
-            "records": [
-                {
-                    "recipient_user": authed_user_with_permission.id
-                }
-            ]
+            "records": [{"recipient_user": authed_user_with_permission.id}],
         }
 
         response = client.post("/api/mail/groups/", data=mail_group_data, format="json")
@@ -76,9 +72,9 @@ class TestMailGroupCreateView:
         """
         client.force_authenticate(user=authed_user_without_permission)
 
-        response = client.post("/api/mail/groups/", data={
-            "group_title": "マーケティングチーム"
-        })
+        response = client.post(
+            "/api/mail/groups/", data={"group_title": "マーケティングチーム"}
+        )
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
         assert "権限" in str(response.data)
@@ -95,13 +91,15 @@ class TestMailGroupCreateView:
         - ステータスコード401
         - メールグループが作成されない
         """
-        response = client.post("/api/mail/groups/", data={
-            "group_title": "営業部グループ"
-        })
+        response = client.post(
+            "/api/mail/groups/", data={"group_title": "営業部グループ"}
+        )
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
-    def test_create_mail_group_validation_error(self, client, authed_user_with_permission):
+    def test_create_mail_group_validation_error(
+        self, client, authed_user_with_permission
+    ):
         """
         異常系: group_title が空だと400エラー
 
@@ -115,9 +113,7 @@ class TestMailGroupCreateView:
         """
         client.force_authenticate(user=authed_user_with_permission)
 
-        response = client.post("/api/mail/groups/", data={
-            "group_title": ""
-        })
+        response = client.post("/api/mail/groups/", data={"group_title": ""})
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "group_title" in response.data
