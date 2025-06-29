@@ -6,6 +6,7 @@ from tests.factory.permission_factory import PermissionFactory
 from tests.factory.production_plan_factory import ProductionPlanFactory
 from tests.factory.production_plan_record_factory import ProductionPlanRecordFactory
 
+
 @pytest.mark.django_db
 class TestPlanWithRecordDetailDelete:
     """
@@ -44,7 +45,9 @@ class TestPlanWithRecordDetailDelete:
         - 生産計画と詳細データが論理削除される
         """
         client.force_authenticate(user=authed_user)
-        response = client.delete(f"/api/production/plan_with_records/{plan_with_records.id}/")
+        response = client.delete(
+            f"/api/production/plan_with_records/{plan_with_records.id}/"
+        )
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
         plan_with_records.refresh_from_db()
@@ -63,7 +66,9 @@ class TestPlanWithRecordDetailDelete:
         - ステータスコード 401
         - 生産計画と詳細データが論理削除されない
         """
-        response = client.delete(f"/api/production/plan_with_records/{plan_with_records.id}/")
+        response = client.delete(
+            f"/api/production/plan_with_records/{plan_with_records.id}/"
+        )
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_delete_without_permission(self, client, plan_with_records):
@@ -80,7 +85,9 @@ class TestPlanWithRecordDetailDelete:
         user = UserFactory()
         PermissionFactory(user=user, can_edit_production_plan=False)
         client.force_authenticate(user=user)
-        response = client.delete(f"/api/production/plan_with_records/{plan_with_records.id}/")
+        response = client.delete(
+            f"/api/production/plan_with_records/{plan_with_records.id}/"
+        )
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_delete_not_found(self, client, authed_user):

@@ -9,7 +9,10 @@ from apps.attendance.serializers import WorkRecordUpdateSerializer
 from apps.staff_hub.permission_check import HasUserPermissionObject
 from django.shortcuts import get_object_or_404
 from apps.attendance.common import check_attendance_own_edit_permission
-from apps.attendance.views.validations import validate_clock_order, validate_within_work_pattern
+from apps.attendance.views.validations import (
+    validate_clock_order,
+    validate_within_work_pattern,
+)
 
 
 class RecordDetailView(APIView):
@@ -19,7 +22,7 @@ class RecordDetailView(APIView):
         request=WorkRecordUpdateSerializer,
         responses={200: WorkRecordUpdateSerializer},
         tags=["attendance"],
-        description="自分の勤怠記録を更新"
+        description="自分の勤怠記録を更新",
     )
     def put(self, request, pk):
         check_attendance_own_edit_permission(request)

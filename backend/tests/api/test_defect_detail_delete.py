@@ -25,7 +25,7 @@ class TestDefectDetailDelete:
         user = UserFactory()
         PermissionFactory(user=user, can_edit_defect=True)
         return user
-    
+
     @pytest.fixture
     def user_without_permission(self):
         user = UserFactory()
@@ -67,7 +67,9 @@ class TestDefectDetailDelete:
         response = client.delete(f"/api/bug_note/defects/{defect.id}/")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
-    def test_user_without_permission_cannot_delete(self, client, user_without_permission, defect):
+    def test_user_without_permission_cannot_delete(
+        self, client, user_without_permission, defect
+    ):
         """
         異常系: 権限がないユーザーが論理削除できない
 

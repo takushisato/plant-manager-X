@@ -36,7 +36,7 @@ def test_mail_template_all_fields():
         mail_group=group,
         sent_at=datetime(2025, 4, 1, 10, 0),
         title="納期遅延のお知らせ",
-        message="納期が1日遅れます。ご了承ください。"
+        message="納期が1日遅れます。ご了承ください。",
     )
     assert template.mail_group.group_title == "重要通知"
     assert template.title == "納期遅延のお知らせ"

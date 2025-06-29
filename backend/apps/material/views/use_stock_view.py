@@ -9,14 +9,18 @@ from apps.material.common import check_material_access_permission
 from apps.material.serializers import UseStockSerializer
 from drf_spectacular.utils import extend_schema
 from apps.utility.const import MESSAGES
-from apps.material.views.validations import validate_use_stock_request, validate_used_qty, apply_used_stock
+from apps.material.views.validations import (
+    validate_use_stock_request,
+    validate_used_qty,
+    apply_used_stock,
+)
 
 
 @extend_schema(
     request=UseStockSerializer,
     responses={200: None},
     description="資材の在庫数を使用数分だけ減少させます。",
-    tags=["materials"]
+    tags=["materials"],
 )
 class UseStockView(APIView):
     permission_classes = [permissions.IsAuthenticated, HasUserPermissionObject]
@@ -30,8 +34,10 @@ class UseStockView(APIView):
         validate_used_qty(material, used_qty)
         remaining_stock = apply_used_stock(material, used_qty)
 
-        return Response({
-            "detail": MESSAGES["USE_STOCK"].format(used_qty=used_qty),
-            "current_stock": remaining_stock
-        }, status=status.HTTP_200_OK)
-
+        return Response(
+            {
+                "detail": MESSAGES["USE_STOCK"].format(used_qty=used_qty),
+                "current_stock": remaining_stock,
+            },
+            status=status.HTTP_200_OK,
+        )

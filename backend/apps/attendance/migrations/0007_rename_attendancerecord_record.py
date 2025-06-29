@@ -7,13 +7,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('attendance', '0006_rename_work_pattern_id_breaksetting_work_pattern'),
+        ("attendance", "0006_rename_work_pattern_id_breaksetting_work_pattern"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='AttendanceRecord',
-            new_name='Record',
+            old_name="AttendanceRecord",
+            new_name="Record",
         ),
     ]

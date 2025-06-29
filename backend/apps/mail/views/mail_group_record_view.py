@@ -16,7 +16,7 @@ class MailGroupRecordView(APIView):
     @extend_schema(
         tags=["mail"],
         description="メールグループを削除（関連する宛先も削除）",
-        responses={204: None}
+        responses={204: None},
     )
     def delete(self, request, pk):
         check_mail_access_permission(request)
@@ -24,7 +24,10 @@ class MailGroupRecordView(APIView):
         mail_group = get_object_or_404(MailGroup, pk=pk)
 
         if mail_group.create_user != request.user:
-            return Response({"detail": MESSAGES["MAIL_GROUP_DELETE_ERROR"]}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {"detail": MESSAGES["MAIL_GROUP_DELETE_ERROR"]},
+                status=status.HTTP_403_FORBIDDEN,
+            )
 
         mail_group.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { DefectTableList, DefectItem, DefectCreateItem } from "@/types/defect";
-import { mockDefectTableList, mockDefectItem } from "@/fixtures/defect";
+import { endpoints } from "@/utils/apiUrls";
+import { apiClient } from "@/domain/api/apiClient";
 
 type DefectStore = {
   defectList: DefectTableList[];
@@ -27,22 +28,25 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
   },
 
   /**
-   * 不具合を取得
-   * TODO モックからAPIに変更する
+   * 不具合一覧を取得
    */
   getDefects: async () => {
-    const mockData = mockDefectTableList;
-    set({ defectList: mockData });
+    const response = await apiClient<DefectTableList[]>({
+      url: endpoints.get.defectList,
+      method: "GET",
+    });
+    set({ defectList: response });
   },
 
   /**
    * 不具合の詳細を取得
-   * TODO モックからAPIに変更する
    */
   getDefect: async (id: number) => {
-    const mockData = mockDefectItem;
-    set({ defectItem: mockData });
-    console.log("defectItem", id);
+    const response = await apiClient<DefectItem>({
+      url: endpoints.get.defectDetail(id),
+      method: "GET",
+    });
+    set({ defectItem: response });
   },
 
   /**
@@ -54,12 +58,24 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
   },
 
   /**
-   * 不具合を更新
+   * 対策を申請
+   * TODO 動作確認
    */
   updateSubmission: async (id: number, submission: string) => {
     const currentState = get();
-    set({ defectItem: { ...currentState.defectItem, submission } });
-    console.log("defectItem", id);
-    console.log("submission", submission);
+    const updateData = {
+      defect_detail: currentState.defectItem.defect_detail,
+      occurred_at: currentState.defectItem.occurred_at,
+      submission: submission,
+      order: currentState.defectItem.order,
+      submission_deadline: currentState.defectItem.submission_deadline,
+      title: currentState.defectItem.title,
+    };
+    const response = await apiClient<DefectItem>({
+      url: endpoints.put.defectDetail(id),
+      method: "PUT",
+      data: updateData,
+    });
+    set({ defectItem: response });
   },
 }));

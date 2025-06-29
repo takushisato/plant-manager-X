@@ -38,7 +38,7 @@ class TestMaterialReceiveStockDetailPut:
     def test_receive_stock_success(self, client, user_with_permission, material):
         """
         正常系: 在庫を受け入れ成功
-        
+
         条件:
         - 在庫数: 10
         - added_qty: 5
@@ -52,7 +52,7 @@ class TestMaterialReceiveStockDetailPut:
         response = client.put(
             f"/api/materials/receive_stock/{material.id}/",
             data={"added_qty": 5},
-            format="json"
+            format="json",
         )
 
         material.refresh_from_db()
@@ -78,7 +78,7 @@ class TestMaterialReceiveStockDetailPut:
         response = client.put(
             f"/api/materials/receive_stock/{material.id}/",
             data={"added_qty": 5},
-            format="json"
+            format="json",
         )
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
@@ -87,7 +87,7 @@ class TestMaterialReceiveStockDetailPut:
     def test_receive_stock_unauthenticated(self, client, material):
         """
         異常系: 未認証は401
-        
+
         条件:
         - 在庫数: 10
         - added_qty: 5
@@ -98,16 +98,18 @@ class TestMaterialReceiveStockDetailPut:
         response = client.put(
             f"/api/materials/receive_stock/{material.id}/",
             data={"added_qty": 5},
-            format="json"
+            format="json",
         )
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     @pytest.mark.parametrize("invalid_qty", [0, -1, -100])
-    def test_receive_stock_invalid_quantity(self, client, user_with_permission, material, invalid_qty):
+    def test_receive_stock_invalid_quantity(
+        self, client, user_with_permission, material, invalid_qty
+    ):
         """
         異常系: 0以下の数は400
-        
+
         条件:
         - 在庫数: 10
         - added_qty: 0以下の数
@@ -120,7 +122,7 @@ class TestMaterialReceiveStockDetailPut:
         response = client.put(
             f"/api/materials/receive_stock/{material.id}/",
             data={"added_qty": invalid_qty},
-            format="json"
+            format="json",
         )
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST

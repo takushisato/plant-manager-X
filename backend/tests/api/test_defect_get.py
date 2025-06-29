@@ -41,7 +41,7 @@ class TestDefectGet:
             create_user=authed_user,
             order=order,
             occurred_at=datetime.now(),
-            submission_deadline=datetime.now() + timedelta(days=7)
+            submission_deadline=datetime.now() + timedelta(days=7),
         )
 
     def test_get_defects_success(self, client, authed_user, defects):

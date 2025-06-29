@@ -31,9 +31,7 @@ def test_mail_group_full_fields_create():
     """
     user = UserFactory(name="管理者 太郎")
     group = MailGroup.objects.create(
-        create_user=user,
-        group_title="営業チーム",
-        note="全営業担当者向け"
+        create_user=user, group_title="営業チーム", note="全営業担当者向け"
     )
     assert group.create_user.name == "管理者 太郎"
     assert group.group_title == "営業チーム"

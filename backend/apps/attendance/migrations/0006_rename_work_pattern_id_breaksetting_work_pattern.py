@@ -6,13 +6,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('attendance', '0005_alter_attendancerecord_options'),
+        ("attendance", "0005_alter_attendancerecord_options"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='breaksetting',
-            old_name='work_pattern_id',
-            new_name='work_pattern',
+            model_name="breaksetting",
+            old_name="work_pattern_id",
+            new_name="work_pattern",
         ),
     ]

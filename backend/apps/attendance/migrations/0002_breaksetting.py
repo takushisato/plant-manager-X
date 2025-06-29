@@ -8,26 +8,61 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('attendance', '0001_initial'),
+        ("attendance", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BreakSetting',
+            name="BreakSetting",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='作成日時')),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True, verbose_name='更新日時')),
-                ('deleted_at', models.DateTimeField(blank=True, null=True, verbose_name='削除日時')),
-                ('start_time', models.TimeField(verbose_name='休憩開始時間')),
-                ('end_time', models.TimeField(verbose_name='休憩終了時間')),
-                ('note', models.CharField(blank=True, max_length=1000, null=True, verbose_name='備考')),
-                ('work_pattern_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='attendance.workpattern', verbose_name='勤務形態')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="作成日時"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, null=True, verbose_name="更新日時"
+                    ),
+                ),
+                (
+                    "deleted_at",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="削除日時"
+                    ),
+                ),
+                ("start_time", models.TimeField(verbose_name="休憩開始時間")),
+                ("end_time", models.TimeField(verbose_name="休憩終了時間")),
+                (
+                    "note",
+                    models.CharField(
+                        blank=True, max_length=1000, null=True, verbose_name="備考"
+                    ),
+                ),
+                (
+                    "work_pattern_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="attendance.workpattern",
+                        verbose_name="勤務形態",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': '休憩時間設定',
-                'verbose_name_plural': '休憩時間設定',
-                'db_table': 'break_settings',
+                "verbose_name": "休憩時間設定",
+                "verbose_name_plural": "休憩時間設定",
+                "db_table": "break_settings",
             },
         ),
     ]

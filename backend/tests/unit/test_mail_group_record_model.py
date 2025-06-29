@@ -23,8 +23,7 @@ def test_mail_group_record_str_method():
     user = UserFactory(name="田中一郎")
     group = MailGroupFactory(group_title="通知チーム")
     record = MailGroupRecord.objects.create(
-        mail_group_record=group,
-        recipient_user=user
+        mail_group_record=group, recipient_user=user
     )
     assert str(record) == "通知チーム - 田中一郎"
 

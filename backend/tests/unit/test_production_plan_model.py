@@ -23,8 +23,6 @@ def test_production_plan_str_method():
     """
     org = OrganizationFactory(organization_name="テスト工場")
     plan = ProductionPlan.objects.create(
-        organization=org,
-        plan_date=date(2025, 4, 1),
-        note="予定あり"
+        organization=org, plan_date=date(2025, 4, 1), note="予定あり"
     )
     assert str(plan) == "テスト工場 - 2025-04-01"

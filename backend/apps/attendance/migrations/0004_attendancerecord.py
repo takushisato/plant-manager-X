@@ -9,32 +9,90 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('attendance', '0003_paidleave'),
+        ("attendance", "0003_paidleave"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AttendanceRecord',
+            name="AttendanceRecord",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='作成日時')),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True, verbose_name='更新日時')),
-                ('deleted_at', models.DateTimeField(blank=True, null=True, verbose_name='削除日時')),
-                ('work_date', models.DateField(verbose_name='勤務日')),
-                ('clock_in_time', models.TimeField(verbose_name='出勤時間')),
-                ('clock_out_time', models.TimeField(verbose_name='退勤時間')),
-                ('break_minutes', models.IntegerField(verbose_name='休憩時間(分)')),
-                ('work_minutes', models.IntegerField(verbose_name='勤務時間(分)')),
-                ('work_status', models.CharField(choices=[('present', '出勤'), ('absent', '欠勤'), ('paid_leave', '有休'), ('late', '遅刻'), ('early_leave', '早退'), ('holiday_work', '休日出勤'), ('substitute_holiday', '代休')], default='present', max_length=20, verbose_name='勤務形態')),
-                ('note', models.CharField(blank=True, max_length=1000, null=True, verbose_name='備考')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='ユーザー')),
-                ('work_pattern', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='attendance.workpattern', verbose_name='勤務形態')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="作成日時"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, null=True, verbose_name="更新日時"
+                    ),
+                ),
+                (
+                    "deleted_at",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="削除日時"
+                    ),
+                ),
+                ("work_date", models.DateField(verbose_name="勤務日")),
+                ("clock_in_time", models.TimeField(verbose_name="出勤時間")),
+                ("clock_out_time", models.TimeField(verbose_name="退勤時間")),
+                ("break_minutes", models.IntegerField(verbose_name="休憩時間(分)")),
+                ("work_minutes", models.IntegerField(verbose_name="勤務時間(分)")),
+                (
+                    "work_status",
+                    models.CharField(
+                        choices=[
+                            ("present", "出勤"),
+                            ("absent", "欠勤"),
+                            ("paid_leave", "有休"),
+                            ("late", "遅刻"),
+                            ("early_leave", "早退"),
+                            ("holiday_work", "休日出勤"),
+                            ("substitute_holiday", "代休"),
+                        ],
+                        default="present",
+                        max_length=20,
+                        verbose_name="勤務形態",
+                    ),
+                ),
+                (
+                    "note",
+                    models.CharField(
+                        blank=True, max_length=1000, null=True, verbose_name="備考"
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="ユーザー",
+                    ),
+                ),
+                (
+                    "work_pattern",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="attendance.workpattern",
+                        verbose_name="勤務形態",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': '勤怠記録',
-                'verbose_name_plural': '勤怠記録',
-                'db_table': 'attendance_records',
+                "verbose_name": "勤怠記録",
+                "verbose_name_plural": "勤怠記録",
+                "db_table": "attendance_records",
             },
         ),
     ]

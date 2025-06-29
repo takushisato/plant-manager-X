@@ -10,11 +10,9 @@ class WorkPattern(BaseModel):
     note = models.CharField("備考", max_length=1000, null=True, blank=True)
 
     class Meta:
-        verbose_name = '勤務形態'
-        verbose_name_plural = '勤務形態'
-        db_table = 'work_patterns'
+        verbose_name = "勤務形態"
+        verbose_name_plural = "勤務形態"
+        db_table = "work_patterns"
 
     def __str__(self):
         return self.work_pattern_name
-
-

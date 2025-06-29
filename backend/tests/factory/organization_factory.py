@@ -8,4 +8,3 @@ class OrganizationFactory(factory.django.DjangoModelFactory):
 
     organization_name = factory.Faker("company")
     description = factory.Faker("catch_phrase")
-

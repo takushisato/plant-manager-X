@@ -4,7 +4,9 @@ from .customer import Customer
 
 
 class Order(BaseModel):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name="顧客")
+    customer = models.ForeignKey(
+        Customer, on_delete=models.CASCADE, verbose_name="顧客"
+    )
     order_number = models.CharField("注文番号", max_length=100)
     order_date = models.DateField("注文日")
     product_name = models.CharField("商品名", max_length=100)

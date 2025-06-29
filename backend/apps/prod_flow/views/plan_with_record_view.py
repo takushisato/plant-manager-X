@@ -14,7 +14,7 @@ class PlanWithRecordView(APIView):
         request=PlanWithRecordSerializer,
         responses={201: PlanWithRecordSerializer},
         tags=["production"],
-        description="生産計画と詳細を一括で作成"
+        description="生産計画と詳細を一括で作成",
     )
     def post(self, request):
         check_prod_flow_edit_permission(request)
@@ -23,4 +23,6 @@ class PlanWithRecordView(APIView):
         serializer.is_valid(raise_exception=True)
         plan = serializer.save()
 
-        return Response(PlanWithRecordSerializer(plan).data, status=status.HTTP_201_CREATED)
+        return Response(
+            PlanWithRecordSerializer(plan).data, status=status.HTTP_201_CREATED
+        )

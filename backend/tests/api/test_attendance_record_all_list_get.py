@@ -37,7 +37,9 @@ class TestAttendanceRecordAllListGet:
     def setup_records(self, admin_user):
         work_pattern = WorkPatternFactory()
         base_date = datetime(2025, 4, 1)
-        return WorkRecordFactory.create_batch(3, user=admin_user, work_pattern=work_pattern, date=base_date.date())
+        return WorkRecordFactory.create_batch(
+            3, user=admin_user, work_pattern=work_pattern, date=base_date.date()
+        )
 
     def test_successful_retrieval(self, client, admin_user, setup_records):
         """

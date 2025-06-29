@@ -55,7 +55,7 @@ class TestMaterialUseStockDetailPut:
         response = client.put(
             f"/api/materials/use_stock/{material.id}/",
             data={"used_qty": 3},
-            format="json"
+            format="json",
         )
 
         material.refresh_from_db()
@@ -64,7 +64,9 @@ class TestMaterialUseStockDetailPut:
         assert material.stock_qty == 7
         assert response.data["current_stock"] == 7
 
-    def test_use_stock_forbidden_without_permission(self, client, authed_user_without_permission, material):
+    def test_use_stock_forbidden_without_permission(
+        self, client, authed_user_without_permission, material
+    ):
         """
         異常系: material_access 権限のないユーザーが在庫を使用しようとした場合
 
@@ -80,7 +82,7 @@ class TestMaterialUseStockDetailPut:
         response = client.put(
             f"/api/materials/use_stock/{material.id}/",
             data={"used_qty": 1},
-            format="json"
+            format="json",
         )
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
@@ -96,7 +98,7 @@ class TestMaterialUseStockDetailPut:
         response = client.put(
             f"/api/materials/use_stock/{material.id}/",
             data={"used_qty": 1},
-            format="json"
+            format="json",
         )
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
@@ -118,14 +120,16 @@ class TestMaterialUseStockDetailPut:
         response = client.put(
             f"/api/materials/use_stock/{material.id}/",
             data={"used_qty": material.stock_qty + 1},
-            format="json"
+            format="json",
         )
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "在庫" in str(response.data)
 
     @pytest.mark.parametrize("invalid_qty", [0, -1, -100])
-    def test_use_stock_invalid_quantity(self, client, authed_user_with_permission, material, invalid_qty):
+    def test_use_stock_invalid_quantity(
+        self, client, authed_user_with_permission, material, invalid_qty
+    ):
         """
         異常系: used_qty が 0 以下の場合はエラー
 
@@ -141,7 +145,7 @@ class TestMaterialUseStockDetailPut:
         response = client.put(
             f"/api/materials/use_stock/{material.id}/",
             data={"used_qty": invalid_qty},
-            format="json"
+            format="json",
         )
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST

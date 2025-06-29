@@ -15,4 +15,6 @@ class DefectFactory(factory.django.DjangoModelFactory):
     title = factory.Faker("sentence", nb_words=3)
     defect_detail = factory.Faker("paragraph", nb_sentences=2)
     submission = factory.Faker("paragraph", nb_sentences=1)
-    submission_deadline = factory.LazyFunction(lambda: datetime.now() + timedelta(days=3))
+    submission_deadline = factory.LazyFunction(
+        lambda: datetime.now() + timedelta(days=3)
+    )

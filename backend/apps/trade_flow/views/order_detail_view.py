@@ -32,7 +32,7 @@ class OrderDetailView(APIView):
         request=OrderDetailSerializer,
         responses={200: OrderDetailSerializer},
         tags=["order"],
-        description="注文情報を更新する"
+        description="注文情報を更新する",
     )
     def put(self, request, pk):
         check_trade_flow_edit_permission(request)
@@ -45,9 +45,7 @@ class OrderDetailView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(
-        tags=["order"],
-        description="注文情報を論理削除する",
-        responses={204: None}
+        tags=["order"], description="注文情報を論理削除する", responses={204: None}
     )
     def delete(self, request, pk):
         check_trade_flow_edit_permission(request)

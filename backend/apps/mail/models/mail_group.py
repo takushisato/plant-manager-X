@@ -4,7 +4,9 @@ from apps.staff_hub.models.user import User
 
 
 class MailGroup(BaseModel):
-    create_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="作成者")
+    create_user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="作成者"
+    )
     group_title = models.CharField("グループ名", max_length=255)
     note = models.CharField("備考", max_length=1000, null=True, blank=True)
 
@@ -21,6 +23,6 @@ class MailGroup(BaseModel):
         """
         ユーザーが作成したメールグループとその詳細情報を取得
         """
-        return MailGroup.objects.filter(
-            create_user=user
-        ).prefetch_related("mailgrouprecord_set")
+        return MailGroup.objects.filter(create_user=user).prefetch_related(
+            "mailgrouprecord_set"
+        )

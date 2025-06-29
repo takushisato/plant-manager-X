@@ -4,6 +4,7 @@ from tests.factory.paid_leave_factory import PaidLeaveFactory
 from tests.factory.user_factory import UserFactory
 from django.db import IntegrityError
 
+
 @pytest.mark.django_db
 def test_create_paid_leave_with_factory():
     """

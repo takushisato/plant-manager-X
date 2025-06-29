@@ -7,13 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('prod_flow', '0002_productionplandetail'),
+        ("prod_flow", "0002_productionplandetail"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='productionplandetail',
-            name='production_plan',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='details', to='prod_flow.productionplan', verbose_name='生産計画'),
+            model_name="productionplandetail",
+            name="production_plan",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="details",
+                to="prod_flow.productionplan",
+                verbose_name="生産計画",
+            ),
         ),
     ]

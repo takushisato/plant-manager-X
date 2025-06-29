@@ -53,7 +53,7 @@ def test_customer_all_fields_filled():
         address="東京都中央区1-1-1",
         client_contact="山田 太郎",
         internal_contact="佐藤 花子",
-        note="これは備考欄のテストです。"
+        note="これは備考欄のテストです。",
     )
     assert customer.customer_name == "株式会社フルフィル"
     assert customer.telephone == "03-1234-5678"

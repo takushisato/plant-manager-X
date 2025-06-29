@@ -6,64 +6,80 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('staff_hub', '0007_alter_permission_user'),
+        ("staff_hub", "0007_alter_permission_user"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='permission',
-            name='attendance_access',
+            model_name="permission",
+            name="attendance_access",
         ),
         migrations.RemoveField(
-            model_name='permission',
-            name='bug_note_access',
+            model_name="permission",
+            name="bug_note_access",
         ),
         migrations.RemoveField(
-            model_name='permission',
-            name='prod_flow_access',
+            model_name="permission",
+            name="prod_flow_access",
         ),
         migrations.RemoveField(
-            model_name='permission',
-            name='trade_flow_access',
+            model_name="permission",
+            name="trade_flow_access",
         ),
         migrations.AddField(
-            model_name='permission',
-            name='can_edit_defect',
-            field=models.BooleanField(default=False, verbose_name='不具合アクセス：編集・削除'),
+            model_name="permission",
+            name="can_edit_defect",
+            field=models.BooleanField(
+                default=False, verbose_name="不具合アクセス：編集・削除"
+            ),
         ),
         migrations.AddField(
-            model_name='permission',
-            name='can_edit_order',
-            field=models.BooleanField(default=False, verbose_name='受注アクセス：編集・削除'),
+            model_name="permission",
+            name="can_edit_order",
+            field=models.BooleanField(
+                default=False, verbose_name="受注アクセス：編集・削除"
+            ),
         ),
         migrations.AddField(
-            model_name='permission',
-            name='can_edit_production_plan',
-            field=models.BooleanField(default=False, verbose_name='生産計画アクセス：編集・削除'),
+            model_name="permission",
+            name="can_edit_production_plan",
+            field=models.BooleanField(
+                default=False, verbose_name="生産計画アクセス：編集・削除"
+            ),
         ),
         migrations.AddField(
-            model_name='permission',
-            name='can_manage_all_attendance',
-            field=models.BooleanField(default=False, verbose_name='勤怠アクセス：全体管理'),
+            model_name="permission",
+            name="can_manage_all_attendance",
+            field=models.BooleanField(
+                default=False, verbose_name="勤怠アクセス：全体管理"
+            ),
         ),
         migrations.AlterField(
-            model_name='permission',
-            name='mail_access',
-            field=models.BooleanField(default=False, verbose_name='メールアクセス：全体管理'),
+            model_name="permission",
+            name="mail_access",
+            field=models.BooleanField(
+                default=False, verbose_name="メールアクセス：全体管理"
+            ),
         ),
         migrations.AlterField(
-            model_name='permission',
-            name='master_data_access',
-            field=models.BooleanField(default=False, verbose_name='マスタデータアクセス：全体管理'),
+            model_name="permission",
+            name="master_data_access",
+            field=models.BooleanField(
+                default=False, verbose_name="マスタデータアクセス：全体管理"
+            ),
         ),
         migrations.AlterField(
-            model_name='permission',
-            name='material_access',
-            field=models.BooleanField(default=False, verbose_name='資料アクセス：全体管理'),
+            model_name="permission",
+            name="material_access",
+            field=models.BooleanField(
+                default=False, verbose_name="資料アクセス：全体管理"
+            ),
         ),
         migrations.AlterField(
-            model_name='permission',
-            name='staff_hub_access',
-            field=models.BooleanField(default=False, verbose_name='人材管理アクセス：全体管理'),
+            model_name="permission",
+            name="staff_hub_access",
+            field=models.BooleanField(
+                default=False, verbose_name="人材管理アクセス：全体管理"
+            ),
         ),
     ]

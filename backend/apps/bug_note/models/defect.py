@@ -5,7 +5,9 @@ from apps.trade_flow.models.orders import Order
 
 
 class Defect(BaseModel):
-    create_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="作成者")
+    create_user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="作成者"
+    )
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name="注文")
     occurred_at = models.DateTimeField("発生日時")
     title = models.CharField("タイトル", max_length=255)
@@ -26,4 +28,6 @@ class Defect(BaseModel):
         """
         不具合連絡を一括で全て取得する
         """
-        return cls.objects.select_related("order", "create_user").filter(deleted_at__isnull=True)
+        return cls.objects.select_related("order", "create_user").filter(
+            deleted_at__isnull=True
+        )

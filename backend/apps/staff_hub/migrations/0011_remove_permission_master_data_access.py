@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('staff_hub', '0010_remove_permission_staff_hub_access'),
+        ("staff_hub", "0010_remove_permission_staff_hub_access"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='permission',
-            name='master_data_access',
+            model_name="permission",
+            name="master_data_access",
         ),
     ]

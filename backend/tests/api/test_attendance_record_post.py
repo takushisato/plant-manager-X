@@ -32,7 +32,9 @@ class TestAttendanceRecordPost:
     @pytest.fixture
     def work_pattern(self):
         pattern = WorkPatternFactory(start_time=time(9, 0), end_time=time(18, 0))
-        BreakSettingFactory(work_pattern=pattern, start_time=time(12, 0), end_time=time(13, 0))
+        BreakSettingFactory(
+            work_pattern=pattern, start_time=time(12, 0), end_time=time(13, 0)
+        )
         return pattern
 
     def test_create_success(self, client, authed_user, work_pattern):
@@ -58,7 +60,7 @@ class TestAttendanceRecordPost:
             "start_time": "09:00",
             "end_time": "18:00",
             "work_status": "present",
-            "note": "勤務記録テスト"
+            "note": "勤務記録テスト",
         }
 
         response = client.post("/api/attendance/records/", data=payload, format="json")
@@ -87,7 +89,7 @@ class TestAttendanceRecordPost:
             "date": str(date.today()),
             "start_time": "09:00",
             "end_time": "18:00",
-            "work_status": "present"
+            "work_status": "present",
         }
 
         response = client.post("/api/attendance/records/", data=payload, format="json")
@@ -113,7 +115,7 @@ class TestAttendanceRecordPost:
             "date": str(date.today()),
             "start_time": "18:00",
             "end_time": "09:00",
-            "work_status": "present"
+            "work_status": "present",
         }
 
         response = client.post("/api/attendance/records/", data=payload, format="json")
@@ -139,7 +141,7 @@ class TestAttendanceRecordPost:
             "date": str(date.today()),
             "start_time": "08:00",
             "end_time": "19:00",
-            "work_status": "present"
+            "work_status": "present",
         }
 
         response = client.post("/api/attendance/records/", data=payload, format="json")
@@ -163,7 +165,7 @@ class TestAttendanceRecordPost:
             "date": str(date.today()),
             "start_time": "09:00",
             "end_time": "18:00",
-            "work_status": "present"
+            "work_status": "present",
         }
 
         response = client.post("/api/attendance/records/", data=payload, format="json")

@@ -35,12 +35,16 @@ class TestMailGroupGet:
 
     @pytest.fixture
     def mail_groups_with_details(self, authed_user_with_permission):
-        groups = MailGroupFactory.create_batch(2, create_user=authed_user_with_permission)
+        groups = MailGroupFactory.create_batch(
+            2, create_user=authed_user_with_permission
+        )
         for group in groups:
             MailGroupRecordFactory.create_batch(3, mail_group_record=group)
         return groups
 
-    def test_list_success(self, client, authed_user_with_permission, mail_groups_with_details):
+    def test_list_success(
+        self, client, authed_user_with_permission, mail_groups_with_details
+    ):
         """
         正常系: mail_access 権限があるユーザーは自身のグループと詳細を取得できる
 
@@ -60,7 +64,9 @@ class TestMailGroupGet:
         assert isinstance(response.data, list)
         assert len(response.data) == 0
 
-    def test_list_with_mail_history(self, client, authed_user_with_permission, mail_groups_with_details):
+    def test_list_with_mail_history(
+        self, client, authed_user_with_permission, mail_groups_with_details
+    ):
         """
         正常系: メール履歴がある場合、それぞれの履歴がグループと一緒に取得できる
 
@@ -81,9 +87,11 @@ class TestMailGroupGet:
 
         assert response.status_code == status.HTTP_200_OK
         assert isinstance(response.data, list)
-        assert len(response.data) == 4 # 2グループ * 2履歴
+        assert len(response.data) == 4  # 2グループ * 2履歴
 
-    def test_list_forbidden_without_permission(self, client, authed_user_without_permission):
+    def test_list_forbidden_without_permission(
+        self, client, authed_user_without_permission
+    ):
         """
         異常系: mail_access 権限がないユーザーは 403
 

@@ -16,7 +16,7 @@ class RecordAllListView(APIView):
     @extend_schema(
         tags=["attendance"],
         description="全ユーザーの勤怠記録を月指定で取得（管理者用）",
-        responses={200: WorkRecordListSerializer(many=True)}
+        responses={200: WorkRecordListSerializer(many=True)},
     )
     def get(self, request):
         check_attendance_all_edit_permission(request)
@@ -29,4 +29,3 @@ class RecordAllListView(APIView):
 
         serializer = WorkRecordListSerializer(records, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-

@@ -10,51 +10,57 @@ User = get_user_model()
 class UserAdminCustom(UserAdmin):
     # ユーザー詳細
     fieldsets = (
-        (None, {
-            'fields': (
-                'name',
-                'email',
-                # 'image',
-                'password',
-                'is_active',
-                'is_staff',
-                'is_superuser',
-            )
-        }),
+        (
+            None,
+            {
+                "fields": (
+                    "name",
+                    "email",
+                    # 'image',
+                    "password",
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                )
+            },
+        ),
     )
     # ユーザー追加
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': (
-                'name',
-                'email',
-                # 'image',
-                'password1',
-                'password2',
-                'is_active',
-                'is_staff',
-                'is_superuser',
-            ),
-        }),
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "name",
+                    "email",
+                    # 'image',
+                    "password1",
+                    "password2",
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                ),
+            },
+        ),
     )
 
     # ユーザー一覧
     list_display = (
-        'id',
-        'name',
-        'email',
-        'is_active',
-        'organization',
-        'is_staff',
-        'is_superuser',
+        "id",
+        "name",
+        "email",
+        "is_active",
+        "organization",
+        "is_staff",
+        "is_superuser",
     )
 
     list_filter = ()
     # 検索
-    search_fields = ('email',)
+    search_fields = ("email",)
     # 順番
-    ordering = ('id',)
+    ordering = ("id",)
 
 
 admin.site.register(User, UserAdminCustom)

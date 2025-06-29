@@ -33,9 +33,13 @@ class TestAttendanceRecordMyListGet:
 
     @pytest.fixture
     def records_for_april(self, authed_user, work_pattern):
-        return WorkRecordFactory.create_batch(3, user=authed_user, work_pattern=work_pattern, date=date(2025, 4, 10))
+        return WorkRecordFactory.create_batch(
+            3, user=authed_user, work_pattern=work_pattern, date=date(2025, 4, 10)
+        )
 
-    def test_list_attendance_by_month_success(self, client, authed_user, records_for_april):
+    def test_list_attendance_by_month_success(
+        self, client, authed_user, records_for_april
+    ):
         """
         正常系: 指定された月の勤怠記録を取得できる
 

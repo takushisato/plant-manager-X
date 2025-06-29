@@ -9,24 +9,61 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('staff_hub', '0011_remove_permission_master_data_access'),
+        ("staff_hub", "0011_remove_permission_master_data_access"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='OrganizationMember',
+            name="OrganizationMember",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='作成日時')),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True, verbose_name='更新日時')),
-                ('deleted_at', models.DateTimeField(blank=True, null=True, verbose_name='削除日時')),
-                ('organization', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='staff_hub.organization', verbose_name='所属組織')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='ユーザー')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="作成日時"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, null=True, verbose_name="更新日時"
+                    ),
+                ),
+                (
+                    "deleted_at",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="削除日時"
+                    ),
+                ),
+                (
+                    "organization",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="staff_hub.organization",
+                        verbose_name="所属組織",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="ユーザー",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': '組織メンバー',
-                'verbose_name_plural': '組織メンバー',
-                'db_table': 'organization_members',
+                "verbose_name": "組織メンバー",
+                "verbose_name_plural": "組織メンバー",
+                "db_table": "organization_members",
             },
         ),
     ]

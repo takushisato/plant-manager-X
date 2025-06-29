@@ -10,27 +10,66 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('staff_hub', '0007_alter_permission_user'),
+        ("staff_hub", "0007_alter_permission_user"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Material',
+            name="Material",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='作成日時')),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True, verbose_name='更新日時')),
-                ('deleted_at', models.DateTimeField(blank=True, null=True, verbose_name='削除日時')),
-                ('material_name', models.CharField(max_length=255, verbose_name='資料名')),
-                ('material_price', models.FloatField(blank=True, null=True, verbose_name='資料価格')),
-                ('stock_qty', models.IntegerField(default=0, verbose_name='在庫数')),
-                ('order_suggestion_qty', models.IntegerField(default=0, verbose_name='発注数量')),
-                ('organizations_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='staff_hub.organization', verbose_name='組織')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="作成日時"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, null=True, verbose_name="更新日時"
+                    ),
+                ),
+                (
+                    "deleted_at",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="削除日時"
+                    ),
+                ),
+                (
+                    "material_name",
+                    models.CharField(max_length=255, verbose_name="資料名"),
+                ),
+                (
+                    "material_price",
+                    models.FloatField(blank=True, null=True, verbose_name="資料価格"),
+                ),
+                ("stock_qty", models.IntegerField(default=0, verbose_name="在庫数")),
+                (
+                    "order_suggestion_qty",
+                    models.IntegerField(default=0, verbose_name="発注数量"),
+                ),
+                (
+                    "organizations_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="staff_hub.organization",
+                        verbose_name="組織",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': '資料',
-                'verbose_name_plural': '資料',
-                'db_table': 'materials',
+                "verbose_name": "資料",
+                "verbose_name_plural": "資料",
+                "db_table": "materials",
             },
         ),
     ]

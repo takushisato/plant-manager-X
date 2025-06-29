@@ -38,7 +38,7 @@ def test_attendance_record_str_method():
         end_time=time(18, 0),
         break_minutes=60,
         work_minutes=480,
-        work_status=WorkStatus.ABSENT
+        work_status=WorkStatus.ABSENT,
     )
     assert str(record) == "佐藤一郎 - 2025-04-01 - absent"
 
@@ -118,7 +118,7 @@ def test_create_record():
         break_minutes=break_min,
         work_minutes=work_min,
         work_status=status,
-        note=note_val
+        note=note_val,
     )
 
     assert WorkRecord.objects.count() == 1

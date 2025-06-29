@@ -18,11 +18,10 @@ class PlanWithRecordDetailView(APIView):
         request=PlanWithRecordSerializer,
         responses={200: PlanWithRecordSerializer},
         tags=["production"],
-        description="生産計画と詳細を一括更新"
+        description="生産計画と詳細を一括更新",
     )
     def put(self, request, pk):
         check_prod_flow_edit_permission(request)
-
         plan = get_object_or_404(ProductionPlan, pk=pk, deleted_at__isnull=True)
 
         serializer = PlanWithRecordSerializer(plan, data=request.data)
@@ -34,7 +33,7 @@ class PlanWithRecordDetailView(APIView):
     @extend_schema(
         tags=["production"],
         description="生産計画と詳細を論理削除する",
-        responses={204: None}
+        responses={204: None},
     )
     def delete(self, request, pk):
         check_prod_flow_edit_permission(request)

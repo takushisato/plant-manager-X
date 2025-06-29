@@ -41,7 +41,7 @@ class TestAllUsersView:
 
         token = Token.objects.create(user=user)
         client = APIClient()
-        client.credentials(HTTP_AUTHORIZATION=f'Token {token.key}')
+        client.credentials(HTTP_AUTHORIZATION=f"Token {token.key}")
 
         response = client.get("/api/auth/all_users/")
 
