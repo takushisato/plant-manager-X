@@ -59,7 +59,6 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
 
   /**
    * 対策を申請
-   * TODO 動作確認
    */
   updateSubmission: async (id: number, submission: string) => {
     const currentState = get();
