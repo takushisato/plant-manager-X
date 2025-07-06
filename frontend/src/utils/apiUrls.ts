@@ -6,6 +6,7 @@ export const endpoints = {
     order: "/api/trade/orders/",
     mailGroup: "/api/mail/groups/",
     mailGroupSend: "/api/mail/groups/send/",
+    defectCreate: "/api/bug_note/defects/",
   },
   get: {
     users: "/api/auth/custom/users/me/",

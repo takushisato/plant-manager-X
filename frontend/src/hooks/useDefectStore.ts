@@ -53,13 +53,16 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
    * 不具合を作成
    */
   createDefect: async (defectCreateItem: DefectCreateItem) => {
-    console.log("defectCreateItem", defectCreateItem);
-    alert("不具合を登録しました: " + JSON.stringify(defectCreateItem));
+    const response = await apiClient<DefectItem>({
+      url: endpoints.post.defectCreate,
+      method: "POST",
+      data: defectCreateItem,
+    });
+    console.log("Defect created:", response);
   },
 
   /**
    * 対策を申請
-   * TODO 動作確認
    */
   updateSubmission: async (id: number, submission: string) => {
     const currentState = get();
