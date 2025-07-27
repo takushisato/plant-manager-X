@@ -1,9 +1,8 @@
 import { create } from "zustand";
-import { productionPlanList } from "@/fixtures/production";
-import {
-  ProductionPlanList,
-  CreateProductionPlanRecord,
-} from "@/types/production";
+// import { productionPlanList } from "@/fixtures/production";
+import { ProductionPlanList, CreateProductionPlanRecord } from "@/types/production";
+import { endpoints } from "@/utils/apiUrls";
+import { apiClient } from "@/domain/api/apiClient";
 
 type ProductionStore = {
   taskTitle: string;
@@ -61,8 +60,7 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
   setTaskEndDate: (date: string) => set({ taskEndDate: date }),
   setChartStartDate: (date: Date) => set({ chartStartDate: date }),
   setChartEndDate: (date: Date) => set({ chartEndDate: date }),
-  setProductionPlanList: (list: ProductionPlanList) =>
-    set({ productionPlanList: list }),
+  setProductionPlanList: (list: ProductionPlanList) => set({ productionPlanList: list }),
   setTotalDays: (days: number) => set({ totalDays: days }),
   setCurrentEditTaskId: (id: number | null) => set({ currentEditTaskId: id }),
 
@@ -75,10 +73,7 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
     const idx = productionPlanList.records.findIndex((r) => r.id === id);
     if (idx > 0) {
       const newRecords = [...productionPlanList.records];
-      [newRecords[idx - 1], newRecords[idx]] = [
-        newRecords[idx],
-        newRecords[idx - 1],
-      ];
+      [newRecords[idx - 1], newRecords[idx]] = [newRecords[idx], newRecords[idx - 1]];
       // sort番号振り直し
       const updated = newRecords.map((record, i) => ({
         ...record,
@@ -97,10 +92,7 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
     const idx = productionPlanList.records.findIndex((r) => r.id === id);
     if (idx < productionPlanList.records.length - 1) {
       const newRecords = [...productionPlanList.records];
-      [newRecords[idx], newRecords[idx + 1]] = [
-        newRecords[idx + 1],
-        newRecords[idx],
-      ];
+      [newRecords[idx], newRecords[idx + 1]] = [newRecords[idx + 1], newRecords[idx]];
       const updated = newRecords.map((record, i) => ({
         ...record,
         sort: i + 1,
@@ -117,17 +109,21 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
   dateToDayIndex: (date: Date | null) => {
     if (!date) return null;
     const startDate = new Date(get().chartStartDate);
-    return Math.floor(
-      (date.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
-    );
+    return Math.floor((date.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
   },
 
   /**
    * 生産計画リストを取得する
-   * TODO: 生産計画リストを取得するAPIを作成する
    */
-  getProductionPlanList: () => {
-    set({ productionPlanList: productionPlanList });
+  getProductionPlanList: async () => {
+    const response = await apiClient<ProductionPlanList[]>({
+      url: endpoints.get.productionPlanList,
+      method: "GET",
+    });
+    console.log(response);
+    // TODO バックエンド側の見直し
+    set({ productionPlanList: response[0] });
+    // set({ productionPlanList: productionPlanList });
     const startDate = new Date(get().chartStartDate);
     const endDate = new Date(get().chartEndDate);
     const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
@@ -146,12 +142,8 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
       title: get().taskTitle,
       planned_start_date: get().parseLocalDate(get().taskStartDate),
       planned_end_date: get().parseLocalDate(get().taskEndDate),
-      actual_start_date: get().actualStartDate
-        ? get().parseLocalDate(get().actualStartDate)
-        : null,
-      actual_end_date: get().actualEndDate
-        ? get().parseLocalDate(get().actualEndDate)
-        : null,
+      actual_start_date: get().actualStartDate ? get().parseLocalDate(get().actualStartDate) : null,
+      actual_end_date: get().actualEndDate ? get().parseLocalDate(get().actualEndDate) : null,
       sort: newId,
       note: "",
     };
@@ -197,12 +189,8 @@ export const useProductionStore = create<ProductionStore>((set, get) => ({
             title: taskTitle,
             planned_start_date: parseLocalDate(taskStartDate),
             planned_end_date: parseLocalDate(taskEndDate),
-            actual_start_date: actualStartDate
-              ? parseLocalDate(actualStartDate)
-              : null,
-            actual_end_date: actualEndDate
-              ? parseLocalDate(actualEndDate)
-              : null,
+            actual_start_date: actualStartDate ? parseLocalDate(actualStartDate) : null,
+            actual_end_date: actualEndDate ? parseLocalDate(actualEndDate) : null,
           }
         : record
     );
