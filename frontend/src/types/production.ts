@@ -28,4 +28,3 @@ export type CreateProductionPlanRecord = {
   sort: number;
   note: string | null;
 };
-  
