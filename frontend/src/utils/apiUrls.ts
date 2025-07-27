@@ -20,6 +20,7 @@ export const endpoints = {
     allUsers: "/api/auth/all_users/",
     defectList: "/api/bug_note/defects/",
     defectDetail: (id: number) => `/api/bug_note/defects/${id}/`,
+    productionPlanList: "/api/production/plans/",
   },
   put: {
     users: (id: number) => `/api/auth/users/${id}/`,
