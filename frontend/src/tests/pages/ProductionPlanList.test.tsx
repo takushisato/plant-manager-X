@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 import ProductionPlanList from "@/pages/ProductionPlanList";
 import { useProductionStore } from "@/hooks/useProductionStore";
@@ -39,7 +39,6 @@ describe("ProductionPlanList", () => {
       totalDays: 5,
       chartStartDate: new Date("2025-05-01"),
       getProductionPlanList: jest.fn(),
-      dateToDayIndex: (date: Date) => 0,
       addProductionPlanRecord: jest.fn(),
       updateProductionPlanRecord: jest.fn(),
       setTaskTitle: jest.fn(),
@@ -73,9 +72,7 @@ describe("ProductionPlanList", () => {
 
   it("ヘッダーが表示される", () => {
     renderWithRouter(<ProductionPlanList />);
-    expect(
-      screen.getByText("テスト組織 生産計画ガントチャート")
-    ).toBeInTheDocument();
+    expect(screen.getByText("テスト組織 生産計画ガントチャート")).toBeInTheDocument();
   });
 
   it("タスク追加モーダルが開く", () => {
