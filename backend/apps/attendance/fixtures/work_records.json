@@ -91,7 +91,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 1,
+    "pk": 7,
     "fields": {
       "user": 1,
       "work_pattern": 1,
@@ -106,7 +106,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 2,
+    "pk": 8,
     "fields": {
       "user": 2,
       "work_pattern": 1,
@@ -121,7 +121,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 3,
+    "pk": 9,
     "fields": {
       "user": 3,
       "work_pattern": 1,
@@ -136,7 +136,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 4,
+    "pk": 10,
     "fields": {
       "user": 4,
       "work_pattern": 1,
@@ -151,7 +151,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 5,
+    "pk": 11,
     "fields": {
       "user": 5,
       "work_pattern": 1,
@@ -166,7 +166,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 6,
+    "pk": 12,
     "fields": {
       "user": 6,
       "work_pattern": 1,
@@ -196,7 +196,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 2,
+    "pk": 13,
     "fields": {
       "user": 2,
       "work_pattern": 1,
@@ -211,7 +211,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 3,
+    "pk": 14,
     "fields": {
       "user": 3,
       "work_pattern": 1,
@@ -226,7 +226,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 4,
+    "pk": 15,
     "fields": {
       "user": 4,
       "work_pattern": 1,
@@ -241,7 +241,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 5,
+    "pk": 16,
     "fields": {
       "user": 5,
       "work_pattern": 1,
@@ -256,7 +256,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 6,
+    "pk": 17,
     "fields": {
       "user": 6,
       "work_pattern": 1,
@@ -271,7 +271,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 1,
+    "pk": 18,
     "fields": {
       "user": 1,
       "work_pattern": 1,
@@ -286,7 +286,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 2,
+    "pk": 19,
     "fields": {
       "user": 2,
       "work_pattern": 1,
@@ -301,7 +301,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 3,
+    "pk": 20,
     "fields": {
       "user": 3,
       "work_pattern": 1,
@@ -316,7 +316,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 4,
+    "pk": 21,
     "fields": {
       "user": 4,
       "work_pattern": 1,
@@ -331,7 +331,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 5,
+    "pk": 22,
     "fields": {
       "user": 5,
       "work_pattern": 1,
@@ -346,7 +346,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 6,
+    "pk": 23,
     "fields": {
       "user": 6,
       "work_pattern": 1,
@@ -361,7 +361,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 1,
+    "pk": 24,
     "fields": {
       "user": 1,
       "work_pattern": 1,
@@ -376,7 +376,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 2,
+    "pk": 25,
     "fields": {
       "user": 2,
       "work_pattern": 1,
@@ -391,7 +391,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 3,
+    "pk": 26,
     "fields": {
       "user": 3,
       "work_pattern": 1,
@@ -406,7 +406,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 4,
+    "pk": 27,
     "fields": {
       "user": 4,
       "work_pattern": 1,
@@ -421,7 +421,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 5,
+    "pk": 28,
     "fields": {
       "user": 5,
       "work_pattern": 1,
@@ -436,7 +436,7 @@
   },
   {
     "model": "attendance.WorkRecord",
-    "pk": 6,
+    "pk": 29,
     "fields": {
       "user": 6,
       "work_pattern": 1,
