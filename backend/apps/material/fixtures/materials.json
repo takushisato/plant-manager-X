@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "organization": 2,
-      "material_name": "1㎜ 鉄 鋼板",
+      "material_name": "SPCC t0.5 鉄 鋼板",
       "material_price": 1000,
       "stock_qty": 100,
       "order_suggestion_qty": 10
@@ -15,7 +15,7 @@
     "pk": 2,
     "fields": {
       "organization": 2,
-      "material_name": "2㎜ 鉄 鋼板",
+      "material_name": "SPCC t0.8 鉄 鋼板",
       "material_price": 1500,
       "stock_qty": 100,
       "order_suggestion_qty": 10
@@ -26,7 +26,7 @@
     "pk": 3,
     "fields": {
       "organization": 2,
-      "material_name": "3㎜ 鉄 鋼板",
+      "material_name": "SPCC t1.0 鉄 鋼板",
       "material_price": 2000,
       "stock_qty": 100,
       "order_suggestion_qty": 10
@@ -37,7 +37,7 @@
     "pk": 4,
     "fields": {
       "organization": 2,
-      "material_name": "1㎜ ステンレス 鋼板",
+      "material_name": "SPCC t1.2 鉄 鋼板",
       "material_price": 1300,
       "stock_qty": 100,
       "order_suggestion_qty": 10
@@ -48,7 +48,7 @@
     "pk": 5,
     "fields": {
       "organization": 2,
-      "material_name": "2㎜ ステンレス 鋼板",
+      "material_name": "SPCC t1.6 鉄 鋼板",
       "material_price": 1600,
       "stock_qty": 100,
       "order_suggestion_qty": 10
@@ -59,7 +59,18 @@
     "pk": 6,
     "fields": {
       "organization": 2,
-      "material_name": "3㎜ ステンレス 鋼板",
+      "material_name": "SPCC t2.0 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 6,
+    "fields": {
+      "organization": 2,
+      "material_name": "SPCC t2.3 鉄 鋼板",
       "material_price": 2000,
       "stock_qty": 100,
       "order_suggestion_qty": 10
@@ -68,6 +79,512 @@
   {
     "model": "material.Material",
     "pk": 7,
+    "fields": {
+      "organization": 2,
+      "material_name": "SPCC t2.6 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 8,
+    "fields": {
+      "organization": 2,
+      "material_name": "SPCC t3.2 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 9,
+    "fields": {
+      "organization": 2,
+      "material_name": "SECC t0.8 鉄 鋼板",
+      "material_price": 1500,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 10,
+    "fields": {
+      "organization": 2,
+      "material_name": "SECC t1.0 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 11,
+    "fields": {
+      "organization": 2,
+      "material_name": "SECC t1.2 鉄 鋼板",
+      "material_price": 1300,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 12,
+    "fields": {
+      "organization": 2,
+      "material_name": "SECC t1.6 鉄 鋼板",
+      "material_price": 1600,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 13,
+    "fields": {
+      "organization": 2,
+      "material_name": "SECC t2.0 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 14,
+    "fields": {
+      "organization": 2,
+      "material_name": "SECC t2.3 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 15,
+    "fields": {
+      "organization": 2,
+      "material_name": "SECC t2.6 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 16,
+    "fields": {
+      "organization": 2,
+      "material_name": "SECC t3.2 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 17,
+    "fields": {
+      "organization": 2,
+      "material_name": "SGCC t0.8 鉄 鋼板",
+      "material_price": 1500,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 18,
+    "fields": {
+      "organization": 2,
+      "material_name": "SGCC t1.0 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 19,
+    "fields": {
+      "organization": 2,
+      "material_name": "SGCC t1.2 鉄 鋼板",
+      "material_price": 1300,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 20,
+    "fields": {
+      "organization": 2,
+      "material_name": "SGCC t1.6 鉄 鋼板",
+      "material_price": 1600,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 21,
+    "fields": {
+      "organization": 2,
+      "material_name": "SGCC t2.0 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 22,
+    "fields": {
+      "organization": 2,
+      "material_name": "SGCC t2.3 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 23,
+    "fields": {
+      "organization": 2,
+      "material_name": "SGCC t2.6 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 24,
+    "fields": {
+      "organization": 2,
+      "material_name": "SGCC t3.2 鉄 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 25,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS304 t0.3 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 26,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS304 t0.5 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 27,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS304 t0.8 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 28,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS304 t1.0 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 29,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS304 t1.2 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 30,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS304 t1.5 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 31,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS304 t2.0 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 32,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS304 t2.5 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 33,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS304 t3.0 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 34,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS316 t0.3 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 35,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS316 t0.5 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 36,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS316 t0.8 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 37,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS316 t1.0 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 38,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS316 t1.2 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 39,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS316 t1.5 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 40,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS316 t2.0 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 41,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS316 t2.5 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 42,
+    "fields": {
+      "organization": 2,
+      "material_name": "SUS316 t3.0 ステンレス 鋼板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 43,
+    "fields": {
+      "organization": 2,
+      "material_name": "A1100 t0.3 アルミニウム板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 44,
+    "fields": {
+      "organization": 2,
+      "material_name": "A1100 t0.5 アルミニウム板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 45,
+    "fields": {
+      "organization": 2,
+      "material_name": "A1100 t0.8 アルミニウム板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 46,
+    "fields": {
+      "organization": 2,
+      "material_name": "A1100 t1.0 アルミニウム板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 47,
+    "fields": {
+      "organization": 2,
+      "material_name": "A1100 t1.2 アルミニウム板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 48,
+    "fields": {
+      "organization": 2,
+      "material_name": "A1100 t1.5 アルミニウム板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 49,
+    "fields": {
+      "organization": 2,
+      "material_name": "A1100 t1.6 アルミニウム板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 50,
+    "fields": {
+      "organization": 2,
+      "material_name": "A1100 t2.0 アルミニウム板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 51,
+    "fields": {
+      "organization": 2,
+      "material_name": "A1100 t2.5 アルミニウム板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 52,
+    "fields": {
+      "organization": 2,
+      "material_name": "A1100 t3.0 アルミニウム板",
+      "material_price": 2000,
+      "stock_qty": 100,
+      "order_suggestion_qty": 10
+    }
+  },
+  {
+    "model": "material.Material",
+    "pk": 53,
     "fields": {
       "organization": 1,
       "material_name": "印刷用紙 A4",
@@ -78,7 +595,7 @@
   },
   {
     "model": "material.Material",
-    "pk": 8,
+    "pk": 54,
     "fields": {
       "organization": 1,
       "material_name": "印刷用紙 B4",
@@ -89,7 +606,7 @@
   },
   {
     "model": "material.Material",
-    "pk": 9,
+    "pk": 55,
     "fields": {
       "organization": 1,
       "material_name": "印刷用紙 A3",
