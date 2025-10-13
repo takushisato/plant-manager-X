@@ -10,6 +10,8 @@ export type NewAttendance = {
   date: string;
   start_time: string;
   end_time: string;
+  work_pattern: number;
+  work_status?: string;
 };
 
 export type AttendanceStore = {
@@ -23,6 +25,7 @@ export type AttendanceStore = {
   overtimeHours: number;
   getAttendanceByUserId: () => Promise<void>;
   attendanceData: AttendanceData[];
+  formatTime: (date: Date | string) => string;
 };
 
 export type AllUserAttendanceList = {

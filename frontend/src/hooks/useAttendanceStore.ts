@@ -76,14 +76,36 @@ export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
   },
 
   /**
+   * 時間を"HH:MM"形式にフォーマットする
+   */
+  formatTime: (date: Date | string): string => {
+    if (!date) return "00:00";
+    if (typeof date === "string") {
+      if (/^\d{2}:\d{2}(:\d{2})?$/.test(date)) return date;
+      const [h = "0", m = "0"] = date.split(":");
+      return `${h.padStart(2, "0")}:${m.padStart(2, "0")}`;
+    }
+    return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+  },
+
+  /**
    * 出勤簿入力処理
    * @param attendance
    */
   postAttendance: async (attendance: NewAttendance) => {
+    console.log(attendance);
+    const formatTime = get().formatTime;
+    const fixedAttendance = {
+      ...attendance,
+      start_time: formatTime(attendance.start_time),
+      end_time: formatTime(attendance.end_time),
+      work_pattern: 1,
+      work_status: attendance.work_status ?? "present", // デフォルト値を一旦 "present" に設定
+    };
     const response = await apiClient<{ status: string }>({
       url: endpoints.post.attendanceRecords,
       method: "POST",
-      data: attendance,
+      data: fixedAttendance,
     });
     if (response.status === "success") {
       get().getUserAttendanceList();

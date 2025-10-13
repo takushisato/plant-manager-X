@@ -8,7 +8,7 @@ import { useVacation } from "@/hooks/useVacation";
 import { useToast } from "@chakra-ui/react";
 
 const AttendanceByUserId = () => {
-  const [mode, setMode] = useState<typeof VACATION_MODE | typeof ATTENDANCE_MODE>(VACATION_MODE);
+  const [mode, setMode] = useState<typeof VACATION_MODE | typeof ATTENDANCE_MODE>(ATTENDANCE_MODE);
   const [attendanceType, setAttendanceType] = useState<typeof START_ATTENDANCE_MODE | typeof END_ATTENDANCE_MODE>(
     START_ATTENDANCE_MODE
   );
@@ -32,13 +32,27 @@ const AttendanceByUserId = () => {
               date: formattedDate,
               start_time: currentTime,
               end_time: "",
+              work_status: "present", // デフォルト値を一旦 "present" に設定
+              work_pattern: 1,
             }
           : {
               user_id: 1,
               date: formattedDate,
               start_time: "",
               end_time: currentTime,
+              work_status: "present",
+              work_pattern: 1,
             };
+      // TODO:work_statusを切り替えれる様にする
+      // [
+      //   ("present", "出勤"),
+      //   ("absent", "欠勤"),
+      //   ("paid_leave", "有休"),
+      //   ("late", "遅刻"),
+      //   ("early_leave", "早退"),
+      //   ("holiday_work", "休日出勤"),
+      //   ("substitute_holiday", "代休"),
+      // ],
       postAttendance(data);
       toast({
         title: `${attendanceType === START_ATTENDANCE_MODE ? "出勤" : "退勤"}を登録しました`,
