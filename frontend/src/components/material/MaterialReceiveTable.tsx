@@ -17,6 +17,8 @@ function MaterialReceiveTable({ columns, data, putMaterialReceiveStock, getMater
 
   /**
    * 受け入れ処理を実行するモーダルを開く
+   *
+   * @param id 資材ID
    */
   const handleReceiveStock = (id: number) => {
     setSelectedId(id);
@@ -30,9 +32,9 @@ function MaterialReceiveTable({ columns, data, putMaterialReceiveStock, getMater
     if (selectedId) {
       await putMaterialReceiveStock(selectedId, Number(quantity));
     }
-    onClose();
     setQuantity("");
     await getMaterialList();
+    onClose();
   };
 
   return (
