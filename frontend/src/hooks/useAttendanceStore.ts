@@ -21,7 +21,8 @@ const formatYearMonth = (date: Date): string => {
 
 export const useAttendanceStore = create<AttendanceStore>((set, get) => ({
   currentDate: new Date(),
-  currentYearMonth: formatYearMonth(new Date()),
+  // currentYearMonth: formatYearMonth(new Date()),
+  currentYearMonth: "2025-03", // 一旦２０２５年の3月で固定表示
   allUserAttendanceList: [],
   overtimeHours: 0,
   attendanceData: [],
