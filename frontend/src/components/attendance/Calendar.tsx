@@ -18,7 +18,9 @@ const AttendanceCalendar = ({ onDateClick, label, attendanceData }: Props) => {
     onDateClick(date);
   };
 
-  // 日付に表示する内容を作る関数
+  /**
+   * カレンダーの日付セルに出勤・退勤時間を表示する
+   */
   const renderTileContent = ({ date, view }: { date: Date; view: string }) => {
     if (view !== "month") return null;
 
@@ -60,6 +62,7 @@ const AttendanceCalendar = ({ onDateClick, label, attendanceData }: Props) => {
         <Calendar
           onClickDay={handleClick}
           value={value}
+          defaultActiveStartDate={new Date("2025-03-01")}
           locale="ja-JP"
           calendarType="gregory"
           tileContent={renderTileContent}
