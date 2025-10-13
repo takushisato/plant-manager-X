@@ -17,6 +17,8 @@ function MaterialUseStockTable({ columns, data, putMaterialUseStock, getMaterial
 
   /**
    * 払い出し処理を実行するモーダルを開く
+   *
+   * @param id 資材ID
    */
   const handleUseStock = (id: number) => {
     setSelectedId(id);
@@ -30,9 +32,9 @@ function MaterialUseStockTable({ columns, data, putMaterialUseStock, getMaterial
     if (selectedId) {
       await putMaterialUseStock(selectedId, Number(quantity));
     }
-    onClose();
     setQuantity("");
     await getMaterialList();
+    onClose();
   };
 
   return (
