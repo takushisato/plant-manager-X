@@ -34,14 +34,17 @@ type ProductionStore = {
   parseLocalDate: (dateStr: string) => Date;
 };
 
-const today = new Date();
+// const today = new Date();
 
 export const useProductionStore = create<ProductionStore>((set, get) => ({
   taskTitle: "",
   taskStartDate: "",
   taskEndDate: "",
-  chartStartDate: new Date(today.setDate(today.getDate())),
-  chartEndDate: new Date(today.setDate(today.getDate() + 60)),
+  chartStartDate: new Date("2025-03-01"),
+  chartEndDate: new Date("2025-04-30"),
+  // TODO：一旦固定表示。あとで変更できるようにする
+  // chartStartDate: new Date(today.setDate(today.getDate())),
+  // chartEndDate: new Date(today.setDate(today.getDate() + 60)),
   productionPlanList: {
     id: 0,
     organization: { organization_name: "", description: "" },
