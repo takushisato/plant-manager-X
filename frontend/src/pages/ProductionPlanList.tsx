@@ -69,10 +69,10 @@ const ProductionPlanList = () => {
    */
   const handleEditTask = (record: ProductionPlanRecord) => {
     setTaskTitle(record.title);
-    setTaskStartDate(record.planned_start_date.toISOString().slice(0, 10));
-    setTaskEndDate(record.planned_end_date.toISOString().slice(0, 10));
-    setActualStartDate(record.actual_start_date ? record.actual_start_date.toISOString().slice(0, 10) : "");
-    setActualEndDate(record.actual_end_date ? record.actual_end_date.toISOString().slice(0, 10) : "");
+    setTaskStartDate(new Date(record.planned_start_date).toISOString().slice(0, 10));
+    setTaskEndDate(new Date(record.planned_end_date).toISOString().slice(0, 10));
+    setActualStartDate(record.actual_start_date ? new Date(record.actual_start_date).toISOString().slice(0, 10) : "");
+    setActualEndDate(record.actual_end_date ? new Date(record.actual_end_date).toISOString().slice(0, 10) : "");
     setCurrentEditTaskId(record.id);
     onOpen();
   };
