@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import InputWithTooltip from "@/components/common/InputWithTooltip";
 import { useCustomerStore } from "@/hooks/useCustomerStore";
+import { useNavigate } from "react-router-dom";
 
 const OrderForm = () => {
   const {
@@ -30,6 +31,7 @@ const OrderForm = () => {
   } = useOrderStore();
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   /**
    * idが存在する場合は注文を取得
@@ -90,6 +92,7 @@ const OrderForm = () => {
     } else {
       createOrder();
     }
+    navigate("/order");
   };
 
   return (
