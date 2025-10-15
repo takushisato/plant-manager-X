@@ -99,7 +99,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
       url: endpoints.post.order,
       method: "POST",
       data: {
-        customer: get().customer_id,
+        customer: 1, // TODO: 顧客を選択できるようにする
         order_number: get().order_number,
         order_date: get().order_date,
         product_name: get().product_name,
