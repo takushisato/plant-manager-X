@@ -1,5 +1,20 @@
-import { Button, FormControl, FormLabel, Input, Textarea, VStack } from "@chakra-ui/react";
 import { DefectCreateItem } from "@/types/defect";
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Textarea,
+  VStack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  Input,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   form: DefectCreateItem;
@@ -8,8 +23,22 @@ type Props = {
 };
 
 const DefectCreateForm = ({ form, onChange, onSubmit }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const onClose = () => {
+    setIsOpen(false);
+    navigate("/defect");
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(e);
+    setIsOpen(true);
+  };
+
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <VStack spacing={4} align="stretch">
         <FormControl isRequired>
           <FormLabel>発生日</FormLabel>
@@ -74,6 +103,18 @@ const DefectCreateForm = ({ form, onChange, onSubmit }: Props) => {
           登録
         </Button>
       </VStack>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>新規不具合の登録</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <VStack spacing={4}>
+              <p>不具合の新規追加が完了しました</p>
+            </VStack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </form>
   );
 };

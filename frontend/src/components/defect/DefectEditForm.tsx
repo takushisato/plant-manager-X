@@ -35,6 +35,7 @@ const DefectEditForm = ({ defectItem }: DefectItemProps) => {
   };
 
   useEffect(() => {
+    setIsOpen(false);
     setSubmission(defectItem.submission || "");
   }, [defectItem.submission]);
 
@@ -93,7 +94,7 @@ const DefectEditForm = ({ defectItem }: DefectItemProps) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>新規メールグループ作成</ModalHeader>
+          <ModalHeader>不具合の更新</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <VStack spacing={4}>
