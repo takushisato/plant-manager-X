@@ -35,9 +35,21 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
       url: endpoints.get.defectList,
       method: "GET",
     });
-    set({ defectList: response });
+    const formatted = response.map((item) => ({
+      ...item,
+      occurred_at: item.occurred_at
+        ? new Date(item.occurred_at)
+            .toLocaleDateString("ja-JP", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            })
+            .replace(/\//g, "/")
+        : "",
+    }));
+    console.log("Fetched defects:", formatted);
+    set({ defectList: formatted });
   },
-
   /**
    * 不具合の詳細を取得
    */
