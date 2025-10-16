@@ -1,7 +1,23 @@
-import { Box, Button, FormControl, FormLabel, Textarea, VStack, Text, Divider } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Textarea,
+  VStack,
+  Text,
+  Divider,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useDefectStore } from "@/hooks/useDefectStore";
 import { DefectItem } from "@/types/defect";
+import { useNavigate } from "react-router-dom";
 
 type DefectItemProps = {
   defectItem: DefectItem;
@@ -10,6 +26,13 @@ type DefectItemProps = {
 const DefectEditForm = ({ defectItem }: DefectItemProps) => {
   const { updateSubmission } = useDefectStore();
   const [submission, setSubmission] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const onClose = () => {
+    setIsOpen(false);
+    navigate("/defect");
+  };
 
   useEffect(() => {
     setSubmission(defectItem.submission || "");
@@ -21,6 +44,7 @@ const DefectEditForm = ({ defectItem }: DefectItemProps) => {
    * @param e
    */
   const handleSubmit = (e: React.FormEvent) => {
+    setIsOpen(true);
     e.preventDefault();
     updateSubmission(defectItem.id, submission);
   };
@@ -66,6 +90,18 @@ const DefectEditForm = ({ defectItem }: DefectItemProps) => {
           対策を申請する
         </Button>
       </VStack>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>新規メールグループ作成</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <VStack spacing={4}>
+              <p>更新が完了しました</p>
+            </VStack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
