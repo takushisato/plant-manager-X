@@ -50,6 +50,7 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
     console.log("Fetched defects:", formatted);
     set({ defectList: formatted });
   },
+
   /**
    * 不具合の詳細を取得
    */
@@ -58,9 +59,29 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
       url: endpoints.get.defectDetail(id),
       method: "GET",
     });
-    set({ defectItem: response });
+    const formatted = {
+      ...response,
+      occurred_at: response.occurred_at
+        ? new Date(response.occurred_at)
+            .toLocaleDateString("ja-JP", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            })
+            .replace(/\//g, "/")
+        : "",
+      submission_deadline: response.submission_deadline
+        ? new Date(response.submission_deadline)
+            .toLocaleDateString("ja-JP", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            })
+            .replace(/\//g, "/")
+        : "",
+    };
+    set({ defectItem: formatted });
   },
-
   /**
    * 不具合を作成
    */
