@@ -9,6 +9,8 @@ export type DefectItem = {
   submission_deadline: string;
   create_user: number;
   order: number;
+  occurred_at_raw: string;
+  submission_deadline_raw: string;
 };
 
 export type DefectTableList = {

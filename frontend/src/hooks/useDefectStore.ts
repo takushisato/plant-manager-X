@@ -25,6 +25,8 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
     submission_deadline: "",
     create_user: 0,
     order: 0,
+    occurred_at_raw: "",
+    submission_deadline_raw: "",
   },
 
   /**
@@ -61,27 +63,22 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
     });
     const formatted = {
       ...response,
-      occurred_at: response.occurred_at
+      occurred_at: response.occurred_at,
+      submission_deadline: response.submission_deadline,
+      occurred_at_raw: response.occurred_at
         ? new Date(response.occurred_at)
-            .toLocaleDateString("ja-JP", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            })
+            .toLocaleDateString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit" })
             .replace(/\//g, "/")
         : "",
-      submission_deadline: response.submission_deadline
+      submission_deadline_raw: response.submission_deadline
         ? new Date(response.submission_deadline)
-            .toLocaleDateString("ja-JP", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            })
+            .toLocaleDateString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit" })
             .replace(/\//g, "/")
         : "",
     };
     set({ defectItem: formatted });
   },
+
   /**
    * 不具合を作成
    */
@@ -99,18 +96,17 @@ export const useDefectStore = create<DefectStore>((set, get) => ({
    */
   updateSubmission: async (id: number, submission: string) => {
     const currentState = get();
-    const updateData = {
-      defect_detail: currentState.defectItem.defect_detail,
-      occurred_at: currentState.defectItem.occurred_at,
-      submission: submission,
-      order: currentState.defectItem.order,
-      submission_deadline: currentState.defectItem.submission_deadline,
-      title: currentState.defectItem.title,
-    };
     const response = await apiClient<DefectItem>({
       url: endpoints.put.defectDetail(id),
       method: "PUT",
-      data: updateData,
+      data: {
+        defect_detail: currentState.defectItem.defect_detail,
+        occurred_at: currentState.defectItem.occurred_at,
+        submission: submission,
+        order: currentState.defectItem.order,
+        submission_deadline: currentState.defectItem.submission_deadline,
+        title: currentState.defectItem.title,
+      },
     });
     set({ defectItem: response });
   },

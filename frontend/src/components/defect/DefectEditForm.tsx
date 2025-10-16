@@ -32,7 +32,7 @@ const DefectEditForm = ({ defectItem }: DefectItemProps) => {
           <Text fontWeight="bold" mt={4}>
             発生日
           </Text>
-          <Text>{defectItem.occurred_at}</Text>
+          <Text>{defectItem.occurred_at_raw}</Text>
         </Box>
         <Divider />
         <Box>
@@ -60,7 +60,7 @@ const DefectEditForm = ({ defectItem }: DefectItemProps) => {
         </FormControl>
         <Box>
           <Text fontWeight="bold">対策の入力期限</Text>
-          <Text>{defectItem.submission_deadline}</Text>
+          <Text>{defectItem.submission_deadline_raw}</Text>
         </Box>
         <Button type="submit" colorScheme="teal" w="full" isDisabled={!submission}>
           対策を申請する
