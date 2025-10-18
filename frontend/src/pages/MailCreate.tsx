@@ -19,7 +19,7 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
-import { MailGroup } from "@/types/mail";
+import { MailGroupAndList } from "@/types/mail";
 import { useMailStore } from "@/hooks/useMailStore";
 import { useEffect, useState } from "react";
 import TooltipIcon from "@/components/common/TooltipIcon";
@@ -41,7 +41,7 @@ const MailCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgSelected = useColorModeValue("teal.100", "teal.700");
   const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
-  const [selectedMailGroup, setSelectedMailGroup] = useState<MailGroup | null>(null);
+  const [selectedMailGroup, setSelectedMailGroup] = useState<MailGroupAndList | null>(null);
   const { allUsers, getAllUsers } = useAuthStore();
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const MailCreate = () => {
    * メールグループを選択
    * @param mailGroup メールグループ
    */
-  const handleSelectedMailGroup = (mailGroup: MailGroup) => {
+  const handleSelectedMailGroup = (mailGroup: MailGroupAndList) => {
     setSelectedMailGroup(mailGroup);
   };
 
