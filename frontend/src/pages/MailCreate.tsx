@@ -19,7 +19,7 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
-import { MailGroupAndList } from "@/types/mail";
+import { MailGroup } from "@/types/mail";
 import { useMailStore } from "@/hooks/useMailStore";
 import { useEffect, useState } from "react";
 import TooltipIcon from "@/components/common/TooltipIcon";
@@ -31,7 +31,7 @@ const MailCreate = () => {
     postMail,
     setPostMail,
     mailGroupList,
-    getMailGroupList,
+    getGroupList,
     createMailGroup,
     groupTitle,
     setGroupTitle,
@@ -41,11 +41,11 @@ const MailCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgSelected = useColorModeValue("teal.100", "teal.700");
   const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
-  const [selectedMailGroup, setSelectedMailGroup] = useState<MailGroupAndList | null>(null);
+  const [selectedMailGroup, setSelectedMailGroup] = useState<MailGroup | null>(null);
   const { allUsers, getAllUsers } = useAuthStore();
 
   useEffect(() => {
-    getMailGroupList();
+    getGroupList();
     getAllUsers();
   }, []);
 
@@ -53,7 +53,7 @@ const MailCreate = () => {
    * メールグループを選択
    * @param mailGroup メールグループ
    */
-  const handleSelectedMailGroup = (mailGroup: MailGroupAndList) => {
+  const handleSelectedMailGroup = (mailGroup: MailGroup) => {
     setSelectedMailGroup(mailGroup);
   };
 
@@ -82,9 +82,11 @@ const MailCreate = () => {
   /**
    * メールグループを作成
    */
-  const handleCreateMailGroup = () => {
+  const handleCreateMailGroup = async () => {
     if (!selectedUsers) return;
-    createMailGroup(selectedUsers);
+    await createMailGroup(selectedUsers);
+    await getGroupList();
+    onClose();
   };
 
   return (

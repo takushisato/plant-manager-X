@@ -12,15 +12,15 @@ import {
 } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
 import GenericTable from "@/components/common/GenericTable";
-import { MailGroupAndList } from "@/types/mail";
+import { MailGroupAndMailList } from "@/types/mail";
 import { useState, useEffect, ReactNode } from "react";
 import { useMailStore } from "@/hooks/useMailStore";
 import { Column } from "@/types/common/generic-table";
 
 const MailList = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedMail, setSelectedMail] = useState<MailGroupAndList | null>(null);
-  const { mailGroupList, getMailTableList, getMailGroupList } = useMailStore();
+  const [selectedMail, setSelectedMail] = useState<MailGroupAndMailList | null>(null);
+  const { mailGroupAndMailList, getMailTableList, getMailGroupList } = useMailStore();
 
   useEffect(() => {
     getMailTableList();
@@ -33,7 +33,7 @@ const MailList = () => {
     { header: "メールタイトル", accessor: "title" },
   ];
 
-  const tableData: Record<string, ReactNode>[] = mailGroupList.map((mail) => ({
+  const tableData: Record<string, ReactNode>[] = mailGroupAndMailList.map((mail) => ({
     id: mail.history.id,
     group_title: mail.group_title,
     sent_at: mail.history?.sent_at?.slice(0, 10),
@@ -45,7 +45,7 @@ const MailList = () => {
    * 選択されたメールを表示する
    */
   const handleRowClick = (row: Record<string, ReactNode>) => {
-    const mail = mailGroupList.find((m) => m.history.id === row.id);
+    const mail = mailGroupAndMailList.find((m) => m.history.id === row.id);
     if (mail) {
       setSelectedMail(mail);
       onOpen();

@@ -21,7 +21,7 @@ export type MailGroupList = {
   }[];
 };
 
-export type MailGroupAndList = {
+export type MailGroupAndMailList = {
   id: number;
   group_title: string;
   note: string;
@@ -37,4 +37,10 @@ export type PostMail = {
   mail_group_id: number;
   title: string;
   message: string;
+};
+
+export type MailGroup = {
+  id: number;
+  group_title: string;
+  note: string;
 };

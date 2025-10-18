@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { Mail, MailTable, PostMail } from "@/types/mail";
-import { MailGroupAndList } from "@/types/mail";
+import { MailGroupAndMailList, MailGroup } from "@/types/mail";
 import { apiClient } from "@/domain/api/apiClient";
 import { endpoints } from "@/utils/apiUrls";
 
@@ -11,8 +11,10 @@ type MailStore = {
   allMailTableList: MailTable[];
   getMailTableList: () => void;
   sendMail: (mailGroupId: number) => void;
-  mailGroupList: MailGroupAndList[];
-  setMailGroupList: (mailGroupList: MailGroupAndList[]) => void;
+  mailGroupAndMailList: MailGroupAndMailList[];
+  mailGroupList: MailGroup[];
+  getGroupList: () => void;
+  setMailGroupList: (mailGroupList: MailGroupAndMailList[]) => void;
   getMailGroupList: () => void;
   createMailGroup: (selectedUserIds: number[]) => void;
   groupTitle: string;
@@ -26,8 +28,9 @@ export const useMailStore = create<MailStore>((set, get) => ({
   setPostMail: (postMail: PostMail) => set({ postMail }),
   allMailList: [] as Mail[],
   allMailTableList: [] as MailTable[],
-  mailGroupList: [] as MailGroupAndList[],
-  setMailGroupList: (mailGroupList: MailGroupAndList[]) => set({ mailGroupList }),
+  mailGroupAndMailList: [] as MailGroupAndMailList[],
+  mailGroupList: [] as MailGroup[],
+  setMailGroupList: (mailGroupAndMailList: MailGroupAndMailList[]) => set({ mailGroupAndMailList }),
   groupTitle: "",
   setGroupTitle: (groupTitle: string) => set({ groupTitle }),
   groupNote: "",
@@ -74,8 +77,19 @@ export const useMailStore = create<MailStore>((set, get) => ({
    * メールグループ一覧とグループごとの送信履歴を取得する
    */
   getMailGroupList: async (): Promise<void> => {
-    const response = await apiClient<MailGroupAndList[]>({
+    const response = await apiClient<MailGroupAndMailList[]>({
       url: endpoints.get.mailList,
+      method: "GET",
+    });
+    set({ mailGroupAndMailList: response });
+  },
+
+  /**
+   * メールグループの一覧を取得する
+   */
+  getGroupList: async (): Promise<void> => {
+    const response = await apiClient<MailGroup[]>({
+      url: endpoints.get.mailGroupList,
       method: "GET",
     });
     set({ mailGroupList: response });
@@ -94,11 +108,11 @@ export const useMailStore = create<MailStore>((set, get) => ({
         recipient_user: userId,
       })),
     };
-    const response = await apiClient<MailGroupAndList>({
+    const response = await apiClient<MailGroupAndMailList>({
       url: endpoints.post.mailGroup,
       method: "POST",
       data: postData,
     });
-    set({ mailGroupList: [...get().mailGroupList, response] });
+    set({ mailGroupAndMailList: [...get().mailGroupAndMailList, response] });
   },
 }));
