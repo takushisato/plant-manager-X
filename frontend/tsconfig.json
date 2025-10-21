@@ -1,16 +1,14 @@
 {
   "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
     "moduleResolution": "node",
     "lib": ["dom", "es2020"],
-    "types": ["jest", "node", "@testing-library/jest-dom"],
+    "types": ["jest", "node", "@testing-library/jest-dom", "chart.js"],
     "module": "es2020",
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "skipLibCheck": true,
     "jsx": "react-jsx",
     "paths": {
       "@/*": ["src/*"]
