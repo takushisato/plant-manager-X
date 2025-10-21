@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
@@ -16,6 +16,7 @@ import OrderUpdate from "@/pages/OrderUpdate";
 import DefectList from "@/pages/DefectList";
 import DefectCreate from "@/pages/DefectCreate";
 import DefectDetail from "@/pages/DefectDetail";
+import DefectGraph from "@/pages/DefectGraph";
 import MailCreate from "@/pages/MailCreate";
 import MailList from "@/pages/MailList";
 
@@ -31,18 +32,13 @@ function App() {
         <Route path="/attendance" element={<AttendanceList />} />
         <Route path="/attendance/:id" element={<AttendanceByUserId />} />
         <Route path="/production_plan" element={<ProductionPlanList />} />
-        <Route
-          path="/production_plan/create"
-          element={<ProductionPlanCreate />}
-        />
-        <Route
-          path="/production_plan/:id/update"
-          element={<ProductionPlanUpdate />}
-        />
+        <Route path="/production_plan/create" element={<ProductionPlanCreate />} />
+        <Route path="/production_plan/:id/update" element={<ProductionPlanUpdate />} />
         <Route path="/order" element={<OrderList />} />
         <Route path="/order/create" element={<OrderCreate />} />
         <Route path="/order/:id/update" element={<OrderUpdate />} />
         <Route path="/defect" element={<DefectList />} />
+        <Route path="/defect/graph" element={<DefectGraph />} />
         <Route path="/defect/create" element={<DefectCreate />} />
         <Route path="/defect/:id" element={<DefectDetail />} />
         <Route path="/mail" element={<MailList />} />
