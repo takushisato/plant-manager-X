@@ -22,6 +22,7 @@ const siteMap: SiteMap = {
 
   // 不具合管理画面
   defect_list: "/defect",
+  defect_graph: "/defect/graph",
   defect_create: "/defect/create",
 
   // メール画面
@@ -33,9 +34,7 @@ const accessMap: Record<
   string,
   {
     title: string;
-    menu:
-      | { label: string; path: string }[]
-      | ((param: User | Organization) => { label: string; path: string }[]);
+    menu: { label: string; path: string }[] | ((param: User | Organization) => { label: string; path: string }[]);
   }
 > = {
   material_access: {
@@ -106,6 +105,7 @@ const accessMap: Record<
   can_edit_defect: {
     title: "不具合管理",
     menu: [
+      { label: "グラフを見る", path: siteMap.defect_graph },
       { label: "不具合を確認", path: siteMap.defect_list },
       { label: "不具合の新規登録", path: siteMap.defect_create },
     ],
@@ -132,9 +132,7 @@ export const useNavigation = () => {
     for (const [key, pages] of Object.entries(accessMap)) {
       if (user.permission[key as keyof typeof user.permission]) {
         const menu =
-          typeof pages.menu === "function"
-            ? pages.menu(key === "material_access" ? organization : user)
-            : pages.menu;
+          typeof pages.menu === "function" ? pages.menu(key === "material_access" ? organization : user) : pages.menu;
         accessiblePages.push({ title: pages.title, menu });
       }
     }

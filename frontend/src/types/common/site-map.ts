@@ -20,6 +20,7 @@ export type SiteMap = {
   // 不具合管理画面
   defect_create: string;
   defect_list: string;
+  defect_graph: string;
 
   // メール画面
   mail_create: string;
